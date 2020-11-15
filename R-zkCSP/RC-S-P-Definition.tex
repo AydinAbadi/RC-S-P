@@ -1,0 +1,310 @@
+% !TEX root =R-zkCSP.tex
+
+\subsection{RC-S-P Definition}\label{sec::RC-S-P-Definition}
+
+
+\begin{definition}[RC-S-P Scheme]\label{RC-S-P-def}
+A recurring contingent service payment scheme RC-S-P  $=(\mathtt{RCSP}.\mathtt{keyGen}, $ $\mathtt{RCSP}.\mathtt{cInit}, $ $\mathtt{RCSP}.\mathtt{sInit},  $ $\mathtt{RCSP}.\mathtt{genQuery},\mathtt{RCSP}.\mathtt{prove},\mathtt{RCSP}.\mathtt{verify},\mathtt{RCSP}.\mathtt{resolve},\mathtt{RCSP}.\mathtt{pay})$ involves four parties; namely, client, server, arbiter and smart contract, and consists of eight algorithms defined as follows.
+
+
+\begin{itemize}
+
+\item[$\bullet$] $\mathtt{RCSP}.\mathtt{keyGen}(1^{\scriptscriptstyle\lambda},F)\rightarrow \bm{k}$.  A probabilistic algorithm run by the client. It takes as input security parameter $1^{\scriptscriptstyle\lambda}$  and  function $F$ that will be run on the client's input by the server. It outputs $\bm{k}$ that contains a secret/public verification key $k:(sk,pk)$ and a set of secret parameters, $k'$. %The client gives $pk$ to other parties.
+
+\
+
+\item[$\bullet$] $\mathtt{RCSP}.\mathtt{cInit}(1^{\scriptscriptstyle\lambda}, u,\bm{k}, M,z,cp)\rightarrow (u^{\scriptscriptstyle *},e,t,coin^{\scriptscriptstyle*}_{\scriptscriptstyle\mathcal C}, \bm{y}_{\scriptscriptstyle \mathcal  C},\bm{y}_{\scriptscriptstyle \mathcal  S})$. It is run by the client. It takes as input $1^{\scriptscriptstyle\lambda}$,  the service input: $u$,  the keys  $\bm{k}:[k, k']$,  metadata generator function: $M$, total number of verifications: $z$, and coin secret parameters $cp$ that includes a subset of  $k'$ and the actual amount of coins for each accepting service proof: $o$ and  for covering each potential dispute resolution's cost: $l$.  It encodes $u$, that results $u^{\scriptscriptstyle *}$.  It computes a metadata, $\sigma=M(u^{\scriptscriptstyle *},k)$, and a  proof $w_{\scriptscriptstyle\sigma}$ asserting the metadata is well-structured.  It constructs coin encoding token $t_{\scriptscriptstyle cp}$ that contains   $cp$, total coins the server should deposit $p_{\scriptscriptstyle\mathcal S}$, and   $cp$'s witness, $w_{\scriptscriptstyle cp}$.  It also constructs proof/query encoding token $t_{\scriptscriptstyle pq}$ that contains  secret  parameters $qp\in k'$ (used to encode the service queries/proofs)  and     $qp$'s witness,  $w_{\scriptscriptstyle qp}$.   Given a valid value and its witness  anyone can check if they match. It constructs two binary vectors $\bm{y}_{\scriptscriptstyle \mathcal  C}$ and $\bm{y}_{\scriptscriptstyle \mathcal  S}$ where they are set to $0$ and each string's length is $z$.  It outputs encoded input $u^{\scriptscriptstyle *}$, metadata-proof pair $e:(\sigma,w_{\scriptscriptstyle\sigma})$, the two sets $t:\{t_{\scriptscriptstyle cp},t_{\scriptscriptstyle qp}\}$, the two binary vectors $\bm{y}_{\scriptscriptstyle \mathcal  C}, \bm{y}_{\scriptscriptstyle \mathcal  S}$, and  the encoded coins amount  $coin^{\scriptscriptstyle*}_{\scriptscriptstyle\mathcal C}$ (i.e. contains $o$ and $l$ coins in an encoded form). The client sends  $u^{\scriptscriptstyle *}$, $z$, $pk$, $e$, and $t \setminus  \{w_{\scriptscriptstyle cp},w_{\scriptscriptstyle qp},p_{\scriptscriptstyle\mathcal S}\}$ to the server and  sends $\{w_{\scriptscriptstyle cp},  w_{\scriptscriptstyle qp},p_{\scriptscriptstyle\mathcal S}\}$, $\bm{y}_{\scriptscriptstyle \mathcal  C}$, $\bm{y}_{\scriptscriptstyle \mathcal  S}$  and $coin^{\scriptscriptstyle*}_{\scriptscriptstyle\mathcal C}$ coins to the smart contract. 
+%\item[$\bullet$] $\mathtt{RCSP}.\mathtt{cInit}(1^{\scriptscriptstyle\lambda}, u,\bm{k}, M,z,o,l,E_{\scriptscriptstyle 1})\rightarrow (u^{\scriptscriptstyle *},e,t,coin^{\scriptscriptstyle*}_{\scriptscriptstyle\mathcal C})$. It is run by the client. It takes as input $1^{\scriptscriptstyle\lambda}$,  the service input: $u$,  the key pair: $(k, k')$,  metadata generator function: $M$, total number of verifications: $z$,  the amount of coins for each accepting service proof: $o$,  coins amount  to cover each potential dispute resolution's cost: $l$ and  encoding function $E_{\scriptscriptstyle 1}$ to encode the coins actual amount.  It encodes $u$, that results $u^{\scriptscriptstyle *}$.  It computes a metadata, $\sigma=M(u^{\scriptscriptstyle *},k)$, and a publicly verifiable zero-knowledge proof $w_{\scriptscriptstyle\sigma}$ asserting the metadata is well-structured.  It constructs coins' token $t_{\scriptscriptstyle cp}$ that contains  coin's secret  parameters $cp$ and   sealed    parameters $sld_{\scriptscriptstyle cp}$. Given $cp$ and $sld_{\scriptscriptstyle cp}$ anyone can check if $sld_{\scriptscriptstyle cp}$ corresponds to $cp$. It constructs  encoding token $t_{\scriptscriptstyle pq}$ that contains  secret  parameters $qp\in k'$ (used to encode the service queries/proofs) and  sealed   parameters $sld_{\scriptscriptstyle qp}$, where  given $qp$ and $sld_{\scriptscriptstyle qp}$ anyone can check if $sld_{\scriptscriptstyle qp}$ corresponds to $qp$.  It outputs encoded input $u^{\scriptscriptstyle *}$, metadata-proof pair $e:(\sigma,w_{\scriptscriptstyle\sigma})$, the two sets $t:\{t_{\scriptscriptstyle cp},t_{\scriptscriptstyle qp}\}$ and  the encoded coins amount  $coin^{\scriptscriptstyle*}_{\scriptscriptstyle\mathcal C}=E_{\scriptscriptstyle 1}(z,cp)$. The server is  given $u^{\scriptscriptstyle *}$,  $e$, and $t \setminus  \{sld_{\scriptscriptstyle cp},sld_{\scriptscriptstyle qp}\}$ and  the smart contract  is given $sld_{\scriptscriptstyle cp}$,  $sld_{\scriptscriptstyle qp}$ and $coin^{\scriptscriptstyle*}_{\scriptscriptstyle\mathcal C}$ coins by the client. 
+
+
+%\item[$\bullet$] $\mathtt{VS.setup}(1^{\lambda}, u,k, M)\rightarrow \sigma$. A probabilistic algorithm run by the client. It takes as input security parameter,  the service input: $u$,  the key pair: $k$ and metadata generator deterministic function: $M$, publicly known. It runs $M(u,k)$ and outputs  metadata: $\sigma$. Right after that, the server might be given $u$,  $\sigma$ and $pk$. 
+
+\
+
+\item[$\bullet$] $\mathtt{RCSP}.\mathtt{sInit}(u^{\scriptscriptstyle *},e, pk,z, t,\bm{y}_{\scriptscriptstyle \mathcal  C},\bm{y}_{\scriptscriptstyle \mathcal  S})\rightarrow (coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S},a)$. It is  run by the server. It takes as input the  service encoded input $u^{\scriptscriptstyle *}$, metadata-proof pair $e:(\sigma,w_{\scriptscriptstyle\sigma})$,  public key $pk$, the total number of verifications $z$, sets $\{t_{\scriptscriptstyle cp},t_{\scriptscriptstyle qp}\}\in t$ (where $\{w_{\scriptscriptstyle cp},  w_{\scriptscriptstyle qp},p_{\scriptscriptstyle\mathcal S}\}\in t$ are read from the contract), and reads the two binary strings $\bm{y}_{\scriptscriptstyle \mathcal  C}, \bm{y}_{\scriptscriptstyle \mathcal  S}$ from the contract.  It verifies the validity of the elements in $e$ and  $t$. Also, it ensures $\bm{y}_{\scriptscriptstyle \mathcal  C}$ and $\bm{y}_{\scriptscriptstyle \mathcal  S}$ have been set to $0$. If all approved, then it encodes the amount of its coins  $coin^{\scriptscriptstyle*}_{\scriptscriptstyle\mathcal S}$ and sets $a=1$. Otherwise, it sets $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}=\bot$ and $a=0$. It outputs $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$ and $a$. The smart contract is given $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$ coins and $a$.  
+
+\
+
+\item[$\bullet$] $\mathtt{RCSP}.\mathtt{genQuery}(1^{\scriptscriptstyle\lambda}, \text{aux},k,Q, en)\rightarrow c^{\scriptscriptstyle *}_{\scriptscriptstyle j}$. A probabilistic algorithm run by the client. It takes as input  $1^{\scriptscriptstyle\lambda}$,  auxiliary information $\text{aux}$,  the key pair $k$,   query generator deterministic function $Q$,  and $en$ that contains the encoding/decoding token  $t_{\scriptscriptstyle qp}$ and  encoding/decoding functions $(E,D)$  used to encode/decode service's proofs and queries.  It computes a pair $c_{\scriptscriptstyle j}$ containing a query $q_{\scriptscriptstyle j}:Q( \text{aux},k)$,  and proof $w_{\scriptscriptstyle q_{_{\scaleto{j}{\size}}}}$ proving the query is well-structured. It outputs the encoding of the pair, $c^{\scriptscriptstyle *}_{\scriptscriptstyle j}=E(c_{\scriptscriptstyle j},t_{\scriptscriptstyle qp})$. The output is sent to the smart contract. 
+
+%\scaleto{c}{1pt}
+
+%a set of (random) challenges $c$ or empty set if the proving/verification  algorithms do not require any challenges. %The challenges set is published to a bulletin board.
+\
+
+\item[$\bullet$] $\mathtt{RCSP}.\mathtt{prove}(u^{\scriptscriptstyle *},  \sigma,  c^{\scriptscriptstyle *}_{\scriptscriptstyle j},pk, en)\rightarrow (b_{\scriptscriptstyle j},m_{\scriptscriptstyle \mathcal{S},j},\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j})$. It is run by the server. It  takes service input: $u^{\scriptscriptstyle *}$, metadata: $\sigma$,   encoded query $c^{\scriptscriptstyle *}_{\scriptscriptstyle j}$, public key $pk$,  and $en:(E,D,t_{\scriptscriptstyle qp})$.  It checks the validity of decoded query, $c_{\scriptscriptstyle j}=D(c^{\scriptscriptstyle *}_{\scriptscriptstyle j},t_{\scriptscriptstyle qp})$.  If it is rejected, then it sets $b_{\scriptscriptstyle j}=0$ and constructs a complaint $m_{\scriptscriptstyle \mathcal{S},j}$. Otherwise,  it   sets $b_{\scriptscriptstyle j}=1$ and $m_{\scriptscriptstyle \mathcal{S},j}=\bot$. It outputs $b_{\scriptscriptstyle j},m_{\scriptscriptstyle \mathcal{S},j}$,   and  encoded proof $\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j}=E(\pi_{\scriptscriptstyle j},t_{\scriptscriptstyle qp})$, where  $\pi_{\scriptscriptstyle j}$ contains $h_{\scriptscriptstyle j}=F(u^{\scriptscriptstyle *},q_{\scriptscriptstyle j})$ and a proof $\delta_{\scriptscriptstyle j}$  asserting the evaluation is performed correctly ($\pi_{\scriptscriptstyle j}$ may contain dummy values if $b_{\scriptscriptstyle j}=0$). The contract is given $\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j}$.
+
+
+
+
+%It outputs a proof pair, $\pi:(F_{\scriptscriptstyle q}(u^{\scriptscriptstyle *}),\delta)$ containing the function evaluation at  input $u$, i.e. $F_{\scriptscriptstyle q}(u^{\scriptscriptstyle *})$ and a proof $\delta$ asserting the evaluation is performed correctly. The output is given to the client. %The proof pair: $\pi$ is published to a bulletin board. 
+
+\
+
+\item[$\bullet$] $\mathtt{RCSP}.\mathtt{verify}(\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j}, q,k,en)\rightarrow (d_{\scriptscriptstyle j},m_{\scriptscriptstyle \mathcal{C},j})$. A deterministic algorithm run by the client. It takes encoded proof $\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j}$,  queries $q\in c_{\scriptscriptstyle j}$,  verification key  $k$,  and $en:(E,D,t_{\scriptscriptstyle qp})$. If the decoded proof $\pi_{\scriptscriptstyle j}=D(\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j},t_{\scriptscriptstyle qp})$ is rejected,  it outputs $d_{\scriptscriptstyle j}=0$ and a complaint $m_{\scriptscriptstyle \mathcal{C},j}$. Otherwise, it outputs  $d_{\scriptscriptstyle j}=1$ and $m_{\scriptscriptstyle \mathcal{C},j}=\bot$
+
+
+
+
+%, where $k=pk$  in the case where $\mathtt{VS.verify}()$ is publicly verifiable, or $k:(sk,pk)$ when it is privately verifiable
+
+\
+
+
+\item[$\bullet$] $\mathtt{RCSP}.\mathtt{resolve}(\bm{m}_{\scriptscriptstyle \mathcal{C}},\bm{m}_{\scriptscriptstyle \mathcal{S}},z, {\bm{\pi}}^{\scriptscriptstyle *}, {\bm{c}}^{\scriptscriptstyle *},pk,en)\rightarrow (\bm{y}_{\scriptscriptstyle \mathcal C},\bm{y}_{\scriptscriptstyle \mathcal S})$. It is run by the arbiter. It takes client's complaints $\bm{m}_{\scriptscriptstyle \mathcal{C}}$,   server's complaints   $\bm{m}_{\scriptscriptstyle \mathcal{S}}$, total number of verifications $z$, all encoded proofs $ {\bm{\pi}}^{\scriptscriptstyle *}$, all encoded queries $ {\bm{c}}^{\scriptscriptstyle *}$, public key $pk$, and $en:(E,D,t_{\scriptscriptstyle qp})$.  It verifies the token,   decoded queries, and proofs.  It outputs two binary strings $\bm{y}_{\scriptscriptstyle \mathcal C}$ and $\bm{y}_{\scriptscriptstyle \mathcal S}$ of length $z$, it sets each element of $\bm{y}_{\scriptscriptstyle \mathcal E}$ to one, i.e. $y_{\scriptscriptstyle \mathcal E,j}=1$, if party $\mathcal{E}\in\{\mathcal{C},\mathcal{S}\}$ has misbehaved in $j$-th verification (i.e. provided invalid query or service proof). 
+
+
+%\item[$\bullet$] $\mathtt{RCSP}.\mathtt{resolve}(m_{\scriptscriptstyle \mathcal{C}},m_{\scriptscriptstyle \mathcal{S}},z, {\bm{\pi}}^{\scriptscriptstyle *}, {\bm{c}}^{\scriptscriptstyle *},pk,E^{\scriptscriptstyle -1}_{\scriptscriptstyle 2},t_{\scriptscriptstyle qp},a)\rightarrow (y_{\scriptscriptstyle \mathcal C},y_{\scriptscriptstyle \mathcal S})$. It is run by the arbiter. It takes client's complaint $m_{\scriptscriptstyle \mathcal{C}}$,   server's complaints   $m_{\scriptscriptstyle \mathcal{S}}$, total number of verifications $z$, all encoded proofs $ {\bm{\pi}}^{\scriptscriptstyle *}$, all encoded queries $ {\bm{c}}^{\scriptscriptstyle *}$, public key $pk$, decoding function $E^{\scriptscriptstyle -1}_{\scriptscriptstyle 2}$, encoding token $t_{\scriptscriptstyle qp}$ and  $a$.  It proceeds only if $a=1$. It verifies the token,   decoded queries, and proofs.  It outputs total number of times the client and server misbehaved, i.e. $y_{\scriptscriptstyle \mathcal C}$ and $y_{\scriptscriptstyle \mathcal S}$ respectively. 
+
+\
+	
+\item[$\bullet$] $\mathtt{RCSP}.\mathtt{pay}(\bm{y}_{\scriptscriptstyle \mathcal C},\bm{y}_{\scriptscriptstyle \mathcal S},t_{\scriptscriptstyle cp},a,coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C},coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S})\rightarrow ({\bm{coin}}_{\scriptscriptstyle\mathcal C},{\bm{coin}}_{\scriptscriptstyle\mathcal S},{\bm{coin}}_{\scriptscriptstyle\mathcal Ar})$. It is run by the smart contract and can be invoked by the client or server. It takes  two binary strings $\bm{y}_{\scriptscriptstyle \mathcal C}$ and $\bm{y}_{\scriptscriptstyle \mathcal S}$ that indicates which party misbehaved in each verification, and coins' token $t_{\scriptscriptstyle cp}$. If $a=1$ and  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}= p_{\scriptscriptstyle\mathcal S}$, then it verifies the validity of $t_{\scriptscriptstyle cp}$. If $t_{\scriptscriptstyle cp}$ is rejected, then it aborts. 
+If it is accepted, then it constructs  vector ${\bm{coin}}_{\scriptscriptstyle\mathcal I}$, where $\mathcal{I}\in\{\mathcal{C},\mathcal{S},\mathcal{A}r\}$; It sends ${{coin}}_{\scriptscriptstyle\mathcal{I},j}\in{\bm{coin}}_{\scriptscriptstyle\mathcal I}$ coins to party $\mathcal{I}$ for each $j$-th verification. Otherwise (i.e. $a=0$ or $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}\neq p_{\scriptscriptstyle\mathcal S}\in t_{\scriptscriptstyle cp}$)  it only sends $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ to $\mathcal C$. 
+
+%sets $coin_{\scriptscriptstyle\mathcal C,0}=coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}, \bm{coin}_{\scriptscriptstyle\mathcal S}=\bot$, and $\bm{coin}_{\scriptscriptstyle\mathcal Ar}=\bot$.  %It outputs ${\bm{coin}}_{\scriptscriptstyle\mathcal C},{\bm{coin}}_{\scriptscriptstyle\mathcal S}$, and ${\bm{coin}}_{\scriptscriptstyle\mathcal Ar}$
+
+%sends $coin_{\scriptscriptstyle\mathcal C}, coin_{\scriptscriptstyle\mathcal S}$, and $coin_{\scriptscriptstyle\mathcal Ar}$ coins to the client, server, and arbiter respectively. Otherwise, it does nothing. 
+
+\end{itemize}
+\end{definition}
+
+In the above definition algorithms $\mathtt{RCSP}.\mathtt{genQuery}(),\mathtt{RCSP}.\mathtt{prove}(),\mathtt{RCSP}.\mathtt{verify}()$ and $\mathtt{RCSP}.\mathtt{resolve}()$ implicitly  take $a$ as another input and  execute only if $a=1$; however, for the sake of simplicity we  avoided explicitly stating it  in the definition. Informally, a recurring contingent service payment (RC-S-P)  scheme satisfies correctness and security. At a high level, correctness requires that by the end of the protocol's execution  (that involves  honest client and server) the client receives all $z$ valid service proofs while the server gets paid  for the proofs, without the involvement of the arbiter. More specifically, it requires that the server accepts an honest client's encoded data and query while the honest client accepts the server's valid service proof (and no one is identified as misbehaving party). Moreover, the honest client gets back all its deposited coins minus the service payment, the honest server gets back all its deposited coins  plus the service payment and the arbiter receives nothing. It is formally stated as below.
+
+
+
+\begin{definition}[RC-S-P Correctness] A recurring contingent service payment  scheme  is  correct   if for any function $F, Q, M, E, D$, and auxiliary information $\text{aux}$, the key generation algorithm produces keys $\mathtt{RCSP}.\mathtt{keyGen}(1^{\scriptscriptstyle\lambda},F)\rightarrow \bm{k}$,   such that $\forall u \in \mathtt{Domain}(F)$ if $\mathtt{RCSP}.\mathtt{cInit}(1^{\scriptscriptstyle\lambda}, u,\bm{k}, M,z,cp) \rightarrow (u^{\scriptscriptstyle *}, e, t, coin^{\scriptscriptstyle*}_{\scriptscriptstyle\mathcal C},\bm{y}_{\scriptscriptstyle \mathcal  C},\bm{y}_{\scriptscriptstyle \mathcal  S})$, $\mathtt{RCSP}.\mathtt{sInit} (u^{\scriptscriptstyle *}, e, pk, z, t,\bm{y}_{\scriptscriptstyle \mathcal C},$ $\bm{y}_{\scriptscriptstyle \mathcal S})\rightarrow (coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}, a)$,   $\forall j:\Big($$\mathtt{RCSP}.\mathtt{genQuery}(1^{\lambda}, \text{aux}, k, Q,  en)\rightarrow c^{\scriptscriptstyle *}_{\scriptscriptstyle j}$, $\mathtt{RCSP}.\mathtt{prove}(u^{\scriptscriptstyle *},  \sigma, c^{\scriptscriptstyle *}_{\scriptscriptstyle j}, pk,  en)\rightarrow (b_{\scriptscriptstyle j},m_{\scriptscriptstyle\mathcal {S},j},\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j})$, \\$\mathtt{RCSP}.\mathtt{verify}(\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j}, q,k,en)\rightarrow (d_{\scriptscriptstyle j}, m_{\scriptscriptstyle\mathcal {C},j})$$\Big), \mathtt{RCSP}.\mathtt{resolve}(\bm{m}_{\scriptscriptstyle \mathcal{C}},\bm{m}_{\scriptscriptstyle \mathcal{S}},z, {\bm{\pi}}^{\scriptscriptstyle *}, {\bm{c}}^{\scriptscriptstyle *},pk,en)\rightarrow (\bm{y}_{\scriptscriptstyle \mathcal C},\bm{y}_{\scriptscriptstyle \mathcal S})$, \\$\mathtt{RCSP}.\mathtt{pay}(\bm{y}_{\scriptscriptstyle \mathcal C},\bm{y}_{\scriptscriptstyle \mathcal S},t_{\scriptscriptstyle cp},a,coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C},coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S})\rightarrow (\bm{coin}_{\scriptscriptstyle\mathcal C},\bm{coin}_{\scriptscriptstyle\mathcal S},\bm{coin}_{\scriptscriptstyle\mathcal Ar})$, then $(a=1)\wedge (\bigwedge\limits^{\scriptscriptstyle z}_{\scriptscriptstyle j=1} b_{\scriptscriptstyle j}= \bigwedge\limits^{\scriptscriptstyle z}_{\scriptscriptstyle j=1} d_{\scriptscriptstyle j}=1)\wedge (\bm{y}_{\scriptscriptstyle \mathcal C}=\bm{y}_{\scriptscriptstyle \mathcal S}=0) \wedge (\sum\limits^{\scriptscriptstyle z}_{\scriptscriptstyle j=1}coin_{\scriptscriptstyle\mathcal C,j}=coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}-o\cdot z) \wedge  (\sum\limits^{\scriptscriptstyle z}_{\scriptscriptstyle j=1}coin_{\scriptscriptstyle\mathcal S,j}=coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}+o\cdot z)  \wedge (\sum\limits^{\scriptscriptstyle z}_{\scriptscriptstyle j=1}coin_{\scriptscriptstyle\mathcal Ar,j}=0)$
+\end{definition}
+
+
+A RC-S-P scheme is said to be security if it satisfies  three main properties,   (a)  security against malicious server, (b) security against malicious client, and (c) privacy.  In the following, we formally define each of them. Intuitively, security against a malicious server states that (at the end of the protocol execution) either the client for each verification gets a valid proof and gets back its deposit minus the service payment or the client gets its deposit back (for $j$-th verification) and the arbiter receives $l$ coins. In other words, for each  $j$-th verification, the security requires that only with a negligible probability the adversary wins if it  provides either (a)  correct evaluation of the function on the service input but it makes the client  withdraw an incorrect amount of coins (i.e. something other than its deposit minus service payment) or (b) incorrect evaluation of the function on the service input,  but either persuades the client or the arbiter to accept it (i.e.  $b_{\scriptscriptstyle j}=1$ or $y_{\scriptscriptstyle\mathcal S}[j]=0$) or makes them  withdraw incorrect amount of coins (i.e. $coin_{\scriptscriptstyle\mathcal{C},j}\neq \frac{coin_{\scriptscriptstyle\mathcal C}^{\scriptscriptstyle*}}{z}$ or  $coin_{\scriptscriptstyle\mathcal{A}r,j}\neq l$ coins).  Below, we formalize this intuition. 
+
+
+
+
+%Intuitively, security against a malicious server states that (at the end of the protocol execution) either the client for each verification gets a valid proof or the client gets its coins back (for $j$-th verification) and the arbiter receives $l$ coins. In other words, for each  $j$-th verification, the adversary wins if it provides incorrect evaluation of the function on the service input,  but (with a high probability) either persuades the client or the arbiter to accept it (i.e.  $b_{\scriptscriptstyle j}=1$ or $y_{\scriptscriptstyle\mathcal S}[j]=0$) or makes them to withdraw incorrect amount of coins (i.e. $coin_{\scriptscriptstyle\mathcal{C},j}\neq \frac{coin_{\scriptscriptstyle\mathcal C}^{\scriptscriptstyle*}}{z}$ and  $coin_{\scriptscriptstyle\mathcal{A}r,j}\neq l$ coins).  Below, we formalize this intuition with an experiment, $\textbf{Exp}^{\scriptscriptstyle(1)}_{\scriptscriptstyle\mathcal {A}}[]$: 
+
+
+%
+%\small{
+%$$
+%    \begin{array}{l}
+%    \mathtt{RCSP.keyGen}(1^{\lambda},F)\rightarrow \bm{k}\\
+%    \mathcal{A}(1^{\scriptscriptstyle\lambda},pk, F)\rightarrow (u,\text{state})\\
+%    \mathtt{RCSP}.\mathtt{cInit}(1^{\scriptscriptstyle\lambda}, u,\bm{k}, M,z,cp)\rightarrow (u^{\scriptscriptstyle *},e,t,coin^{\scriptscriptstyle*}_{\scriptscriptstyle\mathcal C})\\
+%    \mathcal{A}(u^{\scriptscriptstyle *},e, pk,z, t)\rightarrow (coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S},a)\\
+%	\mathtt{RCSP}.\mathtt{genQuery}(1^{\lambda}, \text{aux},k,Q,j, en)\rightarrow c^{\scriptscriptstyle *}_{\scriptscriptstyle j}\\
+%	
+%     \mathcal{A}(\text{state},c^{\scriptscriptstyle *}_{\scriptscriptstyle j},\sigma, u^{\scriptscriptstyle *},j,en,a)\rightarrow 
+%     (b_{\scriptscriptstyle j},m_{\scriptscriptstyle \mathcal{A},j},y^{\scriptscriptstyle *}_{\scriptscriptstyle j},\delta^{\scriptscriptstyle *}_{\scriptscriptstyle j})\\ 
+%   \mathtt{RCSP}.\mathtt{verify}(\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j}, q,k,j,en)\rightarrow (d_{\scriptscriptstyle j},m_{\scriptscriptstyle \mathcal{C},j})\\
+%   \mathtt{RCSP}.\mathtt{resolve}(\bm{m}_{\scriptscriptstyle \mathcal{C}},\bm{m}_{\scriptscriptstyle \mathcal{A}},z, {\bm{\pi}}^{\scriptscriptstyle *}, {\bm{c}}^{\scriptscriptstyle *},pk,en)\rightarrow (y_{\scriptscriptstyle \mathcal C},y_{\scriptscriptstyle \mathcal S})\\
+%   \mathtt{RCSP}.\mathtt{pay}(y_{\scriptscriptstyle \mathcal C},y_{\scriptscriptstyle \mathcal S},t_{\scriptscriptstyle cp})\rightarrow ({\bm{coin}}_{\scriptscriptstyle\mathcal C},{\bm{coin}}_{\scriptscriptstyle\mathcal S},{\bm{coin}}_{\scriptscriptstyle\mathcal Ar})\\
+%\end{array}$$
+%}
+%
+%
+%
+%The output of the experiment is $1$, i.e. $\textit{\textbf{Exp}}^{\scriptscriptstyle(1)}_{\scriptscriptstyle\mathcal {A},\text{RC-S-P}}()=1$, if the adversary wins. 
+%
+%\begin{definition}[RC-S-P Security Against Malicious Server]\label{deff::}  A RC-S-P  is secure against a malicious server  for a function $F$, if for any security parameter $\lambda$, any auxiliary information $aux$, any $Q$ and any probabilistic polynomial time adversary $\mathcal{A}$, there exists a negligible function $\mu(.)$, such that: 
+%%\footnotesize{
+%
+%$$Pr[\textbf{Exp}^{\scriptscriptstyle(1)}_{\scriptscriptstyle\mathcal {A},\text{RC-S-P}}()=1]=Pr\left[
+%\begin{array}{l}
+%\left((F_{\scriptscriptstyle q}(u^{\scriptscriptstyle *})= y_{\scriptscriptstyle j}\ \wedge coin_{\scriptscriptstyle\mathcal{C},j}\neq  \frac{coin_{\scriptscriptstyle\mathcal C}^{\scriptscriptstyle*}}{z}-o\right)
+% \vee\\
+%  \left(F_{\scriptscriptstyle q}(u^{\scriptscriptstyle *})\neq y_{\scriptscriptstyle j}\ \wedge (d_{\scriptscriptstyle j}=1	\vee y_{\scriptscriptstyle \mathcal S}[j]=0 \ \vee coin_{\scriptscriptstyle\mathcal{C},j}\neq \frac{coin_{\scriptscriptstyle\mathcal C}^{\scriptscriptstyle*}}{z} \ \wedge coin_{\scriptscriptstyle\mathcal{A}r,j}\neq l)\right)\end{array}\right]\leq \mu(\lambda)$$
+%\end{definition}
+
+
+
+%_{\scriptscriptstyle q_{_{\scaleto{j}{\size}}}}
+
+
+\begin{definition}[RC-S-P Security Against Malicious Server]\label{deff::RC-S-P-SecurityAgainstMaliciousServer}  A RC-S-P  is secure against a malicious server  for a function $F$, if for any security parameter $\lambda$, any auxiliary information $\text{aux}$, every $j$ (where $1\leq j\leq z$), any $Q,M, E, D$ and any probabilistic polynomial time adversary $\mathcal{A}$, there exists a negligible function $\mu(.)$, such that: 
+%\footnotesize{
+\small{
+$$ Pr\left[
+  \begin{array}{l}
+  \left(F(u^{\scriptscriptstyle *},q_{\scriptscriptstyle j})= h_{\scriptscriptstyle j}\ \wedge coin_{\scriptscriptstyle\mathcal{C},j}\neq  \frac{coin_{\scriptscriptstyle\mathcal C}^{\scriptscriptstyle*}}{z}-o\right)
+  \vee\\
+\Big(
+F(u^{\scriptscriptstyle *},q_{\scriptscriptstyle j})\neq h_{\scriptscriptstyle j} \ \wedge (d_{\scriptscriptstyle j}=1	\vee y_{\scriptscriptstyle \mathcal S}[j]=0 \ \vee \\(coin_{\scriptscriptstyle\mathcal{C},j}\neq \frac{coin_{\scriptscriptstyle\mathcal C}^{\scriptscriptstyle*}}{z} \ \vee  coin_{\scriptscriptstyle\mathcal{A}r,j}\neq l)) \Big)\\
+%\text{s.t.}\\
+%y_{\scriptscriptstyle j}= E^{\scriptscriptstyle -1}_{\scriptscriptstyle 2}(y^{\scriptscriptstyle *}_{\scriptscriptstyle j},t_{\scriptscriptstyle qp})\\
+%E^{\scriptscriptstyle -1}_{\scriptscriptstyle 2},t_{\scriptscriptstyle qp}\in en\\
+\end{array} \middle |
+    \begin{array}{l}
+    \mathtt{RCSP.keyGen}(1^{\lambda},F)\rightarrow \bm{k}\\
+    \mathcal{A}(1^{\scriptscriptstyle\lambda},pk, F)\rightarrow u\\
+  
+    \mathtt{RCSP}.\mathtt{cInit}(1^{\scriptscriptstyle\lambda}, u,\bm{k}, M,z,cp)\rightarrow (u^{\scriptscriptstyle *},e,t,coin^{\scriptscriptstyle*}_{\scriptscriptstyle\mathcal C}, \bm{y}_{\scriptscriptstyle \mathcal  C},\bm{y}_{\scriptscriptstyle \mathcal  S})\\
+    
+    \mathcal{A}(u^{\scriptscriptstyle *},e, pk,z, t,\bm{y}_{\scriptscriptstyle \mathcal  C},\bm{y}_{\scriptscriptstyle \mathcal  S})\rightarrow (coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S},a)\\
+	\mathtt{RCSP}.\mathtt{genQuery}(1^{\lambda}, \text{aux},k,Q, en)\rightarrow c^{\scriptscriptstyle *}_{\scriptscriptstyle j}\\
+	
+     \mathcal{A}(c^{\scriptscriptstyle *}_{\scriptscriptstyle j},\sigma, u^{\scriptscriptstyle *},j,en,a)\rightarrow 
+     (b_{\scriptscriptstyle j},m_{\scriptscriptstyle \mathcal{A},j},h^{\scriptscriptstyle *}_{\scriptscriptstyle j},\delta^{\scriptscriptstyle *}_{\scriptscriptstyle j})\\
+     
+     %(\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j},b_{\scriptscriptstyle j})\\
+     
+\mathtt{RCSP}.\mathtt{verify}(\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j}, q,k,en)\rightarrow (d_{\scriptscriptstyle j},m_{\scriptscriptstyle \mathcal{C},j})\\
+   \mathtt{RCSP}.\mathtt{resolve}(\bm{m}_{\scriptscriptstyle \mathcal{C}},\bm{m}_{\scriptscriptstyle \mathcal{A}},z, {\bm{\pi}}^{\scriptscriptstyle *}, {\bm{c}}^{\scriptscriptstyle *},pk,en)\rightarrow (\bm{y}_{\scriptscriptstyle \mathcal C},\bm{y}_{\scriptscriptstyle \mathcal S})\\
+   \mathtt{RCSP}.\mathtt{pay}(\bm{y}_{\scriptscriptstyle \mathcal C},\bm{y}_{\scriptscriptstyle \mathcal S},t_{\scriptscriptstyle cp},a,coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C},coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S})\rightarrow ({\bm{coin}}_{\scriptscriptstyle\mathcal C},{\bm{coin}}_{\scriptscriptstyle\mathcal S},{\bm{coin}}_{\scriptscriptstyle\mathcal Ar})\\
+\end{array}    \right]\leq \mu(\lambda)$$
+}
+where $h_{\scriptscriptstyle j}= D(h^{\scriptscriptstyle *}_{\scriptscriptstyle j},t_{\scriptscriptstyle qp})$, $
+D,t_{\scriptscriptstyle qp}\in en$, $\sigma\in e$, and the probability is taken over uniform  choice of $k,k'\stackrel{\scriptscriptstyle\$}\leftarrow \{0,1\}^{\scriptscriptstyle\lambda}$, where $k,k'\in\bm{k}$, as well as the randomness of $\mathcal{A}$ and the randomness used in witnesses $w_{\scriptscriptstyle cp},w_{\scriptscriptstyle qp}\in t$.
+\end{definition}
+
+
+
+
+%\begin{definition}[RC-S-P Correctness] A recurring contingent service payment  scheme  is  correct   if for any function $F$, the key generation algorithm produces keys $\mathtt{RCSP}.\mathtt{keyGen}(1^{\scriptscriptstyle\lambda},F)\rightarrow (k,k')$,   such that $\forall u \in \mathtt{Domain}(F)$ if $\mathtt{RCSP}.\mathtt{cInit}(1^{\scriptscriptstyle\lambda}, u,k,k', M,z,o,l,E_{\scriptscriptstyle 1}) \rightarrow (u^{\scriptscriptstyle *}, e, t, coin^{\scriptscriptstyle*}_{\scriptscriptstyle\mathcal C})$, $\mathtt{RCSP}.\mathtt{sInit} (u^{\scriptscriptstyle *}, e, pk, z, t, E_{\scriptscriptstyle 1})\rightarrow (coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}, a)$, \ \\ $\mathtt{RCSP}.\mathtt{genQuery}(1^{\lambda}, \text{aux}, k, Q, j, E_{\scriptscriptstyle 2}, qp, a)\rightarrow c^{\scriptscriptstyle *}_{\scriptscriptstyle j}$, $\mathtt{RCSP}.\mathtt{prove}(u^{\scriptscriptstyle *},  \sigma, c^{\scriptscriptstyle *}_{\scriptscriptstyle j}, pk, j, E^{\scriptscriptstyle -1}_{\scriptscriptstyle 2},qp,a)\rightarrow (\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j}, b_{\scriptscriptstyle j})$, \\$\mathtt{RCSP}.\mathtt{verify}(\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j}, q,k,j,E^{\scriptscriptstyle -1}_{\scriptscriptstyle 2},qp,a)\rightarrow d_{\scriptscriptstyle j}$, $\mathtt{RCSP}.\mathtt{resolve}(m_{\scriptscriptstyle \mathcal{C}},m_{\scriptscriptstyle \mathcal{S}},z, {\bm{\pi}}^{\scriptscriptstyle *}, {\bm{c}}^{\scriptscriptstyle *},pk,E^{\scriptscriptstyle -1}_{\scriptscriptstyle 2},t_{\scriptscriptstyle qp},a)\rightarrow (y_{\scriptscriptstyle \mathcal C},y_{\scriptscriptstyle \mathcal S})$, \\$\mathtt{RCSP}.\mathtt{pay}(y_{\scriptscriptstyle \mathcal C},y_{\scriptscriptstyle \mathcal S},t_{\scriptscriptstyle cp},a)\rightarrow (coin_{\scriptscriptstyle\mathcal C},coin_{\scriptscriptstyle\mathcal S},coin_{\scriptscriptstyle\mathcal Ar})$, s.t. $a=1\wedge (\bigwedge\limits^{\scriptscriptstyle z}_{\scriptscriptstyle j=1} b_{\scriptscriptstyle j}= \bigwedge\limits^{\scriptscriptstyle z}_{\scriptscriptstyle j=1} d_{\scriptscriptstyle j}=1)\wedge (y_{\scriptscriptstyle \mathcal C}=y_{\scriptscriptstyle \mathcal S}=0) \wedge (coin_{\scriptscriptstyle\mathcal C}=coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}-oz) \wedge  (coin_{\scriptscriptstyle\mathcal S}=coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}+oz)   \wedge (coin_{\scriptscriptstyle\mathcal Ar}=0) $
+%\end{definition}
+
+ 
+ 
+ 
+ 
+Informally, security against a malicious client requires that, for each  $j$-th verification, a malicious client with a negligible probability  wins if it provides either (a) valid metadata and query but makes the server receive incorrect amount of coins (something other than its deposit plus the service payment), or (b) invalid metadata or query but convinces the server to accept either of them, or (c) invalid query but persuades the arbiter to accept it, or  makes them to withdraw an incorrect amount of coins (i.e. $coin_{\scriptscriptstyle\mathcal{S},j}\neq \frac{coin_{\scriptscriptstyle\mathcal S}^{\scriptscriptstyle*}}{z}+o$ or  $coin_{\scriptscriptstyle\mathcal{A}r,j}\neq l$ coins). Below, we formally state it. 
+ 
+ 
+ 
+ 
+ \begin{definition}[RC-S-P Security Against Malicious Client]\label{deff::RC-S-P-Security-Against Malicious-Client}  A RC-S-P  is secure against a malicious client  for a function $F$, if for any security parameter $\lambda$, every $j$ (where $1\leq j\leq z$), any $Q,M,E,D$ and any probabilistic polynomial time adversary $\mathcal{A}$, there exists a negligible function $\mu(.)$, such that: 
+
+
+\small{
+$$ Pr\left[
+  \begin{array}{l}
+ \Big(M(u^{\scriptscriptstyle *},k)= \sigma  \wedge Q(\text{aux},k)= q_{\scriptscriptstyle j} \wedge\\
+  coin_{\scriptscriptstyle\mathcal{S},j}\neq  \frac{coin_{\scriptscriptstyle\mathcal S}^{\scriptscriptstyle*}}{z}+o\Big) \vee
+  \\
+  \Big(M(u^{\scriptscriptstyle *},k)\neq \sigma \wedge a=1\Big)\vee\\ \Big(Q(\text{aux},k)\neq q_{\scriptscriptstyle j} \wedge
+ b_{\scriptscriptstyle j}=1  \Big)  \vee\\
+
+  \Big(Q(\text{aux},k)\neq q_{\scriptscriptstyle j} \wedge
+  (y_{\scriptscriptstyle\mathcal{C}}[j]=0 \ \vee \\ coin_{\scriptscriptstyle\mathcal{S},j}\neq \frac{coin_{\scriptscriptstyle\mathcal S}^{\scriptscriptstyle*}}{z}+o \ \vee  coin_{\scriptscriptstyle\mathcal{A}r,j}\neq l) 
+  \Big)
+ \\
+ 
+\end{array} \middle |
+    \begin{array}{l}
+   \mathcal{A}(1^{\lambda},F)\rightarrow (u^{\scriptscriptstyle *},z,\bm{k},e,t,coin^{\scriptscriptstyle*}_{\scriptscriptstyle\mathcal C},en, \text{aux},\bm{y}_{\scriptscriptstyle \mathcal  C},\bm{y}_{\scriptscriptstyle \mathcal  S})\\
+   
+   \mathtt{RCSP}.\mathtt{sInit}(u^{\scriptscriptstyle *},e, pk,z, t,\bm{y}_{\scriptscriptstyle \mathcal  C},\bm{y}_{\scriptscriptstyle \mathcal  S})\rightarrow (coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S},a)\\
+   
+	\mathcal{A}(coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S},a, \text{aux},\bm{k},Q,j, en)\rightarrow c^{\scriptscriptstyle *}_{\scriptscriptstyle j}\\
+
+     \mathtt{RCSP}.\mathtt{prove}(u^{\scriptscriptstyle *},  \sigma,  c^{\scriptscriptstyle *}_{\scriptscriptstyle j},pk, en)\rightarrow (b_{\scriptscriptstyle j},m_{\scriptscriptstyle \mathcal{S},j},\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j})\\
+     
+ \mathcal{A}(\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j}, q,k,j,en)\rightarrow (d_{\scriptscriptstyle j},m_{\scriptscriptstyle \mathcal{A},j})\\
+   
+   
+   \mathtt{RCSP}.\mathtt{resolve}(\bm{m}_{\scriptscriptstyle \mathcal{A}},\bm{m}_{\scriptscriptstyle \mathcal{S}},z, {\bm{\pi}}^{\scriptscriptstyle *}, {\bm{c}}^{\scriptscriptstyle *},pk,en)\rightarrow (\bm{y}_{\scriptscriptstyle \mathcal C},\bm{y}_{\scriptscriptstyle \mathcal S})\\
+   \mathtt{RCSP}.\mathtt{pay}(\bm{y}_{\scriptscriptstyle \mathcal C},\bm{y}_{\scriptscriptstyle \mathcal S},t_{\scriptscriptstyle cp},a,coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C},coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S})\rightarrow ({\bm{coin}}_{\scriptscriptstyle\mathcal C},{\bm{coin}}_{\scriptscriptstyle\mathcal S},{\bm{coin}}_{\scriptscriptstyle\mathcal Ar})\\
+\end{array}    \right]\leq \mu(\lambda)$$
+}
+where $q_{\scriptscriptstyle j}\in D(c^{\scriptscriptstyle *}_{\scriptscriptstyle j},t_{\scriptscriptstyle qp})$, $
+D,t_{\scriptscriptstyle qp}\in en$, $\sigma\in e$, and   the probability is taken over the randomness used in witnesses $w_{\scriptscriptstyle cp},w_{\scriptscriptstyle qp}\in t$ as well as  the randomness used in proofs $w_{\scriptscriptstyle q_{_{\scaleto{j}{\size}}}}\in c_{\scriptscriptstyle j}$ and $w_{\scriptscriptstyle\sigma}\in e$ and  the randomness of $\mathcal{A}$.
+\end{definition}
+ 
+
+
+
+
+
+
+
+
+
+
+%\small{
+%$$ Pr\left[
+%  \begin{array}{l}
+% \Big((M(u^{\scriptscriptstyle *},k)= \sigma  \wedge Q(\text{aux},k)= q_{\scriptscriptstyle j}) \wedge\\
+%  (coin_{\scriptscriptstyle\mathcal{S},j}\neq  \frac{coin_{\scriptscriptstyle\mathcal S}^{\scriptscriptstyle*}}{z}+o)\Big) \vee
+%  \\
+%  \Big((M(u^{\scriptscriptstyle *},k)\neq \sigma \lor Q(\text{aux},k)\neq q_{\scriptscriptstyle j}) \wedge\\
+%  (a=1 \ \vee b_{\scriptscriptstyle j}=1\ \vee y_{\scriptscriptstyle\mathcal{C}}[j]=0 \ \vee \\ coin_{\scriptscriptstyle\mathcal{S},j}\neq \frac{coin_{\scriptscriptstyle\mathcal S}^{\scriptscriptstyle*}}{z}+o \ \vee  coin_{\scriptscriptstyle\mathcal{A}r,j}\neq l) 
+%  \Big)
+% \\
+% 
+%\end{array} \middle |
+%    \begin{array}{l}
+%   \mathcal{A}(1^{\lambda},F)\rightarrow (u^{\scriptscriptstyle *},z,\bm{k},e,t,coin^{\scriptscriptstyle*}_{\scriptscriptstyle\mathcal C},en, \text{aux},\bm{y}_{\scriptscriptstyle \mathcal  C},\bm{y}_{\scriptscriptstyle \mathcal  S})\\
+%   
+%   \mathtt{RCSP}.\mathtt{sInit}(u^{\scriptscriptstyle *},e, pk,z, t,\bm{y}_{\scriptscriptstyle \mathcal  C},\bm{y}_{\scriptscriptstyle \mathcal  S})\rightarrow (coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S},a)\\
+%   
+%	\mathcal{A}(coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S},a, \text{aux},\bm{k},Q,j, en)\rightarrow c^{\scriptscriptstyle *}_{\scriptscriptstyle j}\\
+%
+%     \mathtt{RCSP}.\mathtt{prove}(u^{\scriptscriptstyle *},  \sigma,  c^{\scriptscriptstyle *}_{\scriptscriptstyle j},pk, en)\rightarrow (b_{\scriptscriptstyle j},m_{\scriptscriptstyle \mathcal{S},j},\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j})\\
+%     
+% \mathcal{A}(\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j}, q,k,j,en)\rightarrow (d_{\scriptscriptstyle j},m_{\scriptscriptstyle \mathcal{A},j})\\
+%   
+%   
+%   \mathtt{RCSP}.\mathtt{resolve}(\bm{m}_{\scriptscriptstyle \mathcal{A}},\bm{m}_{\scriptscriptstyle \mathcal{S}},z, {\bm{\pi}}^{\scriptscriptstyle *}, {\bm{c}}^{\scriptscriptstyle *},pk,en)\rightarrow (\bm{y}_{\scriptscriptstyle \mathcal C},\bm{y}_{\scriptscriptstyle \mathcal S})\\
+%   \mathtt{RCSP}.\mathtt{pay}(\bm{y}_{\scriptscriptstyle \mathcal C},\bm{y}_{\scriptscriptstyle \mathcal S},t_{\scriptscriptstyle cp},a,coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C},coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S})\rightarrow ({\bm{coin}}_{\scriptscriptstyle\mathcal C},{\bm{coin}}_{\scriptscriptstyle\mathcal S},{\bm{coin}}_{\scriptscriptstyle\mathcal Ar})\\
+%\end{array}    \right]\leq \mu(\lambda)$$
+%}
+%where $q_{\scriptscriptstyle j}\in D(c^{\scriptscriptstyle *}_{\scriptscriptstyle j},t_{\scriptscriptstyle qp})$, $
+%D,t_{\scriptscriptstyle qp}\in en$, $\sigma\in e$, and   the probability is taken over the randomness used in witnesses $w_{\scriptscriptstyle cp},w_{\scriptscriptstyle qp}\in t$ as well as  the randomness used in proofs $w_{\scriptscriptstyle q_{_{\scaleto{j}{\size}}}}\in c_{\scriptscriptstyle j}$ and $w_{\scriptscriptstyle\sigma}\in e$ and  the randomness of $\mathcal{A}$.
+%\end{definition}
+% 
+ Note, in the above definition, an honest server either does not deposit (e.g. when $a=0$) or if it deposits (i.e. agrees to serve) ultimately receives its deposit \emph{plus the service payment} (with a high probability). Informally, RC-S-P is privacy preserving if it guarantees the privacy of service input (e.g. outsourced file) and service proof's status during the private time bubble. In the following, we formally define them.
+ 
+ 
+ 
+ 
+ \begin{definition}[RC-S-P Service Input Privacy]\label{deff::RC-S-P-Input-Privacy}  A RC-S-P   preserves the privacy of service input, if for any security parameter $\lambda$, any auxiliary information $\text{aux}$, any $F, Q,M, E,D$ and any probabilistic polynomial time adversary $\mathcal{A}$, there exists a negligible function $\mu(.)$, such that: 
+%\footnotesize{
+\small{
+$$ Pr\left[
+  \begin{array}{l}
+  \mathcal{A}(\bm{c}^{\scriptscriptstyle *},coin^{\scriptscriptstyle *}_{\scriptscriptstyle S},coin^{\scriptscriptstyle *}_{\scriptscriptstyle C},w_{\scriptscriptstyle cp},  w_{\scriptscriptstyle qp},\bm{\pi}^{\scriptscriptstyle *},a)\rightarrow\beta\\
+
+%\text{s.t.}\\
+%y_{\scriptscriptstyle j}= E^{\scriptscriptstyle -1}_{\scriptscriptstyle 2}(y^{\scriptscriptstyle *}_{\scriptscriptstyle j},t_{\scriptscriptstyle qp})\\
+%E^{\scriptscriptstyle -1}_{\scriptscriptstyle 2},t_{\scriptscriptstyle qp}\in en\\
+\end{array} \middle |
+    \begin{array}{l}
+    \mathtt{RCSP.keyGen}(1^{\lambda},F)\rightarrow \bm{k}\\
+    \mathcal{A}(1^{\scriptscriptstyle\lambda},pk, F)\rightarrow (u_{\scriptscriptstyle 0},u_{\scriptscriptstyle 1})\\
+    \beta\stackrel{\scriptscriptstyle\$}\leftarrow\{0,1\}\\
+   
+   \mathtt{RCSP}.\mathtt{cInit}(1^{\scriptscriptstyle\lambda}, u,\bm{k}, M,z,cp)\rightarrow (u^{\scriptscriptstyle *},e,t,coin^{\scriptscriptstyle*}_{\scriptscriptstyle\mathcal C}, \bm{y}_{\scriptscriptstyle \mathcal  C},\bm{y}_{\scriptscriptstyle \mathcal  S})\\
+
+\mathtt{RCSP}.\mathtt{sInit}(u^{\scriptscriptstyle *},e, pk,z, t,\bm{y}_{\scriptscriptstyle \mathcal  C},\bm{y}_{\scriptscriptstyle \mathcal  S})\rightarrow (coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S},a)\\
+
+\mathtt{RCSP}.\mathtt{genQuery}(1^{\scriptscriptstyle\lambda}, \text{aux},k,Q,j, en)\rightarrow c^{\scriptscriptstyle *}_{\scriptscriptstyle j}\\
+	
+
+     
+     %(\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j},b_{\scriptscriptstyle j})\\
+     
+     \mathtt{RCSP}.\mathtt{prove}(u^{\scriptscriptstyle *}_{\scriptscriptstyle\beta},  \sigma,  c^{\scriptscriptstyle *}_{\scriptscriptstyle j},pk, en)\rightarrow (b_{\scriptscriptstyle j},m_{\scriptscriptstyle \mathcal{S},j},\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j})\\
+     
+   \mathtt{RCSP}.\mathtt{verify}(\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j}, q,k,en)\rightarrow (d_{\scriptscriptstyle j},m_{\scriptscriptstyle \mathcal{C},j})\\
+\end{array}    \right]\leq \frac{1}{2}+\mu(\lambda)$$
+}
+where $\bm{c}^{\scriptscriptstyle *}=[{c}^{\scriptscriptstyle *}_{\scriptscriptstyle 1},...,{c}^{\scriptscriptstyle *}_{\scriptscriptstyle z}]$, $\bm{\pi}^{\scriptscriptstyle *}=[\pi^{\scriptscriptstyle *}_{\scriptscriptstyle 1},...,\pi^{\scriptscriptstyle *}_{\scriptscriptstyle z}]$ and $w_{\scriptscriptstyle cp \scriptscriptstyle},w_{qp \scriptscriptstyle}\in t$.  The probability is taken over uniform  choice of $k,k'\stackrel{\scriptscriptstyle\$}\leftarrow \{0,1\}^{\scriptscriptstyle\lambda}$, where $k,k'\in\bm{k}$, the randomness of $\mathcal{A}$,  the randomness used in witnesses $w_{\scriptscriptstyle cp},w_{\scriptscriptstyle qp}\in t$,  the randomness used in  $E$.
+
+\end{definition}
+ 
+ 
+ 
+  \begin{definition}[RC-S-P Service Proof Privacy]\label{deff::RC-S-P-ServiceProofPrivacy}  A RC-S-P   preserves the privacy of service proof (status), if for any security parameter $\lambda$, any auxiliary information $\text{aux}$, any $F,Q,M,E,D$ and any probabilistic polynomial time adversary $\mathcal{A}$ that plays the  game in Definition \ref{deff::RC-S-P-Input-Privacy}, there exists a negligible function $\mu(.)$, such that: 
+%\footnotesize{
+\small{
+$$ Pr\left[\mathcal{A}(\bm{c}^{\scriptscriptstyle *},coin^{\scriptscriptstyle *}_{\scriptscriptstyle \mathcal S},coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C},w_{\scriptscriptstyle cp},  w_{\scriptscriptstyle qp},\bm{\pi}^{\scriptscriptstyle *},a,\text{state})\rightarrow (d_{\scriptscriptstyle j},j)\right]\leq \frac{1}{2}+ \mu(\lambda)$$
+}
+where $\bm{c}^{\scriptscriptstyle *}=[{c}^{\scriptscriptstyle *}_{\scriptscriptstyle 1},...,{c}^{\scriptscriptstyle *}_{\scriptscriptstyle z}]$, $\bm{\pi}^{\scriptscriptstyle *}=[\pi^{\scriptscriptstyle *}_{\scriptscriptstyle 1},...,\pi^{\scriptscriptstyle *}_{\scriptscriptstyle z}]$ and $w_{\scriptscriptstyle cp \scriptscriptstyle},w_{qp \scriptscriptstyle}\in t$.  The probability is taken over uniform  choice of $k,k'\stackrel{\scriptscriptstyle\$}\leftarrow \{0,1\}^{\scriptscriptstyle\lambda}$, where $k,k'\in\bm{k}$, the randomness of $\mathcal{A}$,  the randomness used in witnesses $w_{\scriptscriptstyle cp},w_{\scriptscriptstyle qp}\in t$,  the randomness used in  $E$.
+\end{definition}
+ 
+ \begin{definition}[RC-S-P Security]\label{def::RC-S-P-Security} A RC-S-P scheme is secure if it satisfies security against malicious server, security against malicious client, and preserves service input and proof privacy, w.r.t. Definitions \ref{deff::RC-S-P-SecurityAgainstMaliciousServer}-\ref{deff::RC-S-P-ServiceProofPrivacy}. 
+ \end{definition}
+ 
+
+ 
+ 

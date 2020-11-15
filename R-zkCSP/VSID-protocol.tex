@@ -1,0 +1,123 @@
+% !TEX root =R-zkCSP.tex
+
+
+\subsection{VSID Protocol}
+
+
+In this section, we present the VSID protocol. We show how it  can be built upon a protocol that realises the VS definition.  As stated previously, VS scheme inherently protects an honest client from a malicious server. Therefore, at a high-level, VSID needs to have two added features; namely, it protects an honest server from a malicious client and allows an arbiter to detect a corrupt party. VSID can be built upon VS using  the following standard techniques; Briefly, (a) all parties sign their outgoing messages, (b) they post the signed messages on a bulletin board, and (c) the client, using a non-interactive publicly verifiable zero-knowledge scheme, proves to the server that its inputs have been correctly constructed.   In particular, like VS, the client first generates its secret and public parameters and then, in the setup, it encodes its input: $u$ using the encoding function $M$. This results in a  metadata.  Also, the client   utilises a non-interactive publicly verifiable zero-knowledge scheme to prove to the server that the metadata has been constructed correctly.  The client posts $u$, metadata and the poofs to a bulletin board. Next, the server verifies the proofs and agrees to serve the client if the proofs are accepted.  Like VS, when the client wants the server to run the function $F$ on its input: $u$, it uses a function $Q$ to generate a query. But, it uses the zero-knowledge scheme to prove to the server that the query has been constructed correctly. The client posts the query and proofs to the board. After that, the server verifies the  proofs related to the query. The server-side prove  and client-side verify algorithms remain unchanged with a difference that the server posts its proofs (i.e. output of prove algorithm) to the board.  In the case of any dispute/abort, either party invokes the arbiter who, given the signed posted messages,  checks the proofs in turn to identify a corrupt party. Below, we present VSID protocol in which we assume all parties sign their outgoing messages and their counter-party first verify the signature on the messages, before they  fed them to their local algorithms. %Also, to let the protocol  terminate within a fixed time, we require that each party send out its message within a certain time, after the client sends out its  messages. 
+
+%However, if $M$ takes as inputs private parameters, then the client commits to the parameters and  
+
+
+\begin{enumerate}
+\item\textbf{Key Generation}\label{VSID::keygen}. $\mathtt{VSID.keyGen}(1^{\lambda},F)$ 
+\begin{enumerate}
+\item Calls  $\mathtt{VS.keyGen}(1^{\lambda},F)$ to generate a pair of secret and public keys, $k:(sk,pk)$
+\item Commits to the secret key and appends the commitment: $\mathtt{Com}_{\scriptscriptstyle sk}$ to $pk$
+%\item Commits to the secret keys: $sk\in k$. This yields: $\mathtt{Com}(sk)$.
+\item Posts $pk$ to a bulletin board. %Now on, all parties consider this as $pk$.  
+\end{enumerate}
+
+\item\textbf{Client-side Setup}\label{VSID::Client-side-Setup}. $\mathtt{VSID.setup}(1^{\lambda}, u,k,M)$
+\begin{enumerate}
+\item Calls  $\mathtt{VS.setup}(1^{\lambda}, u,k,M)\rightarrow (\sigma,u^{\scriptscriptstyle *})$, to generate a   metadata: $\sigma=M(u^{\scriptscriptstyle *},k)$
+
+\item Generates non-interactive publicly verifiable zero-knowledge proofs asserting  $\sigma$ has been generated correctly, i.e. $\sigma$ is the output of  $M$ that is evaluated on $u^{\scriptscriptstyle *}$, $pk$ and $sk$, without revealing $sk$. Let $w_{\scriptscriptstyle\sigma}$ contains the proofs.
+\item\label{vsid::post-metadata} Posts $e:(\sigma,w_{\scriptscriptstyle\sigma})$ and $u^{\scriptscriptstyle *}$ to the bulletin board. 
+\end{enumerate}
+
+\item\textbf{Server-side Setup}. $\mathtt{VSID.serve}(u^{\scriptscriptstyle *},e,pk)$
+
+Ensures the metadata $\sigma$ has been constructed correctly, by verifying the proofs in $w_{\sigma}$ (where $\sigma,w_{\scriptscriptstyle\sigma}\in e$). If the proofs are accepted, then it outputs $a=1$  and proceeds to the next step; otherwise, it outputs $a=0$ and halts. 
+%\item\label{Server-side Setup-post} At time $P_0$ posts $1$ to the board,  if the proofs are accepted; otherwise, it posts $0$ to the board.  
+
+
+\item\textbf{Client-side Query Generation}\label{VSID::Client-side-QueryGeneration}. $\mathtt{VSID.genQuery}(1^{\lambda},  \text{aux},k,Q)$ 
+\begin{enumerate}
+\item Calls $\mathtt{VS.genQuery}(1^{\lambda}, \text{aux},k,Q)\rightarrow q$, to generate a query, $q:Q(\text{aux},k)$. If $\text{aux}$ is a private input, then it also commits to it,  that yields  $\mathtt{Com}_{\scriptscriptstyle \text{aux}}$
+\item Generates non-interactive publicly verifiable zero-knowledge proofs proving $q$ has been generated correctly, i.e. $q$ is the
+output of $Q$ which is evaluated on $\text{aux}$, $pk$ and $sk$, without revealing $sk$ (and $\text{aux}$, if it is a private input). Let $w_{\scriptscriptstyle q}$ contain the proofs and  $\text{aux}$ (or  $\mathtt{Com}_{\scriptscriptstyle \text{aux}}$ if $\text{aux}$ is a private input).
+%\item At time $P_1$ posts $c:(q,w_{q})$ to the board 
+\item Posts $c:(q,w_{\scriptscriptstyle q})$ to the board 
+\end{enumerate}
+
+\item\textbf{Server-side Query Verification}. $\mathtt{VSID.checkQuery}(c, pk)$
+
+Checks if   the query: $q\in c$ has been constructed correctly by verifying the proofs  $w_{\scriptscriptstyle q}\in c$. If the check passes, then it outputs $b=1$; otherwise, it outputs $b=0$
+
+%Checks if $c$ was posted on time, and also ensures  the query: $q\in c$ has been constructed correctly by verifying the proofs in $w_{q}$. If the checks pass, then it proceeds to the next step; otherwise, it aborts.
+%\item At time $P_2$, posts $1$ to the board, if  the proofs are accepted; otherwise, it  posts $0$ to the board and aborts.   
+
+
+\item\textbf{Server-side Service Proof Generation}. $\mathtt{VSID.prove}(u^{\scriptscriptstyle *},\sigma,c,pk)$ This phase starts only if the query was accepted, i.e. $b=1$ 
+\begin{enumerate}
+\item Calls $\mathtt{VS.prove}(u^{\scriptscriptstyle *},\sigma,q,pk)\rightarrow \pi$, to generate $\pi=(F(u^{\scriptscriptstyle *},q),\delta)$. Recall that $q\in c$
+\item Posts $\pi$ to the board. 
+%\item At time $P_2$ posts $\pi$ to the board. 
+\end{enumerate}
+
+\item\textbf{Client-side Proof Verification}. $\mathtt{VSID.verify}(\pi,q,k)$
+
+Calls $\mathtt{VS.verify}(\pi,q,k)\rightarrow d$, to verify  proof $\pi$. It accepts the proof if $d=1$; otherwise, it rejects it. 
+
+ %Checks if $\pi$ was posted on time.  If the check fails, then it aborts. Otherwise,  it calls $\mathtt{VS.verify}(\pi,q,k)\rightarrow d$, to verify the proof $\pi$. It accepts the proof if $d=1$; otherwise, it rejects it. 
+
+%\item At time $P_4$ posts $d$ to the board. 
+
+
+\item\textbf{Arbiter-side Identification}. $\mathtt{VSID.identify}(\pi,c,k,e,u^{\scriptscriptstyle *})$ 
+\begin{enumerate}
+
+
+\item\label{Arb-VSID.serve} Calls $\mathtt{VSID.serve}(u^{\scriptscriptstyle *},e,pk)\rightarrow a$. If $a=1$, then it proceeds to the next step. Otherwise, it outputs $I=\mathcal C$ and halts. 
+
+\item Calls $\mathtt{VSID.checkQuery}(c, pk)\rightarrow b$. If $b=1$, then it proceeds to the next step. Otherwise, it outputs $I=\mathcal C$ and halts. 
+
+\item  If $\pi$ is  privately verifiable, then the arbiter  first checks if $sk\in k$ (provided by the client along with other opening information) matches $\mathtt{Com}_{\scriptscriptstyle sk}\in pk$. If they do not match, then the arbiter outputs $I=\mathcal C$. Otherwise,  it calls $\mathtt{VS.verify}(\pi,q,k)\rightarrow d$. If $d=1$, then it outputs $I=\bot$; otherwise, it outputs $I=\mathcal S$
+\end{enumerate}
+\end{enumerate}
+
+\begin{remark}\label{remark::light-VSID}
+The above  $\mathtt{VSID.identify}()$ algorithm   allows an arbiter  to identify a misbehaving party even in the setup phase. Nevertheless, often it is sufficient  to let the arbiter pinpoint a corrupt party \emph{after} the client and server agree to deal with each other, i.e. after the setup when the server runs  $\mathtt{VSID.serve}()$ and outputs $1$. A VSID protocol that meets the latter (lighter) requirement, denoted by $\text{VSID}_{\scriptscriptstyle \text{light}}$, would impose lower costs  especially when $u$ and elements of $e$ are of large size. In  $\text{VSID}_{\scriptscriptstyle \text{light}}$, the client and server  run phases 1-3 of the VSID protocol as before, with a difference that the client does not post $e$ and $u^{\scriptscriptstyle*}$ to the board; instead, it sends them directly to the server. In $\text{VSID}_{\scriptscriptstyle\text{light}}$  the arbiter algorithm, i.e. $\mathtt{VSID.identify}()$, needs to take only $(\pi, c, pk, e')$ as input, where $e'$ contains the opening of $\mathtt{Com}_{\scriptscriptstyle {sk}}$ if $\mathtt{VSID.verify}()$ is privately verifiable or $e'=\bot$ if  it is publicly verifiable. In this light version, the arbiter   skips step \ref{Arb-VSID.serve}. Thus, $\text{VSID}_{\scriptscriptstyle\text{light}}$ saves (a)  communication cost, as   $u^{\scriptscriptstyle*}$ and $e$ are never sent to the board and  arbiter, and (b) computation  cost as the arbiter does not need to run $\mathtt{VSID.serve}()$ anymore.
+\end{remark}
+
+
+\begin{theorem}
+The VSID protocol satisfies the soundness, inputs well-formedness, and identifiable abort properties, w.r.t. Definitions \ref{deff::VSID-Soundness}-\ref{def::VSID-Identifiable-Abort}.
+\end{theorem}
+
+\input{VSID-Proof}
+
+
+
+
+%Note  in in step \ref{Server-side Setup-post} in VSID,  if the server accepts all proofs, it means  either $sk$, which is the opening of $\mathtt{Com}(sk)$, is a correct verification key if $\mathtt{VSID.verify}()$ is privately verifiable or $pk$ is a correct verification key if it is publicly verifiable. Therefore,  
+
+
+
+
+
+
+
+%\begin{remark}
+%As stated earlier, we can slightly adjust the VSID protocol to construct a lighter version, $\text{VSID}_{\text{light}}$, that is  more efficient than VSID  especially when $u^{\scriptscriptstyle *}$ and $(\sigma,w_{\scriptscriptstyle\sigma}) \in e$ are of large size. The idea is that in $\text{VSID}_{\scriptscriptstyle\text{light}}$ we let the arbiter to detect a corrupt party, \emph{after} the client and server run the setup  and  agree to deal with each other. In particular, the client and server  run phases 1-3 of the VSID protocol as before, with a different that in step \ref{vsid::post-metadata} the client only posts $e':\mathtt{Com}(sk)$ to the board and sends $\sigma,w_{\scriptscriptstyle\sigma}$ and $u^{*}$   directly to the server. In this setting,  the arbiter algorithm, $\mathtt{VSID.identify}()$, takes only $(\pi,c,k,e')$ as input and skips step \ref{Arb-VSID.serve}. Thus, $\text{VSID}_{\scriptscriptstyle\text{light}}$ saves (a)  communication cost, as  $\sigma,w_{\scriptscriptstyle\sigma}$ and $u^{*}$ are never sent to the board and  arbiter and (b) computation  cost as  arbiter does not need to run $\mathtt{VSID.serve}()$. 
+%\end{remark}
+
+
+%In the case where the party's outgoing message input is of large size, the parties can post a hash of the data to the board and send the data directly to its counter party. This requires, the other party to simply check if the data matches the representation and then sends to the board a short string declaring it has received it. 
+
+
+
+
+
+
+
+
+%In the above definition,  $\mathtt{Service.verify}()$ algorithm  allows a verifier to detect only a misbehaving server; nevertheless, it is not suitable to  detect a misbehaving client who may try to falsely accuse the server.  Thus, $\mathtt{Service.resolve()}$ algorithm has also been incorporated in the definition, to allow an arbiter to detect either party's misbehaviour and resolve any dispute between them.  Informally, a service scheme has two main properties: correctness and soundness. The correctness requires that for any key, the verification algorithm accepts a proof generated by an honest prover. The soundness requires that if a prover convinces the verifier (i.e. client or arbiter), with a high probability, then the service has been provided by the prover. {\color {blue} it seems undeniability and accountability/liability, i.e. a malicious party can be identified and held accountable, are needed too. Thin if it's needed here on in the main payment protocol.}
+%The exact formalisation of soundness however totally depends on the kind of service provided. 
+
+
+
+%Thus, since the two party are mutually distrusted, the above definition has also incorporated Service.resolve() algorithm that  allows an arbiter to resolve any dispute between client and server. 
+
+

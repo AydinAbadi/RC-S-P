@@ -1,0 +1,201 @@
+% This is LLNCS.DEM the demonstration file of
+% the LaTeX macro package from Springer-Verlag
+% for Lecture Notes in Computer Science,
+% version 2.4 for LaTeX2e as of 16. April 2010
+%
+%\documentclass[A4paper,11pt,orivec]{llncs}
+\documentclass[orivec]{llncs}
+%
+\usepackage{color, colortbl}
+\usepackage{capt-of}
+\usepackage[table]{xcolor}
+
+\usepackage{enumitem}
+\usepackage{makeidx}  % allows for indexgeneration
+\usepackage{amsfonts,amsmath,amssymb,graphicx,setspace,times,tipx}
+
+
+%\usepackage[ruled,linesnumbered]{algorithm2e}
+%\usepackage{subfig}
+\usepackage{framed}
+\usepackage{esvect}
+\usepackage{tikz}
+\usepackage{latexsym}
+\usepackage{multirow}
+\let\oldReturn\Return
+%\renewcommand{\Return}{\State\oldReturn}
+%\usepackage{algpseudocode}
+\usepackage[mathscr]{eucal}
+\usepackage{algpseudocode}
+
+\usepackage{algorithm}
+
+
+\usepackage{listings}
+\pagestyle{plain}
+\usepackage{fullpage}
+\usepackage{array}
+\usepackage{subcaption}
+\captionsetup{compatibility=false}
+\newcommand{\vars}{\texttt}
+\newcommand{\func}{\textrm}
+\newcommand{\resizeT}{\scalebox{1}}
+\newcommand{\resizeS}{\scalebox{.56}}
+\newcommand{\resizeSS}{\scalebox{.38}}
+
+\usepackage{longtable}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{pgfplots, pgfplotstable}
+
+%\usepackage{kbordermatrix}% http://www.hss.caltech.edu/~kcb/TeX/kbordermatrix.sty
+\usepackage{blkarray}% http://ctan.org/pkg/blkarra
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{adjustbox}
+\usepackage{blindtext}
+\usepackage{multicol}
+
+\definecolor{bubblegum}{rgb}{0.99, 0.76, 0.8}
+
+
+
+
+\usepackage{makecell, cellspace, caption}
+
+
+
+\definecolor{Gray}{gray}{0.9}
+%\usepackage[left=3cm,right=3cm,top=3cm,bottom=3cm]{geometry}
+%
+
+\usepackage[first=0,last=9]{lcg}
+\newcommand{\ra}{\rand0.\arabic{rand}}
+
+\usepackage[title]{appendix}
+
+\usepackage{boxedminipage}
+
+\usepackage{multirow}
+
+
+%\usepackage{makeidx}  % allows for indexgeneration
+
+%\usepackage[ruled,linesnumbered]{algorithm2e}
+%\usepackage{enumitem}
+%\usepackage[empty]{fullpage}% http://ctan.org/pkg/fullpage
+%\usepackage{amsfonts,amsmath,amssymb,graphicx,setspace,times,tipx}
+%\usepackage{kbordermatrix}% http://www.hss.caltech.edu/~kcb/TeX/kbordermatrix.sty
+%\usepackage{blkarray}% http://ctan.org/pkg/blkarra
+
+
+\usepackage{adjustbox}
+\usepackage{blindtext}
+\usepackage{multicol}
+%\usepackage{lipsum}
+%\usepackage{amsthm}
+%\newtheorem*{assumption*}{\assumptionnumber}
+\usepackage{tablefootnote}
+
+\newtheorem{assumption}{Assumption}
+
+
+\newcommand\NameEntry[1]{%
+  \multirow{3}*{%
+    \begin{varwidth}{10em}% --- or minipage, if you prefer a fixed width
+    \flushright #1%
+    \end{varwidth}}}
+
+
+
+
+\newcommand{\specialcell}[2][c]{%
+  \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{document}
+  \setlength\abovedisplayskip{0pt}
+  \setlength\belowdisplayskip{0pt}
+
+
+\newenvironment{packed_item}{
+\begin{itemize}
+	\setlength{\topsep}{0pt}
+	\setlength{\partopsep}{0pt}
+  \setlength{\itemsep}{0pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{itemize}}
+
+\newenvironment{packed_enum}{
+\begin{enumerate}
+	\setlength{\topsep}{0pt}
+	\setlength{\partopsep}{0pt}
+  \setlength{\itemsep}{0pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{enumerate}}
+
+
+
+
+%\newtheorem{definition}{Definition}
+%\newtheorem{theorem}{Theorem}
+%\newtheorem{lemma}{Lemma}
+%\newtheorem{claim}{Claim}
+
+\title{Recurring Contingent Service Payments}
+%
+%\titlerunning{Hamiltonian Mechanics}  % abbreviated title (for running head)
+%                                     also used for the TOC unless
+%                                     \toctitle is used
+%
+\author{}
+%%
+\institute{}
+
+%\email{....}\\
+%}
+
+\maketitle              % typeset the title of the contribution
+%
+%\vspace{-6mm}
+\begin{abstract}
+
+
+
+
+\end{abstract}
+ \input{content.tex}
+
+
+
+%\input{mod-2.tex}
+% ---- Bibliography ----
+%
+%\bibliographystyle{splncs}
+
+\bibliographystyle{splncs03}
+\bibliography{ref}
+\appendix
+
+
+\end{document}

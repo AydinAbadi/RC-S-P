@@ -1,0 +1,96 @@
+% !TEX root =R-zkCSP.tex
+
+
+\subsection{Recurring Contingent Service Payment (R-CSP) Protocol}
+
+
+In this section, we provide our main protocol: R-CSP. At a high level the protocol works as follows.  In the setup phase, right before the client uses the service,  client and server agree on a statement that includes payment details (using SAP). Also they agree on  a smart contract that specifies: (a) the total number of proofs/verifications, (b) the total amount of masked coins each party should deposit. They deploy the contract.  Each party deposits its masked coins in the contract. If the deposit amount is less than what is stated in the contract, each party has a chance to withdraw its coins and terminate the contract. Next, to start using/providing the service, they run the $\mathtt{Service.setup}()$ and $\mathtt{Service.serve}()$ algorithm of the  service scheme. If the server decides not to serve (e.g. it detect the client's misbehaviour when it runs the $\mathtt{Service.serve()}$ algorithm),  sends 0  within a fixed time, then the parties can withdraw their deposit and terminate the contract. Otherwise, it sends 1 to the contract. In the proving phase, every time a server generates a proof of service (e.g. PoR) its sends the signed proof to the client who locally verifies the proof. If the verification is passed, then it knows the server has delivered the service honestly. However, if the proof is rejected (or never received) it waits until all proofs are provided and after the agreed time $H$  elapses.  Then, the client is given a time window to raise a dispute.  During the dispute resolution phase, for each invalid proof, the client sends ``dispute'' message to the contract and it sends the proof and the verification key to an arbiter. The arbiter (given the proofs), runs $\mathtt{Service.resolve()}$ algorithm in Service protocol. It sends to the contract ``accepted'' or ``rejected'' message if $\mathtt{Service.resolve}()$ outputs $1$ or $0$ respectively. In the next phase, to distribute the coins, either client or server  sends: (a) ``pay'' message, (b) the agreed statement, and (c) the statement's proof to the contract, who verifies the statement and if approved it distributes the coins according to the statement and the proofs status, i.e. whether any dispute has raised and if so the arbiter's input. 
+
+%To prevent the client from framing the sever, it is required that the service protocol to be secure against a malicious client. Do this end, the client commits to the verification ket and stores the commitment in the contract. Then, it commits to the verification key and sends the commitment signed and proof to the server proving (in ZK) to the server that the metadata has been correctly computed and it knows the verification key. 
+
+
+%In this section, we provide our main protocol: R-CSP. At a high level the protocol works as follows.  In the setup phase, right before the client uses the service,  client and server agree on a statement that includes payment details. To reach on a verifiable agreement on the statement, they use SAP presented in section \ref{SAP}. Also, they agree on a symmetric encryption's key and  
+%a smart contract that specifies: (a) the total number of proofs/verifications, (b) the total amount of masked coins each party should pay, and (c) the hash of the key. They deploy the contract.  Each party deposits its masked coins in the contract. If the deposit amount is less than what is stated in the contract, each party has a chance to withdraw its coins and terminate the contract.   In the proving phase, every time a server generates a proof of service (e.g. PoR), it encrypts the proof under the key: $k$ and sends the ciphertext to the contract. To verify the proof, the client fetches the ciphertext from the contract, decrypts it and verifies the proof locally. If the verification is passed, then it knows the server has delivered the service honestly. However, if the proof is rejected (or never received) it waits until all proofs are provided and after the agreed time $T$  elapses.  Then, the client is given a time window to raise a dispute. During the dispute resolution phase, for each invalid proof, the client sends ``dispute'' message to the contract. Also, it sends the key: $k$ to an arbiter who locally checks the proof. For each proof the arbiter accepts/rejects, it sends  ``accepted''/``rejected'' message to the contract.  In the next phase, to distribute the coins, either client or server  sends: (a) ``pay'' message, (b) the agreed statement, and (c) its proof to the contract, who  distributes the coins according to the statement and the proofs status, i.e. whether any dispute has raised and if so the arbiter's input. 
+
+As stated earlier, if the client avoids sending any input after the setup phase, its coins will be transferred to the server. If the client lies about a proof's validity, its claim will be re-checked and  it will be detected. Therefore, the client cannot waste the server resources and coins.  Since, during the private time bubble (i.e. during service usage, verification time and the agreed time $T$) no plaintext proof is given to the contract and no dispute resolution and coin transfer take place on contract, the public cannot figure out the outcome of each verification. This  preserves the server's privacy. Also, because deposited coins are masked and the agreed statement is kept private,  during the private time bubble nothing about the detail of the service used by the client   is leaked. This preserves the client's privacy. Furthermore, as either party can prove to the contract the validity of the agreed statement and ask the contract to distribute the coins, the coins will be not be locked and will be distributed among both parties fairly, i.e. as stated in the statement and according to the proofs' status. Also, if the server sends an invalid proof or the client raise tries to frame the server, then the misbehaving party will pay the arbiter cost. 
+
+\begin{enumerate}
+\item \textbf{Setup}. 
+\begin{enumerate}
+\item C constructs a vector $\vv{\bm{v}}$, initially empty. 
+\item C and S agree on the number of the service's proofs/verifications: $z$, the amount of coins for each accepting proof: $a$, and the amount of coins  to cover the cost of each potential dispute' resolution: $b$. Also, they agree on the amount of masking coins the client and server will use: $e$ and $f$ respectively. 
+
+\item C and S construct  a statement of the  form: $x=(a,b,e,f,z)$.   
+\item For C and S to provably agree on $x$, they take the steps in the Setup and Agreement phases in the SAP, at time $T_0$. Let $\mu$ be the statement's proof. 
+
+\item S picks a random key $k$ and sends it to C.
+\item For C and S to provably agree on $k$, they take the steps in the Setup and Agreement phases in the SAP again, at time $T_1$. Let $\mu'$ be the proof. 
+
+
+\item C and S agree on a smart contract: SC, that specifies the total number of the service's proofs: $z$ and total amount of masked coins each party should deposit, i.e. the client and server should deposit $p=z(a+b)+e$ and $q=zb+f$ coins, respectively. They sign and deploy the contract. 
+
+\item C and S deposit their masked coins in SC at time $T_2$.
+\item At time $T_3$, if the deposit amount either party has put is less than the mount stated in SC, then SC allows each party to withdraw its
+coins and terminate the contract.
+
+\item C runs $\mathtt{Service.setup()}$ and accordingly the server runs $\mathtt{Service.serve()}$ algorithm in the service scheme. 
+
+\item S sends the output of $\mathtt{Service.serve()}$  to SC at time $T_{4}$.
+\item C and S can withdraw their coins at time $T_{5}$, if the server sends 0 or nothing. 
+
+\end{enumerate}
+\item \textbf{Billing-cycles}. At each time $G_{j}$, (where $1\leq j\leq z$ and $G_1>T_{5}$), that a proof is generated, the parties perform as follows. 
+\begin{enumerate}
+\item C calls $\mathtt{Service.genChall()}$ to generate a set of challenges and sends them to SC. 
+\item S calls $\mathtt{Service.prove()}$, given the challenges, to generate $j$-th proof: $\pi_{j}$ 
+\item S sends the proof's encryption: $w_j=\mathtt{Enc}(k,\pi_{j})$ to SC. 
+\item C fetches $w_j$ from SC and decrypts it: $\mathtt{Dec}(k,w_j)=\pi_{j}$
+\item C runs $\mathtt{Service.verify()}$ to check the validity of $\pi_{j}$ 
+\item C appends $j$  to $\vv{\bm{v}}$, if $\pi_{j}$ is rejected.
+
+\end{enumerate}
+\item \textbf{Dispute Resolution}. The phase takes place only in  case of dispute. 
+\begin{enumerate}
+\item C at time $K_1>G_z+H$ sends ``dispute'' message to the contract. 
+\item C  invokes the arbiter and sends $(\vv{\bm{v}},k,\mu')$ to it. 
+
+\item The Arbiter checks the validity of $k$ by sending $k$ and $\mu'$ to SAP contract which  returns  either $1$ or $0$. The arbiter proceeds to the next step if the output is 1; otherwise, it does nothing. 
+\item The Arbiter decrypts those proofs whose index are in $\vv{\bm{v}}$. In particular,  $\forall i\in \vv{\bm{v}}: \mathtt{Dec}(k,w_i)=\pi_i$
+\item The Arbiter for every $\pi_i$, where $i\in\vv{\bm{v}}$,   invokes $\mathtt{Service.resolve()}$ to resolve the dispute. Let $u$ and $y$  be total number of times $\mathtt{Service.resolve()}$ returns $1$ and $0$ respectively.  
+\item The Arbiter sends $u$ and $y$ to SC at time $K_{2}$. 
+\end{enumerate}
+\item \textbf{Coin Transfer}.
+\begin{enumerate}
+\item Either C or S send ``pay'' message,  the statement: $x$ and the statement proof: $\mu$ to SC at time $L>K_2$.
+\item SC checks the validity of the statement by sending $x$ and $\mu$ to SAP contract which  returns  either $1$ or $0$. SC only proceeds to the next step if the output is 1. 
+\item SC distributes the coins to the parties as follows:
+
+\begin{itemize}
+\item[$\bullet$]   $p-yb-a(z-u)$ coins  to C.
+\item[$\bullet$] $q-ub+a(z-u)$ coins to S.
+\item[$\bullet$] $b(y+u)$ coins to the arbiter.  
+\end{itemize}
+
+\end{enumerate}
+\end{enumerate}
+
+
+\begin{remark} The server schemed defined in  Section does not (need to) support the privacy of the proofs. However, in the main protocol above each proof's privacy must be preserved (for a certain time); otherwise, the proof itself can leak its status (e.g. when it can be publicly verifiable). This is the reason the encrypted proofs are sent to the contract.   
+
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

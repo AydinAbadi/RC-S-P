@@ -1,0 +1,88 @@
+% !TEX root =R-zkCSP.tex
+
+\subsection{Statement Agreement Protocol (SAP)}\label{SAP}
+
+
+
+In this section, we explain how a client and server, mutually distrusted, can efficiently agree on a private statement, e.g.  a string or tuple, that will be used to reclaim parties' masking coins when the private bubble bursts. Informally, a statement agreement protocol (SAP) is secure if it meets three security properties. First, neither party should be able to persuade  a third-party  verifier that it has agreed with its counter-party on an invalid statement, i.e. the statement that both parties have not agreed on. Second, after they successfully agree on the statement,  an honest party should be able to successfully prove it to the verifier, i.e. an adversary cannot prevent an honest party from successfully proving it. Third, the privacy of the statement should be preserved, (against other parties than the client and server before either of them attempt to prove the agreement on the statement). To that end, we use a combination of smart contract and commitment scheme. The idea is as follows. Let $x$ be the statement. The client picks a random value and uses it to commit to $x$. It sends the commitment to the contract and the commitment opening (i.e. statement and the random value) to the server. The server checks if the opening matches the commitment and if so, it commits to the statement using the same random value and sends its commitment to the contract. Later on, for a party to prove to the contract, i.e. the verifier, that it has an agreed on the statement with the other party, it only sends the opening of the commitment.  The contract checks if the opening matches both commitments and accepts if it matches. 
+
+% either neither  party can successfully prove it has  an agreement with its counter-party, or either party can prove it to the verifier. 
+
+ \begin{enumerate}
+ \item\textbf{Setup}.  Both parties agree on the SAP smart contract and deploy it.
+
+  
+    \item\textbf{Agreement}.
+  \begin{enumerate}
+   \item $\mathcal C$ picks a random value: $r$, and commits to the statement, $\mathtt{Com}(x,r)=g_{\scriptscriptstyle C}$
+   
+   
+   \item $\mathcal C$ sends $\ddot{x}=(x,r)$  to  $\mathcal S$ and sends $g_{\scriptscriptstyle\mathcal C}$ to the contract. 
+   \item $\mathcal S$ checks $\mathtt{Ver}(g_{\scriptscriptstyle C}, \ddot{x})\stackrel{?}=1$. If the output is $1$, then  it computes $\mathtt{Com}(x,r)=g_{\scriptscriptstyle S}$
+   
+   \item $\mathcal S$   stores $g_{\scriptscriptstyle\mathcal S}$ in the contract. 
+    \end{enumerate}
+   \item\textbf{Prove}. For either $\mathcal C$ or $\mathcal S$ to prove, it has agreement on $x$ with its counter-party, it sends $\ddot{x}=(x, r)$  to the contract. 
+ \item\textbf{Verify}. Given $\ddot{x}$, the contract does the following. 
+   \begin{enumerate}
+
+   \item checks if $\mathtt{Ver}(g_{\scriptscriptstyle C},\ddot{x})=\mathtt{Ver}(g_{\scriptscriptstyle S},\ddot{x}) =1$
+   
+   \item outputs $1$, if the above equation holds; otherwise, it outputs $0$
+    \end{enumerate}
+ \end{enumerate}
+
+  
+  
+  
+  
+%  \item\textbf{Agreement}.
+%  \begin{enumerate}
+%   \item $\mathcal S$ picks a random value: $r$, and commits to the statement: $\mathtt{H}(x||r)=g_{\scriptscriptstyle S}$
+%   \item $\mathcal S$ sends $r$  to the client and sends $g_{\scriptscriptstyle\mathcal S}$ to the contract. 
+%   \item $\mathcal C$ checks: $\mathtt{H}(x||r)\stackrel{?}=g_{\scriptscriptstyle \mathcal S}$. If the equation  holds, it computes $\mathtt{H}(x||r)=g_{\scriptscriptstyle\mathcal C}$
+%   \item $\mathcal C$   stores $g_{\scriptscriptstyle\mathcal C}$ in the contract. 
+%    \end{enumerate}
+%   \item\textbf{Prove}. For either $\mathcal C$ or $\mathcal S$ to prove, it has agreement on $x$ with its counter-party, it sends $\mu=(x, r)$  to the contract. 
+% \item\textbf{Verify}. Given $\mu$, the contract does the following. 
+%   \begin{enumerate}
+%
+%   \item checks if $\mathtt{H}(x||r)=g_{\scriptscriptstyle\mathcal C}=g_{\scriptscriptstyle\mathcal S}$
+%   \item outputs $1$, if the above equation holds; otherwise, it outputs $0$
+%    \end{enumerate}
+% \end{enumerate}
+
+
+
+%
+% \begin{enumerate}
+% \item\textbf{Setup}.  Both parties agree on a  smart contract and deploy it, such that the parties public keys, $pk_{\scriptscriptstyle C}$ and $pk_{\scriptscriptstyle S}$, are encoded in the contract.
+%
+%  
+%  \item\textbf{Agreement}.
+%  \begin{enumerate}
+%   \item The server picks a random value: $r$, and commits to the statement: $H(s||r)=y_{\scriptscriptstyle S}$.
+%   \item The server sends $r$  to the client and sends $y_{\scriptscriptstyle S}$ to the contract. 
+%   \item The client checks: $H(s||r)\stackrel{?}=y_{\scriptscriptstyle S}$. If the equation  holds, it computes $H(s||r)=y_{\scriptscriptstyle C}$.
+%   \item The client   stores $y_{\scriptscriptstyle C}$ in the contract. 
+%    \end{enumerate}
+%   \item\textbf{Prove}. For either $C$ or $S$ to prove, it has agreement on $s$ with its counter-party, it sends $\mu=(s, r)$, in a signed transaction, to the contract. 
+% \item\textbf{Verify}. Given $\mu$, the contract does the following. 
+%   \begin{enumerate}
+%   \item verifies the public keys related to  signatures of $y_{\scriptscriptstyle C}$ and $y_{\scriptscriptstyle S}$ match $pk_{\scriptscriptstyle C}$ and $pk_{ \scriptscriptstyle S}$ respectively.
+%   \item checks if $H(s||r)=y_{\scriptscriptstyle C}=y_{\scriptscriptstyle S}$.
+%   \item outputs 1, if the above equation holds; otherwise, it outputs 0.
+%    \end{enumerate}
+% \end{enumerate}
+ 
+ %Note that the above protocol is one-off, which means after first party
+ 
+ Intuitively, the first property is guaranteed due to binding property of the (hash-based) commitment scheme, while the second property is satisfied due to the security of the blockchain and smart contract, i.e. due to blockchain's liveness property an honestly generated transaction, containing the opening,  eventually gets into  chains of honest miners \cite{GarayKL15}, and due to   security and correctness of smart contracts a valid opening is always accepted by the contract. The third property is met due to the hiding property of the commitment.  
+ 
+ Note, one may simply let each party  sign the statement and send it to the other party, so later on each party can send both signatures to the contract who verifies them. But, this would not work,  as the party who first receives the other party's signature  may refuse  to send its  signature, that prevents the other party to prove that it has an agreed on the statement with its counter-party. Alternatively, one may want to use a protocol for a fair exchange of digital signature (or fair contract signing) such as \cite{BonehN00,DBLP:conf/fc/GarayJ02}. In this case, after both parties have the other party's signature, they can sign the statement themselves and send the two signatures to the contract; who first checks the validity of both  signatures. Although this satisfies the above security requirements, it yields two main efficiency and practical issues: (a) it imposes very high computation costs, as  protocols for fair exchange of signature involve generic zero-knowledge proofs and require a high number of modular exponentiations. And (b) it is impractical, because protocols for fair exchange of signature protocol support only certain signature schemes (e.g. RSA, Rabin, or Schnorr) that are not directly supported by the most predominant  smart contract framework,  Ethereum, as it only supports  Elliptic Curve Digital Signature Algorithm (EDCSA).
+
+
+
+
+
+

@@ -1,0 +1,71 @@
+% !TEX root =R-zkCSP.tex
+
+\subsection{Limitations of zkCSP}
+
+Recall,  the main purpose of zero-knowledge contingent service payment (zkCSP) protocol \cite{CampanelliGGN17}  is to minimise the role of smart contract as much as possible, so  (a) the verification's cost would be much lower, if a Turing-complete smart contract framework (e.g. Ethereum) is used, or (b) it can be implemented on  a non-Turing-complete contract framework (e.g. Bitcoin).   
+
+
+Nevertheless, as we will show,  zkCSP suffers from  major issues; namely, it allows a malicious client to waste the server resources and  it leaks non-trivial information in real-time to the public. Also, when the payment is recurring (i.e. the server interacts with a client multiple times and/or the server interact with multiple clients), a malicious client can get a free ride from the server, in the sense that it can collect enough fresh information convincing him that the server is behaving honestly, without paying the server. In the following, we elaborate on the  above issues: 
+
+%shorts fall of  offering what could be offered if a service verification is performed by a Turing complete smart contract, in both one-off and recurring payment. To illustrate the problem, without loss of generality, we assume the service is proofs of retrievability (PoR), an application of zkCSP suggested by the authors of \cite{CampanelliGGN17}. 
+
+
+%Nevertheless, as we will show,  zkCSP shorts fall of  offering what could be offered if a service verification is performed by a Turing complete smart contract, in both one-off and recurring payment. To illustrate the problem, without loss of generality, we assume the service is proofs of retrievability (PoR), an application of zkCSP suggested by the authors of \cite{CampanelliGGN17}. 
+
+%\
+%
+%\noindent\textbf{{Problem Statement}}: In short, zkCSP is not suitable for the case where the payment is recurring and a fixed prover deals with multiple clients over time. In this setting,  a malicious client can get a free ride from an honest server  without paying it, by  observing the server's past behavior. In the following, we elaborate on that.  Consider the case where an \emph{honest} server deals with $n$ clients. In this case, according to zkCSP, all clients have already uploaded their file to the server and want to pay it when they get an accepting PoR proof. Let's assume the server invokes the zkCSP with $n-1$ clients and accordingly it gets paid. However, $n$-th client can observe that the server has behaved honestly all the time, as it received all coins from all $n-1$ clients.  The malicious client may either never engages in the zkCSP protocol and never pay, even though it has been using the storage, or to get further assurance it engages in zkCSP up to the point where it has to deposit the coins (i.e. as soon as it accepts the zk proof provided by the prover, it aborts and again never pays). However, such problems would never arise in the naive  solution where the contract performs the service verification. We elaborate on that below. 
+
+ 
+%\
+%
+%\noindent\textbf{{Trivial solution using Ethereum smart contract}}: Consider the case, where  client and server sign and agree on a smart contract. Then, when a client uploads its data on the server, it deposits and locks a fixed amount of coins in a contract, such that the client cannot get its coins back before the verification time. Later on, when PoR proof is needed, the server generates and sends the proof to the contract, who (a) verifies the proof, and (b) transfers the coins to the server if the proof is accepted. As it is evident, this setting (unlike zkCSP)  does not suffer from the above issues caused by a malicious client. 
+%
+%
+%Hence, the zkCSP  does not offer  the same security guarantees that  the above trivial scheme offers.  Instead, it leaves rooms for attacks and  misuse of the service. 
+
+
+
+\begin{enumerate}
+
+%\item\textit{Coins Transfer Requires Clients' Approval}. zkCSP does not enforce the client to commit to a locked deposit that can be redeemed if and only if an accepting PoR proof is provided at the end of a billing cycle. In other words,  the transfer of the deposit requires the client's engagement and approval, after it receives a proof from the server. This allows  a malicious client who has been   using the service,  to avoid sending its approval to the contract  at the payment time. Therefore, a server's resources (e.g. the storage space allocated to the client's data) are wasted. As we will show shortly, in recurring payments (when the server deals with multiple clients) a malicious client can collect  convincing information about an honest server  that allows it to conclude that it has been  served honestly; even though, it does not pay the server and does not check the proof. Thus, it can  get a free ride from the server. 
+
+
+\item\textit{Discrepancies between the Security Guarantees of Service and Fair Exchange Schemes}. zkCSP combines a service scheme secure against only a malicious server (where a client is assumed to be fully trusted) with a fair exchange protocol that takes into the consideration that either server or client might be corrupt.  The mismatch leads to serious consequences when the client misbehaves. For instance, in zkCSP the transfer of the deposit requires the client's engagement and approval, after it receives a proof from the server. This allows  a malicious client who has been using the service,  to avoid sending its approval to the contract or falsely claims the proofs are invalid at the payment time. So, an honest server's resources (e.g. the storage space allocated to the client's data) are wasted. As we will show shortly, in recurring payments (when the server deals with multiple clients) a malicious client can collect  convincing information about an honest server  that allows it to conclude that it has been  served honestly; even though, it does not pay the server and does not check the proof. Thus, it can  get a free ride from the server. 
+
+
+
+%\item\textit{Coins Transfer is Public and Immediate}. 
+
+\item\textit{Real-time Leakage of Verification Outputs and Deposit Amount}. zkCSP leaks in real-time non-trivial fresh information,  about  the server and clients, to the public. The leakage includes:
+\begin{enumerate}
+ \item\textit{proof verification status}: it is visible in the real time to everyone that the proof has been accepted or reject, that reflects whether  the server has successfully delivered the agreed-upon service or failed to do so that has serious immediate consequences for both the server and clients, e.g. lost revenue, negative press, stock value drop, or opening doors for attackers to exploit such incident. As an example, observing  proof's verification outputs (when a server deals with multiple clients) allows a malicious client to immediately construct a comprehensive background knowledge on the server's current behaviour and status, e.g. the server has been  acting honestly.  Such auxiliary information can assist the  client to more wisely exploit the above deposit issue (that can avoid sending the deposit); for instance, when the sever always acts honestly towards its clients, the client refuses to send the deposit and still  has  high confidence that the server has delivered the service. As another example, in the case of PoR, a malicious observer can  simply find out that the service is suffering hardware/software failure and exploit such vulnerability to  mount   social engineering attacks on clients or penetrate to the system. 
+
+ 
+\item \textit{deposit amount}: the amount of deposit placed on the contract,  swiftly leaks non-trivial  information about the client to the public. For instance, in the case of PoR, an observer can learn the size of data outsourced to the server, service type or level of data sensitivity. The situation gets even worse if the client updates its data (e.g. delete or append) or asks the server for additional service (e.g. S3 Glacier or S3 Glacier Deep Archive\footnote{https://aws.amazon.com/s3/pricing/}), as an observer can learn such changes immediately by just observing the amount of deposit put by the client for each payment.  
+
+
+
+
+\end{enumerate}
+%For instance, the deposit transfer is public and takes place as soon as the client declares to the contract that it accepted the proof. An adversary can take advantage of this data leakage in certain cases. For instance,  observing the outputs of zkCSP invoked by the server and other clients,  allows a malicious client to eventually construct a comprehensive background knowledge on the server's current behaviour, e.g. the server has been  acting honestly. Note, the server (or its address) is fixed and known to the public, so the background knowledge can be linked to it. The amount of deposit placed on the contract,  immediately leaks non-trivial  information to the public that includes, data size, service type or level of data sensitivity. Since usually proof of services (and a bill) is provided by a server on a regular basis (e.g. every month) an adversary can learn in the \emph{real time} what kinds of service are being used by the client. Furthermore, the immediate transfer of coins, leaks to the public that whether the service delivered the agreed service or failed doing so. This also can have serious consequences, for instance in the case of PoR, a malicious observer can  simply find out that the service is suffering hardware/software failure and exploit such vulnerability to  mount certain  attacks, e.g. social engineering attacks on clients or penetrating to the system. 
+
+
+\end{enumerate}
+
+
+\noindent\textbf{{Strawman Solutions for the Two Problems}}. To address  Problem 1, one may slightly adjust the zkCSP protocol such that it would require  the client to deposit coins (long) before the server provides the ZK to it, with the hope that the client cannot avoid depositing after the server  provides ZK proofs. Nevertheless, this would not work, as the client after accepting the ZK proof, needs to send a confirmation message/transaction to the contract. But a malicious client can avoid doing so and later on, gets its deposit back.  Moreover, one might want to let the server pick a fresh address for each verifier/verification, to  preserver its pseudonymity with the hope that an observer cannot link clients to a server. However, for this to work, we have to assume multiple service providers  use the same protocol on the blockchain and all of them are pseudonymous. But, this is a strong assumption and may  not be always feasible. Alternatively, one may let a smart contract to perform the verification on the client's behalf, such that the client deposits its coins in the contract when it starts using the service. Then, the server sends its proof to the contract who performs the verification and pays the server if the proof is accepted. Even though this approach would solve problem 1 above, it imposes a high cost and defeats the purpose of zkCSP design. The reason is that the contract has to always run the verification algorithm that  has to be a publicly verifiable one, which  usually involves costly public-key primitives. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

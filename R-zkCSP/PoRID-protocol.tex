@@ -1,0 +1,131 @@
+% !TEX root =R-zkCSP.tex
+
+
+\subsection{PoRID Protocol}
+
+In this section, we propose ``PoR with identifiable abort'' (PoRID) that is a concrete instantiation of $\text{VSID}_{\scriptscriptstyle\text{light}}$. It is built upon the PoR protocol, presented in the previous section and is in the same security model as $\text{VSID}_{\scriptscriptstyle\text{light}}$ is, i.e. either $\mathcal C$ or $\mathcal S$ can be malicious. In PoRID similar to $\text{VSID}_{\scriptscriptstyle\text{light}}$, $\mathcal C$ and $\mathcal S$ use a bulletin board to exchange signed messages.  In the protocol, at setup $\mathcal C$ encodes its file and generates public parameters and  metadata.  It posts the public parameters and metadata to the bulletin board and   sends the encoded file to the server. Next, $\mathcal S$ runs a few lightweight checks to ensure the correctness of the public parameters and metadata. It agrees to serve, if it is convinced of their correctness. Later, when $\mathcal C$ wants to ensure the availability of its outsourced file, it  generates and posts a query  to the board.   $\mathcal S$  checks the correctness of the query, by performing a couple of highly efficient verifications to ensure its correctness. 
+
+The server-side prove and client-side verify algorithms are similar to those in PoR with a difference that $\mathcal S$ posts the PoR proofs (i.e. output of prove algorithm) to the board. In  case of any dispute, $\mathcal C$ or $\mathcal S$ invokes the arbiter who, given the signed posted messages, checks the proofs  to identify a corrupt party. In particular,  it first checks the validity of the query (regardless of the party who invokes it). However, if  is invoked by  $\mathcal C$, it also checks  only one of the PoR proofs that the client claims it is invalid. Thus, it is much more efficient than $\text{VSID}_{\scriptscriptstyle\text{light}}$ as it does not need any zero-knowledge proofs (mainly due to the use of Merkle tree) and requires the  arbiter to check only one of the proofs (due  to the idea of proof of misbehaviour). PoRID protocol is presented below.
+
+
+
+
+%In this section, we propose PoR with identifiable abort: PoRID. Here we consider the light version of  PoRID due to its efficiency. 
+
+%However, if $M$ takes as inputs private parameters, then the client commits to the parameters and  
+
+
+\begin{enumerate}
+%\item\textbf{Key Generation}. $\mathtt{VSID.KeyGen}(1^{\lambda},F)$ 
+%\begin{enumerate}
+%\item Calls  $\mathtt{VS.KeyGen}(1^{\lambda},F)$ to generate a pair of secret and public keys, $k:(sk,pk)$.
+%%\item Commits to the secret keys: $sk\in k$. This yields: $\mathtt{Com}(sk)$.
+%\item Posts $pk$ to a bulletin board. 
+%\end{enumerate}
+%\item \textbf{keyGen}. $\mathtt{PoR.keyGen}(1^{\lambda})$. $\mathcal{C}$ sets $pk$ as public key, initially empty.    
+\item\textbf{Client-side Setup}. $\mathtt{PoRID.setup}(1^{\lambda}, u)$
+\begin{enumerate}
+\item Calls  $\mathtt{PoR.setup}(1^{\lambda}, u)\rightarrow (u^{\scriptscriptstyle *},pk)$, that results in public parameters $pk:(\sigma,\beta,m,\zeta)$ and encoded file: $u^{\scriptscriptstyle *}=u^{\scriptscriptstyle '}_{\scriptscriptstyle 0}||0,...,u^{\scriptscriptstyle '}_{\scriptscriptstyle m}||m$. Recall,  $\zeta:(\psi,\eta, \iota)$ is the $\mathtt{PRF}$'s description.
+
+\item Posts $pk$ to the bulletin board and sends $u^{\scriptscriptstyle *}$ to $\mathcal{S}$ 
+\end{enumerate}
+
+\item\textbf{Server-side Setup}. $\mathtt{PoRID.serve}(u^{\scriptscriptstyle *},pk)$
+%\begin{enumerate}
+
+Verifies the correctness of public parameters:
+\begin{enumerate}
+\item rebuilds  the Merkle tree on $u^{\scriptscriptstyle *}$ and checks the resulting root equals $\sigma$
+\item checks $|u^{*}|=m$ and  $\beta\leq m$
+\end{enumerate}
+ If the proofs are accepted, then it proceeds to the next step; otherwise, it halts.
+ 
+%\item Posts $1$ to the board,  if the above checks pass; otherwise, it posts $0$ to the board.  
+
+%\end{enumerate}
+
+\item\textbf{Client-side Query Generation}. $\mathtt{PoRID.genQuery}(1^{\lambda},  pk)$ 
+\begin{enumerate}
+\item Calls $\mathtt{PoR.genQuery}(1^{\lambda}, pk)\rightarrow \hat{k}$, to generate a key, $\hat{k}$ %whose element have been sorted in ascending order. 
+%\item Sorts the queries in ascending order. Let vector $ {\bm{q}}'$ contain the ordered random indices (i.e.  $ {\bm{q}}'[i]< {\bm{q}}'[i+1]$, where $i\in [0,\beta-1]$).
+\item Posts $\hat{k}$ to the board. 
+\end{enumerate}
+
+
+
+
+\item\textbf{Server-side Query Verification}. $\mathtt{PoRID.checkQuery}(\hat{k}, pk)$
+\begin{enumerate}
+\item  Checks if  $\hat{k}$ is not empty, i.e. $\hat{k}\neq \bot$, and is in the key's universe, i.e. $\hat{k}\in \{0,1\}^{\scriptscriptstyle\psi}$%If it is empty, then it outputs $I=\mathcal C$
+\item  If the checks pass, then it outputs $b=1$; otherwise, it outputs $b=0$
+% If the check passes, then it proceeds to the next step; otherwise, it aborts.
+
+%\item Verifies if  the query: $ {\bm{q}}$ has been constructed correctly as follows. 
+\end{enumerate}
+%
+%\begin{enumerate}
+%\item  checks the query vector size: $| {\bm{q}}|\stackrel{\scriptscriptstyle ?}=\beta$. If the equation does not hold, then it posts  $b=0$ to the board and aborts. Otherwise, it proceeds to the next step. 
+%\item verifies that the elements of $ {\bm{q}}$ are in ascending order, by checking if there are two consecutive elements of the vector: $(q_{\scriptscriptstyle i},q_{\scriptscriptstyle i+1})\in  {\bm{q}}$, such that: $q_{\scriptscriptstyle i}\not<q_{\scriptscriptstyle i+1}$.  If the pair is found, then it posts  $b:(0,i)$ to the board and aborts. Otherwise, it proceeds to the next step. 
+%\end{enumerate}
+%\item Posts $b=1$ to the board, if the above two checks pass.  
+%\end{enumerate}
+
+\item\textbf{Server-side Service Proof Generation}. $\mathtt{PoRID.prove}(u^{\scriptscriptstyle *},\hat{k},pk)$ 
+\begin{enumerate}
+\item Calls $\mathtt{PoR.prove}(u^{\scriptscriptstyle *},\hat{k},pk)\rightarrow  {\bm{\pi}}$, to generate proof vector: $ {\bm{\pi}}$ 
+\item Posts $ {\bm{\pi}}$ to the board. 
+\end{enumerate}
+
+\item\textbf{Client-side Proof Verification}. $\mathtt{PoRID.verify}( {\bm{\pi}},\hat{k} ,pk)$
+%\begin{enumerate}
+
+ Calls $\mathtt{PoR.verify}( {\bm{\pi}},\hat{k} ,pk)\rightarrow  {\bm{d}}$, to verify the proof. If $ {\bm{d}}[0] = 1$,  it accepts the proof; otherwise, it rejects it.
+%\item Posts $  {\bm{d}}$ to the board. 
+%\end{enumerate}
+
+\item\textbf{Arbiter-side Identification}. $\mathtt{PoRID.identify}( {\bm{\pi}}, g,\hat{k},pk)$ 
+
+This algorithm can be invoked by $\mathcal{C}$ or $\mathcal{S}$, in the case of dispute. If it is invoked by $\mathcal{C}$, then $g$ refers to a rejected proof's  index; however, if it is invoked by $\mathcal{S}$, then $g$ is null, i.e.  $g=\bot$. The arbiter performs as follows. 
+
+
+\begin{enumerate}
+
+%\item Calls $\mathtt{VSID.checkQuery}(c, pk)\rightarrow b$. If $b=1$, then it proceeds to the next step. Otherwise, it outputs $I=\mathcal C$ and aborts. 
+%\item   Ensures $ {\bm{d}}[0]=0$; otherwise, it aborts.
+
+\item Ensures  query $\hat{k}$ is well-structured by calling $\mathtt{PoRID.checkQuery}(\hat{k}, pk)$. If it returns $b=0$, then it outputs $I=\mathcal C$ and halts; otherwise, it proceeds to the next step. 
+
+
+%not empty (i.e. $\hat{k}\neq \bot$). If it is empty, then it outputs $I=\mathcal C$
+
+\item Derives the related challenged block's index from $\hat{k}$, by computing $q_{\scriptscriptstyle g}=\mathtt{PRF}(\hat{k},g)\bmod m+1$ 
+
+
+
+\item If $g\neq \bot$, then verifies only $g$-th proof, by calling $\mathtt{PoR.verify}( {\bm{\pi}}[g],q_{\scriptscriptstyle g},pk)\rightarrow  {\bm{d}}'$. If $ {\bm{d}}'[0]=0$, then it outputs $I=\mathcal S$. Otherwise, it outputs $I=\bot$
+\end{enumerate}
+\end{enumerate}
+
+
+\begin{theorem}
+The PoRID protocol satisfies the soundness, inputs well-formedness, and identifiable abort properties, w.r.t. Definitions \ref{deff::VSID-Soundness}-\ref{def::VSID-Identifiable-Abort}.
+\end{theorem}
+
+\input{Recurring-Contingent-PoR-Payment-protocol.tex}
+%In the case where the party's outgoing message input is of large size, the parties can post a hash of the data to the board and send the data directly to its counter party. This requires, the other party to simply check if the data matches the representation and then sends to the board a short string declaring it has received it. 
+
+
+
+
+
+
+
+
+%In the above definition,  $\mathtt{Service.verify}()$ algorithm  allows a verifier to detect only a misbehaving server; nevertheless, it is not suitable to  detect a misbehaving client who may try to falsely accuse the server.  Thus, $\mathtt{Service.resolve()}$ algorithm has also been incorporated in the definition, to allow an arbiter to detect either party's misbehaviour and resolve any dispute between them.  Informally, a service scheme has two main properties: correctness and soundness. The correctness requires that for any key, the verification algorithm accepts a proof generated by an honest prover. The soundness requires that if a prover convinces the verifier (i.e. client or arbiter), with a high probability, then the service has been provided by the prover. {\color {blue} it seems undeniability and accountability/liability, i.e. a malicious party can be identified and held accountable, are needed too. Thin if it's needed here on in the main payment protocol.}
+%The exact formalisation of soundness however totally depends on the kind of service provided. 
+
+
+
+%Thus, since the two party are mutually distrusted, the above definition has also incorporated Service.resolve() algorithm that  allows an arbiter to resolve any dispute between client and server. 
+
+

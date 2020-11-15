@@ -1,0 +1,53 @@
+This is BibTeX, Version 0.99d (TeX Live 2020)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: R-zkCSP.aux
+The style file: splncs03.bst
+Database file #1: ref.bib
+Warning--I didn't find a database entry for ""
+Warning--empty year in BonehN00
+Warning--empty year in CampanelliGGN17
+Warning--empty year in DBLP:conf/fc/GarayJ02
+Warning--empty year in KosbaMSWP16
+Warning--empty year in Pedersen91
+You've used 11 entries,
+            2785 wiz_defined-function locations,
+            654 strings with 6713 characters,
+and the built_in function-call counts, 5479 in all, are:
+= -- 397
+> -- 212
+< -- 5
++ -- 84
+- -- 72
+* -- 337
+:= -- 746
+add.period$ -- 15
+call.type$ -- 11
+change.case$ -- 81
+chr.to.int$ -- 0
+cite$ -- 16
+duplicate$ -- 502
+empty$ -- 499
+format.name$ -- 85
+if$ -- 1157
+int.to.chr$ -- 0
+int.to.str$ -- 11
+missing$ -- 115
+newline$ -- 38
+num.names$ -- 32
+pop$ -- 249
+preamble$ -- 1
+purify$ -- 53
+quote$ -- 0
+skip$ -- 130
+stack$ -- 0
+substring$ -- 174
+swap$ -- 248
+text.length$ -- 5
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 42
+warning$ -- 5
+while$ -- 40
+width$ -- 13
+write$ -- 104
+(There were 6 warnings)
