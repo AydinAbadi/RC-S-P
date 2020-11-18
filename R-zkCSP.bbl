@@ -2,6 +2,11 @@
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\urlprefix}{URL }
 
+\bibitem{DBLP:conf/ccs/AtenieseBCHKPS07}
+Ateniese, G., Burns, R.C., Curtmola, R., Herring, J., Kissner, L., Peterson,
+  Z.N.J., Song, D.X.: Provable data possession at untrusted stores. In:
+  {CCS}'07
+
 \bibitem{BonehN00}
 Boneh, D., Naor, M.: Timed commitments. In: Bellare, M. (ed.) {CRYPTO} 2000
 
@@ -55,5 +60,9 @@ Pedersen, T.P.: Non-interactive and information-theoretic secure verifiable
 \bibitem{DBLP:conf/asiacrypt/ShachamW08}
 Shacham, H., Waters, B.: Compact proofs of retrievability. In: ASIACRYPT. pp.
   90--107 (2008)
+
+\bibitem{ShenT11}
+Shen, S., Tzeng, W.: Delegable provable data possession for remote data in the
+  clouds. In: {ICICS} 2011
 
 \end{thebibliography}

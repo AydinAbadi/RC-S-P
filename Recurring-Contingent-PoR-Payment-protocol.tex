@@ -16,12 +16,12 @@ In the next phase, to distribute the coins, either client or server sends to the
 \item \textbf{Key Generation}. 
 \begin{enumerate}
 
-\item  $\mathcal C$  picks a random secret key  $\bar{k}$ for a symmetric key encryption. Also, it sets  parameter $pad_{\scriptscriptstyle \pi}$ which is the number of  dummy values that will be used to pad encrypted proofs,  let $qp:(pad_{\scriptscriptstyle \pi}, \bar{k})$. The key's size is part of the security parameter. 
+\item  $\mathcal C$  picks a random secret key  $\bar{k}$ for a symmetric key encryption. Also, it sets  parameter $pad_{\scriptscriptstyle \pi}$ which is the number of  dummy values that will be used to pad encrypted proofs,  let $qp:=(pad_{\scriptscriptstyle \pi}, \bar{k})$. The key's size is part of the security parameter. 
 
 
 
 
-\item  $\mathcal C$ sets coin parameters as   follows,   $o$: the amount of coins for each accepting proof,  as well as $l$ and $l'$ which are the amount of coins $\mathcal C$ and $\mathcal S$ respectively need to send to a smart contract to resolve a potential dispute.  Let $k':\{o,l,l',qp\}$. 
+\item  $\mathcal C$ sets coin parameters as   follows,   $o$: the amount of coins for each accepting proof,  as well as $l$ and $l'$ which are the amount of coins $\mathcal C$ and $\mathcal S$ respectively need to send to a smart contract to resolve a potential dispute.  Let $k':=\{o,l,l',qp\}$. 
 
 
 \end{enumerate}
@@ -29,10 +29,10 @@ In the next phase, to distribute the coins, either client or server sends to the
 \item \textbf{Initiation}. 
 \begin{enumerate}
 
-\item For $\mathcal C$ and $\mathcal S$ to provably agree on $qp$, $\mathcal C$ sends $qp$ to  $\mathcal S$.  Next (if the $\mathcal S$ agrees on the parameters) they take the steps in the Setup and Agreement phases in the SAP, at time $T_{\scriptscriptstyle 0}$. Let $t_{\scriptscriptstyle qp}=(\ddot{x}_{\scriptscriptstyle qp},g_{\scriptscriptstyle qp})$ be proof encoding token,  where  $\ddot{x}_{\scriptscriptstyle qp}$ is the opening and $g_{\scriptscriptstyle qp}$ is the commitment stored on the contract as a result of running   SAP. 
+\item For $\mathcal C$ and $\mathcal S$ to provably agree on $qp$, $\mathcal C$ sends $qp$ to  $\mathcal S$.  Next (if the $\mathcal S$ agrees on the parameters) they take the steps in the Setup and Agreement phases in the SAP, at time $T_{\scriptscriptstyle 0}$. Let $t_{\scriptscriptstyle qp}:=(\ddot{x}_{\scriptscriptstyle qp},g_{\scriptscriptstyle qp})$ be proof encoding token,  where  $\ddot{x}_{\scriptscriptstyle qp}$ is the opening and $g_{\scriptscriptstyle qp}$ is the commitment stored on the contract as a result of running   SAP. 
 
 
-\item Let  $cp:(o,o_{\scriptscriptstyle max},l,l',l_{\scriptscriptstyle max},z)$, where $o_{\scriptscriptstyle max}$ is the maximum amount of coins  for an accepting service proof,  $l_{\scriptscriptstyle max}$  is the maximum amount of coins to resolve a potential dispute, and $z$ is the number of  service proofs/verifications. For $\mathcal C$ and $\mathcal S$ to provably agree on $cp$, similar to the previous step, they invoke SAP, at time $T_{\scriptscriptstyle 1}$.  Let $t_{\scriptscriptstyle cp}=(\ddot{x}_{\scriptscriptstyle cp},g_{\scriptscriptstyle cp})$ be coin encoding token,  where  $\ddot{x}_{\scriptscriptstyle cp}$ is the opening and $g_{\scriptscriptstyle cp}$ is the commitment stored on the contract as a result of executing the  SAP. 
+\item Let  $cp:=(o,o_{\scriptscriptstyle max},l,l',l_{\scriptscriptstyle max},z)$, where $o_{\scriptscriptstyle max}$ is the maximum amount of coins  for an accepting service proof,  $l_{\scriptscriptstyle max}$  is the maximum amount of coins to resolve a potential dispute, and $z$ is the number of  service proofs/verifications. For $\mathcal C$ and $\mathcal S$ to provably agree on $cp$, similar to the previous step, they invoke SAP, at time $T_{\scriptscriptstyle 1}$.  Let $t_{\scriptscriptstyle cp}:=(\ddot{x}_{\scriptscriptstyle cp},g_{\scriptscriptstyle cp})$ be coin encoding token,  where  $\ddot{x}_{\scriptscriptstyle cp}$ is the opening and $g_{\scriptscriptstyle cp}$ is the commitment stored on the contract as a result of executing the  SAP. 
 
 
 \item $\mathcal C$ sets   $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}=z\cdot (o_{\scriptscriptstyle max}+l_{\scriptscriptstyle max})$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}=z\cdot l_{\scriptscriptstyle max}$, where $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$ are   the total number of masked coins that $\mathcal C$ and $\mathcal S$ should deposit respectively. $\mathcal C$ signs and deploys  a smart contract, SC, that explicitly specifies  parameters $z$,  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$. It deposits $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ coins in the contract.

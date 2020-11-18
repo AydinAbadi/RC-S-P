@@ -25,7 +25,7 @@ The server-side prove and client-side verify algorithms are similar to those in 
 %\item \textbf{keyGen}. $\mathtt{PoR.keyGen}(1^{\lambda})$. $\mathcal{C}$ sets $pk$ as public key, initially empty.    
 \item\textbf{Client-side Setup}. $\mathtt{PoRID.setup}(1^{\lambda}, u)$
 \begin{enumerate}
-\item Calls  $\mathtt{PoR.setup}(1^{\lambda}, u)\rightarrow (u^{\scriptscriptstyle *},pk)$, that results in public parameters $pk:(\sigma,\beta,m,\zeta)$ and encoded file: $u^{\scriptscriptstyle *}=u^{\scriptscriptstyle '}_{\scriptscriptstyle 0}||0,...,u^{\scriptscriptstyle '}_{\scriptscriptstyle m}||m$. Recall,  $\zeta:(\psi,\eta, \iota)$ is the $\mathtt{PRF}$'s description.
+\item Calls  $\mathtt{PoR.setup}(1^{\lambda}, u)\rightarrow (u^{\scriptscriptstyle *},pk)$, that results in public parameters $pk:=(\sigma,\beta,m,\zeta)$ and encoded file: $u^{\scriptscriptstyle *}=u^{\scriptscriptstyle '}_{\scriptscriptstyle 0}||0,...,u^{\scriptscriptstyle '}_{\scriptscriptstyle m}||m$. Recall,  $\zeta:=(\psi,\eta, \iota)$ is the $\mathtt{PRF}$'s description.
 
 \item Posts $pk$ to the bulletin board and sends $u^{\scriptscriptstyle *}$ to $\mathcal{S}$ 
 \end{enumerate}
@@ -108,7 +108,7 @@ This algorithm can be invoked by $\mathcal{C}$ or $\mathcal{S}$, in the case of 
 
 
 \begin{theorem}
-The PoRID protocol satisfies the soundness, inputs well-formedness, and identifiable abort properties, w.r.t. Definitions \ref{deff::VSID-Soundness}-\ref{def::VSID-Identifiable-Abort}.
+The PoRID protocol satisfies the soundness, inputs well-formedness, and detectable abort properties, w.r.t. Definitions \ref{deff::VSID-Soundness}-\ref{def::VSID-Identifiable-Abort}.
 \end{theorem}
 
 \input{Recurring-Contingent-PoR-Payment-protocol.tex}

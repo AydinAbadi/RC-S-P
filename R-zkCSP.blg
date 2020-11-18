@@ -4,50 +4,52 @@ The top-level auxiliary file: R-zkCSP.aux
 The style file: splncs03.bst
 Database file #1: ref.bib
 Warning--I didn't find a database entry for ""
+Warning--empty year in DBLP:conf/ccs/AtenieseBCHKPS07
 Warning--empty year in BonehN00
 Warning--empty year in CampanelliGGN17
 Warning--empty year in DBLP:conf/fc/GarayJ02
 Warning--empty year in KosbaMSWP16
 Warning--empty year in Pedersen91
-You've used 11 entries,
+Warning--empty year in ShenT11
+You've used 13 entries,
             2785 wiz_defined-function locations,
-            654 strings with 6713 characters,
-and the built_in function-call counts, 5479 in all, are:
-= -- 397
-> -- 212
+            664 strings with 7094 characters,
+and the built_in function-call counts, 6405 in all, are:
+= -- 457
+> -- 261
 < -- 5
-+ -- 84
-- -- 72
-* -- 337
-:= -- 746
-add.period$ -- 15
-call.type$ -- 11
-change.case$ -- 81
++ -- 104
+- -- 90
+* -- 395
+:= -- 874
+add.period$ -- 17
+call.type$ -- 13
+change.case$ -- 100
 chr.to.int$ -- 0
-cite$ -- 16
-duplicate$ -- 502
-empty$ -- 499
-format.name$ -- 85
-if$ -- 1157
+cite$ -- 20
+duplicate$ -- 584
+empty$ -- 578
+format.name$ -- 105
+if$ -- 1344
 int.to.chr$ -- 0
-int.to.str$ -- 11
-missing$ -- 115
-newline$ -- 38
-num.names$ -- 32
-pop$ -- 249
+int.to.str$ -- 13
+missing$ -- 136
+newline$ -- 44
+num.names$ -- 36
+pop$ -- 303
 preamble$ -- 1
-purify$ -- 53
+purify$ -- 66
 quote$ -- 0
-skip$ -- 130
+skip$ -- 150
 stack$ -- 0
-substring$ -- 174
-swap$ -- 248
+substring$ -- 184
+swap$ -- 284
 text.length$ -- 5
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 42
-warning$ -- 5
-while$ -- 40
-width$ -- 13
-write$ -- 104
-(There were 6 warnings)
+type$ -- 50
+warning$ -- 7
+while$ -- 44
+width$ -- 15
+write$ -- 120
+(There were 8 warnings)

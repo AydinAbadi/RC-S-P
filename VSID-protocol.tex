@@ -23,7 +23,7 @@ In this section, we present the VSID protocol. We show how it  can be built upon
 \item Calls  $\mathtt{VS.setup}(1^{\lambda}, u,k,M)\rightarrow (\sigma,u^{\scriptscriptstyle *})$, to generate a   metadata: $\sigma=M(u^{\scriptscriptstyle *},k)$
 
 \item Generates non-interactive publicly verifiable zero-knowledge proofs asserting  $\sigma$ has been generated correctly, i.e. $\sigma$ is the output of  $M$ that is evaluated on $u^{\scriptscriptstyle *}$, $pk$ and $sk$, without revealing $sk$. Let $w_{\scriptscriptstyle\sigma}$ contains the proofs.
-\item\label{vsid::post-metadata} Posts $e:(\sigma,w_{\scriptscriptstyle\sigma})$ and $u^{\scriptscriptstyle *}$ to the bulletin board. 
+\item\label{vsid::post-metadata} Posts $e:=(\sigma,w_{\scriptscriptstyle\sigma})$ and $u^{\scriptscriptstyle *}$ to the bulletin board. 
 \end{enumerate}
 
 \item\textbf{Server-side Setup}. $\mathtt{VSID.serve}(u^{\scriptscriptstyle *},e,pk)$
@@ -34,16 +34,16 @@ Ensures the metadata $\sigma$ has been constructed correctly, by verifying the p
 
 \item\textbf{Client-side Query Generation}\label{VSID::Client-side-QueryGeneration}. $\mathtt{VSID.genQuery}(1^{\lambda},  \text{aux},k,Q)$ 
 \begin{enumerate}
-\item Calls $\mathtt{VS.genQuery}(1^{\lambda}, \text{aux},k,Q)\rightarrow q$, to generate a query, $q:Q(\text{aux},k)$. If $\text{aux}$ is a private input, then it also commits to it,  that yields  $\mathtt{Com}_{\scriptscriptstyle \text{aux}}$
-\item Generates non-interactive publicly verifiable zero-knowledge proofs proving $q$ has been generated correctly, i.e. $q$ is the
-output of $Q$ which is evaluated on $\text{aux}$, $pk$ and $sk$, without revealing $sk$ (and $\text{aux}$, if it is a private input). Let $w_{\scriptscriptstyle q}$ contain the proofs and  $\text{aux}$ (or  $\mathtt{Com}_{\scriptscriptstyle \text{aux}}$ if $\text{aux}$ is a private input).
+\item Calls $\mathtt{VS.genQuery}(1^{\lambda}, \text{aux},k,Q)\rightarrow \bm{q}$, to generate a query vector, $\bm{q}:Q(\text{aux},k)$. If $\text{aux}$ is a private input, then it also commits to it,  that yields  $\mathtt{Com}_{\scriptscriptstyle \text{aux}}$
+\item Generates non-interactive publicly verifiable zero-knowledge proofs proving $\bm{q}$ has been generated correctly, i.e. $\bm{q}$ is the
+output of $Q$ which is evaluated on $\text{aux}$, $pk$ and $sk$, without revealing $sk$ (and $\text{aux}$, if it is a private input). Let $\bm{w}_{\scriptscriptstyle q}$ contain the proofs and  $\text{aux}$ (or  $\mathtt{Com}_{\scriptscriptstyle \text{aux}}$ if $\text{aux}$ is a private input).
 %\item At time $P_1$ posts $c:(q,w_{q})$ to the board 
-\item Posts $c:(q,w_{\scriptscriptstyle q})$ to the board 
+\item Posts $c:(\bm{q},\bm{w}_{\scriptscriptstyle q})$ to the board 
 \end{enumerate}
 
 \item\textbf{Server-side Query Verification}. $\mathtt{VSID.checkQuery}(c, pk)$
 
-Checks if   the query: $q\in c$ has been constructed correctly by verifying the proofs  $w_{\scriptscriptstyle q}\in c$. If the check passes, then it outputs $b=1$; otherwise, it outputs $b=0$
+Checks if   the query: $\bm{q}\in c$ has been constructed correctly by verifying the proofs  $\bm{w}_{\scriptscriptstyle q}\in c$. If the check passes, then it outputs $b=1$; otherwise, it outputs $b=0$
 
 %Checks if $c$ was posted on time, and also ensures  the query: $q\in c$ has been constructed correctly by verifying the proofs in $w_{q}$. If the checks pass, then it proceeds to the next step; otherwise, it aborts.
 %\item At time $P_2$, posts $1$ to the board, if  the proofs are accepted; otherwise, it  posts $0$ to the board and aborts.   
@@ -51,14 +51,14 @@ Checks if   the query: $q\in c$ has been constructed correctly by verifying the 
 
 \item\textbf{Server-side Service Proof Generation}. $\mathtt{VSID.prove}(u^{\scriptscriptstyle *},\sigma,c,pk)$ This phase starts only if the query was accepted, i.e. $b=1$ 
 \begin{enumerate}
-\item Calls $\mathtt{VS.prove}(u^{\scriptscriptstyle *},\sigma,q,pk)\rightarrow \pi$, to generate $\pi=(F(u^{\scriptscriptstyle *},q),\delta)$. Recall that $q\in c$
+\item Calls $\mathtt{VS.prove}(u^{\scriptscriptstyle *},\sigma, \bm{q},pk)\rightarrow \pi$, to generate $\pi:=(F(u^{\scriptscriptstyle *},\bm{q}),\delta)$. Recall that $\bm{q}\in c$
 \item Posts $\pi$ to the board. 
 %\item At time $P_2$ posts $\pi$ to the board. 
 \end{enumerate}
 
-\item\textbf{Client-side Proof Verification}. $\mathtt{VSID.verify}(\pi,q,k)$
+\item\textbf{Client-side Proof Verification}. $\mathtt{VSID.verify}(\pi,\bm{q},k)$
 
-Calls $\mathtt{VS.verify}(\pi,q,k)\rightarrow d$, to verify  proof $\pi$. It accepts the proof if $d=1$; otherwise, it rejects it. 
+Calls $\mathtt{VS.verify}(\pi,\bm{q},k)\rightarrow d$, to verify  proof $\pi$. It accepts the proof if $d=1$; otherwise, it rejects it. 
 
  %Checks if $\pi$ was posted on time.  If the check fails, then it aborts. Otherwise,  it calls $\mathtt{VS.verify}(\pi,q,k)\rightarrow d$, to verify the proof $\pi$. It accepts the proof if $d=1$; otherwise, it rejects it. 
 
@@ -73,7 +73,7 @@ Calls $\mathtt{VS.verify}(\pi,q,k)\rightarrow d$, to verify  proof $\pi$. It acc
 
 \item Calls $\mathtt{VSID.checkQuery}(c, pk)\rightarrow b$. If $b=1$, then it proceeds to the next step. Otherwise, it outputs $I=\mathcal C$ and halts. 
 
-\item  If $\pi$ is  privately verifiable, then the arbiter  first checks if $sk\in k$ (provided by the client along with other opening information) matches $\mathtt{Com}_{\scriptscriptstyle sk}\in pk$. If they do not match, then the arbiter outputs $I=\mathcal C$. Otherwise,  it calls $\mathtt{VS.verify}(\pi,q,k)\rightarrow d$. If $d=1$, then it outputs $I=\bot$; otherwise, it outputs $I=\mathcal S$
+\item  If $\pi$ is  privately verifiable, then the arbiter  first checks if $sk\in k$ (provided by the client along with other opening information) matches $\mathtt{Com}_{\scriptscriptstyle sk}\in pk$. If they do not match, then the arbiter outputs $I=\mathcal C$. Otherwise,  it calls $\mathtt{VS.verify}(\pi, \bm{q},k)\rightarrow d$. If $d=1$, then it outputs $I=\bot$; otherwise, it outputs $I=\mathcal S$
 \end{enumerate}
 \end{enumerate}
 
@@ -83,7 +83,7 @@ The above  $\mathtt{VSID.identify}()$ algorithm   allows an arbiter  to identify
 
 
 \begin{theorem}
-The VSID protocol satisfies the soundness, inputs well-formedness, and identifiable abort properties, w.r.t. Definitions \ref{deff::VSID-Soundness}-\ref{def::VSID-Identifiable-Abort}, if the commitment, non-interactive publicly verifiable zero-knowledge, VS, and signature schemes are secure. 
+The VSID protocol satisfies the soundness, inputs well-formedness, and detectable abort properties, w.r.t. Definitions \ref{deff::VSID-Soundness}-\ref{def::VSID-Identifiable-Abort}, if the commitment, non-interactive publicly verifiable zero-knowledge, VS, and signature schemes are secure. 
 \end{theorem}
 
 \input{VSID-Proof}

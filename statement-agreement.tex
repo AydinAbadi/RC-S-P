@@ -21,12 +21,12 @@ In this section, we explain how a client and server, mutually distrusted, can ef
    \item $\mathcal C$ picks a random value $r$, and commits to the statement, $\mathtt{Com}(x,r)=g_{\scriptscriptstyle \mathcal{C}}$
    
    
-   \item $\mathcal C$ sends $\ddot{x}=(x,r)$  to  $\mathcal S$. Also, $\mathcal C$ using its account sends $g_{\scriptscriptstyle\mathcal C}$ to the contract. 
+   \item $\mathcal C$ sends $\ddot{x}:=(x,r)$  to  $\mathcal S$. Also, $\mathcal C$ using its account sends $g_{\scriptscriptstyle\mathcal C}$ to the contract. 
    \item $\mathcal S$ checks if has been sent from $adr_{\scriptscriptstyle \mathcal{C}}$, and $\mathtt{Ver}(g_{\scriptscriptstyle\mathcal C}, \ddot{x})\stackrel{?}=1$. If the checks pass, then  it computes $\mathtt{Com}(x,r)=g_{\scriptscriptstyle\mathcal S}$
    
    \item $\mathcal S$ using its account sends   $g_{\scriptscriptstyle\mathcal S}$ to the contract. 
     \end{enumerate}
-   \item\textbf{Prove}. For either $\mathcal C$ or $\mathcal S$ to prove, it has agreement on $x$ with its counter-party, it sends $\ddot{x}=(x, r)$  to the contract. 
+   \item\textbf{Prove}. For either $\mathcal C$ or $\mathcal S$ to prove, it has agreement on $x$ with its counter-party, it sends $\ddot{x}:=(x, r)$  to the contract. 
  \item\textbf{Verify}. Given $\ddot{x}$, the contract does the following. 
    \begin{enumerate}
    

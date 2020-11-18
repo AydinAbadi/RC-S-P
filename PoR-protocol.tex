@@ -26,7 +26,7 @@ In this section, we present a modified version of the standard Merkle tree-based
 \item\textbf{Client-side Setup}. $\mathtt{PoR.setup}(1^{\lambda},u)$  
 \begin{enumerate}
 \item Uses an error correcting code, e.g. Reed-Solomon codes, to encode  the file: $u$. Let $u'$ be the encoded file. It splits $u'$  into  blocks as follows, $u^{\scriptscriptstyle *}=u^{\scriptscriptstyle '}_{\scriptscriptstyle 0}||0,...,u^{\scriptscriptstyle '}_{\scriptscriptstyle m}||m$
-\item Generates  metadata: $\sigma$, by constructing Merkle tree on blocks of $u^{\scriptscriptstyle *}$, i.e. $\mathtt{MT.genTree}(u^{\scriptscriptstyle *})$. Let $\sigma$ be the root of the resulting tree, and $\beta$ be a security parameter. It sets public  parameters as $pk: (\sigma,\beta,m,\zeta)$, where $\zeta:(\psi,\eta, \iota)$ is a $\mathtt{PRF}$'s description, as it was defined in Section \ref{preliminaries}
+\item Generates  metadata: $\sigma$, by constructing Merkle tree on blocks of $u^{\scriptscriptstyle *}$, i.e. $\mathtt{MT.genTree}(u^{\scriptscriptstyle *})$. Let $\sigma$ be the root of the resulting tree, and $\beta$ be a security parameter. It sets public  parameters as $pk:= (\sigma,\beta,m,\zeta)$, where $\zeta:=(\psi,\eta, \iota)$ is a $\mathtt{PRF}$'s description, as it was defined in Section \ref{preliminaries}
 \item Sends $pk$ and $u^{\scriptscriptstyle *}$ to $\mathcal{S}$
 \end{enumerate}
 
