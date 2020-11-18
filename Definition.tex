@@ -197,7 +197,7 @@ $$ \Pr\left[
 \end{array} \middle |
     \begin{array}{l}
     
-    \mathcal{A}_{\scriptscriptstyle 2}(1^{\scriptscriptstyle\lambda},F,M,Q)\rightarrow (u^{\scriptscriptstyle *},k:=(sk,pk),e:=(\sigma,w_{\sigma}),\text{aux})\\
+    \mathcal{A}_{\scriptscriptstyle 2}(1^{\scriptscriptstyle\lambda},F,M,Q)\rightarrow (u^{\scriptscriptstyle *},k:=(sk,pk),e:=(\sigma,w_{\sigma}))\\
     \mathtt{VSID.serve}(u^{\scriptscriptstyle *},e,pk)\rightarrow a\\
        \mathcal{A}_{\scriptscriptstyle 2}(\text{aux},k)\rightarrow c:=(\bm{q},\bm{w}_{\scriptscriptstyle q})\\
     \mathtt{VSID.checkQuery}(c, pk)\rightarrow b\\
@@ -211,18 +211,57 @@ The   above property ensures an honest server can detect  a malicious client if 
 
 %\textcolor{blue}{XXXXThomas: I think we have to find another name for this property. VSID already contains identifiable abort (the "ID" part). XXXX}--Aydin- done-- I've changed the property's name to ''detectable abort''
 
-\begin{definition}[VSID Detectable Abort]\label{def::VSID-Identifiable-Abort}  A  VSID  supports  detectable abort   if the following holds.  Let  $(\pi,c,k,e,u^{\scriptscriptstyle *})$ be the parameters defined above. Then,  for any  security parameter $\lambda$ any  functions $F, M,Q$, , any auxiliary information $\text{aux}$, any probabilistic polynomial time adversary $\mathcal{A}\in \{\mathcal{A}_{\scriptscriptstyle 1},\mathcal{A}_{\scriptscriptstyle 2}\}$ who plays either of the  games in Definitions \ref{deff::VSID-Soundness} and \ref{deff::VSID-Inputs-Well-formedess}, there exists a negligible function $\mu(\cdot)$, such that: 
-%\footnotesize{
+\begin{definition}[VSID Detectable Abort]\label{def::VSID-Identifiable-Abort}  A  VSID  supports  detectable abort if for any  security parameter $\lambda$ any  functions $F, M,Q$, and any auxiliary information $\text{aux}$ the following hold: 
+
+1. For any PPT adversary $\mathcal{A}_{\scriptscriptstyle 1}$ there exists a negligible function $\mu_{\scriptscriptstyle 1}(\cdot)$ such that
 \small{
 $$ \Pr\left[
   \begin{array}{l}
-\mathtt{VSID.identify}(\pi,c,k,e,u^{\scriptscriptstyle *})\rightarrow I \  \ \wedge \ \ \mathcal{A}\neq I\\
-
-\end{array} 
-    \right]\leq \mu(\lambda)\;.$$
+ d=0 \wedge I\neq\mathcal{S}
+\end{array} \middle |
+    \begin{array}{l}
+    \mathtt{VSID.keyGen}(1^{\lambda},F)\rightarrow k:=(sk,pk)\\
+    \mathcal{A}_{\scriptscriptstyle 1}(1^{\scriptscriptstyle\lambda},pk, F)\rightarrow u\\
+    \mathtt{VSID.setup}(1^{\lambda}, u, k, M)\rightarrow (u^{\scriptscriptstyle *},e)\\
+    \mathtt{VSID.genQuery}(1^{\lambda},  \text{aux},k,Q)\rightarrow c:=(\bm{q}, \bm{w}_{q})\\
+     \mathcal{A}_{\scriptscriptstyle 1}(c,e, u^{\scriptscriptstyle *})\rightarrow \pi:=(h,\delta)\\
+     \mathtt{VSID.verify}(\pi,\bm{q},k)\rightarrow d\\
+     \mathtt{VSID.identify}(\pi,c,k,e,u^{\scriptscriptstyle *})\rightarrow I\\
+\end{array}    \right]\leq \mu_{\scriptscriptstyle 1}(\lambda)\;.$$
 }
-%where, in case $\mathcal{A}=\mathcal{A}_{\scriptscriptstyle 1}$, the probability is taken over uniform  choice of $k\stackrel{\scriptscriptstyle\$}\leftarrow \{0,1\}^{\scriptscriptstyle\lambda}$ as well as the randomness of $\mathcal{A}_{\scriptscriptstyle 1}$, in case $\mathcal{A}=\mathcal{A}_{\scriptscriptstyle 2}$, the probability is taken over the randomness used in  proofs $w_{\scriptscriptstyle q}$ and $w_{\scriptscriptstyle\sigma}$  and the randomness of $\mathcal{A}_{\scriptscriptstyle 2}$.
+\normalsize
+
+2. For any PPT adversary $\mathcal{A}_{\scriptscriptstyle 2}$ there exists a negligible function $\mu_{\scriptscriptstyle 2}(\cdot)$ such that
+\small{
+$$ \Pr\left[
+  \begin{array}{l}
+ (a=0 \vee b=0)\wedge I\neq\mathcal{C}
+\end{array} \middle |
+    \begin{array}{l}
+    
+    \mathcal{A}_{\scriptscriptstyle 2}(1^{\scriptscriptstyle\lambda},F,M,Q)\rightarrow (u^{\scriptscriptstyle *},k:=(sk,pk),e:=(\sigma,w_{\sigma}))\\
+    \mathtt{VSID.serve}(u^{\scriptscriptstyle *},e,pk)\rightarrow a\\
+       \mathcal{A}_{\scriptscriptstyle 2}(\text{aux},k)\rightarrow c:=(\bm{q},\bm{w}_{\scriptscriptstyle q})\\
+    \mathtt{VSID.checkQuery}(c, pk)\rightarrow b\\
+    \mathtt{VSID.prove}(u^{\scriptscriptstyle *},\sigma,c,pk)\rightarrow \pi\\
+    \mathtt{VSID.identify}(\pi,c,k,e,u^{\scriptscriptstyle *})\rightarrow I\\
+\end{array}    \right]\leq \mu_{\scriptscriptstyle 2}(\lambda)\;.$$
+}
+
 \end{definition}
+
+%\begin{definition}[VSID Detectable Abort]\label{def::VSID-Identifiable-Abort}  A  VSID  supports  detectable abort   if the following holds.  Let  $(\pi,c,k,e,u^{\scriptscriptstyle *})$ be the parameters defined above. Then,  for any  security parameter $\lambda$ any  functions $F, M,Q$, , any auxiliary information $\text{aux}$, any probabilistic polynomial time adversary $\mathcal{A}\in \{\mathcal{A}_{\scriptscriptstyle 1},\mathcal{A}_{\scriptscriptstyle 2}\}$ who plays either of the  games in Definitions \ref{deff::VSID-Soundness} and \ref{deff::VSID-Inputs-Well-formedess}, there exists a negligible function $\mu(\cdot)$, such that: 
+%\footnotesize{
+%\small{
+%$$ \Pr\left[
+%  \begin{array}{l}
+%\mathtt{VSID.identify}(\pi,c,k,e,u^{\scriptscriptstyle *})\rightarrow I \  \ \wedge \ \ \mathcal{A}\neq I\\
+
+%\end{array} 
+%    \right]\leq \mu(\lambda)\;.$$
+%}
+%where, in case $\mathcal{A}=\mathcal{A}_{\scriptscriptstyle 1}$, the probability is taken over uniform  choice of $k\stackrel{\scriptscriptstyle\$}\leftarrow \{0,1\}^{\scriptscriptstyle\lambda}$ as well as the randomness of $\mathcal{A}_{\scriptscriptstyle 1}$, in case $\mathcal{A}=\mathcal{A}_{\scriptscriptstyle 2}$, the probability is taken over the randomness used in  proofs $w_{\scriptscriptstyle q}$ and $w_{\scriptscriptstyle\sigma}$  and the randomness of $\mathcal{A}_{\scriptscriptstyle 2}$.
+%\end{definition}
 \textcolor{blue}{XXXXThomas: This definition does not read well. Namely, the output of $\mathtt{VSID.identify}$ is in $\{ \mathcal{C},\mathcal{S},\bot\}$. Thus, the notation $\mathcal{A}\neq I$ makes no sense, especially when we quantify over every $\mathcal{A}$. We have to discuss about it. XXXX}
 \textcolor{violet}{--Aydin: In Definitions \ref{deff::VSID-Soundness} can we say: ``.... $\mathcal{A}_1$ who corrupts $\mathcal{S}$''? If yes, then we can say ...$\mathcal{A}_2$ who corrupts $\mathcal{C}$  in definition \ref{deff::VSID-Inputs-Well-formedess}. If we can apply the two changes, then Definition \ref{def::VSID-Identifiable-Abort} would make sense as it is.}
 
