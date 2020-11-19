@@ -121,7 +121,7 @@ A RC-S-P scheme is said to be security if it satisfies  three main properties,  
 
 \begin{definition}[RC-S-P Security Against Malicious Server]\label{deff::RC-S-P-SecurityAgainstMaliciousServer}  A RC-S-P  is secure against a malicious server  for a function $F$, if for any security parameter $\lambda$, any auxiliary information $\text{aux}$, every $j$ (where $1\leq j\leq z$), any $Q,M, E, D$ and any probabilistic polynomial time adversary $\mathcal{A}$, there exists a negligible function $\mu(.)$, such that: 
 %\footnotesize{
-\small{
+{\small
 $$ Pr\left[
   \begin{array}{l}
   \left(F(u^{\scriptscriptstyle *}, \bm{q}_{\scriptscriptstyle j})= h_{\scriptscriptstyle j}\ \wedge coin_{\scriptscriptstyle\mathcal{C},j}\neq  \frac{coin_{\scriptscriptstyle\mathcal C}^{\scriptscriptstyle*}}{z}-o\right)
@@ -173,7 +173,7 @@ Informally, security against a malicious client requires that, for each  $j$-th 
  \begin{definition}[RC-S-P Security Against Malicious Client]\label{deff::RC-S-P-Security-Against Malicious-Client}  A RC-S-P  is secure against a malicious client  for a function $F$, if for any security parameter $\lambda$, every $j$ (where $1\leq j\leq z$), any $Q,M,E,D$ and any probabilistic polynomial time adversary $\mathcal{A}$, there exists a negligible function $\mu(.)$, such that: 
 
 
-\small{
+{\small
 $$ Pr\left[
   \begin{array}{l}
  \Big(M(u^{\scriptscriptstyle *},k)= \sigma  \wedge Q(\text{aux},k)= \bm{q}_{\scriptscriptstyle j} \wedge\\
@@ -252,55 +252,103 @@ D,t_{\scriptscriptstyle qp}\in en$, $\sigma\in e$, and   the probability is take
 % 
  Note, in the above definition, an honest server either does not deposit (e.g. when $a=0$) or if it deposits (i.e. agrees to serve) ultimately receives its deposit \emph{plus the service payment} (with a high probability). Informally, RC-S-P is privacy preserving if it guarantees the privacy of service input (e.g. outsourced file) and service proof's status during the private time bubble. In the following, we formally define them.
  
- 
- 
- 
- \begin{definition}[RC-S-P Service Input Privacy]\label{deff::RC-S-P-Input-Privacy}  A RC-S-P   preserves the privacy of service input, if for any security parameter $\lambda$, any auxiliary information $\text{aux}$, any $F, Q,M, E,D$ and any probabilistic polynomial time adversary $\mathcal{A}$, there exists a negligible function $\mu(.)$, such that: 
-%\footnotesize{
-\small{
+
+  \begin{definition}[RC-S-P Privacy]\label{deff::RC-S-P-Privacy}  A RC-S-P   preserves privacy, if for any security parameter $\lambda$, any auxiliary information $\text{aux}$, any $F, Q,M, E$ and $D$, the following hold:
+   
+\begin{enumerate}
+
+\item For any PPT adversary $\mathcal{A}_{\scriptscriptstyle 1}$ there exists a negligible function $\mu_{\scriptscriptstyle 1}(\cdot)$ such that
+  
+{\small
 $$ Pr\left[
   \begin{array}{l}
-  \mathcal{A}(\bm{c}^{\scriptscriptstyle *},coin^{\scriptscriptstyle *}_{\scriptscriptstyle S},coin^{\scriptscriptstyle *}_{\scriptscriptstyle C},g_{\scriptscriptstyle cp},  g_{\scriptscriptstyle qp},\bm{\pi}^{\scriptscriptstyle *},a)\rightarrow\beta\\
-
-%\text{s.t.}\\
-%y_{\scriptscriptstyle j}= E^{\scriptscriptstyle -1}_{\scriptscriptstyle 2}(y^{\scriptscriptstyle *}_{\scriptscriptstyle j},t_{\scriptscriptstyle qp})\\
-%E^{\scriptscriptstyle -1}_{\scriptscriptstyle 2},t_{\scriptscriptstyle qp}\in en\\
+  \mathcal{A}_{\scriptscriptstyle 1}(\bm{c}^{\scriptscriptstyle *},coin^{\scriptscriptstyle *}_{\scriptscriptstyle S},coin^{\scriptscriptstyle *}_{\scriptscriptstyle C},g_{\scriptscriptstyle cp},  g_{\scriptscriptstyle qp},\bm{\pi}^{\scriptscriptstyle *},a)\rightarrow\beta\\
 \end{array} \middle |
     \begin{array}{l}
     \mathtt{RCSP.keyGen}(1^{\lambda},F)\rightarrow \bm{k}\\
-    \mathcal{A}(1^{\scriptscriptstyle\lambda},pk, F)\rightarrow (u_{\scriptscriptstyle 0},u_{\scriptscriptstyle 1})\\
+    \mathcal{A}_{\scriptscriptstyle 1}(1^{\scriptscriptstyle\lambda},pk, F)\rightarrow (u_{\scriptscriptstyle 0},u_{\scriptscriptstyle 1})\\
     \beta\stackrel{\scriptscriptstyle\$}\leftarrow\{0,1\}\\
-   
    \mathtt{RCSP}.\mathtt{cInit}(1^{\scriptscriptstyle\lambda}, u_{\scriptscriptstyle\beta},\bm{k}, M,z,cp)\rightarrow (u_{\scriptscriptstyle\beta}^{\scriptscriptstyle *},e,t,coin^{\scriptscriptstyle*}_{\scriptscriptstyle\mathcal C}, \bm{y}_{\scriptscriptstyle \mathcal  C},\bm{y}_{\scriptscriptstyle \mathcal  S})\\
-
 \mathtt{RCSP}.\mathtt{sInit}(u_{\scriptscriptstyle\beta}^{\scriptscriptstyle *},e, pk,z, t,\bm{y}_{\scriptscriptstyle \mathcal  C},\bm{y}_{\scriptscriptstyle \mathcal  S})\rightarrow (coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S},a)\\
-
 \mathtt{RCSP}.\mathtt{genQuery}(1^{\scriptscriptstyle\lambda}, \text{aux},k,Q,j, en)\rightarrow c^{\scriptscriptstyle *}_{\scriptscriptstyle j}\\
-	
-
-     
-     %(\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j},b_{\scriptscriptstyle j})\\
-     
-     \mathtt{RCSP}.\mathtt{prove}(u^{\scriptscriptstyle *}_{\scriptscriptstyle\beta},  \sigma,  c^{\scriptscriptstyle *}_{\scriptscriptstyle j},pk, en)\rightarrow (b_{\scriptscriptstyle j},m_{\scriptscriptstyle \mathcal{S},j},\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j})\\
-     
+     \mathtt{RCSP}.\mathtt{prove}(u^{\scriptscriptstyle *}_{\scriptscriptstyle\beta},  \sigma,  c^{\scriptscriptstyle *}_{\scriptscriptstyle j},pk, en)\rightarrow (b_{\scriptscriptstyle j},m_{\scriptscriptstyle \mathcal{S},j},\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j})\\  
    \mathtt{RCSP}.\mathtt{verify}(\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j}, \bm{q}_{\scriptscriptstyle j},k,en)\rightarrow (d_{\scriptscriptstyle j},m_{\scriptscriptstyle \mathcal{C},j})\\
-\end{array}    \right]\leq \frac{1}{2}+\mu(\lambda)$$
+\end{array}\right]\leq \frac{1}{2}+\mu_{\scriptscriptstyle 1}(\lambda)$$
 }
+
+
+
+
+\item For any PPT adversary $\mathcal{A}_{\scriptscriptstyle 2}$ that plays the above game, there exists a negligible function $\mu_{\scriptscriptstyle 2}(\cdot)$ such that
+
+
+
+{\small
+$$ Pr\left[\mathcal{A}_{\scriptscriptstyle 2}(\bm{c}^{\scriptscriptstyle *},coin^{\scriptscriptstyle *}_{\scriptscriptstyle \mathcal S},coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}, g_{\scriptscriptstyle cp},  g_{\scriptscriptstyle qp},\bm{\pi}^{\scriptscriptstyle *},a)\rightarrow (d_{\scriptscriptstyle j},j)\right]\leq \frac{1}{2}+ \mu_{\scriptscriptstyle 2}(\lambda)$$
+}
+
 where $\bm{c}^{\scriptscriptstyle *}=[{c}^{\scriptscriptstyle *}_{\scriptscriptstyle 1},...,{c}^{\scriptscriptstyle *}_{\scriptscriptstyle z}]$ and $\bm{\pi}^{\scriptscriptstyle *}=[\pi^{\scriptscriptstyle *}_{\scriptscriptstyle 1},...,\pi^{\scriptscriptstyle *}_{\scriptscriptstyle z}]$.  The probability is taken over uniform  choice of $k,k'\stackrel{\scriptscriptstyle\$}\leftarrow \{0,1\}^{\scriptscriptstyle\lambda}$, where $k,k'\in\bm{k}$, the randomness of $\mathcal{A}$,  the randomness used in witnesses $g_{\scriptscriptstyle cp},g_{\scriptscriptstyle qp}\in t$,  the randomness used in  $E$.
 
+\end{enumerate}
 \end{definition}
  
  
  
-  \begin{definition}[RC-S-P Service Proof Privacy]\label{deff::RC-S-P-ServiceProofPrivacy}  A RC-S-P   preserves the privacy of service proof (status), if for any security parameter $\lambda$, any auxiliary information $\text{aux}$, any $F,Q,M,E,D$ and any probabilistic polynomial time adversary $\mathcal{A}$ that plays the  game in Definition \ref{deff::RC-S-P-Input-Privacy}, there exists a negligible function $\mu(.)$, such that: 
-%\footnotesize{
-\small{
-$$ Pr\left[\mathcal{A}(\bm{c}^{\scriptscriptstyle *},coin^{\scriptscriptstyle *}_{\scriptscriptstyle \mathcal S},coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}, g_{\scriptscriptstyle cp},  g_{\scriptscriptstyle qp},\bm{\pi}^{\scriptscriptstyle *},a)\rightarrow (d_{\scriptscriptstyle j},j)\right]\leq \frac{1}{2}+ \mu(\lambda)$$
-}
-where $\bm{c}^{\scriptscriptstyle *}=[{c}^{\scriptscriptstyle *}_{\scriptscriptstyle 1},...,{c}^{\scriptscriptstyle *}_{\scriptscriptstyle z}]$ and $\bm{\pi}^{\scriptscriptstyle *}=[\pi^{\scriptscriptstyle *}_{\scriptscriptstyle 1},...,\pi^{\scriptscriptstyle *}_{\scriptscriptstyle z}]$.  The probability is taken over uniform  choice of $k,k'\stackrel{\scriptscriptstyle\$}\leftarrow \{0,1\}^{\scriptscriptstyle\lambda}$, where $k,k'\in\bm{k}$, the randomness of $\mathcal{A}$,  the randomness used in witnesses $g_{\scriptscriptstyle cp}, g_{\scriptscriptstyle qp}\in t$,  the randomness used in  $E$.
-\end{definition}
+%  \begin{definition}[RC-S-P Service Proof Privacy]\label{deff::RC-S-P-ServiceProofPrivacy}  A RC-S-P   preserves the privacy of service proof (status), if for any security parameter $\lambda$, any auxiliary information $\text{aux}$, any $F,Q,M,E,D$ and any probabilistic polynomial time adversary $\mathcal{A}$ that plays the  game in Definition \ref{deff::RC-S-P-Input-Privacy}, there exists a negligible function $\mu(.)$, such that: 
+%
+%\small{
+%$$ Pr\left[\mathcal{A}(\bm{c}^{\scriptscriptstyle *},coin^{\scriptscriptstyle *}_{\scriptscriptstyle \mathcal S},coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}, g_{\scriptscriptstyle cp},  g_{\scriptscriptstyle qp},\bm{\pi}^{\scriptscriptstyle *},a)\rightarrow (d_{\scriptscriptstyle j},j)\right]\leq \frac{1}{2}+ \mu(\lambda)$$
+%}
+%where $\bm{c}^{\scriptscriptstyle *}=[{c}^{\scriptscriptstyle *}_{\scriptscriptstyle 1},...,{c}^{\scriptscriptstyle *}_{\scriptscriptstyle z}]$ and $\bm{\pi}^{\scriptscriptstyle *}=[\pi^{\scriptscriptstyle *}_{\scriptscriptstyle 1},...,\pi^{\scriptscriptstyle *}_{\scriptscriptstyle z}]$.  The probability is taken over uniform  choice of $k,k'\stackrel{\scriptscriptstyle\$}\leftarrow \{0,1\}^{\scriptscriptstyle\lambda}$, where $k,k'\in\bm{k}$, the randomness of $\mathcal{A}$,  the randomness used in witnesses $g_{\scriptscriptstyle cp}, g_{\scriptscriptstyle qp}\in t$,  the randomness used in  $E$.
+%\end{definition}
  
- \begin{definition}[RC-S-P Security]\label{def::RC-S-P-Security} A RC-S-P scheme is secure if it satisfies security against malicious server, security against malicious client, and preserves service input and proof privacy, w.r.t. Definitions \ref{deff::RC-S-P-SecurityAgainstMaliciousServer}-\ref{deff::RC-S-P-ServiceProofPrivacy}. 
+ 
+ 
+ %-----------------------------------
+% \begin{definition}[RC-S-P Service Input Privacy]\label{deff::RC-S-P-Input-Privacy}  A RC-S-P   preserves the privacy of service input, if for any security parameter $\lambda$, any auxiliary information $\text{aux}$, any $F, Q,M, E,D$ and any probabilistic polynomial time adversary $\mathcal{A}$, there exists a negligible function $\mu(.)$, such that: 
+%
+%\small{
+%$$ Pr\left[
+%  \begin{array}{l}
+%  \mathcal{A}(\bm{c}^{\scriptscriptstyle *},coin^{\scriptscriptstyle *}_{\scriptscriptstyle S},coin^{\scriptscriptstyle *}_{\scriptscriptstyle C},g_{\scriptscriptstyle cp},  g_{\scriptscriptstyle qp},\bm{\pi}^{\scriptscriptstyle *},a)\rightarrow\beta\\
+%
+%
+%\end{array} \middle |
+%    \begin{array}{l}
+%    \mathtt{RCSP.keyGen}(1^{\lambda},F)\rightarrow \bm{k}\\
+%    \mathcal{A}(1^{\scriptscriptstyle\lambda},pk, F)\rightarrow (u_{\scriptscriptstyle 0},u_{\scriptscriptstyle 1})\\
+%    \beta\stackrel{\scriptscriptstyle\$}\leftarrow\{0,1\}\\
+%   
+%   \mathtt{RCSP}.\mathtt{cInit}(1^{\scriptscriptstyle\lambda}, u_{\scriptscriptstyle\beta},\bm{k}, M,z,cp)\rightarrow (u_{\scriptscriptstyle\beta}^{\scriptscriptstyle *},e,t,coin^{\scriptscriptstyle*}_{\scriptscriptstyle\mathcal C}, \bm{y}_{\scriptscriptstyle \mathcal  C},\bm{y}_{\scriptscriptstyle \mathcal  S})\\
+%
+%\mathtt{RCSP}.\mathtt{sInit}(u_{\scriptscriptstyle\beta}^{\scriptscriptstyle *},e, pk,z, t,\bm{y}_{\scriptscriptstyle \mathcal  C},\bm{y}_{\scriptscriptstyle \mathcal  S})\rightarrow (coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S},a)\\
+%
+%\mathtt{RCSP}.\mathtt{genQuery}(1^{\scriptscriptstyle\lambda}, \text{aux},k,Q,j, en)\rightarrow c^{\scriptscriptstyle *}_{\scriptscriptstyle j}\\
+%	
+%     
+%     \mathtt{RCSP}.\mathtt{prove}(u^{\scriptscriptstyle *}_{\scriptscriptstyle\beta},  \sigma,  c^{\scriptscriptstyle *}_{\scriptscriptstyle j},pk, en)\rightarrow (b_{\scriptscriptstyle j},m_{\scriptscriptstyle \mathcal{S},j},\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j})\\
+%     
+%   \mathtt{RCSP}.\mathtt{verify}(\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j}, \bm{q}_{\scriptscriptstyle j},k,en)\rightarrow (d_{\scriptscriptstyle j},m_{\scriptscriptstyle \mathcal{C},j})\\
+%\end{array}    \right]\leq \frac{1}{2}+\mu(\lambda)$$
+%}
+%where $\bm{c}^{\scriptscriptstyle *}=[{c}^{\scriptscriptstyle *}_{\scriptscriptstyle 1},...,{c}^{\scriptscriptstyle *}_{\scriptscriptstyle z}]$ and $\bm{\pi}^{\scriptscriptstyle *}=[\pi^{\scriptscriptstyle *}_{\scriptscriptstyle 1},...,\pi^{\scriptscriptstyle *}_{\scriptscriptstyle z}]$.  The probability is taken over uniform  choice of $k,k'\stackrel{\scriptscriptstyle\$}\leftarrow \{0,1\}^{\scriptscriptstyle\lambda}$, where $k,k'\in\bm{k}$, the randomness of $\mathcal{A}$,  the randomness used in witnesses $g_{\scriptscriptstyle cp},g_{\scriptscriptstyle qp}\in t$,  the randomness used in  $E$.
+%
+%\end{definition}
+% 
+% 
+% 
+%  \begin{definition}[RC-S-P Service Proof Privacy]\label{deff::RC-S-P-ServiceProofPrivacy}  A RC-S-P   preserves the privacy of service proof (status), if for any security parameter $\lambda$, any auxiliary information $\text{aux}$, any $F,Q,M,E,D$ and any probabilistic polynomial time adversary $\mathcal{A}$ that plays the  game in Definition \ref{deff::RC-S-P-Input-Privacy}, there exists a negligible function $\mu(.)$, such that: 
+%
+%\small{
+%$$ Pr\left[\mathcal{A}(\bm{c}^{\scriptscriptstyle *},coin^{\scriptscriptstyle *}_{\scriptscriptstyle \mathcal S},coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}, g_{\scriptscriptstyle cp},  g_{\scriptscriptstyle qp},\bm{\pi}^{\scriptscriptstyle *},a)\rightarrow (d_{\scriptscriptstyle j},j)\right]\leq \frac{1}{2}+ \mu(\lambda)$$
+%}
+%where $\bm{c}^{\scriptscriptstyle *}=[{c}^{\scriptscriptstyle *}_{\scriptscriptstyle 1},...,{c}^{\scriptscriptstyle *}_{\scriptscriptstyle z}]$ and $\bm{\pi}^{\scriptscriptstyle *}=[\pi^{\scriptscriptstyle *}_{\scriptscriptstyle 1},...,\pi^{\scriptscriptstyle *}_{\scriptscriptstyle z}]$.  The probability is taken over uniform  choice of $k,k'\stackrel{\scriptscriptstyle\$}\leftarrow \{0,1\}^{\scriptscriptstyle\lambda}$, where $k,k'\in\bm{k}$, the randomness of $\mathcal{A}$,  the randomness used in witnesses $g_{\scriptscriptstyle cp}, g_{\scriptscriptstyle qp}\in t$,  the randomness used in  $E$.
+%\end{definition}
+ %-------------------------
+ 
+ 
+ 
+ \begin{definition}[RC-S-P Security]\label{def::RC-S-P-Security} A RC-S-P scheme is secure if it satisfies security against malicious server, security against malicious client, and preserves privacy, w.r.t. Definitions \ref{deff::RC-S-P-SecurityAgainstMaliciousServer}-\ref{deff::RC-S-P-Privacy}. 
  \end{definition}
  
 

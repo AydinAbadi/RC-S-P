@@ -213,8 +213,9 @@ The   above property ensures an honest server can detect  a malicious client if 
 
 \begin{definition}[VSID Detectable Abort]\label{def::VSID-Identifiable-Abort}  A  VSID  supports  detectable abort if for any  security parameter $\lambda$ any  functions $F, M,Q$, and any auxiliary information $\text{aux}$ the following hold: 
 
-1. For any PPT adversary $\mathcal{A}_{\scriptscriptstyle 1}$ there exists a negligible function $\mu_{\scriptscriptstyle 1}(\cdot)$ such that
-\small{
+\begin{enumerate}
+\item For any PPT adversary $\mathcal{A}_{\scriptscriptstyle 1}$ there exists a negligible function $\mu_{\scriptscriptstyle 1}(\cdot)$ such that
+{\small
 $$ \Pr\left[
   \begin{array}{l}
  d=0 \wedge I\neq\mathcal{S}
@@ -229,10 +230,10 @@ $$ \Pr\left[
      \mathtt{VSID.identify}(\pi,c,k,e,u^{\scriptscriptstyle *})\rightarrow I\\
 \end{array}    \right]\leq \mu_{\scriptscriptstyle 1}(\lambda)\;.$$
 }
-\normalsize
+%\normalsize
 
-2. For any PPT adversary $\mathcal{A}_{\scriptscriptstyle 2}$ there exists a negligible function $\mu_{\scriptscriptstyle 2}(\cdot)$ such that
-\small{
+\item For any PPT adversary $\mathcal{A}_{\scriptscriptstyle 2}$ there exists a negligible function $\mu_{\scriptscriptstyle 2}(\cdot)$ such that
+{\small
 $$ \Pr\left[
   \begin{array}{l}
  (a=0 \vee b=0)\wedge I\neq\mathcal{C}
@@ -248,6 +249,7 @@ $$ \Pr\left[
 \end{array}    \right]\leq \mu_{\scriptscriptstyle 2}(\lambda)\;.$$
 }
 
+\end{enumerate}
 \end{definition}
 
 %\begin{definition}[VSID Detectable Abort]\label{def::VSID-Identifiable-Abort}  A  VSID  supports  detectable abort   if the following holds.  Let  $(\pi,c,k,e,u^{\scriptscriptstyle *})$ be the parameters defined above. Then,  for any  security parameter $\lambda$ any  functions $F, M,Q$, , any auxiliary information $\text{aux}$, any probabilistic polynomial time adversary $\mathcal{A}\in \{\mathcal{A}_{\scriptscriptstyle 1},\mathcal{A}_{\scriptscriptstyle 2}\}$ who plays either of the  games in Definitions \ref{deff::VSID-Soundness} and \ref{deff::VSID-Inputs-Well-formedess}, there exists a negligible function $\mu(\cdot)$, such that: 

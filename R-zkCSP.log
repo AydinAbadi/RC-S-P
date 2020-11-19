@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.9.22)  19 NOV 2020 12:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.9.22)  19 NOV 2020 14:14
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1295,16 +1295,16 @@ LaTeX Warning: Command \; invalid in math mode on input line 204.
 
 [5]
 
-LaTeX Warning: Command \; invalid in math mode on input line 230.
+LaTeX Warning: Command \; invalid in math mode on input line 231.
 
 
-LaTeX Warning: Command \; invalid in math mode on input line 230.
+LaTeX Warning: Command \; invalid in math mode on input line 231.
 
 
-LaTeX Warning: Command \; invalid in math mode on input line 248.
+LaTeX Warning: Command \; invalid in math mode on input line 249.
 
 
-LaTeX Warning: Command \; invalid in math mode on input line 248.
+LaTeX Warning: Command \; invalid in math mode on input line 249.
 
 (./RC-S-P-Definition.tex
 Overfull \hbox (17.1947pt too wide) in paragraph at lines 6--8
@@ -1331,7 +1331,13 @@ Overfull \hbox (16.0817pt too wide) detected at line 152
 ML/cmm/m/it/9 ^^U\OT1/cmr/m/n/9 )
  []
 
-[8]) (./VSID-Protocol.tex [9] (./VSID-Proof.tex [10])))
+[8]
+Overfull \hbox (10.25554pt too wide) detected at line 276
+\OML/cmm/m/it/9 Pr [] \OMS/cmsy/m/n/9 ^^T [] \OT1/cmr/m/n/9 + \OML/cmm/m/it/9 ^
+^V[]\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 ^^U\OT1/cmr/m/n/9 )
+ []
+
+) (./VSID-Protocol.tex [9] (./VSID-Proof.tex [10])))
 (./Recurring-Zero-Knowledge-Contingent-Service-Payments.tex
 (./Limitations-of-zkCSP.tex [11]) (./Our-Solution.tex [12])
 (./statement-agreement.tex [13]) (./main-protocol.tex [14] [15] [16] [17]
@@ -1354,13 +1360,13 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 31842 strings out of 480608
- 735103 string characters out of 5903630
- 1084170 words of memory out of 5000000
- 47048 multiletter control sequences out of 15000+600000
+ 31841 strings out of 480608
+ 735063 string characters out of 5903630
+ 1082160 words of memory out of 5000000
+ 47047 multiletter control sequences out of 15000+600000
  567850 words of font info for 109 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 63i,12n,98p,3114b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 63i,12n,98p,3691b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
 xlive/2020/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb></usr/local
@@ -1378,20 +1384,19 @@ ve/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/
 2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/202
 0/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2020
 /texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2020/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2020/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2020/texmf
--dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2020/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2020/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/2020/texmf-dist
-/fonts/type1/public/amsfonts/latxfont/lasy10.pfb></usr/local/texlive/2020/texmf
--dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2020/texmf-dist/font
-s/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/u
-rw/times/utmr8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/times/u
-tmri8a.pfb>
-Output written on R-zkCSP.pdf (25 pages, 410381 bytes).
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2020/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2020/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2020/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/2020/texmf-di
+st/fonts/type1/public/amsfonts/latxfont/lasy10.pfb></usr/local/texlive/2020/tex
+mf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2020/texmf-dist/fo
+nts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1
+/urw/times/utmr8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/times
+/utmri8a.pfb>
+Output written on R-zkCSP.pdf (25 pages, 402884 bytes).
 PDF statistics:
- 194 PDF objects out of 1000 (max. 8388607)
- 139 compressed objects within 2 object streams
+ 190 PDF objects out of 1000 (max. 8388607)
+ 136 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
