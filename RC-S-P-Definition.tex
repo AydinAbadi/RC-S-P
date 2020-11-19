@@ -270,7 +270,7 @@ $$ Pr\left[
     \beta\stackrel{\scriptscriptstyle\$}\leftarrow\{0,1\}\\
    \mathtt{RCSP}.\mathtt{cInit}(1^{\scriptscriptstyle\lambda}, u_{\scriptscriptstyle\beta},\bm{k}, M,z,cp)\rightarrow (u_{\scriptscriptstyle\beta}^{\scriptscriptstyle *},e,t,coin^{\scriptscriptstyle*}_{\scriptscriptstyle\mathcal C}, \bm{y}_{\scriptscriptstyle \mathcal  C},\bm{y}_{\scriptscriptstyle \mathcal  S})\\
 \mathtt{RCSP}.\mathtt{sInit}(u_{\scriptscriptstyle\beta}^{\scriptscriptstyle *},e, pk,z, t,\bm{y}_{\scriptscriptstyle \mathcal  C},\bm{y}_{\scriptscriptstyle \mathcal  S})\rightarrow (coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S},a)\\
-\mathtt{RCSP}.\mathtt{genQuery}(1^{\scriptscriptstyle\lambda}, \text{aux},k,Q,j, en)\rightarrow c^{\scriptscriptstyle *}_{\scriptscriptstyle j}\\
+\mathtt{RCSP}.\mathtt{genQuery}(1^{\scriptscriptstyle\lambda}, \text{aux},k,Q_{\scriptscriptstyle\beta},j, en)\rightarrow c^{\scriptscriptstyle *}_{\scriptscriptstyle j}\\
      \mathtt{RCSP}.\mathtt{prove}(u^{\scriptscriptstyle *}_{\scriptscriptstyle\beta},  \sigma,  c^{\scriptscriptstyle *}_{\scriptscriptstyle j},pk, en)\rightarrow (b_{\scriptscriptstyle j},m_{\scriptscriptstyle \mathcal{S},j},\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j})\\  
    \mathtt{RCSP}.\mathtt{verify}(\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j}, \bm{q}_{\scriptscriptstyle j},k,en)\rightarrow (d_{\scriptscriptstyle j},m_{\scriptscriptstyle \mathcal{C},j})\\
 \end{array}\right]\leq \frac{1}{2}+\mu_{\scriptscriptstyle 1}(\lambda)$$
@@ -279,18 +279,18 @@ $$ Pr\left[
 
 
 
-\item For any PPT adversary $\mathcal{A}_{\scriptscriptstyle 2}$ that plays the above game, there exists a negligible function $\mu_{\scriptscriptstyle 2}(\cdot)$ such that
-
+\item For any PPT adversary $\mathcal{A}_{\scriptscriptstyle 2}$ who plays the above game, there exists a negligible function $\mu_{\scriptscriptstyle 2}(\cdot)$ such that
 
 
 {\small
 $$ Pr\left[\mathcal{A}_{\scriptscriptstyle 2}(\bm{c}^{\scriptscriptstyle *},coin^{\scriptscriptstyle *}_{\scriptscriptstyle \mathcal S},coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}, g_{\scriptscriptstyle cp},  g_{\scriptscriptstyle qp},\bm{\pi}^{\scriptscriptstyle *},a)\rightarrow (d_{\scriptscriptstyle j},j)\right]\leq \frac{1}{2}+ \mu_{\scriptscriptstyle 2}(\lambda)$$
 }
 
-where $\bm{c}^{\scriptscriptstyle *}=[{c}^{\scriptscriptstyle *}_{\scriptscriptstyle 1},...,{c}^{\scriptscriptstyle *}_{\scriptscriptstyle z}]$ and $\bm{\pi}^{\scriptscriptstyle *}=[\pi^{\scriptscriptstyle *}_{\scriptscriptstyle 1},...,\pi^{\scriptscriptstyle *}_{\scriptscriptstyle z}]$.  The probability is taken over uniform  choice of $k,k'\stackrel{\scriptscriptstyle\$}\leftarrow \{0,1\}^{\scriptscriptstyle\lambda}$, where $k,k'\in\bm{k}$, the randomness of $\mathcal{A}_{\scriptscriptstyle 1}$ and $\mathcal{A}_{\scriptscriptstyle 2}$,  the randomness used in witnesses $g_{\scriptscriptstyle cp},g_{\scriptscriptstyle qp}\in t$,  the randomness used in  $E$.
-
+where $\bm{c}^{\scriptscriptstyle *}=[{c}^{\scriptscriptstyle *}_{\scriptscriptstyle 1},...,{c}^{\scriptscriptstyle *}_{\scriptscriptstyle z}]$ and $\bm{\pi}^{\scriptscriptstyle *}=[\pi^{\scriptscriptstyle *}_{\scriptscriptstyle 1},...,\pi^{\scriptscriptstyle *}_{\scriptscriptstyle z}]$.  Also, depending on the choice of $\beta$, algorithm $\mathtt{RCSP}.\mathtt{genQuery}()$ outputs an encoded valid query, when the input is $Q_{\scriptscriptstyle 1}$, or outputs an encoded invalid query, when the input is $Q_{\scriptscriptstyle 0}$. The probability is taken over uniform  choice of $k,k'\stackrel{\scriptscriptstyle\$}\leftarrow \{0,1\}^{\scriptscriptstyle\lambda}$, where $k,k'\in\bm{k}$, the randomness of $\mathcal{A}_{\scriptscriptstyle 1}$ and $\mathcal{A}_{\scriptscriptstyle 2}$,  the randomness used in witnesses $g_{\scriptscriptstyle cp}, g_{\scriptscriptstyle qp}\in t$,  the randomness used in  $E$.
 \end{enumerate}
 \end{definition}
+ 
+In the above definition, the experiment is allowed to produce  invalid queries. It is required that  the privacy holds regardless of the queries status, i.e. whether they are valid or invalid, as long as the are encoded and provided.  
  
  
  
