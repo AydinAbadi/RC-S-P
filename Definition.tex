@@ -262,8 +262,8 @@ $$ \Pr\left[
 %}
 %where, in case $\mathcal{A}=\mathcal{A}_{\scriptscriptstyle 1}$, the probability is taken over uniform  choice of $k\stackrel{\scriptscriptstyle\$}\leftarrow \{0,1\}^{\scriptscriptstyle\lambda}$ as well as the randomness of $\mathcal{A}_{\scriptscriptstyle 1}$, in case $\mathcal{A}=\mathcal{A}_{\scriptscriptstyle 2}$, the probability is taken over the randomness used in  proofs $w_{\scriptscriptstyle q}$ and $w_{\scriptscriptstyle\sigma}$  and the randomness of $\mathcal{A}_{\scriptscriptstyle 2}$.
 %\end{definition}
-\textcolor{blue}{XXXXThomas: This definition does not read well. Namely, the output of $\mathtt{VSID.identify}$ is in $\{ \mathcal{C},\mathcal{S},\bot\}$. Thus, the notation $\mathcal{A}\neq I$ makes no sense, especially when we quantify over every $\mathcal{A}$. We have to discuss about it. XXXX}
-\textcolor{violet}{--Aydin: In Definitions \ref{deff::VSID-Soundness} can we say: ``.... $\mathcal{A}_1$ who corrupts $\mathcal{S}$''? If yes, then we can say ...$\mathcal{A}_2$ who corrupts $\mathcal{C}$  in definition \ref{deff::VSID-Inputs-Well-formedess}. If we can apply the two changes, then Definition \ref{def::VSID-Identifiable-Abort} would make sense as it is.}
+
+%\textcolor{blue}{XXXXThomas: This definition does not read well. Namely, the output of $\mathtt{VSID.identify}$ is in $\{ \mathcal{C},\mathcal{S},\bot\}$. Thus, the notation $\mathcal{A}\neq I$ makes no sense, especially when we quantify over every $\mathcal{A}$. We have to discuss about it. XXXX}\textcolor{violet}{--Aydin: In Definitions \ref{deff::VSID-Soundness} can we say: ``.... $\mathcal{A}_1$ who corrupts $\mathcal{S}$''? If yes, then we can say ...$\mathcal{A}_2$ who corrupts $\mathcal{C}$  in definition \ref{deff::VSID-Inputs-Well-formedess}. If we can apply the two changes, then Definition \ref{def::VSID-Identifiable-Abort} would make sense as it is.}
 
 \input{RC-S-P-Definition}
 
