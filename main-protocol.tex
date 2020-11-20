@@ -258,7 +258,7 @@ Furthermore, in   both  events above, due to the security of SAP, the adversary 
  \hfill\(\Box\)\end{proof}
   
   
-  Prior to proving  RC-S-P's privacy, we provide a lemma that will be used in the privacy's proof. Informally, the lemma ensures that encoded coins leaks no information about the actual amount of coins $(o,l)$, agreed between the client and server. 
+  Prior to proving  RC-S-P's privacy, we provide a lemma that will be used in the privacy's proof. Informally, the lemma states that encoded coins leaks no information about the actual amount of coins $(o,l)$, agreed between the client and server. 
 
 
 \begin{lemma}\label{lemma::encoded-coins} Let $\beta\stackrel{\scriptscriptstyle\$}\leftarrow\{0,1\}$, price list be $\{(o_{\scriptscriptstyle 0},l_{\scriptscriptstyle 0}),(o_{\scriptscriptstyle 1},l_{\scriptscriptstyle 1})\}$, and encoded coin amounts be $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal{C}}= z\cdot(Max(o_{\scriptscriptstyle\beta},o_{\scriptscriptstyle|\beta-1|})+Max(l_{\scriptscriptstyle\beta},l_{\scriptscriptstyle|\beta-1|}))$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal{S}}=z\cdot(Max(l_{\scriptscriptstyle\beta}, l_{\scriptscriptstyle |\beta-1|}))$. Then, given the price list, $z$, $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal{C}}$, and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal{S}}$, an adversary $\mathcal{A}$ cannot tell the value of $\beta$ with probability significantly greater than $\frac{1}{2}$ (where the probability is taken over the choice of $\beta$ and the randomness of $\mathcal{A}$).
