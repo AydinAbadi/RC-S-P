@@ -80,9 +80,9 @@ F(u^{\scriptscriptstyle *},\bm{q})\neq h \wedge d=1
 The above generic definition captures the core requirements of a wide range of verifiable services such as verifiable outsourced storage, i.e. Proofs of Retrievability \cite{DBLP:journals/iacr/JuelsK07,DBLP:conf/asiacrypt/ShachamW08} or Provable Data Possession \cite{DBLP:conf/ccs/AtenieseBCHKPS07,ShenT11}, verifiable computation, verifiable searchable encryption, and verifiable information retrieval, to name a few. Other additional  security properties mandated by certain services can be added to the above definition. Depending on the properties,  they can be  plugged into  the above definition with minimal adjustment to the definition. Privacy is an example. Alternatively, the definition can be upgraded to capture the  additional requirements.  The verifiable service with identifiable abort (VSID) and recurring contingent service payment (RC-S-P) definitions presented in this paper are two examples. 
 
 
-
-
-
+\begin{remark}
+It is not hard to see that the original PoR definition (presented in Section \ref{PoR-def}) captures VS definition. In particular, PoR's $\epsilon$-soundness captures VS's soundness.  Because in the $\epsilon$-soundness, the extractor algorithm interacts (many times) with the cheating prover  who must not be able to persuade the extractor to accept an invalid proof with a high probability and should provide  accepting proofs for non-negligible $\epsilon$ fraction of verification challenges.  The former property is exactly what VS soundness states. Thus, any protocol that realises PoR definition, realises VS definition as well. 
+\end{remark}
 
 
 %What is PDP? done. 

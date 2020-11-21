@@ -15,9 +15,9 @@ In this section, we present recurring contingent PoR payment (RC-PoR-P). Since p
 
 To present RC-PoR-P protocol, we will use the same approach we used to present RC-S-P. In particular, first we present the verifiable service, that is a (modified) Merkle tree-based PoR. Then, we upgrade it to the one that supports  identifiable abort, denoted by PoRID. Next,   we use PoRID to build RC-PoR-P. 
 
-\subsection{Modified Merkle tree-based PoR}
+\subsection{Modified Merkle tree-based PoR}\label{protocol::PoR}
 
-In this section, we present a modified version of the standard Merkle tree-based PoR. At a high level, the protocol works as follows. The client encodes its file using an error-correcting code, splits the encoded file into blocks, and constructs a Merkle tree on top of the blocks. It locally keeps the tree's root and sends the blocks to the server who rebuilds the tree on the blocks. At a verification time, the client sends a pseudorandom function's key to the server who derives a predetermined number of pseudorandom  indices of the blocks, that indicates which blocks have been challenged. The server for each challenged block generates a Merkle tree proof and sends all proofs to the client. The client, given the root and   key, verifies all  proofs. If all proofs are accepted, then the client outputs $1$ and concludes that its file is retrievable (with a high probability). However, if  it rejects a set of proofs, it outputs $0$ along with an index of the challenged block whose proof was rejected. In the following, we first present the protocol and then elaborate on the  modifications we have applied. 
+In this section, we present a modified version of the standard Merkle tree-based PoR, detonated by PoR. At a high level, the protocol works as follows. The client encodes its file using an error-correcting code, splits the encoded file into blocks, and constructs a Merkle tree on top of the blocks. It locally keeps the tree's root and sends the blocks to the server who rebuilds the tree on the blocks. At a verification time, the client sends a pseudorandom function's key to the server who derives a predetermined number of pseudorandom  indices of the blocks, that indicates which blocks have been challenged. The server for each challenged block generates a Merkle tree proof and sends all proofs to the client. The client, given the root and   key, verifies all  proofs. If all proofs are accepted, then the client outputs $1$ and concludes that its file is retrievable (with a high probability). However, if  it rejects a set of proofs, it outputs $0$ along with an index of the challenged block whose proof was rejected. In the following, we first present the protocol and then elaborate on the  modifications we have applied. 
 
 %, i.e. a verifier outputs (the index of) a rejected proof.  Recall, that in the standard PoR protocol the client is honest and the server is potentially malicious. 
 
@@ -87,6 +87,12 @@ In this section, we present a modified version of the standard Merkle tree-based
 %\end{enumerate}
 %\end{enumerate}
 %------------------------------------------------------------
+
+\begin{theorem}
+The PoR scheme, presented in Section \ref{protocol::PoR}, is $\epsilon$-sound, w.r.t. Definitions \ref{extractable}, if Merkle tree and pseudorandom function $\mathtt{PRF}$, are secure. 
+
+\end{theorem}
+
 
  The above protocol differs from the standard Merkle tree-based PoR from two perspectives; First and far most,  in step \ref{PoR-verify} in addition to outputting a binary value, the client outputs only one index of a rejected proof. This will enable any third-party who is given that index (and vectors of proofs and challenges) to verify the client's claim by checking only that proof, i.e. proof of misbehaviour. Second,   in step \ref{key-chalenge} instead of sending $\beta$ challenges, we allow the client to send only a key of a pseudorandom function to the server who can derive a set of challenges form it. This will ultimately  lead to a decrease in costs too, i.e. the client's communication and a smart contract's storage costs.   
    
