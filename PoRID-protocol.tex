@@ -3,7 +3,7 @@
 
 \subsection{PoRID Protocol}
 
-In this section, we propose ``PoR with identifiable abort'' (PoRID) that is a concrete instantiation of $\text{VSID}_{\scriptscriptstyle\text{light}}$. It is built upon the PoR protocol, presented in the previous section and is in the same security model as $\text{VSID}_{\scriptscriptstyle\text{light}}$ is, i.e. either $\mathcal C$ or $\mathcal S$ can be malicious. In PoRID similar to $\text{VSID}_{\scriptscriptstyle\text{light}}$, $\mathcal C$ and $\mathcal S$ use a bulletin board to exchange signed messages.  In the protocol, at setup $\mathcal C$ encodes its file and generates public parameters and  metadata.  It posts the public parameters and metadata to the bulletin board and   sends the encoded file to the server. Next, $\mathcal S$ runs a few lightweight checks to ensure the correctness of the public parameters and metadata. It agrees to serve, if it is convinced of their correctness. Later, when $\mathcal C$ wants to ensure the availability of its outsourced file, it  generates and posts a query  to the board.   $\mathcal S$  checks the correctness of the query, by performing a couple of highly efficient verifications to ensure its correctness. 
+In this section, we propose ``PoR with identifiable abort'' (PoRID) that is a concrete instantiation of $\text{VSID}_{\scriptscriptstyle\text{light}}$. It is built upon the PoR protocol, presented in the previous section and is in the same security model as $\text{VSID}_{\scriptscriptstyle\text{light}}$ is, i.e. either $\mathcal C$ or $\mathcal S$ can be malicious. In PoRID similar to $\text{VSID}_{\scriptscriptstyle\text{light}}$, $\mathcal C$ and $\mathcal S$ use a bulletin board to exchange signed messages.  In the protocol, at setup $\mathcal C$ encodes its file and generates public parameters and  metadata.  It posts the public parameters and metadata to the bulletin board and   sends the encoded file to $\mathcal S$ who runs a few lightweight checks to ensure the correctness of the public parameters and metadata. It agrees to serve, if it is convinced of their correctness. Later, when $\mathcal C$ wants to ensure the availability of its outsourced file, it  generates and posts a query  to the board.   $\mathcal S$  checks the correctness of the query, by performing a couple of highly efficient verifications. 
 
 The server-side prove and client-side verify algorithms are similar to those in PoR with a difference that $\mathcal S$ posts the PoR proofs (i.e. output of prove algorithm) to the board. In  case of any dispute, $\mathcal C$ or $\mathcal S$ invokes the arbiter who, given the signed posted messages, checks the proofs  to identify a corrupt party. In particular,  it first checks the validity of the query (regardless of the party who invokes it). However, if  is invoked by  $\mathcal C$, it also checks  only one of the PoR proofs that the client claims it is invalid. Thus, it is much more efficient than $\text{VSID}_{\scriptscriptstyle\text{light}}$ as it does not need any zero-knowledge proofs (mainly due to the use of Merkle tree) and requires the  arbiter to check only one of the proofs (due  to the idea of proof of misbehaviour). PoRID protocol is presented below.
 
@@ -107,8 +107,15 @@ This algorithm can be invoked by $\mathcal{C}$ or $\mathcal{S}$, in the case of 
 \end{enumerate}
 
 \begin{theorem}
-The PoRID protocol satisfies the soundness, inputs well-formedness, and detectable abort properties, w.r.t. Definitions \ref{deff::VSID-Soundness}-\ref{def::VSID-Identifiable-Abort}, if the Merkle tree, PoR, and signature schemes are secure.
+The PoRID protocol satisfies the soundness, inputs well-formedness, and detectable abort properties, w.r.t. Definitions \ref{deff::VSID-Soundness}-\ref{def::VSID-Identifiable-Abort}, if PoR is $\epsilon$-sound and the Merkle tree and signature schemes are secure.
 \end{theorem}
+
+
+\begin{proof}[sketch]
+
+
+ \hfill\(\Box\)\end{proof}
+
 
 \input{Recurring-Contingent-PoR-Payment-protocol.tex}
 %In the case where the party's outgoing message input is of large size, the parties can post a hash of the data to the board and send the data directly to its counter party. This requires, the other party to simply check if the data matches the representation and then sends to the board a short string declaring it has received it. 

@@ -34,6 +34,13 @@ Garay, J.A., Kiayias, A., Leonardos, N.: The bitcoin backbone protocol:
   26-30, 2015, Proceedings, Part {II}. Lecture Notes in Computer Science, vol.
   9057, pp. 281--310. Springer (2015)
 
+\bibitem{DBLP:conf/ccs/HaleviHPS11}
+Halevi, S., Harnik, D., Pinkas, B., Shulman{-}Peleg, A.: Proofs of ownership in
+  remote storage systems. In: Chen, Y., Danezis, G., Shmatikov, V. (eds.)
+  Proceedings of the 18th {ACM} Conference on Computer and Communications
+  Security, {CCS} 2011, Chicago, Illinois, USA, October 17-21, 2011. pp.
+  491--500. {ACM} (2011)
+
 \bibitem{DBLP:conf/crypto/IshaiOZ14}
 Ishai, Y., Ostrovsky, R., Zikas, V.: Secure multi-party computation with
   identifiable abort. In: Garay, J.A., Gennaro, R. (eds.) Advances in
@@ -52,6 +59,10 @@ Katz, J., Lindell, Y.: Introduction to Modern Cryptography. Chapman and
 Kosba, A.E., Miller, A., Shi, E., Wen, Z., Papamanthou, C.: Hawk: The
   blockchain model of cryptography and privacy-preserving smart contracts. In:
   {S\&P}'16
+
+\bibitem{MillerPermacoin}
+Miller, A., Juels, A., Shi, E., Parno, B., Katz, J.: Permacoin: Repurposing
+  bitcoin work for data preservation. In: {S\&P}'14
 
 \bibitem{Pedersen91}
 Pedersen, T.P.: Non-interactive and information-theoretic secure verifiable
