@@ -107,11 +107,15 @@ This algorithm can be invoked by $\mathcal{C}$ or $\mathcal{S}$, in the case of 
 \end{enumerate}
 
 \begin{theorem}
-The PoRID protocol satisfies the soundness, inputs well-formedness, and detectable abort properties, w.r.t. Definitions \ref{deff::VSID-Soundness}-\ref{def::VSID-Identifiable-Abort}, if PoR is $\epsilon$-sound and the Merkle tree and signature schemes are secure.
+The PoRID protocol satisfies the $\epsilon$-soundness, inputs well-formedness, and detectable abort properties, w.r.t. Definitions \ref{extractable}, \ref{deff::VSID-Inputs-Well-formedess}, and \ref{def::VSID-Identifiable-Abort}, if PoR is $\epsilon$-sound and the Merkle tree and signature schemes are secure.
 \end{theorem}
 
 
 \begin{proof}[sketch]
+The $\epsilon$-soundness of PoRID directly stems from the security of PoR scheme, i.e. $\epsilon$-soundness. Specifically,
+in PoRID the (honest) client makes block-box calls to the algorithms of PoR, to ensure the soundness. The latter scheme's soundness ensures that an extractor can recover the entire file interacting with a corrupt server who passes  $\epsilon$ fraction of challenges.
+
+
 
 
  \hfill\(\Box\)\end{proof}
