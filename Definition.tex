@@ -2,7 +2,7 @@
 
 \section{Definition}\label{Definition}
 
-\subsection{Verifiable Service Definition}\label{subsec:VS}
+\subsection{Verifiable Service (VS) Definition}\label{subsec:VS}
 At a high-level, a verifiable service scheme is a two-party protocol in which a client chooses a function, $F$, and provides (an encoding of) $F$, and its input $u$, and a query $\bm{q}$ to a server.  The server is expected to evaluate $F$ on $u$ and $q$ and respond with the output. Then, the client  verifies that the output is indeed the output of the function computed on the provided input. In verifiable services, either the computation (on the input) or both the computation and storage of the input are delegated to the server. A verifiable service is defined as follows. 
 
 
@@ -89,7 +89,7 @@ It is not hard to see that the original PoR definition (presented in Section \re
 
 %\textcolor{blue}{XXXXThomas: In addition, here we claim applicability of our definition without any justification. One may ask, how (easily) are the extra security properties plugged into the definition? XXXX}--Aydin: done
 
-\subsection{Verifiable Service with Identifiable Abort Definition}\label{subsec:VSID}
+\subsection{Verifiable Service with Identifiable Abort (VSID) Definition}\label{subsec:VSID}
 
 
 A protocol that realises only VS's definition, would be merely secure against a malicious server and  assumes the client is honest.  Although this  assumption would suffice in certain settings and has been used before (e.g. in \cite{}), it is rather strong and not suitable in the real world, especially when there are monetary incentives (e.g. service payment)  that encourage a client to misbehave. Therefore, in the following we enhance VS's definition to allow  (a) either party to be malicious and (b) a trusted third-party, \emph{arbiter}, to identify a corrupt party. We call a verifiable service scheme with that features ``verifiable service with identifiable abort'' (VSID), inspired by the notion of secure multi-party computation with identifiable abort \cite{DBLP:conf/crypto/IshaiOZ14}. 
@@ -251,6 +251,17 @@ $$ \Pr\left[
 
 \end{enumerate}
 \end{definition}
+
+
+\subsubsection{Lighter VSID Scheme ($\text{VSID}_{\scriptscriptstyle\text{light}}$)}\label{remark::light-VSID}
+In the VSID scheme definition, algorithm  $\mathtt{VSID.identify}()$    allows an arbiter  to identify a misbehaving party even in the setup phase. Nevertheless, often it is sufficient  to let the arbiter pinpoint a corrupt party \emph{after} the client and server agree to deal with each other, i.e. after the setup when the server runs  $\mathtt{VSID.serve}()$ and outputs $1$. A VSID protocol that meets the latter (lighter) requirement, denoted by $\text{VSID}_{\scriptscriptstyle \text{light}}$, would impose lower costs  especially when $u$ and elements of $e$ are of large size. In $\text{VSID}_{\scriptscriptstyle\text{light}}$  the arbiter algorithm, i.e. $\mathtt{VSID.identify}()$, needs to take only $(\pi, c, k, e')$ as input, where $e'\subset e$. Note also $u^{\scriptscriptstyle *}$ is not given to the arbiter. In the light version, the arbiter   skips  checking the correctness of metadata. So, this requires two changes to the VSID definition, (a) we would have   $\mathtt{VSID.identify}(\pi,c,k,e')\rightarrow I$, and (b) in case 2, in Definition \ref{def::VSID-Identifiable-Abort} we would have $b=0\wedge I\neq \mathcal C$, so event $a=0$ is excluded. In this paper, any time we refer to $\text{VSID}_{\scriptscriptstyle\text{light}}$, we assume the above minor adjustments are applied to the VSID definition. 
+
+
+
+
+
+
+
 
 %\begin{definition}[VSID Detectable Abort]\label{def::VSID-Identifiable-Abort}  A  VSID  supports  detectable abort   if the following holds.  Let  $(\pi,c,k,e,u^{\scriptscriptstyle *})$ be the parameters defined above. Then,  for any  security parameter $\lambda$ any  functions $F, M,Q$, , any auxiliary information $\text{aux}$, any probabilistic polynomial time adversary $\mathcal{A}\in \{\mathcal{A}_{\scriptscriptstyle 1},\mathcal{A}_{\scriptscriptstyle 2}\}$ who plays either of the  games in Definitions \ref{deff::VSID-Soundness} and \ref{deff::VSID-Inputs-Well-formedess}, there exists a negligible function $\mu(\cdot)$, such that: 
 %\footnotesize{

@@ -77,9 +77,7 @@ Calls $\mathtt{VS.verify}(\pi,\bm{q},k)\rightarrow d$, to verify  proof $\pi$. I
 \end{enumerate}
 \end{enumerate}
 
-\begin{remark}\label{remark::light-VSID}
-The above  $\mathtt{VSID.identify}()$ algorithm   allows an arbiter  to identify a misbehaving party even in the setup phase. Nevertheless, often it is sufficient  to let the arbiter pinpoint a corrupt party \emph{after} the client and server agree to deal with each other, i.e. after the setup when the server runs  $\mathtt{VSID.serve}()$ and outputs $1$. A VSID protocol that meets the latter (lighter) requirement, denoted by $\text{VSID}_{\scriptscriptstyle \text{light}}$, would impose lower costs  especially when $u$ and elements of $e$ are of large size. In  $\text{VSID}_{\scriptscriptstyle \text{light}}$, the client and server  run phases 1-3 of the VSID protocol as before, with a difference that the client does not post $e$ and $u^{\scriptscriptstyle*}$ to the board; instead, it sends them directly to the server. In $\text{VSID}_{\scriptscriptstyle\text{light}}$  the arbiter algorithm, i.e. $\mathtt{VSID.identify}()$, needs to take only $(\pi, c, pk, e')$ as input, where $e'$ contains the opening of $\mathtt{Com}_{\scriptscriptstyle {sk}}$ if $\mathtt{VSID.verify}()$ is privately verifiable or $e'=\bot$ if  it is publicly verifiable. In this light version, the arbiter   skips step \ref{Arb-VSID.serve}. Thus, $\text{VSID}_{\scriptscriptstyle\text{light}}$ saves (a)  communication cost, as   $u^{\scriptscriptstyle*}$ and $e$ are never sent to the board and  arbiter, and (b) computation  cost as the arbiter does not need to run $\mathtt{VSID.serve}()$ anymore.
-\end{remark}
+
 
 
 \begin{theorem}
@@ -89,6 +87,9 @@ The VSID protocol satisfies the soundness, inputs well-formedness, and detectabl
 \input{VSID-Proof}
 
 
+\begin{remark}\label{remark::light-VSID}
+As we mentioned before, often it is sufficient  to let the arbiter pinpoint a corrupt party \emph{after} the client and server agree to deal with each other. We denoted a VSID protocol that meets the latter (lighter) requirement, by $\text{VSID}_{\scriptscriptstyle \text{light}}$. The lighter version would impose lower costs, when $u$ and elements of $e$ are of large size. In  $\text{VSID}_{\scriptscriptstyle \text{light}}$, the client and server  run phases 1-3 of the VSID protocol as before, with a difference that the client does not post $e$ and $u^{\scriptscriptstyle*}$ to the board; instead, it sends them directly to the server. In $\text{VSID}_{\scriptscriptstyle\text{light}}$  the arbiter algorithm, i.e. $\mathtt{VSID.identify}()$, needs to take only $(\pi, c, pk, e')$ as input, where $e'$ contains the opening of $\mathtt{Com}_{\scriptscriptstyle {sk}}$ if $\mathtt{VSID.verify}()$ is privately verifiable or $e'=\bot$ if  it is publicly verifiable. In this light version, the arbiter   skips step \ref{Arb-VSID.serve}. Thus, $\text{VSID}_{\scriptscriptstyle\text{light}}$ saves (a)  communication cost, as   $u^{\scriptscriptstyle*}$ and $e$ are never sent to the board and  arbiter, and (b) computation  cost as the arbiter does not need to run $\mathtt{VSID.serve}()$ anymore. 
+\end{remark}
 
 
 %Note  in in step \ref{Server-side Setup-post} in VSID,  if the server accepts all proofs, it means  either $sk$, which is the opening of $\mathtt{Com}(sk)$, is a correct verification key if $\mathtt{VSID.verify}()$ is privately verifiable or $pk$ is a correct verification key if it is publicly verifiable. Therefore,  

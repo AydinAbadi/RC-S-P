@@ -12,45 +12,45 @@ Warning--empty year in KosbaMSWP16
 Warning--empty year in MillerPermacoin
 Warning--empty year in Pedersen91
 Warning--empty year in ShenT11
-You've used 15 entries,
+You've used 17 entries,
             2785 wiz_defined-function locations,
-            678 strings with 7638 characters,
-and the built_in function-call counts, 7689 in all, are:
-= -- 555
-> -- 320
-< -- 6
-+ -- 127
-- -- 111
-* -- 479
-:= -- 1043
-add.period$ -- 21
-call.type$ -- 15
-change.case$ -- 119
+            694 strings with 8136 characters,
+and the built_in function-call counts, 8932 in all, are:
+= -- 670
+> -- 338
+< -- 9
++ -- 135
+- -- 116
+* -- 549
+:= -- 1192
+add.period$ -- 27
+call.type$ -- 17
+change.case$ -- 131
 chr.to.int$ -- 0
-cite$ -- 23
-duplicate$ -- 693
-empty$ -- 684
-format.name$ -- 129
-if$ -- 1617
+cite$ -- 25
+duplicate$ -- 806
+empty$ -- 807
+format.name$ -- 134
+if$ -- 1905
 int.to.chr$ -- 0
-int.to.str$ -- 15
-missing$ -- 162
-newline$ -- 50
-num.names$ -- 42
-pop$ -- 359
+int.to.str$ -- 17
+missing$ -- 183
+newline$ -- 56
+num.names$ -- 48
+pop$ -- 396
 preamble$ -- 1
-purify$ -- 79
+purify$ -- 85
 quote$ -- 0
-skip$ -- 180
+skip$ -- 222
 stack$ -- 0
-substring$ -- 234
-swap$ -- 344
-text.length$ -- 6
+substring$ -- 325
+swap$ -- 408
+text.length$ -- 9
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 58
+type$ -- 66
 warning$ -- 8
-while$ -- 53
-width$ -- 17
-write$ -- 139
+while$ -- 66
+width$ -- 19
+write$ -- 162
 (There were 9 warnings)

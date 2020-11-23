@@ -113,9 +113,7 @@ The PoRID protocol satisfies the $\epsilon$-soundness, inputs well-formedness, a
 
 \begin{proof}[sketch]
 The $\epsilon$-soundness of PoRID directly stems from the security of PoR scheme, i.e. $\epsilon$-soundness. Specifically,
-in PoRID the (honest) client makes block-box calls to the algorithms of PoR, to ensure the soundness. The latter scheme's soundness ensures that an extractor can recover the entire file interacting with a corrupt server who passes  $\epsilon$ fraction of challenges.
-
-
+in PoRID the (honest) client makes block-box calls to the algorithms of PoR, to ensure the soundness. The latter scheme's soundness ensures that an extractor can recover the entire file interacting with a corrupt server who passes  $\epsilon$ fraction of challenges. On the other hand, the inputs well-formedness holds for the following reasons. The metadata generation algorithm, i.e. the Merkle tree algorithm that builds a tree and computes a root, is deterministic and involves only public  parameters. Thus, given the tree's leaves (i.e. file blocks), its parameters, and the root, anyone can reconstruct it, check if it yields the same root, and verify the tree's parameters. Also, a query contains a single random key, $\hat{k}$, whose correctness can be checked deterministically, i.e. by checking $\hat{k}\neq \bot$ and  $\hat{k}\in \{0,1\}^{\scriptscriptstyle\psi}$. The detectable abort property holds as long as the soundness and inputs well-formedness hold and the signature scheme is secure. The reason is that algorithm $\mathtt{PoRID.identify}()$ that ensures detected abort is a wrapper function that makes black-box calls to algorithms $\mathtt{PoRID.checkQuery}()$ and $\mathtt{PoR.verify}()$, where the former  ensures input well-formedness (i.e. the query is well-formed), and the latter one ensures soundness. 
 
 
  \hfill\(\Box\)\end{proof}

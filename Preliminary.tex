@@ -50,6 +50,13 @@ Some of our protocols utilise digital signatures to commit a party to messages i
 
 \subsection{Merkle Tree}
 
+A Merkle tree scheme introduced by Merkle \cite{DBLP:conf/sp/Merkle80,DBLP:conf/crypto/Merkle89} allows   committing to data blocks, such that it is  possible later to open the commitment and verify individual blocks of the file without the need to have the entire file to verify the opening. To construct a Merkle tree a file is split into blocks, then the blocks are grouped in pairs. Next,   a collision-resistant hash function is used to hash each pair. After that, the hash values are grouped in pairs and each pair is further hashed, and this process is repeated until only a single hash value remains. This results in a  tree with the leaves corresponding to the blocks of the input file and the root corresponding to the last remaining hash value.  {\color{blue} Add the Merkle tree algorithms, e.g. build, prove, verify}
+
+
+
+
+
+
 \subsection{Proofs of Retrievability (PoR)}\label{PoR-def}
 \input{PoR-def}
 

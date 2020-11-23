@@ -60,6 +60,17 @@ Kosba, A.E., Miller, A., Shi, E., Wen, Z., Papamanthou, C.: Hawk: The
   blockchain model of cryptography and privacy-preserving smart contracts. In:
   {S\&P}'16
 
+\bibitem{DBLP:conf/sp/Merkle80}
+Merkle, R.C.: Protocols for public key cryptosystems. In: Proceedings of the
+  1980 {IEEE} Symposium on Security and Privacy, Oakland, California, USA,
+  April 14-16, 1980. pp. 122--134. {IEEE} Computer Society (1980)
+
+\bibitem{DBLP:conf/crypto/Merkle89}
+Merkle, R.C.: A certified digital signature. In: Brassard, G. (ed.) Advances in
+  Cryptology - {CRYPTO} '89, 9th Annual International Cryptology Conference,
+  Santa Barbara, California, USA, August 20-24, 1989, Proceedings. Lecture
+  Notes in Computer Science, vol. 435, pp. 218--238. Springer (1989)
+
 \bibitem{MillerPermacoin}
 Miller, A., Juels, A., Shi, E., Parno, B., Katz, J.: Permacoin: Repurposing
   bitcoin work for data preservation. In: {S\&P}'14
