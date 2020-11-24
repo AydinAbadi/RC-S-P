@@ -48,7 +48,7 @@ In this section, we present a modified version of the standard Merkle tree-based
 \item\label{PoR-verify}\textbf{Client-side Proof Verification}. $\mathtt{PoR.verify}( {\bm{\pi}},\bm{q},pk)$ 
 \begin{enumerate}
 
-\item If $|\bm{\pi}|=|\bm{q}|=1$, then set $\beta=1$. Note, this step is taken only in the case where single proof and query is provided to a third-party verifier (e.g. in the case of proof of misbehaviour). 
+\item If $|\bm{\pi}|=|\bm{q}|=1$, then set $\beta=1$. This step is taken only in the case where single proof and query is provided to a third-party verifier (e.g. in the case of proof of misbehaviour). 
 %\item Regenerates $\beta$ pseudorandom indices that are derived from $\hat{k}$ as follows. $\forall i,1\leq i\leq \beta: q_{\scriptscriptstyle i}=\mathtt{PRF}(\hat{k},i)\bmod m+1$. Let $ {\bm{q}}=[q_{\scriptscriptstyle 1},..., q_{\scriptscriptstyle \beta}]$
 \item Checks if the server has sent proofs related to all challenged file blocks. To do that, for all $i$ (where $1\leq i\leq \beta$),  it first parses every  element of $\pi$ as follows, $\mathtt{parse}(u^{\scriptscriptstyle *}_{\scriptscriptstyle q_{_{\scriptscriptstyle i}}})=u^{\scriptscriptstyle '}_{\scriptscriptstyle q_{_{\scriptscriptstyle i}}}||q_{_{\scriptscriptstyle i}}$, and then checks if its index: $q_{_{\scriptscriptstyle i}}$ equals $i$-th element of $ {\bm{q}}$. If all checks pass, then it proceeds to the next step. Otherwise,  it outputs $ {\bm{d}}:[0,i]$, where $i$ refers to the index of the  element in $ {\bm{\pi}}$ that does not pass the check. 
 
