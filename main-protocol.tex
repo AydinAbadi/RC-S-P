@@ -133,13 +133,15 @@ When $j=z$  and $\bm{v}_{\scriptscriptstyle\mathcal{S}}\neq\bot$, $\mathcal S$ s
 
 \begin{enumerate}
 %\item $\mathcal C$ and/or $\mathcal S$ at time $K_{\scriptscriptstyle 1}>G_{\scriptscriptstyle z,2}+H$ sends ``dispute'' message to the contract. 
-\item $\mathcal C$  sends $\bm{m}_{\scriptscriptstyle\mathcal C}$ to the arbiter at time $K_{\scriptscriptstyle 1}$, where $K_{\scriptscriptstyle 1}>G_{\scriptscriptstyle z,2}+H$.  Also,  $\mathcal S$ sends $\bm{m}_{\scriptscriptstyle\mathcal S}$ to the arbiter at time $K_{\scriptscriptstyle 1}$ %,   where $|\vv{\bm{v}}_{\scriptscriptstyle\mathcal{C}}|\neq 0$ and $|\vv{\bm{v}}_{\scriptscriptstyle\mathcal{S}}|\neq 0$. 
 
 
-\item The arbiter sets four counters: $y_{\scriptscriptstyle\mathcal C}$ and  $y_{\scriptscriptstyle\mathcal S}$ that are initially set to $0$ 
+\item The arbiter sets  counters: $y_{\scriptscriptstyle\mathcal C},{\color{purple}y'_{\scriptscriptstyle\mathcal C}},y_{\scriptscriptstyle\mathcal S}$ and  {\color{purple}$y'_{\scriptscriptstyle\mathcal S}$} and a vector: $\bm{des}$, that are initially set to $0$,  before time $K_{\scriptscriptstyle 1}$,  where $K_{\scriptscriptstyle 1}>G_{\scriptscriptstyle z,2}+H$. 
+\item $\mathcal C$  sends $\bm{m}_{\scriptscriptstyle\mathcal C}$ to the arbiter at time $K_{\scriptscriptstyle 1}$. Also,  $\mathcal S$ sends $\bm{m}_{\scriptscriptstyle\mathcal S}$ to the arbiter at time $K_{\scriptscriptstyle 1}$ %,   where $|\vv{\bm{v}}_{\scriptscriptstyle\mathcal{C}}|\neq 0$ and $|\vv{\bm{v}}_{\scriptscriptstyle\mathcal{S}}|\neq 0$. 
+
+
 
 \item\label{arbiter-checks-statement} The arbiter, checks the validity of the statement: $\ddot{x}_{\scriptscriptstyle qp}\in \bm{m}_{\scriptscriptstyle\mathcal R}$,  $\forall \mathcal R\in \{\mathcal {C,S}\}$. To do that, it sends  $\ddot{x}_{\scriptscriptstyle qp}$ to SAP contract which  returns  either $1$ or $0$. The arbiter  constructs an empty vector: $\bm{v}$.  If  party $\mathcal R$'s statement is accepted, then 
- it appends the elements of $\bm{v}_{\scriptscriptstyle\mathcal{R}}$ to $\bm{v}$, such that $\bm{v}$ contains only distinct elements which are in the range $[1,z]$. Otherwise (if the party's statement is rejected) it discards the party's request, $\bm{m}_{\scriptscriptstyle\mathcal{R}}$.
+ it appends every  element of $\bm{v}_{\scriptscriptstyle\mathcal{R}}$ to $\bm{v}$ and $\bm{des}$  if that element is not already in $\bm{des}$. Also, it ensures $\bm{v}$ contains only distinct elements which are in the range $[1,z]$. Otherwise (if the party's statement is rejected) it discards the party's request, $\bm{m}_{\scriptscriptstyle\mathcal{R}}$. It proceeds to the next step if $\bm{v}$ is not empty, otherwise it halts. 
  %, and increments $ y'_{\scriptscriptstyle\mathcal R}$ by 1
 
 %\item The Arbiter, for each party, checks the validity of $k$ by sending $k$ and $\mu'$ to SAP contract which  returns  either $1$ or $0$. The arbiter proceeds to the next step if the output is 1; otherwise, it does nothing. 
@@ -162,7 +164,7 @@ $ \mathtt{Dec}(\bar{k},\pi'_{\scriptscriptstyle i})=\pi''_{\scriptscriptstyle i}
 \begin{enumerate}
 \item[$\bullet$] if $I_{\scriptscriptstyle i}=\mathcal C$, then it increments $y_{\scriptscriptstyle\mathcal C}$ by $1$ 
 \item[$\bullet$]  if $I_{\scriptscriptstyle i}=\mathcal S$, then it increments $y_{\scriptscriptstyle\mathcal S}$ by $1$ 
-\item[$\bullet$]  if $I_{\scriptscriptstyle i}=\bot$, then does nothing. %then it increments  $y'_{\scriptscriptstyle\mathcal C}$ or $y'_{\scriptscriptstyle\mathcal S}$ by $1$, if the arbiter is invoked by the client or server respectively. 
+\item[$\bullet$]  if $I_{\scriptscriptstyle i}=\bot$, {\color{purple}then it increments  $y'_{\scriptscriptstyle\mathcal C}$ or $y'_{\scriptscriptstyle\mathcal S}$ by $1$, if the arbiter is invoked by the $\mathcal {C}$ or $\mathcal {S}$ respectively}. 
 \end{enumerate}
 \end{enumerate}
 
@@ -185,7 +187,7 @@ Let $K_{\scriptscriptstyle 2}$ be the time that the arbiter finishes the above c
 \begin{itemize}
 \item[$\bullet$]   $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}-o(z-y_{\scriptscriptstyle\mathcal S})-l\cdot y_{\scriptscriptstyle\mathcal C}$ coins  to $\mathcal C$
 \item[$\bullet$] $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}+o(z-y_{\scriptscriptstyle\mathcal S})-l\cdot y_{\scriptscriptstyle\mathcal S}$ coins to $\mathcal S$
-\item[$\bullet$] $l(y_{\scriptscriptstyle\mathcal S}+y_{\scriptscriptstyle\mathcal C})$ coins to the arbiter.  
+\item[$\bullet$] $l(y_{\scriptscriptstyle\mathcal S}+y_{\scriptscriptstyle\mathcal C}+y'_{\scriptscriptstyle\mathcal S}+y'_{\scriptscriptstyle\mathcal C})$ coins to the arbiter.  
 \end{itemize}
 
 \end{enumerate}
