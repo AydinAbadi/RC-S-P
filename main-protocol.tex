@@ -38,13 +38,13 @@ Now we outline why RC-S-P addresses the issues.    In the setup, if the client p
 
 
 
-\item $\mathcal C$ set parameters  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}=z\cdot (o_{\scriptscriptstyle max}+l_{\scriptscriptstyle max})$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}=z\cdot l_{\scriptscriptstyle max}$, where $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$ are   the total number of masked coins $\mathcal C$ and $\mathcal S$ should deposit respectively. $\mathcal C$ signs and deploys  smart contract SC that explicitly specifies  parameters $z$,  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$. It deposits $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ coins in the contract.
+\item $\mathcal C$ set parameters  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}=z\cdot (o_{\scriptscriptstyle max}+l_{\scriptscriptstyle max})$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}=z\cdot l_{\scriptscriptstyle max}$, where $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$ are   the total number of masked coins $\mathcal C$ and $\mathcal S$ should deposit respectively. $\mathcal C$ signs and deploys  smart contract SC that explicitly specifies  parameters $z$,  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$. Moreover, it sets four counters $\bm{y}=[y_{\scriptscriptstyle\mathcal C},y'_{\scriptscriptstyle\mathcal C},y_{\scriptscriptstyle\mathcal S}, y'_{\scriptscriptstyle\mathcal S}]$ in the contract, where their initial value is $0$. It deposits $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ coins in the contract.
 
 % at time $T_{\scriptscriptstyle 2}$. $\mathcal S$ signs the contract too, if it agrees on the parameters.  
 
 \item $\mathcal C$ constructs  vector $\bm{v}_{\scriptscriptstyle\mathcal C}$, also $\mathcal S$  constructs $\bm{v}_{\scriptscriptstyle\mathcal S}$,  where the vectors are initially empty. 
 
-\item $\mathcal C$ runs  $\mathtt{VSID.keyGen}(1^{\lambda},F)\rightarrow k:(sk,pk)$ and
+\item $\mathcal C$ runs  
 $\mathtt{VSID.setup}(1^{\lambda}, u,k,M)\rightarrow (u^{\scriptscriptstyle *},e)$.  It sends  $e$ and $u^{\scriptscriptstyle *}$ to $\mathcal S$ and sends  the public key's encryption: $\mathtt{Enc}(\bar{k},pk)$ to SC at time $T_{\scriptscriptstyle 2}$.
 
 
@@ -135,7 +135,7 @@ When $j=z$  and $\bm{v}_{\scriptscriptstyle\mathcal{S}}\neq\bot$, $\mathcal S$ s
 %\item $\mathcal C$ and/or $\mathcal S$ at time $K_{\scriptscriptstyle 1}>G_{\scriptscriptstyle z,2}+H$ sends ``dispute'' message to the contract. 
 
 
-\item The arbiter sets  counters: $y_{\scriptscriptstyle\mathcal C},{\color{purple}y'_{\scriptscriptstyle\mathcal C}},y_{\scriptscriptstyle\mathcal S}$ and  {\color{purple}$y'_{\scriptscriptstyle\mathcal S}$} and a vector: $\bm{des}$, that are initially set to $0$,  before time $K_{\scriptscriptstyle 1}$,  where $K_{\scriptscriptstyle 1}>G_{\scriptscriptstyle z,2}+H$. 
+\item The arbiter sets  counters: $y_{\scriptscriptstyle\mathcal C}, y'_{\scriptscriptstyle\mathcal C},y_{\scriptscriptstyle\mathcal S}$ and  $y'_{\scriptscriptstyle\mathcal S}$ and a vector: $\bm{des}$, that are initially set to $0$,  before time $K_{\scriptscriptstyle 1}$,  where $K_{\scriptscriptstyle 1}>G_{\scriptscriptstyle z,2}+H$. 
 \item $\mathcal C$  sends $\bm{m}_{\scriptscriptstyle\mathcal C}$ to the arbiter at time $K_{\scriptscriptstyle 1}$. Also,  $\mathcal S$ sends $\bm{m}_{\scriptscriptstyle\mathcal S}$ to the arbiter at time $K_{\scriptscriptstyle 1}$ %,   where $|\vv{\bm{v}}_{\scriptscriptstyle\mathcal{C}}|\neq 0$ and $|\vv{\bm{v}}_{\scriptscriptstyle\mathcal{S}}|\neq 0$. 
 
 
@@ -164,7 +164,7 @@ $ \mathtt{Dec}(\bar{k},\pi'_{\scriptscriptstyle i})=\pi''_{\scriptscriptstyle i}
 \begin{enumerate}
 \item[$\bullet$] if $I_{\scriptscriptstyle i}=\mathcal C$, then it increments $y_{\scriptscriptstyle\mathcal C}$ by $1$ 
 \item[$\bullet$]  if $I_{\scriptscriptstyle i}=\mathcal S$, then it increments $y_{\scriptscriptstyle\mathcal S}$ by $1$ 
-\item[$\bullet$]  if $I_{\scriptscriptstyle i}=\bot$, {\color{purple}then it increments  $y'_{\scriptscriptstyle\mathcal C}$ or $y'_{\scriptscriptstyle\mathcal S}$ by $1$, if the arbiter is invoked by the $\mathcal {C}$ or $\mathcal {S}$ respectively}. 
+\item[$\bullet$]  if $I_{\scriptscriptstyle i}=\bot$, then it increments  $y'_{\scriptscriptstyle\mathcal C}$ or $y'_{\scriptscriptstyle\mathcal S}$ by $1$, if the arbiter is invoked by the $\mathcal {C}$ or $\mathcal {S}$ respectively. 
 \end{enumerate}
 \end{enumerate}
 
