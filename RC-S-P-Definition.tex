@@ -136,10 +136,10 @@ A RC-S-P scheme is said to be secure if it satisfies  three main properties: (a)
 {\small
 $$ Pr\left[
   \begin{array}{l}
-  \Big(F(u^{\scriptscriptstyle *}, \bm{q}_{\scriptscriptstyle j})= h_{\scriptscriptstyle j}\ \wedge (coin_{\scriptscriptstyle\mathcal{C},j}\neq  \frac{coin_{\scriptscriptstyle\mathcal C}^{\scriptscriptstyle*}}{z}-o){\color{purple} \vee}\\{\color{purple}  (coin_{\scriptscriptstyle\mathcal{A}r,j}\neq l\ \wedge\  y'_{\scriptscriptstyle \mathcal {S},j}=1)}\Big)\vee\\ 
+  \Big(F(u^{\scriptscriptstyle *}, \bm{q}_{\scriptscriptstyle j})= h_{\scriptscriptstyle j}\ \wedge (coin_{\scriptscriptstyle\mathcal{C},j}\neq  \frac{coin_{\scriptscriptstyle\mathcal C}^{\scriptscriptstyle*}}{z}-o){\color{purple}\ \vee}\\{\color{purple}  (coin_{\scriptscriptstyle\mathcal{A}r,j}\neq l\ \wedge\  y'_{\scriptscriptstyle \mathcal {S},j}=1)}\Big)\ \vee\\ 
 
 \Big(
-F(u^{\scriptscriptstyle *},\bm{q}_{\scriptscriptstyle j})\neq h_{\scriptscriptstyle j} \ \wedge (d_{\scriptscriptstyle j}=1	\vee y_{\scriptscriptstyle \mathcal{S},j}=0 \ \vee \\(coin_{\scriptscriptstyle\mathcal{C},j}\neq \frac{coin_{\scriptscriptstyle\mathcal C}^{\scriptscriptstyle*}}{z} \ \vee  coin_{\scriptscriptstyle\mathcal{A}r,j}\neq l)) \Big)\\
+F(u^{\scriptscriptstyle *},\bm{q}_{\scriptscriptstyle j})\neq h_{\scriptscriptstyle j} \ \wedge (d_{\scriptscriptstyle j}=1	\vee y_{\scriptscriptstyle \mathcal{S},j}=0 \ \vee \\coin_{\scriptscriptstyle\mathcal{C},j}\neq \frac{coin_{\scriptscriptstyle\mathcal C}^{\scriptscriptstyle*}}{z} \ \vee  coin_{\scriptscriptstyle\mathcal{A}r,j}\neq l) \Big)\\
 %\text{s.t.}\\
 %y_{\scriptscriptstyle j}= E^{\scriptscriptstyle -1}_{\scriptscriptstyle 2}(y^{\scriptscriptstyle *}_{\scriptscriptstyle j},t_{\scriptscriptstyle qp})\\
 %E^{\scriptscriptstyle -1}_{\scriptscriptstyle 2},t_{\scriptscriptstyle qp}\in en\\
@@ -189,14 +189,16 @@ Informally, security against a malicious client requires that, for each  $j$-th 
 {\small
 $$ Pr\left[
   \begin{array}{l}
- \Big((M(u^{\scriptscriptstyle *},k)= \sigma  \wedge Q(\text{aux},k)= \bm{q}_{\scriptscriptstyle j}) \wedge\\
-  (coin_{\scriptscriptstyle\mathcal{S},j}\neq  \frac{coin_{\scriptscriptstyle\mathcal S}^{\scriptscriptstyle*}}{z}+o {\color{purple} \vee}\\
- {\color{purple} coin_{\scriptscriptstyle\mathcal{A}r,j}\neq l\ \wedge\  y'_{\scriptscriptstyle \mathcal {C},j}=1)}\Big)\vee
+ \Big((M(u^{\scriptscriptstyle *},k)= \sigma  \wedge Q(\text{aux},k)= \bm{q}_{\scriptscriptstyle j})\ \wedge\\
+  (coin_{\scriptscriptstyle\mathcal{S},j}\neq  \frac{coin_{\scriptscriptstyle\mathcal S}^{\scriptscriptstyle*}}{z}+o {\color{purple} \ \vee}\\
+ {\color{purple} coin_{\scriptscriptstyle\mathcal{A}r,j}\neq l\ \wedge\  y'_{\scriptscriptstyle \mathcal {C},j}=1)}\Big)\ \vee
   \\
-%  \Big(M(u^{\scriptscriptstyle *},k)\neq \sigma \wedge a=1\Big)\vee\\ \Big(Q(\text{aux},k)\neq \bm{q}_{\scriptscriptstyle j} \wedge
-% b_{\scriptscriptstyle j}=1  \Big)  \vee\\
+  
+  
+  \Big(M(u^{\scriptscriptstyle *},k)\neq \sigma \wedge a=1\Big) \ \vee\\ 
 
-  \Big(Q(\text{aux},k)\neq \bm{q}_{\scriptscriptstyle j} \wedge
+
+  \Big(Q(\text{aux},k)\neq \bm{q}_{\scriptscriptstyle j}\ \wedge
   (b_{\scriptscriptstyle j}=1 \ \vee \ y_{\scriptscriptstyle\mathcal{C},j}=0 \ \vee \\ coin_{\scriptscriptstyle\mathcal{S},j}\neq \frac{coin_{\scriptscriptstyle\mathcal S}^{\scriptscriptstyle*}}{z}+o \ \vee  coin_{\scriptscriptstyle\mathcal{A}r,j}\neq l) 
   \Big)
  \\
