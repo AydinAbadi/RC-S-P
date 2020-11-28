@@ -10,31 +10,41 @@ In this section, we explain how a client and server, mutually distrusted, can ef
 % either neither  party can successfully prove it has  an agreement with its counter-party, or either party can prove it to the verifier. 
 
  \begin{enumerate}
- \item\textbf{Setup}.  
-
- \begin{enumerate}
-  \item both parties agree on the SAP smart contract that  explicitly states their addresses, $adr_{\scriptscriptstyle\mathcal{C}}$ and $adr_{\scriptscriptstyle\mathcal{S}}$.
- \item they sign and deploy the contract to the blockchain.
-   \end{enumerate}
-    \item\textbf{Agreement}.
+ 
+ \item\textbf{Initiate}. $\mathtt{SAP.init}(1^{\scriptscriptstyle\lambda}, adr_{\scriptscriptstyle\mathcal{C}}, adr_{\scriptscriptstyle\mathcal{S}},x )\rightarrow(r,g_{\scriptscriptstyle \mathcal{C}},adr_{\scriptscriptstyle\text{SAP}})$ 
+ 
+ The following steps are taken   by  $\mathcal C$.
+ 
   \begin{enumerate}
-   \item $\mathcal C$ picks a random value $r$, and commits to the statement, $\mathtt{Com}(x,r)=g_{\scriptscriptstyle \mathcal{C}}$
+  \item  Designs and deploys a smart contract, SAP, that  explicitly states both parties'  addresses, $adr_{\scriptscriptstyle\mathcal{C}}$ and  $adr_{\scriptscriptstyle\mathcal{S}}$. Let $adr_{\scriptscriptstyle\text{SAP}}$ be the deployed contract's address. 
+
+   \item  Picks a random value $r$, and commits to the statement, $\mathtt{Com}(x,r)=g_{\scriptscriptstyle \mathcal{C}}$
+   \item Sends $adr_{\scriptscriptstyle\text{SAP}}$ and $\ddot{x}:=(x,r)$  to  $\mathcal S$. 
+   \item Sends $g_{\scriptscriptstyle\mathcal C}$ to the contract, using its account 
+    \end{enumerate}
+    
+    \item\textbf{Agreement}. $\mathtt{SAP.agree}(x,r,g_{\scriptscriptstyle \mathcal{C}},adr_{\scriptscriptstyle\mathcal{C}},adr_{\scriptscriptstyle\text{SAP}})\rightarrow (g_{\scriptscriptstyle \mathcal{S}},b)$
+    
+     The following steps are taken   by  $\mathcal S$.
+     
+     \begin{enumerate}
+ 
+   \item Checks if $g_{\scriptscriptstyle \mathcal{C}}$ has been sent to the contract from $adr_{\scriptscriptstyle \mathcal{C}}$, and checks $\mathtt{Ver}(g_{\scriptscriptstyle\mathcal C}, \ddot{x})=1$. If the checks pass, it sets $b=1$ and   it computes $\mathtt{Com}(x,r)=g_{\scriptscriptstyle\mathcal S}$. Otherwise, it sets $b=0$ and $g_{\scriptscriptstyle\mathcal S}=\bot$.
    
-   
-   \item $\mathcal C$ sends $\ddot{x}:=(x,r)$  to  $\mathcal S$. Also, $\mathcal C$ using its account sends $g_{\scriptscriptstyle\mathcal C}$ to the contract. 
-   \item $\mathcal S$ checks if has been sent from $adr_{\scriptscriptstyle \mathcal{C}}$, and $\mathtt{Ver}(g_{\scriptscriptstyle\mathcal C}, \ddot{x})\stackrel{?}=1$. If the checks pass, then  it computes $\mathtt{Com}(x,r)=g_{\scriptscriptstyle\mathcal S}$
-   
-   \item $\mathcal S$ using its account sends   $g_{\scriptscriptstyle\mathcal S}$ to the contract. 
+   \item  If $b=1$, then sends $g_{\scriptscriptstyle\mathcal S}$ to the contract using its account.
     \end{enumerate}
    \item\textbf{Prove}. For either $\mathcal C$ or $\mathcal S$ to prove, it has agreement on $x$ with its counter-party, it sends $\ddot{x}:=(x, r)$  to the contract. 
- \item\textbf{Verify}. Given $\ddot{x}$, the contract does the following. 
+ \item\textbf{Verify}. $\mathtt{SAP.verify}(\ddot{x}, g_{\scriptscriptstyle\mathcal C},g_{\scriptscriptstyle\mathcal S},adr_{\scriptscriptstyle\mathcal{C}}, adr_{\scriptscriptstyle\mathcal{S}})\rightarrow d\in\{0,1\}$
+ 
+ 
+ The following steps are taken   by  the contract.
    \begin{enumerate}
    
-\item\label{SAP::check-adr} ensures $g_{\scriptscriptstyle\mathcal C}$ and $g_{\scriptscriptstyle\mathcal S}$ were sent from   $adr_{\scriptscriptstyle \mathcal{C}}$ and  $adr_{\scriptscriptstyle \mathcal{S}}$  respectively. 
+\item\label{SAP::check-adr} Ensures $g_{\scriptscriptstyle\mathcal C}$ and $g_{\scriptscriptstyle\mathcal S}$ were sent from   $adr_{\scriptscriptstyle \mathcal{C}}$ and  $adr_{\scriptscriptstyle \mathcal{S}}$  respectively. 
   
-   \item\label{SAP::check-commit} ensures $\mathtt{Ver}(g_{\scriptscriptstyle\mathcal C},\ddot{x})=\mathtt{Ver}(g_{\scriptscriptstyle\mathcal S},\ddot{x}) =1$
+   \item\label{SAP::check-commit} Ensures $\mathtt{Ver}(g_{\scriptscriptstyle\mathcal C},\ddot{x})=\mathtt{Ver}(g_{\scriptscriptstyle\mathcal S},\ddot{x}) =1$.
    
-   \item outputs $1$, if the checks in the two previous steps (i.e. steps \ref{SAP::check-adr} and \ref{SAP::check-commit}) were passed. Otherwise, it outputs $0$
+   \item Outputs $d=1$, if the checks in the two previous steps (i.e. steps \ref{SAP::check-adr} and \ref{SAP::check-commit}) were passed. Otherwise, it outputs $d=0$.
     \end{enumerate}
  \end{enumerate}
 
