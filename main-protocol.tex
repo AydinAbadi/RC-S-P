@@ -21,6 +21,7 @@ Now we outline why RC-S-P addresses the issues.    In the setup, if the client p
 \item \textbf{Key Generation}. 
 \begin{enumerate}
 
+\item {\color{purple}Aydin---I'm modifying/improving the RC-S-P protocol.}
 
 \item  $\mathcal C$ runs  $\mathtt{VSID.keyGen}(1^{\lambda},F)\rightarrow k:(sk,pk)$. It picks a random secret key  $\bar{k}$ for a symmetric key encryption. Also, it sets two parameters: $pad_{\scriptscriptstyle \pi}$ and $pad_{\scriptscriptstyle q}$, where  $pad_{\scriptscriptstyle \pi}$ and $pad_{\scriptscriptstyle q}$  refer to the number of  dummy values that will be used to pad encrypted proofs and encrypted queries respectively \footnote{\scriptsize The values of  $pad_{\scriptscriptstyle \pi}$ and $pad_{\scriptscriptstyle q}$ is determined as follows, $pad_{\scriptscriptstyle \pi}=\pi_{\scriptscriptstyle max}-\pi_{\scriptscriptstyle act}$ and $pad_{\scriptscriptstyle q}=q_{\scriptscriptstyle max}-q_{\scriptscriptstyle act}$, where $\pi_{\scriptscriptstyle max}$ and $\pi_{\scriptscriptstyle act}$ refer to the maximum and actual proof size  while $q_{\scriptscriptstyle max}$ and $q_{\scriptscriptstyle act}$ refer to the maximum and actual query size, respectively.}.  Let $qp:=(pad_{\scriptscriptstyle \pi},pad_{\scriptscriptstyle q}, \bar{k})$. The keys' size is part of the security parameter. 
 
@@ -31,6 +32,27 @@ Now we outline why RC-S-P addresses the issues.    In the setup, if the client p
 \end{enumerate}
 \item \textbf{Initiation}. 
 \begin{enumerate}
+
+\item Calls  $\mathtt{VSID.setup}(1^{\lambda}, u,k,M)\rightarrow (u^{\scriptscriptstyle *},e)$. {\color{purple} It sends  $e$ and $u^{\scriptscriptstyle *}$ to $\mathcal S$ and sends  the public key's encryption: $\mathtt{Enc}(\bar{k},pk)$ to SC at time $T_{\scriptscriptstyle 2}$.}
+
+
+\item  Calls $\mathtt{SAP.init}(1^{\scriptscriptstyle\lambda}, adr_{\scriptscriptstyle\mathcal{C}}, adr_{\scriptscriptstyle\mathcal{S}},qp )\rightarrow(r_{\scriptscriptstyle qp},g_{\scriptscriptstyle qp},adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 1}})$.  Let $t_{\scriptscriptstyle qp}:=(\ddot{x}_{\scriptscriptstyle qp}, g_{\scriptscriptstyle qp})$ be proof/query encoding token,  where  $\ddot{x}_{\scriptscriptstyle qp}:=(qp,r_{\scriptscriptstyle qp})$ is the opening and $g_{\scriptscriptstyle qp}$ is the commitment stored on the contract as a result of running   SAP. 
+
+
+\item  Sets  $cp:=(o,o_{\scriptscriptstyle max},l,l_{\scriptscriptstyle max},z)$, where $o_{\scriptscriptstyle max}$ is the maximum amount of coins  for an accepting service proof,  $l_{\scriptscriptstyle max}$  is the maximum amount of coins to resolve a potential dispute, and $z$ is the number of  service proofs/verifications. Then, $\mathcal C$ calls $\mathtt{SAP.init}(1^{\scriptscriptstyle\lambda}, adr_{\scriptscriptstyle\mathcal{C}}, adr_{\scriptscriptstyle\mathcal{S}},cp )\rightarrow(r_{\scriptscriptstyle cp},g_{\scriptscriptstyle cp},adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 2}})$.  Let $t_{\scriptscriptstyle cp}:=(\ddot{x}_{\scriptscriptstyle cp},g_{\scriptscriptstyle cp})$ be coin encoding token,  where  $\ddot{x}_{\scriptscriptstyle cp}:=(cp,r_{\scriptscriptstyle cp})$ is the opening and $g_{\scriptscriptstyle cp}$ is the commitment stored on the contract as a result of running the  SAP.  
+
+\item Set parameters  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}=z\cdot (o_{\scriptscriptstyle max}+l_{\scriptscriptstyle max})$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}=z\cdot l_{\scriptscriptstyle max}$, where $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$ are   the total number of masked coins $\mathcal C$ and $\mathcal S$ should deposit respectively. $\mathcal C$ signs and deploys  smart contract SC that explicitly specifies  parameters $z$,  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$. Moreover, it sets four counters $\bm{y}=[y_{\scriptscriptstyle\mathcal C},y'_{\scriptscriptstyle\mathcal C},y_{\scriptscriptstyle\mathcal S}, y'_{\scriptscriptstyle\mathcal S}]$ in the contract, where their initial value is $0$. It deposits $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ coins in the contract.
+
+\item Sends $u^{\scriptscriptstyle *}, e, \ddot{x}_{\scriptscriptstyle qp},\ddot{x}_{\scriptscriptstyle cp}, coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$ to $\mathcal S$. 
+
+
+
+\
+
+
+\
+
+
 \item For $\mathcal C$ and $\mathcal S$ to provably agree on $qp$, $\mathcal C$ sends $qp$ to  $\mathcal S$.  Next (if the $\mathcal S$ agrees on the parameters) they take the steps in the Setup and Agreement phases in the SAP, at time $T_{\scriptscriptstyle 0}$. Let $t_{\scriptscriptstyle qp}:=(\ddot{x}_{\scriptscriptstyle qp},g_{\scriptscriptstyle qp})$ be proof/query encoding token,  where  $\ddot{x}_{\scriptscriptstyle qp}$ is the opening and $g_{\scriptscriptstyle qp}$ is the commitment stored on the contract as a result of running   SAP. 
 
 
@@ -44,8 +66,7 @@ Now we outline why RC-S-P addresses the issues.    In the setup, if the client p
 
 \item $\mathcal C$ constructs  vector $\bm{v}_{\scriptscriptstyle\mathcal C}$, also $\mathcal S$  constructs $\bm{v}_{\scriptscriptstyle\mathcal S}$,  where the vectors are initially empty. 
 
-\item $\mathcal C$ runs  
-$\mathtt{VSID.setup}(1^{\lambda}, u,k,M)\rightarrow (u^{\scriptscriptstyle *},e)$.  It sends  $e$ and $u^{\scriptscriptstyle *}$ to $\mathcal S$ and sends  the public key's encryption: $\mathtt{Enc}(\bar{k},pk)$ to SC at time $T_{\scriptscriptstyle 2}$.
+\item $\mathcal C$ runs  $\mathtt{VSID.setup}(1^{\lambda}, u,k,M)\rightarrow (u^{\scriptscriptstyle *},e)$.  It sends  $e$ and $u^{\scriptscriptstyle *}$ to $\mathcal S$ and sends  the public key's encryption: $\mathtt{Enc}(\bar{k},pk)$ to SC at time $T_{\scriptscriptstyle 2}$.
 
 
 

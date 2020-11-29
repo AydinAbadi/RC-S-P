@@ -131,7 +131,7 @@ A protocol that realises only VS's definition, would be merely secure against a 
 
 \
 
-\item[$\bullet$] $\mathtt{VSID.prove}(u^{\scriptscriptstyle *},\sigma,c,pk)\rightarrow \pi$. It is run by the server. It takes as input the  encoded service input $u^{\scriptscriptstyle *}$, metadata $\sigma$, a pair $c:=(\bm{q},\bm{w}_{\scriptscriptstyle q})$ and public key $pk$. It outputs a proof pair, $\pi:=(F(u^{\scriptscriptstyle *},\bm{q}),\delta)$ containing the function evaluation, i.e. $h=F(u^{\scriptscriptstyle *},\bm{q})$, and a proof $\delta$ asserting the evaluation is performed correctly, where computing $\delta$ may involve $\sigma$.
+\item[$\bullet$] $\mathtt{VSID.prove}(u^{\scriptscriptstyle *},\sigma,c,pk)\rightarrow \pi$. It is run by the server. It takes as input the  encoded service input $u^{\scriptscriptstyle *}$, metadata $\sigma$, a pair $c:=(\bm{q},\bm{w}_{\scriptscriptstyle q})$ and public key $pk$. It outputs a proof pair, $\pi:=(F(u^{\scriptscriptstyle *},\bm{q}),\delta)$ containing the function evaluation, i.e. $h=F(u^{\scriptscriptstyle *},\bm{q})$, and a proof $\delta$ asserting the evaluation is performed correctly, where computing $h$ may involve $pk$ and computing $\delta$ may involve $\sigma$.
 
 
  %The proof pair: $\pi$ is published to a bulletin board. 
