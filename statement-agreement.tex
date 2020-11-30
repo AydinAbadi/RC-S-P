@@ -18,7 +18,7 @@ In this section, we explain how a client and server, mutually distrusted, can ef
  The following steps are taken   by  $\mathcal C$.
  
   \begin{enumerate}
-  \item  Designs and deploys a smart contract, SAP, that  explicitly states both parties'  addresses, $adr_{\scriptscriptstyle\mathcal{C}}$ and  $adr_{\scriptscriptstyle\mathcal{S}}$. Let $adr_{\scriptscriptstyle\text{SAP}}$ be the deployed contract's address. 
+  \item\label{SAP::deploy-contract}  Designs and deploys a smart contract, SAP, that  explicitly states both parties'  addresses, $adr_{\scriptscriptstyle\mathcal{C}}$ and  $adr_{\scriptscriptstyle\mathcal{S}}$. Let $adr_{\scriptscriptstyle\text{SAP}}$ be the deployed contract's address. 
 
    \item  Picks a random value $r$, and commits to the statement, $\mathtt{Com}(x,r)=g_{\scriptscriptstyle \mathcal{C}}$
    \item Sends $adr_{\scriptscriptstyle\text{SAP}}$ and $\ddot{x}:=(x,r)$  to  $\mathcal S$. 

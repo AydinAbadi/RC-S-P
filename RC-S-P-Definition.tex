@@ -73,7 +73,7 @@ If it is accepted, then it constructs  vector ${\bm{coin}}_{\scriptscriptstyle\m
 \end{itemize}
 \end{definition}
 
-In the above definition algorithms $\mathtt{RCSP}.\mathtt{genQuery},\mathtt{RCSP}.\mathtt{prove},\mathtt{RCSP}.\mathtt{verify}$ and $\mathtt{RCSP}.\mathtt{resolve}$ implicitly  take $a$ as another input and  execute only if $a=1$; however, for the sake of simplicity we  avoided explicitly stating it  in the definition. 
+In the above definition algorithms $\mathtt{RCSP}.\mathtt{genQuery}(.),\mathtt{RCSP}.\mathtt{prove}(.),\mathtt{RCSP}.\mathtt{verify}(.)$ and $\mathtt{RCSP}.\mathtt{resolve}(.)$ implicitly  take $a, coin^{\scriptscriptstyle*}_{\scriptscriptstyle\mathcal{S}}, p_{\scriptscriptstyle\mathcal{S}}$ as another inputs and  execute only if $a=1$ and $coin^{\scriptscriptstyle*}_{\scriptscriptstyle\mathcal{S}}=p_{\scriptscriptstyle\mathcal{S}}$; however, for the sake of simplicity we  avoided explicitly stating it  in the definition. 
 
 A recurring contingent service payment (RC-S-P)  scheme satisfies correctness and security. At a high level, correctness requires that by the end of the protocol's execution  (that involves  honest client and server) the client receives all $z$ valid service proofs while the server gets paid  for the proofs, without the involvement of the arbiter. More specifically, it requires that the server accepts an honest client's encoded data and query while the honest client accepts the server's valid service proof (and no one is identified as misbehaving party). Moreover, the honest client gets back all its deposited coins minus the service payment, the honest server gets back all its deposited coins  plus the service payment and the arbiter receives nothing. It is formally stated as below.
 

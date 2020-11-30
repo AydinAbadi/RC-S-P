@@ -37,18 +37,37 @@ Now we outline why RC-S-P addresses the issues.    In the setup, if the client p
 \item Calls  $\mathtt{VSID.setup}(1^{\lambda}, u,k,M)\rightarrow (u^{\scriptscriptstyle *},e)$, to encode  service input, and generate metadata. 
 
 
+
 \item  Calls $\mathtt{SAP.init}(1^{\scriptscriptstyle\lambda}, adr_{\scriptscriptstyle\mathcal{C}}, adr_{\scriptscriptstyle\mathcal{S}},qp )\rightarrow(r_{\scriptscriptstyle qp}, g_{\scriptscriptstyle qp}, adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 1}})$, to initiate an agreement (with $\mathcal{S}$) on $qp$.  Let $T_{\scriptscriptstyle qp}:=(\ddot{x}_{\scriptscriptstyle qp}, g_{\scriptscriptstyle qp})$ be proof/query encoding token,  where  $\ddot{x}_{\scriptscriptstyle qp}:=(qp,r_{\scriptscriptstyle qp})$ is the opening and $g_{\scriptscriptstyle qp}$ is the commitment stored on the contract as a result of running   SAP. 
+
 
 
 \item  Sets  $cp:=(o,o_{\scriptscriptstyle max},l,l_{\scriptscriptstyle max},z)$, where $o_{\scriptscriptstyle max}$ is the maximum amount of coins  for an accepting service proof,  $l_{\scriptscriptstyle max}$  is the maximum amount of coins to resolve a potential dispute, and $z$ is the number of  service proofs/verifications. Then, $\mathcal C$ calls $\mathtt{SAP.init}(1^{\scriptscriptstyle\lambda}, adr_{\scriptscriptstyle\mathcal{C}}, adr_{\scriptscriptstyle\mathcal{S}},cp )\rightarrow(r_{\scriptscriptstyle cp},g_{\scriptscriptstyle cp},adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 2}})$, to initiate an agreement (with $\mathcal{S}$) on $cp$. Let $T_{\scriptscriptstyle cp}:=(\ddot{x}_{\scriptscriptstyle cp},g_{\scriptscriptstyle cp})$ be coin encoding token,  where  $\ddot{x}_{\scriptscriptstyle cp}:=(cp,r_{\scriptscriptstyle cp})$ is the opening and $g_{\scriptscriptstyle cp}$ is the commitment stored on the contract as a result of running the  SAP.  
 
-\item Set parameters  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}=z\cdot (o_{\scriptscriptstyle max}+l_{\scriptscriptstyle max})$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}=z\cdot l_{\scriptscriptstyle max}$, where $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$ are   the total number of masked coins $\mathcal C$ and $\mathcal S$ should deposit respectively. $\mathcal C$ signs and deploys a smart contract, SC, that explicitly specifies  parameters $z$,  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$. Let $adr_{\scriptscriptstyle \text{SC}}$ be the address of the deployed SC, and $T:=\{T_{\scriptscriptstyle qp},T_{\scriptscriptstyle cp}\}$. 
+
+
+
+
+\item Set parameters  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}=z\cdot (o_{\scriptscriptstyle max}+l_{\scriptscriptstyle max})$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}=z\cdot l_{\scriptscriptstyle max}=p_{\scriptscriptstyle\mathcal{S}}$, where $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$ are   the total number of masked coins $\mathcal C$ and $\mathcal S$ should deposit respectively. $\mathcal C$ signs and deploys a smart contract, SC, that explicitly specifies  parameters $z$,  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$, $p_{\scriptscriptstyle\mathcal{S}}$,  $adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 1}}$, and $adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 2}}$. Let $adr_{\scriptscriptstyle \text{SC}}$ be the address of the deployed SC, and $T:=\{T_{\scriptscriptstyle qp},T_{\scriptscriptstyle cp}\}$. 
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \item Sets four counters $\bm{y}=[y_{\scriptscriptstyle\mathcal C},y'_{\scriptscriptstyle\mathcal C},y_{\scriptscriptstyle\mathcal S}, y'_{\scriptscriptstyle\mathcal S}]$ in the contract, where their initial value is $0$. 
 
 \item Deposits $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ coins in the contract.
 
-\item Sends $u^{\scriptscriptstyle *}, e, \ddot{x}_{\scriptscriptstyle qp},\ddot{x}_{\scriptscriptstyle cp}$, and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$ (along with $adr_{\scriptscriptstyle \text{SC}}, adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 1}},adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 2}}$) to $\mathcal S$. It sends  the public key's encryption: $pk^{\scriptscriptstyle *}=\mathtt{Enc}(\bar{k},pk)$ to SC. Let the above process finish at time $\texttt{T}_{\scriptscriptstyle 0}$. 
+\item Sends $u^{\scriptscriptstyle *}, e, \ddot{x}_{\scriptscriptstyle qp},\ddot{x}_{\scriptscriptstyle cp}$, and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$ (along with $adr_{\scriptscriptstyle \text{SC}}$) to $\mathcal S$. It sends  the public key's encryption: $pk^{\scriptscriptstyle *}=\mathtt{Enc}(\bar{k},pk)$ to SC. Let the above process finish at time $\texttt{T}_{\scriptscriptstyle 0}$. 
 
 
 
@@ -111,11 +130,11 @@ Now we outline why RC-S-P addresses the issues.    In the setup, if the client p
 \end{enumerate}
 
 \
-\item \textbf{Server-side Initiation}. $\mathtt{RCSP}.\mathtt{sInit}(u^{\scriptscriptstyle *},e, pk^{\scriptscriptstyle *},z, T, coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S} ,\bm{y},enc)$
+\item \textbf{Server-side Initiation}\label{RCSP::Server-side-Initiation}. $\mathtt{RCSP}.\mathtt{sInit}(u^{\scriptscriptstyle *},e, pk^{\scriptscriptstyle *},z, T, p_{\scriptscriptstyle\mathcal{S}} ,\bm{y},enc)$
 
 \begin{enumerate}
 
-\item Checks the parameters  in $T$ (e.g. $qp$ and $cp$) and  in SC (e.g. $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}, \bm{y}$) and ensures sufficient amount of coins has been deposited by $\mathcal C$.  
+\item Checks the parameters  in $T$ (e.g. $qp$ and $cp$) and  in SC (e.g. $p_{\scriptscriptstyle\mathcal{S}}, \bm{y}$) and ensures sufficient amount of coins has been deposited by $\mathcal C$.  
 
 \item Calls $\mathtt{SAP.agree}(qp,r_{\scriptscriptstyle qp},g_{\scriptscriptstyle qp},adr_{\scriptscriptstyle\mathcal{C}},adr_{\scriptscriptstyle\text{SAP}_{1}})\rightarrow (g'_{\scriptscriptstyle qp},b_{\scriptscriptstyle 1})$ and $\mathtt{SAP.agree}(cp,r_{\scriptscriptstyle cp},g_{\scriptscriptstyle cp},adr_{\scriptscriptstyle\mathcal{C}},adr_{\scriptscriptstyle\text{SAP}_{2}})\rightarrow (g'_{\scriptscriptstyle cp},b_{\scriptscriptstyle 2})$, to verify the correctness of tokens in $T$ and to agree on the tokens' parameters, where $qp,r_{\scriptscriptstyle qp}\in \ddot{x}_{\scriptscriptstyle qp}, \text{and }  cp,r_{\scriptscriptstyle cp} \in  \ddot{x}_{\scriptscriptstyle cp}$. Recall that if both $\mathcal{C}$ and $\mathcal{S}$ are honest, then $g_{\scriptscriptstyle qp}=g'_{\scriptscriptstyle qp}$ and $g_{\scriptscriptstyle cp}=g'_{\scriptscriptstyle cp}$. 
 
@@ -124,13 +143,13 @@ Now we outline why RC-S-P addresses the issues.    In the setup, if the client p
 
 \item If any above check is rejected, then it sets $a=0$. Otherwise, it decrypts the public key, $\mathtt{Dec}(\bar{k},pk^{\scriptscriptstyle *})=pk$; and then runs $\mathtt{VSID.serve}(u^{\scriptscriptstyle *},e,pk)\rightarrow a$. 
 
-\item Sends $a$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$ coins to SC at time $\texttt{T}_{\scriptscriptstyle 1}$, where  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}=\bot$ if $a=0$
+\item Sends $a$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}=p_{\scriptscriptstyle\mathcal{S}}$ coins to SC at time $\texttt{T}_{\scriptscriptstyle 1}$, where  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}=\bot$ if $a=0$
 \end{enumerate}
-Note, $\mathcal S$  and  $\mathcal C$ can withdraw their coins at time $\texttt{T}_{\scriptscriptstyle 2}$, if  $\mathcal S$ sends $a=0$, fewer coins than $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$, or nothing to the SC. 
+Note, $\mathcal S$  and  $\mathcal C$ can withdraw their coins at time $\texttt{T}_{\scriptscriptstyle 2}$, if  $\mathcal S$ sends $a=0$, fewer coins than $p_{\scriptscriptstyle\mathcal{S}}$, or nothing to the SC. 
 
 \
 
-\textbf{\textit{Start of Billing-cycles}}. $\mathcal{C}$ and $\mathcal{S}$ engage in the following three phases, i.e. phase \ref{Billing-cycles-genQuery}-\ref{Client-sideProofVerification},  at the end of  every $j$-th billing cycle, where $1\leq j\leq z$. Each $j$-th cycle includes two  time points, $\texttt{G}_{\scriptscriptstyle j,1}$ and $\texttt{G}_{\scriptscriptstyle j,2}$, where $\texttt{G}_{\scriptscriptstyle j,2}>\texttt{G}_{\scriptscriptstyle j,1}$, and $\texttt{G}_{\scriptscriptstyle 1,1}>\texttt{T}_{\scriptscriptstyle 2}$ 
+\textbf{\textit{Billing-cycles Onset}}. $\mathcal{C}$ and $\mathcal{S}$ engage in the following three phases, i.e. phase \ref{Billing-cycles-genQuery}-\ref{Client-sideProofVerification},  at the end of every $j$-th billing cycle, where $1\leq j\leq z$. Each $j$-th cycle includes two  time points, $\texttt{G}_{\scriptscriptstyle j,1}$ and $\texttt{G}_{\scriptscriptstyle j,2}$, where $\texttt{G}_{\scriptscriptstyle j,2}>\texttt{G}_{\scriptscriptstyle j,1}$, and $\texttt{G}_{\scriptscriptstyle 1,1}>\texttt{T}_{\scriptscriptstyle 2}$ 
 
 %At each time $G_{\scriptscriptstyle j}$, (where $1\leq j\leq z$ and $G_{\scriptscriptstyle 1}>T_{\scriptscriptstyle 5}$), that a proof is generated, the parties perform as follows. 
 %\item \textbf{Billing-cycles}. At each time $G_{\scriptscriptstyle j}$, (where $1\leq j\leq z$ and $G_{\scriptscriptstyle 1}>T_{\scriptscriptstyle 5}$), that a proof is generated, the parties perform as follows. 
@@ -169,7 +188,7 @@ Note, $\mathcal S$  and  $\mathcal C$ can withdraw their coins at time $\texttt{
 \item[$\bullet$] Otherwise (if $\mathcal S$ rejects the query), it appends  $j$  to $\bm{m}_{\scriptscriptstyle\mathcal{S}}$,  constructs a dummy proof $\pi'_{\scriptscriptstyle j}\in U$,  pads the result as above, and sends the padded dummy proof, $\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j}$, to SC at time $\texttt{G}_{\scriptscriptstyle j,2}$ %, if the above proofs are rejected, i.e. $b_{\scriptscriptstyle j}=0$.
 
 \end{itemize}
-When $j=z$  and $\bm{m}_{\scriptscriptstyle\mathcal{S}}\neq\bot$, $\mathcal S$ sets    $m_{\scriptscriptstyle\mathcal S}:=(\bm{m}_{\scriptscriptstyle\mathcal{S}},\bot)$.
+When $j=z$  and $\bm{m}_{\scriptscriptstyle\mathcal{S}}\neq\bot$, $\mathcal S$ sets    $m_{\scriptscriptstyle\mathcal S}:=(\bm{m}_{\scriptscriptstyle\mathcal{S}},adr_{\scriptscriptstyle \text{SC}})$.
 
 \end{enumerate}
 
@@ -190,7 +209,7 @@ When $j=z$  and $\bm{m}_{\scriptscriptstyle\mathcal{S}}\neq\bot$, $\mathcal S$ s
 
 
 \end{itemize}
-When $j=z$  and $\bm{m}_{\scriptscriptstyle\mathcal{C}}\neq\bot$, $\mathcal C$ sets    ${m}_{\scriptscriptstyle\mathcal C}:=(\bm{m}_{\scriptscriptstyle\mathcal{C}},e')$, where  $e'$  contains the opening of $\mathtt{Com}_{\scriptscriptstyle sk}$ or  $\bot$ as stated in Remark \ref{remark::light-VSID}.
+When $j=z$  and $\bm{m}_{\scriptscriptstyle\mathcal{C}}\neq\bot$, $\mathcal C$ sets    ${m}_{\scriptscriptstyle\mathcal C}:=(\bm{m}_{\scriptscriptstyle\mathcal{C}},adr_{\scriptscriptstyle \text{SC}},e')$, where  $e'$  contains the opening of $\mathtt{Com}_{\scriptscriptstyle sk}$ or  $\bot$ as stated in Remark \ref{remark::light-VSID}.
 
 
 \end{enumerate}
@@ -210,16 +229,16 @@ When $j=z$  and $\bm{m}_{\scriptscriptstyle\mathcal{C}}\neq\bot$, $\mathcal C$ s
 \item The arbiter sets  counters: $y_{\scriptscriptstyle\mathcal C}, y'_{\scriptscriptstyle\mathcal C},y_{\scriptscriptstyle\mathcal S}$ and  $y'_{\scriptscriptstyle\mathcal S}$ and a vector: $\bm{des}$, that are initially set to $0$,  before time $\texttt{K}_{\scriptscriptstyle 1}$,  where $\texttt{K}_{\scriptscriptstyle 1}>\texttt{G}_{\scriptscriptstyle z,2}+\texttt{H}$. 
 \item $\mathcal C$  sends $m_{\scriptscriptstyle\mathcal C}$ and $\ddot{x}_{\scriptscriptstyle qp}$ to the arbiter at time $\texttt{K}_{\scriptscriptstyle 1}$. Also,  $\mathcal S$ sends $m_{\scriptscriptstyle\mathcal S}$ and $\ddot{x}_{\scriptscriptstyle qp}$ to the arbiter at time $\texttt{K}_{\scriptscriptstyle 1}$ %,   where $|\vv{\bm{v}}_{\scriptscriptstyle\mathcal{C}}|\neq 0$ and $|\vv{\bm{v}}_{\scriptscriptstyle\mathcal{S}}|\neq 0$. 
 
+%\item The arbiter ensures they have already reached an agreement by checking $a=1$ and the server deposit equals the amount the client suggested, i.e. $a=0$ and $coins^{*}_{\scriptscriptstyle\mathcal{S}}=p_{\scriptscriptstyle\mathcal{S}}$. Otherwise, the arbiter halts.  
 
-
-\item\label{arbiter-checks-statement} The arbiter, checks the validity of  statement $\ddot{x}_{\scriptscriptstyle qp}$ sent by party  $\forall \mathcal R\in \{\mathcal {C,S}\}$. To do that, it sends  $\ddot{x}_{\scriptscriptstyle qp}$ to SAP contract which  returns  either $1$ or $0$. The arbiter  constructs an empty vector: $\bm{v}$.  If  party $\mathcal R$'s statement is accepted, then 
- it appends every  element of $\bm{m}_{\scriptscriptstyle\mathcal{R}}$ to $\bm{v}$ and $\bm{des}$  if that element is not already in $\bm{des}$. Also, it ensures $\bm{v}$ contains only distinct elements which are in the range $[1,z]$. Otherwise (if the party's statement is rejected) it discards the party's request, ${m}_{\scriptscriptstyle\mathcal{R}}$. It proceeds to the next step if $\bm{v}$ is not empty, otherwise it halts. 
+\item\label{arbiter-checks-statement} The arbiter checks the validity of  statement $\ddot{x}_{\scriptscriptstyle qp}$ sent by each party  $\forall \mathcal R\in \{\mathcal {C,S}\}$. To  do so, it sends  each $\ddot{x}_{\scriptscriptstyle qp}$ to SAP contract which  returns  either $1$ or $0$. The arbiter  constructs an empty vector: $\bm{v}$.  If  party $\mathcal R$'s statement is accepted, then 
+ it appends every  element of $\bm{m}_{\scriptscriptstyle\mathcal{R}}$ to $\bm{v}$ and $\bm{des}$,  if that element is not already in $\bm{des}$. Also, it ensures $\bm{v}$ contains only distinct elements which are in the range $[1,z]$. Otherwise (if the party's statement is rejected) it discards the party's request, ${m}_{\scriptscriptstyle\mathcal{R}}$. It proceeds to the next step if $\bm{v}$ is not empty, otherwise it halts. 
  %, and increments $ y'_{\scriptscriptstyle\mathcal R}$ by 1
 
 %\item The Arbiter, for each party, checks the validity of $k$ by sending $k$ and $\mu'$ to SAP contract which  returns  either $1$ or $0$. The arbiter proceeds to the next step if the output is 1; otherwise, it does nothing. 
 %\item The Arbiter decrypts those proofs and challenges whose index are in $\vv{\bm{v}}$. In particular,  $\forall i\in \vv{\bm{v}}: \mathtt{Dec}(\bar{k},\mathtt{Enc}(c_{\scriptscriptstyle i}))=c_{\scriptscriptstyle i}$ and $ \mathtt{Dec}(\bar{k},\mathtt{Enc}(\pi_{\scriptscriptstyle i}))=\pi_{\scriptscriptstyle i}$
 
-\item The arbiter uses $\bar{k}\in \ddot{x}_{\scriptscriptstyle qp}$ to decrypt the encrypted public key that was sent to SC, $\mathtt{Dec}(\bar{k},\mathtt{Enc}(\bar{k},pk))=pk$
+\item The arbiter uses $\bar{k}\in \ddot{x}_{\scriptscriptstyle qp}$ to decrypt the encrypted public key that was sent to SC, $\mathtt{Dec}(\bar{k},pk^{\scriptscriptstyle *})=pk$
 
 
 
@@ -229,14 +248,14 @@ When $j=z$  and $\bm{m}_{\scriptscriptstyle\mathcal{C}}\neq\bot$, $\mathcal C$ s
 %\item Checks if $\mathcal C$  sent to SC an encrypted query on time, in step \ref{Billing-cycles-genQuery}. If the check fails, it increments $u_{\scriptscriptstyle\mathcal C}$ by $1$ and retakes step \ref{the-arbiter-loop} with the next element of $\vv{\bm{v}}$. Otherwise, it proceeds to the next step. 
 
 %\item Checks if $\mathcal S$  sent to SC an encrypted proof on time, in step \ref{Billing-cycles-sendProof}. If the check fails, it increments $u_{\scriptscriptstyle\mathcal S}$ by $1$ and retakes step \ref{the-arbiter-loop} with the next element of $\vv{\bm{v}}$. Otherwise, it proceeds to the next step. 
-\item removes the pads from the related encrypted    query-proof pair and encrypted service proof. Let $c'_{\scriptscriptstyle i}$ and $\pi'_{\scriptscriptstyle i}$ be the result. %unpadded encrypted  query-proof pair  and encrypted service proof  respectively. 
+\item removes the pads from the related encrypted    query-proof pair  and from encrypted service proof. Let $c'_{\scriptscriptstyle i}$ and $\pi'_{\scriptscriptstyle i}$ be the result. %unpadded encrypted  query-proof pair  and encrypted service proof  respectively. 
 \item decrypts the encrypted query-proof pair and encrypted service proof as follows, $ \mathtt{Dec}(\bar{k},c'_{\scriptscriptstyle i})=c_{\scriptscriptstyle i}$ and 
 $ \mathtt{Dec}(\bar{k},\pi'_{\scriptscriptstyle i})=\pi''_{\scriptscriptstyle i}$ 
 \item\label{arbiter-identify} calls   $\mathtt{VSID.identify}(\pi''_{\scriptscriptstyle i},c_{\scriptscriptstyle i},pk,e')\rightarrow I_{\scriptscriptstyle i}$
 \begin{enumerate}
 \item[$\bullet$] if $I_{\scriptscriptstyle i}=\mathcal C$, then it increments $y_{\scriptscriptstyle\mathcal C}$ by $1$ 
 \item[$\bullet$]  if $I_{\scriptscriptstyle i}=\mathcal S$, then it increments $y_{\scriptscriptstyle\mathcal S}$ by $1$ 
-\item[$\bullet$]  if $I_{\scriptscriptstyle i}=\bot$, then it increments  $y'_{\scriptscriptstyle\mathcal C}$ or $y'_{\scriptscriptstyle\mathcal S}$ by $1$, if the arbiter is invoked by the $\mathcal {C}$ or $\mathcal {S}$ respectively. 
+\item[$\bullet$]  if $I_{\scriptscriptstyle i}=\bot$, then it increments  $y'_{\scriptscriptstyle\mathcal C}$ or $y'_{\scriptscriptstyle\mathcal S}$ by $1$, if the arbiter is invoked by  $\mathcal {C}$ or $\mathcal {S}$ respectively. 
 \end{enumerate}
 \end{enumerate}
 
@@ -246,13 +265,19 @@ $ \mathtt{Dec}(\bar{k},\pi'_{\scriptscriptstyle i})=\pi''_{\scriptscriptstyle i}
 %
 %
 %Let $u_{\scriptscriptstyle\mathcal C}$ and $u_{\scriptscriptstyle\mathcal S}$  be the total number of times $\mathtt{VSID.identify}()$ returns $\mathcal{C}$ and $\mathcal{S}$ respectively.  Also, let $y_{\scriptscriptstyle\mathcal C}$ and $y_{\scriptscriptstyle\mathcal S}$ be the total number of times $\mathtt{VSID.identify}()$ returns $\bot$ when it is invoked by the client and server  respectively. 
-Let $K_{\scriptscriptstyle 2}$ be the time that the arbiter finishes the above checks.
+Let $\texttt{K}_{\scriptscriptstyle 2}$ be the time that the arbiter finishes the above checks.
 
-\item The arbiter sends $(y_{\scriptscriptstyle\mathcal C},y_{\scriptscriptstyle\mathcal S})$  to SC at time $K_{\scriptscriptstyle 3}$
+\item The arbiter sends $\bm{y}:[y_{\scriptscriptstyle\mathcal C},y_{\scriptscriptstyle\mathcal S},  y'_{\scriptscriptstyle\mathcal C},y'_{\scriptscriptstyle\mathcal S}]$  to SC at time $\texttt{K}_{\scriptscriptstyle 3}$
 \end{enumerate}
-\item \textbf{Coin Transfer}\label{RCSP::CoinTransfer}.
+
+\
+
+\item \textbf{Coin Transfer}\label{RCSP::CoinTransfer}. $\mathtt{RCSP}.\mathtt{pay}(\bm{y},T_{\scriptscriptstyle cp},a,p_{\scriptscriptstyle\mathcal S}, coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C},coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S})$
 \begin{enumerate}
-\item Either $\mathcal C$ or $\mathcal S$ send ``pay'' message and the statement, $\ddot{x}_{\scriptscriptstyle cp}$,  to SC at time $L>K_{\scriptscriptstyle 3}$
+ 
+ \item If SC  receives  ``pay'' message at time $\texttt{T}_{2}$, such that $a=0$ or $coins^{*}_{\scriptscriptstyle\mathcal{S}}<p_{\scriptscriptstyle\mathcal{S}}$, then it sends $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ coins to $\mathcal C$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$ coins to $\mathcal S$. In other words, the parties can withdraw their coins if they do not reach an agreement at the end of   phase \ref{RCSP::Server-side-Initiation}, i.e. server-side initiation.  Else (i.e. they reach an agreement), they take the following step. 
+
+\item Either $\mathcal C$ or $\mathcal S$ send ``pay'' message and the statement, $\ddot{x}_{\scriptscriptstyle cp}\in T_{\scriptscriptstyle cp}$,  to SC at time $\texttt{L}>\texttt{K}_{\scriptscriptstyle 3}$
 \item SC checks the validity of the statement by sending $\ddot{x}_{\scriptscriptstyle cp}$ to SAP contract which  returns  either $1$ or $0$. SC only proceeds to the next step if the output is $1$. 
 \item SC distributes the coins to the parties as follows:
 
@@ -268,6 +293,14 @@ Let $K_{\scriptscriptstyle 2}$ be the time that the arbiter finishes the above c
 
 
 \begin{remark} If all parties behave honestly,   then the server receives all its deposit back plus the amount of coins they initially agreed to pay the sever if it  delivers accepting proofs for all $z$ cycles, i.e. in total it receives $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}+o\cdot z$ coins. Also, in this case an honest client receives all coins minus the amount of coins paid to the server for delivering accepting proofs for $z$ cycles, i.e. in total it receives $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}-o\cdot z$ coins. However, the arbiter receives no coins, as it is never invoked. 
+\end{remark}
+
+\begin{remark} As stated in Section \ref{sec::RC-S-P-Definition},   algorithms $\mathtt{RCSP}.\mathtt{genQuery}(.),\mathtt{RCSP}.\mathtt{prove}(.),\mathtt{RCSP}.\mathtt{verify}(.)$ and $\mathtt{RCSP}.\mathtt{resolve}(.)$ implicitly  take $a, coin^{\scriptscriptstyle*}_{\scriptscriptstyle\mathcal{S}}, p_{\scriptscriptstyle\mathcal{S}}$ as another inputs and  execute only if $a=1$ and $coin^{\scriptscriptstyle*}_{\scriptscriptstyle\mathcal{S}}=p_{\scriptscriptstyle\mathcal{S}}$. For the sake of simplicity we  avoided explicitly stating it in the protocol.   
+\end{remark}
+
+\begin{remark}
+Keeping track of  $(y'_{\scriptscriptstyle\mathcal C},y'_{\scriptscriptstyle\mathcal S})$ enables the arbiter to make malicious parties, who \emph{unnecessarily} invoke  it for  accepting proofs in step \ref{arbiter-identify}, pay  for the verifications it performs. 
+\end{remark}
 
 
 %\begin{remark}
@@ -281,7 +314,7 @@ Let $K_{\scriptscriptstyle 2}$ be the time that the arbiter finishes the above c
 
 
 
-\end{remark}
+
 \begin{remark} The VSID scheme  does not (need to) preserve the privacy of the proofs. However, in RC-S-P  protocol  each proof's privacy must be preserved, for a certain time; otherwise, the proof itself can leak its status, e.g. when it can be publicly verified. This is the reason in RC-S-P protocol,  \emph{encrypted} proofs are sent to the contract.   
 \end{remark}
 
