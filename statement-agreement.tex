@@ -11,8 +11,10 @@ In this section, we explain how a client and server, mutually distrusted, can ef
 
  \begin{enumerate}
  
- \item\textbf{Initiate}. $\mathtt{SAP.init}(1^{\scriptscriptstyle\lambda}, adr_{\scriptscriptstyle\mathcal{C}}, adr_{\scriptscriptstyle\mathcal{S}},x )\rightarrow(r,g_{\scriptscriptstyle \mathcal{C}},adr_{\scriptscriptstyle\text{SAP}})$ 
+ \item\textbf{Initiate}. $\mathtt{SAP.init}(1^{\scriptscriptstyle\lambda}, adr_{\scriptscriptstyle\mathcal{C}}, adr_{\scriptscriptstyle\mathcal{S}},x )$ 
  
+
+  
  The following steps are taken   by  $\mathcal C$.
  
   \begin{enumerate}
@@ -23,7 +25,8 @@ In this section, we explain how a client and server, mutually distrusted, can ef
    \item Sends $g_{\scriptscriptstyle\mathcal C}$ to the contract, using its account 
     \end{enumerate}
     
-    \item\textbf{Agreement}. $\mathtt{SAP.agree}(x,r,g_{\scriptscriptstyle \mathcal{C}},adr_{\scriptscriptstyle\mathcal{C}},adr_{\scriptscriptstyle\text{SAP}})\rightarrow (g_{\scriptscriptstyle \mathcal{S}},b)$
+    \item\textbf{Agreement}. $\mathtt{SAP.agree}(x,r,g_{\scriptscriptstyle \mathcal{C}},adr_{\scriptscriptstyle\mathcal{C}},adr_{\scriptscriptstyle\text{SAP}})$
+
     
      The following steps are taken   by  $\mathcal S$.
      
@@ -35,7 +38,7 @@ In this section, we explain how a client and server, mutually distrusted, can ef
     \end{enumerate}
    \item\textbf{Prove}. For either $\mathcal C$ or $\mathcal S$ to prove, it has agreement on $x$ with its counter-party, it sends $\ddot{x}:=(x, r)$  to the contract. 
    
- \item\textbf{Verify}. $\mathtt{SAP.verify}(\ddot{x}, g_{\scriptscriptstyle\mathcal C},g_{\scriptscriptstyle\mathcal S},adr_{\scriptscriptstyle\mathcal{C}}, adr_{\scriptscriptstyle\mathcal{S}})\rightarrow d\in\{0,1\}$
+ \item\textbf{Verify}. $\mathtt{SAP.verify}(\ddot{x}, g_{\scriptscriptstyle\mathcal C},g_{\scriptscriptstyle\mathcal S},adr_{\scriptscriptstyle\mathcal{C}}, adr_{\scriptscriptstyle\mathcal{S}})$
  
  
  The following steps are taken   by  the contract.

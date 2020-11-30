@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.9.22)  29 NOV 2020 17:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.9.22)  30 NOV 2020 16:37
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1293,15 +1293,14 @@ it/10 ; F\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 !
  []
 
 
-Overfull \hbox (27.53719pt too wide) in paragraph at lines 82--83
-[]\OML/cmm/m/it/10 :[]\OT1/cmr/m/n/10 (\OML/cmm/b/it/10 m[]\OML/cmm/m/it/10 ; \
-OML/cmm/b/it/10 m[]\OML/cmm/m/it/10 ; z; \OML/cmm/b/it/10 ^^Y[]\OML/cmm/m/it/10
- ; \OML/cmm/b/it/10 c[]\OML/cmm/m/it/10 ; pk[]; T[]; enc\OT1/cmr/m/n/10 ) \OMS/
-cmsy/m/n/10 ! \OML/cmm/b/it/10 y$\OT1/ptm/m/it/10 , $[]\OML/cmm/m/it/10 :[]\OT1
-/cmr/m/n/10 (\OML/cmm/b/it/10 y\OML/cmm/m/it/10 ; T[]; a; p[]; coin[]; coin[]\O
-T1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ! \OT1/cmr/m/n/10 (\OML/cmm/b/it/10 coin[]\OML
-/cmm/m/it/10 ; \OML/cmm/b/it/10 coin[]\OML/cmm/m/it/10 ; \OML/cmm/b/it/10 coin[
-]\OT1/cmr/m/n/10 )$\OT1/ptm/m/it/10 ,
+Overfull \hbox (24.44939pt too wide) in paragraph at lines 82--83
+[]\OML/cmm/m/it/10 :[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 m[]; m[]; z; \OML/cmm/b
+/it/10 ^^Y[]\OML/cmm/m/it/10 ; \OML/cmm/b/it/10 c[]\OML/cmm/m/it/10 ; pk[]; T[]
+; enc\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ! \OML/cmm/b/it/10 y$\OT1/ptm/m/it/10 ,
+ $[]\OML/cmm/m/it/10 :[]\OT1/cmr/m/n/10 (\OML/cmm/b/it/10 y\OML/cmm/m/it/10 ; T
+[]; a; p[]; coin[]; coin[]\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ! \OT1/cmr/m/n/10 
+(\OML/cmm/b/it/10 coin[]\OML/cmm/m/it/10 ; \OML/cmm/b/it/10 coin[]\OML/cmm/m/it
+/10 ; \OML/cmm/b/it/10 coin[]\OT1/cmr/m/n/10 )$\OT1/ptm/m/it/10 ,
  []
 
 [8]
@@ -1319,8 +1318,38 @@ ML/cmm/m/it/9 ^^U\OT1/cmr/m/n/9 )
 [9]) (./VSID-Protocol.tex [10] (./VSID-Proof.tex [11])))
 (./Recurring-Zero-Knowledge-Contingent-Service-Payments.tex
 (./Limitations-of-zkCSP.tex [12]) (./Our-Solution.tex [13])
-(./statement-agreement.tex [14]) (./main-protocol.tex [15] [16] [17]
-(./RCSP-Proof.tex [18] [19] [20]
+(./statement-agreement.tex [14]) (./main-protocol.tex [15]
+LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 5
+1.
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/psnfss/ot1pcr.fd
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
+) [16]
+Overfull \hbox (9.08725pt too wide) in paragraph at lines 120--121
+[]\OT1/ptm/m/n/10 Calls $[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 qp; r[]; g[]; adr[
+]; adr[]\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ! \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 
+g[]; b[]\OT1/cmr/m/n/10 )$ \OT1/ptm/m/n/10 and $[]\OT1/cmr/m/n/10 (\OML/cmm/m/i
+t/10 cp; r[]; g[]; adr[]; adr[]\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ! \OT1/cmr/m/
+n/10 (\OML/cmm/m/it/10 g[]; b[]\OT1/cmr/m/n/10 )$\OT1/ptm/m/n/10 ,
+ []
+
+
+Overfull \hbox (7.61662pt too wide) in paragraph at lines 120--121
+\OT1/ptm/m/n/10 to ver-ify the cor-rect-ness of to-kens in $\OML/cmm/m/it/10 T$
+ \OT1/ptm/m/n/10 and to agree on the to-kens' pa-ram-e-ters, where $\OML/cmm/m/
+it/10 qp; r[] \OMS/cmsy/m/n/10 2 []\OML/cmm/m/it/10 ; []cp; r[] \OMS/cmsy/m/n/1
+0 2
+ []
+
+
+Overfull \hbox (6.20135pt too wide) in paragraph at lines 158--159
+[]\OT1/ptm/m/n/10 Removes the pads from $\OML/cmm/m/it/10 c[]$\OT1/ptm/m/n/10 ,
+ us-ing pa-ram-e-ters of $\OML/cmm/m/it/10 T[]$\OT1/ptm/m/n/10 . Let $\OML/cmm/
+m/it/10 c[]$ \OT1/ptm/m/n/10 be the re-sult. Next, it de-crypts the re-sult, $[
+][]\OML/cmm/m/it/10 ; c[]\OT1/cmr/m/n/10 ) =
+ []
+
+[17] (./RCSP-Proof.tex [18] [19] [20]
 Overfull \hbox (6.75664pt too wide) in paragraph at lines 82--83
 []\OT1/ptm/m/it/10 Let $\OML/cmm/m/it/10 ^^L [] \OMS/cmsy/m/n/10 f\OT1/cmr/m/n/
 10 0\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 1\OMS/cmsy/m/n/10 g$\OT1/ptm/m/it/10 , p
@@ -1340,11 +1369,11 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 31834 strings out of 480608
- 735052 string characters out of 5903630
- 1085235 words of memory out of 5000000
- 47041 multiletter control sequences out of 15000+600000
- 569486 words of font info for 111 fonts, out of 8000000 for 9000
+ 31873 strings out of 480608
+ 735626 string characters out of 5903630
+ 1085243 words of memory out of 5000000
+ 47075 multiletter control sequences out of 15000+600000
+ 570433 words of font info for 115 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  63i,12n,98p,3312b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
@@ -1370,14 +1399,15 @@ mf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2020/texmf
 ist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2020/texmf-di
 st/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/2020/texmf-dist
 /fonts/type1/public/amsfonts/latxfont/lasy10.pfb></usr/local/texlive/2020/texmf
--dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2020/texmf-dist/font
-s/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/u
-rw/times/utmr8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/times/u
-tmri8a.pfb>
-Output written on R-zkCSP.pdf (29 pages, 430671 bytes).
+-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2020/texmf-dist/fo
+nts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/
+urw/times/utmbi8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/times
+/utmr8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/times/utmri8a.p
+fb>
+Output written on R-zkCSP.pdf (29 pages, 434138 bytes).
 PDF statistics:
- 206 PDF objects out of 1000 (max. 8388607)
- 147 compressed objects within 2 object streams
+ 210 PDF objects out of 1000 (max. 8388607)
+ 150 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
