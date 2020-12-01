@@ -18,20 +18,16 @@ At the end of each billing cycle, the client generates an encrypted query, by ca
 Now we outline why RC-S-P addresses the issues.    In the setup, if the client provides ill-formed inputs (so later it can  accuse the server) then the server can detect and avoid serving it.  After the setup, if the client avoids sending any input,  then the server still gets paid for the service it provided. Also, in the case of a dispute between the parties, their claim is checked, and  the corrupt party is identified. The corrupt party has to pay the arbiter and if that is the client, then it has to pay the server as well.  These  features not only do guarantee the server's resource is not wasted, but also ensures fairness (i.e.  if a potentially malicious server is paid, then it must have provided the service and if a potentially malicious client does not pay, then it will learn nothing). Furthermore, as during the private time bubble  (a) no plaintext proof is given to the contract, and (b) no dispute resolution and coin transfer take place on contract, the public cannot figure out the outcome of each verification. This  preserves the server's privacy. Also, because the  deposited coins are masked and the agreed statement is kept private,   nothing about the detail of the service  is leaked to the public before the bubble bursts. This preserves the client's privacy. Moreover, as either party can prove to the contract the validity of the agreed statement, and ask the contract to distribute the coins, the coins will be not be locked forever. The RC-S-P protocol is presented below. It is assumed that (a) each party $\mathcal{R} \in\{\mathcal{C,S,A}r\}$ already has a blockchain public address which is known to all parties, (b) it uses that (authorised) address to send transactions to the smart contract, and (c) the contract   before recording a transaction, ensures the transaction is  originated from an authorised address.
 
 \begin{enumerate}
-\item \textbf{Key Generation}. $\mathtt{RCSP}.\mathtt{keyGen}(1^{\scriptscriptstyle\lambda},F)$
+\item \textbf{Key Generation}. $\mathtt{RCSP}.\mathtt{keyGen}(1^{\scriptscriptstyle\lambda}, F)$
 \begin{enumerate}
 
-\item {\color{purple}Aydin---I'm modifying/improving the RC-S-P protocol.}
 
-\item  $\mathcal C$ runs  $\mathtt{VSID.keyGen}(1^{\lambda},F)\rightarrow k:=(sk,pk)$. It picks a random secret key  $\bar{k}$ for a symmetric key encryption. Also, it sets two parameters: $pad_{\scriptscriptstyle \pi}$ and $pad_{\scriptscriptstyle q}$, where  $pad_{\scriptscriptstyle \pi}$ and $pad_{\scriptscriptstyle q}$  refer to the number of  dummy values that will be used to pad encrypted proofs and encrypted queries respectively \footnote{\scriptsize The values of  $pad_{\scriptscriptstyle \pi}$ and $pad_{\scriptscriptstyle q}$ is determined as follows, $pad_{\scriptscriptstyle \pi}=\pi_{\scriptscriptstyle max}-\pi_{\scriptscriptstyle act}$ and $pad_{\scriptscriptstyle q}=q_{\scriptscriptstyle max}-q_{\scriptscriptstyle act}$, where $\pi_{\scriptscriptstyle max}$ and $\pi_{\scriptscriptstyle act}$ refer to the maximum and actual proof size  while $q_{\scriptscriptstyle max}$ and $q_{\scriptscriptstyle act}$ refer to the maximum and actual query size, respectively.}.  Let $qp:=(pad_{\scriptscriptstyle \pi},pad_{\scriptscriptstyle q}, \bar{k})$. The keys' size is part of the security parameter. 
-
-
-\item  $\mathcal C$ sets coin parameters as   follows,   $o$: the amount of coins for each accepting proof, and $l$: the amount of coins  to cover the cost of each potential dispute resolution.    Let $k':\{o,l,qp\}$ and  let $\bm{k}=[k,k']$. 
+\item  $\mathcal C$ runs  $\mathtt{VSID.keyGen}(1^{\lambda},F)\rightarrow k:=(sk,pk)$. It picks a random secret key  $\bar{k}$ for a symmetric key encryption. Also,  it sets two parameters: $pad_{\scriptscriptstyle \pi}$ and $pad_{\scriptscriptstyle q}$, where  $pad_{\scriptscriptstyle \pi}$ and $pad_{\scriptscriptstyle q}$  refer to the number of  dummy values that will be used to pad encrypted proofs and encrypted queries respectively\footnote{\scriptsize The values of  $pad_{\scriptscriptstyle \pi}$ and $pad_{\scriptscriptstyle q}$ is determined as follows, $pad_{\scriptscriptstyle \pi}=\pi_{\scriptscriptstyle max}-\pi_{\scriptscriptstyle act}$ and $pad_{\scriptscriptstyle q}=q_{\scriptscriptstyle max}-q_{\scriptscriptstyle act}$, where $\pi_{\scriptscriptstyle max}$ and $\pi_{\scriptscriptstyle act}$ refer to the maximum and actual the service's proof size  while $q_{\scriptscriptstyle max}$ and $q_{\scriptscriptstyle act}$ refer to the maximum and actual the service's query size, respectively.},  determined by the security parameter and description of $F$.  Let $qp:=(pad_{\scriptscriptstyle \pi},pad_{\scriptscriptstyle q}, \bar{k})$. The keys' size is part of the security parameter.  Let  $\bm{k}=[k,K']$, where $K'$ contains $qp$. 
 \end{enumerate}
 
 \
 
-\item \textbf{Client-side Initiation}. $\mathtt{RCSP}.\mathtt{cInit}(1^\lambda, u,\bm{k}, M,z,cp,enc)$
+\item \textbf{Client-side Initiation}. $\mathtt{RCSP}.\mathtt{cInit}(1^\lambda, u,\bm{k}, M,z,pl,enc)$
 \begin{enumerate}
 
 \item Calls  $\mathtt{VSID.setup}(1^{\lambda}, u,k,M)\rightarrow (u^{\scriptscriptstyle *},e)$, to encode  service input, and generate metadata. 
@@ -41,33 +37,25 @@ Now we outline why RC-S-P addresses the issues.    In the setup, if the client p
 \item  Calls $\mathtt{SAP.init}(1^{\scriptscriptstyle\lambda}, adr_{\scriptscriptstyle\mathcal{C}}, adr_{\scriptscriptstyle\mathcal{S}},qp )\rightarrow(r_{\scriptscriptstyle qp}, g_{\scriptscriptstyle qp}, adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 1}})$, to initiate an agreement (with $\mathcal{S}$) on $qp$.  Let $T_{\scriptscriptstyle qp}:=(\ddot{x}_{\scriptscriptstyle qp}, g_{\scriptscriptstyle qp})$ be proof/query encoding token,  where  $\ddot{x}_{\scriptscriptstyle qp}:=(qp,r_{\scriptscriptstyle qp})$ is the opening and $g_{\scriptscriptstyle qp}$ is the commitment stored on the contract as a result of running   SAP. 
 
 
-
-\item  Sets  $cp:=(o,o_{\scriptscriptstyle max},l,l_{\scriptscriptstyle max},z)$, where $o_{\scriptscriptstyle max}$ is the maximum amount of coins  for an accepting service proof,  $l_{\scriptscriptstyle max}$  is the maximum amount of coins to resolve a potential dispute, and $z$ is the number of  service proofs/verifications. Then, $\mathcal C$ calls $\mathtt{SAP.init}(1^{\scriptscriptstyle\lambda}, adr_{\scriptscriptstyle\mathcal{C}}, adr_{\scriptscriptstyle\mathcal{S}},cp )\rightarrow(r_{\scriptscriptstyle cp},g_{\scriptscriptstyle cp},adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 2}})$, to initiate an agreement (with $\mathcal{S}$) on $cp$. Let $T_{\scriptscriptstyle cp}:=(\ddot{x}_{\scriptscriptstyle cp},g_{\scriptscriptstyle cp})$ be coin encoding token,  where  $\ddot{x}_{\scriptscriptstyle cp}:=(cp,r_{\scriptscriptstyle cp})$ is the opening and $g_{\scriptscriptstyle cp}$ is the commitment stored on the contract as a result of running the  SAP.  
-
+\item   Sets coin parameters as   follows,   $o$: the amount of coins for each accepting proof, and $l$: the amount of coins  to cover the cost of each potential dispute resolution, given  price list $pl$.  %It appends $o$ and $l$ to $k'$.
 
 
 
 
-\item Set parameters  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}=z\cdot (o_{\scriptscriptstyle max}+l_{\scriptscriptstyle max})$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}=z\cdot l_{\scriptscriptstyle max}=p_{\scriptscriptstyle\mathcal{S}}$, where $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$ are   the total number of masked coins $\mathcal C$ and $\mathcal S$ should deposit respectively. $\mathcal C$ signs and deploys a smart contract, SC, that explicitly specifies  parameters $z$,  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$, $p_{\scriptscriptstyle\mathcal{S}}$,  $adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 1}}$, and $adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 2}}$. Let $adr_{\scriptscriptstyle \text{SC}}$ be the address of the deployed SC, and $T:=\{T_{\scriptscriptstyle qp},T_{\scriptscriptstyle cp}\}$. 
+\item  Sets  $cp:=(o,o_{\scriptscriptstyle max},l,l_{\scriptscriptstyle max},z)$, where $o_{\scriptscriptstyle max}$ is the maximum amount of coins  for an accepting service proof,  $l_{\scriptscriptstyle max}$  is the maximum amount of coins to resolve a potential dispute, and $z$ is the number of  service proofs/verifications. Then, $\mathcal C$ calls $\mathtt{SAP.init}(1^{\scriptscriptstyle\lambda}, adr_{\scriptscriptstyle\mathcal{C}}, adr_{\scriptscriptstyle\mathcal{S}},cp )\rightarrow(r_{\scriptscriptstyle cp},g_{\scriptscriptstyle cp},adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 2}})$, to initiate an agreement (with $\mathcal{S}$) on $cp$. Let $T_{\scriptscriptstyle cp}:=(\ddot{x}_{\scriptscriptstyle cp},g_{\scriptscriptstyle cp})$ be coin encoding token,  where  $\ddot{x}_{\scriptscriptstyle cp}:=(cp,r_{\scriptscriptstyle cp})$ is the opening and $g_{\scriptscriptstyle cp}$ is the commitment stored on the contract as a result of executing   SAP.  
 
 
 
 
 
+\item Set parameters  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}=z\cdot (o_{\scriptscriptstyle max}+l_{\scriptscriptstyle max})$ and $p_{\scriptscriptstyle\mathcal{S}}=z\cdot l_{\scriptscriptstyle max}$, where $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ and $p_{\scriptscriptstyle\mathcal{S}}$ are   the total number of masked coins $\mathcal C$ and $\mathcal S$ should deposit respectively. $\mathcal C$ signs and deploys a smart contract, SC, that explicitly specifies  parameters $z$,  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$, $p_{\scriptscriptstyle\mathcal{S}}$,  $adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 1}}$, and $adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 2}}$. Let $adr_{\scriptscriptstyle \text{SC}}$ be the address of the deployed SC, and $T:=\{T_{\scriptscriptstyle qp},T_{\scriptscriptstyle cp}\}$. $\mathcal{C}$ sets a set of time points/windows, $\texttt{Time}:\{ \texttt{T}_{\scriptscriptstyle 0},..., \texttt{T}_{\scriptscriptstyle 3},\texttt{G}_{\scriptscriptstyle 1,1},...,\texttt{G}_{\scriptscriptstyle z,2},\texttt{H}, \texttt{K}_{\scriptscriptstyle 1},\texttt{K}_{\scriptscriptstyle 2}, \texttt{L}\}$, are explicitly specified in the contract who will accept a certain party's message only in a specified  time point/window. The time allocation will become clear in the next phases. 
 
 
-
-
-
-
-
-
-
-\item Sets four counters $\bm{y}=[y_{\scriptscriptstyle\mathcal C},y'_{\scriptscriptstyle\mathcal C},y_{\scriptscriptstyle\mathcal S}, y'_{\scriptscriptstyle\mathcal S}]$ in the contract, where their initial value is $0$. 
+\item Sets four counters $[y_{\scriptscriptstyle\mathcal C},y'_{\scriptscriptstyle\mathcal C},y_{\scriptscriptstyle\mathcal S}, y'_{\scriptscriptstyle\mathcal S}]$ in the contract, where their initial value is $0$. Let $\bm{y}: [y_{\scriptscriptstyle\mathcal C},y'_{\scriptscriptstyle\mathcal C},y_{\scriptscriptstyle\mathcal S}, y'_{\scriptscriptstyle\mathcal S}, \texttt{Time},adr_{\scriptscriptstyle \text{SC}}]$
 
 \item Deposits $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ coins in the contract.
 
-\item Sends $u^{\scriptscriptstyle *}, e, \ddot{x}_{\scriptscriptstyle qp},\ddot{x}_{\scriptscriptstyle cp}$, and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$ (along with $adr_{\scriptscriptstyle \text{SC}}$) to $\mathcal S$. It sends  the public key's encryption: $pk^{\scriptscriptstyle *}=\mathtt{Enc}(\bar{k},pk)$ to SC. Let the above process finish at time $\texttt{T}_{\scriptscriptstyle 0}$. 
+\item Sends $u^{\scriptscriptstyle *}, e, \ddot{x}_{\scriptscriptstyle qp},\ddot{x}_{\scriptscriptstyle cp}$, and $p_{\scriptscriptstyle\mathcal{S}}$ (along with $adr_{\scriptscriptstyle \text{SC}}$) to $\mathcal S$. It sends  the public key's encryption: $pk^{\scriptscriptstyle *}=\mathtt{Enc}(\bar{k},pk)$ to SC. Let the above process finish at time $\texttt{T}_{\scriptscriptstyle 0}$. 
 
 
 
@@ -145,7 +133,7 @@ Now we outline why RC-S-P addresses the issues.    In the setup, if the client p
 
 \item Sends $a$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}=p_{\scriptscriptstyle\mathcal{S}}$ coins to SC at time $\texttt{T}_{\scriptscriptstyle 1}$, where  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}=\bot$ if $a=0$
 \end{enumerate}
-Note, $\mathcal S$  and  $\mathcal C$ can withdraw their coins at time $\texttt{T}_{\scriptscriptstyle 2}$, if  $\mathcal S$ sends $a=0$, fewer coins than $p_{\scriptscriptstyle\mathcal{S}}$, or nothing to the SC. 
+Note, $\mathcal S$  and  $\mathcal C$ can withdraw their coins at time $\texttt{T}_{\scriptscriptstyle 2}$, if  $\mathcal S$ sends $a=0$, fewer coins than $p_{\scriptscriptstyle\mathcal{S}}$, or nothing to the SC. To withdraw, $\mathcal S$  or  $\mathcal C$  simply sends a ``pay'' message to $\mathtt{RCSP}.\mathtt{pay}(.)$ algorithm (only) at time $\texttt{T}_{\scriptscriptstyle 2}$.
 
 \
 
@@ -267,7 +255,7 @@ $ \mathtt{Dec}(\bar{k},\pi'_{\scriptscriptstyle i})=\pi''_{\scriptscriptstyle i}
 %Let $u_{\scriptscriptstyle\mathcal C}$ and $u_{\scriptscriptstyle\mathcal S}$  be the total number of times $\mathtt{VSID.identify}()$ returns $\mathcal{C}$ and $\mathcal{S}$ respectively.  Also, let $y_{\scriptscriptstyle\mathcal C}$ and $y_{\scriptscriptstyle\mathcal S}$ be the total number of times $\mathtt{VSID.identify}()$ returns $\bot$ when it is invoked by the client and server  respectively. 
 Let $\texttt{K}_{\scriptscriptstyle 2}$ be the time that the arbiter finishes the above checks.
 
-\item The arbiter sends $\bm{y}:[y_{\scriptscriptstyle\mathcal C},y_{\scriptscriptstyle\mathcal S},  y'_{\scriptscriptstyle\mathcal C},y'_{\scriptscriptstyle\mathcal S}]$  to SC at time $\texttt{K}_{\scriptscriptstyle 3}$
+\item The arbiter sends $\bm{y}:[y_{\scriptscriptstyle\mathcal C},y_{\scriptscriptstyle\mathcal S},  y'_{\scriptscriptstyle\mathcal C},y'_{\scriptscriptstyle\mathcal S}]$  to SC at time $\texttt{K}_{\scriptscriptstyle 2}$
 \end{enumerate}
 
 \
@@ -275,9 +263,9 @@ Let $\texttt{K}_{\scriptscriptstyle 2}$ be the time that the arbiter finishes th
 \item \textbf{Coin Transfer}\label{RCSP::CoinTransfer}. $\mathtt{RCSP}.\mathtt{pay}(\bm{y},T_{\scriptscriptstyle cp},a,p_{\scriptscriptstyle\mathcal S}, coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C},coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S})$
 \begin{enumerate}
  
- \item If SC  receives  ``pay'' message at time $\texttt{T}_{2}$, such that $a=0$ or $coins^{*}_{\scriptscriptstyle\mathcal{S}}<p_{\scriptscriptstyle\mathcal{S}}$, then it sends $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ coins to $\mathcal C$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$ coins to $\mathcal S$. In other words, the parties can withdraw their coins if they do not reach an agreement at the end of   phase \ref{RCSP::Server-side-Initiation}, i.e. server-side initiation.  Else (i.e. they reach an agreement), they take the following step. 
+ \item If SC  receives  ``pay'' message only at time $\texttt{T}_{2}$, such that $a=0$ or $coins^{*}_{\scriptscriptstyle\mathcal{S}}<p_{\scriptscriptstyle\mathcal{S}}$, then it sends $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ coins to $\mathcal C$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$ coins to $\mathcal S$. In other words, the parties can withdraw their coins if they do not reach an agreement at the end of   phase \ref{RCSP::Server-side-Initiation}, i.e. server-side initiation.  Else (i.e. they reach an agreement), they take the following step. 
 
-\item Either $\mathcal C$ or $\mathcal S$ send ``pay'' message and the statement, $\ddot{x}_{\scriptscriptstyle cp}\in T_{\scriptscriptstyle cp}$,  to SC at time $\texttt{L}>\texttt{K}_{\scriptscriptstyle 3}$
+\item Either $\mathcal C$ or $\mathcal S$ send ``pay'' message and the statement, $\ddot{x}_{\scriptscriptstyle cp}\in T_{\scriptscriptstyle cp}$,  to SC at time $\texttt{L}>\texttt{K}_{\scriptscriptstyle 2}$
 \item SC checks the validity of the statement by sending $\ddot{x}_{\scriptscriptstyle cp}$ to SAP contract which  returns  either $1$ or $0$. SC only proceeds to the next step if the output is $1$. 
 \item SC distributes the coins to the parties as follows:
 
