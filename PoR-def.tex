@@ -3,23 +3,23 @@
 In general, a PoR scheme considers the case where an honest client wants to store its file(s) on a  potentially malicious server, i.e active adversary. It is a challenge-response interactive protocol, where the server proves to the client that its file is intact and retrievable. Below, we restate PoR's formal definition (and security property) originally provided in \cite{DBLP:journals/iacr/JuelsK07,DBLP:conf/asiacrypt/ShachamW08}. PoR scheme comprises five algorithms: 
 
 \begin{itemize}
-\item[$\bullet$] $\mathtt{PoR.keyGen}(1^{\scriptscriptstyle\lambda})\rightarrow k:=(sk,pk)$.  A probabilistic algorithm, run by a client. It takes as input the security parameter  $1^{\scriptscriptstyle\lambda}$ and outputs a secret verification key $sk$ and a set of public parameters $pk$.
+\item[$\bullet$] $\mathtt{PoR.keyGen}(1^{\scriptscriptstyle\lambda})\rightarrow k:=(sk,pk)$.  A probabilistic algorithm, run by a client. It takes as input the security parameter  $1^{\scriptscriptstyle\lambda}$ and outputs  private and public verification keys $k:=(sk,pk)$.
 
 \
 
-\item[$\bullet$] $\mathtt{PoR.setup}(1^{\scriptscriptstyle\lambda}, u,k)\rightarrow (u^{\scriptscriptstyle *}, \sigma)$. A probabilistic algorithm, run by the client. It takes as input the security parameter $1^{\scriptscriptstyle\lambda}$,  a file $u$, and key $k$. It encodes $u$, denoted by $u^{\scriptscriptstyle *}$ and generates  a metadata, $\sigma$. The client adds the size of $u^{\scriptscriptstyle *}$ to $pk$, and sends to the server   $u^{\scriptscriptstyle *}$ and  $\sigma$.
+\item[$\bullet$] $\mathtt{PoR.setup}(1^{\scriptscriptstyle\lambda}, u,k)\rightarrow (u^{\scriptscriptstyle *}, \sigma, {\color{purple}pp})$. A probabilistic algorithm, run by the client. It takes as input the security parameter $1^{\scriptscriptstyle\lambda}$,  a file $u$, and key $k$. It encodes $u$, denoted by $u^{\scriptscriptstyle *}$ and generates  a metadata, $\sigma$.  The client outputs encoded file $u^{\scriptscriptstyle *}$, metadata $\sigma$, and  {\color{purple}(possibly file dependent) public parameters $pp$}. It sends to the server   $u^{\scriptscriptstyle *},\sigma$, and {\color{purple}$pp$}.
 
 \
 
-\item[$\bullet$] $\mathtt{PoR.genQuery}(1^{\scriptscriptstyle\lambda},k)\rightarrow \bm{q}$. A probabilistic algorithm, run by the client. It takes as input the security parameter  $1^{\scriptscriptstyle\lambda}$, and key $k$. It outputs a  query vector $\bm{q}$, possibly picked uniformly at random. The query is given to the server. 
+\item[$\bullet$] $\mathtt{PoR.genQuery}(1^{\scriptscriptstyle\lambda},k,{\color{purple}pp})\rightarrow \bm{q}$. A probabilistic algorithm, run by the client. It takes as input the security parameter  $1^{\scriptscriptstyle\lambda}$,  key $k$, and {\color{purple} public parameters $pp$}. It outputs a  query vector $\bm{q}$, possibly picked uniformly at random. The query is given to the server. 
 
 \
 
-\item[$\bullet$] $\mathtt{PoR.prove}(u^{\scriptscriptstyle *}, \sigma,\bm{q},pk)\rightarrow \pi$. It is run by a server.  It takes as input the encoded file $u^{\scriptscriptstyle *}$, metadata $\sigma$, query $\bm{q}$, and public parameters $pk$. It  outputs a proof, $\pi$, given to the client. 
+\item[$\bullet$] $\mathtt{PoR.prove}(u^{\scriptscriptstyle *}, \sigma,\bm{q},pk,{\color{purple}pp})\rightarrow \pi$. It is run by a server.  It takes as input the encoded file $u^{\scriptscriptstyle *}$, metadata $\sigma$, query $\bm{q}$,  public key $pk$, and {\color{purple} public parameters $pp$}. It  outputs a proof, $\pi$, given to the client. 
 
 \
 
-\item[$\bullet$] $\mathtt{PoR.verify}(\pi,\bm{q},k)\rightarrow d\in\{0,1\}$. It is run by the client. It takes as input the proof $\pi$,  query $\bm{q}$, and key $k$. It outputs either $0$ if it rejects,  or $1$ if it accepts the proof. 
+\item[$\bullet$] $\mathtt{PoR.verify}(\pi,\bm{q},k,{\color{purple}pp})\rightarrow d\in\{0,1\}$. It is run by the client. It takes as input the proof $\pi$,  query $\bm{q}$,  key pair $k$, and {\color{purple} public parameters $pp$}. It outputs either $0$ if it rejects,  or $1$ if it accepts the proof. 
 
 \end{itemize}
 
@@ -31,8 +31,8 @@ Informally, a PoR scheme has two main properties: \emph{correctness} and \emph{s
 
 \begin{enumerate}
 \item $\mathcal{E}$ executes $\mathtt{PoR.keyGen}(1^{\scriptscriptstyle\lambda})$ algorithm and provides public key, $pk$, to $\mathcal{A}$.   
-\item $\mathcal{A}$ can pick  arbitrary file $u$, and  uses it to make queries to  $\mathcal{E}$ who runs  $\mathtt{PoR.setup}(1^{\scriptscriptstyle\lambda}, u,k)\rightarrow (u^{\scriptscriptstyle *}, \sigma)$   and returns the output to $\mathcal{A}$. Also, upon receiving the output of $\mathtt{PoR.setup}(1^{\scriptscriptstyle\lambda}, u,k)$, $\mathcal{A}$ can ask $\mathcal{E}$  to run   $\mathtt{PoR.genQuery}(1^{\scriptscriptstyle\lambda},k)\rightarrow \bm{q}$ and give the output to it. $\mathcal{A}$ can locally run $\mathtt{PoR.prove}(u^{\scriptscriptstyle *}, \sigma, \bm{q},pk)\rightarrow \pi$ to get its outputs as well. 
-\item $\mathcal{A}$ can request $\mathcal{E}$ the execution of $\mathtt{PoR.verify}(\pi,\bm{q},k)$ for any $u$ used to query $\mathtt{PoR.setup}()$. Accordingly, $\mathcal{E}$ informs  $\mathcal{A}$ about the verification output. The adversary can send a polynomial number of queries to $\mathcal{E}$. Finally, $\mathcal{A}$ outputs metadata $\sigma$ returned from a setup query and the description of a prover, $\mathcal{A}'$, for any file it has already chosen above. 
+\item $\mathcal{A}$ can pick  arbitrary file $u$, and  uses it to make queries to  $\mathcal{E}$ who runs  $\mathtt{PoR.setup}(1^{\scriptscriptstyle\lambda}, u,k)\rightarrow (u^{\scriptscriptstyle *}, \sigma, {\color{purple}pp})$   and returns the output to $\mathcal{A}$. Also, upon receiving the output of $\mathtt{PoR.setup}(1^{\scriptscriptstyle\lambda}, u,k)$, $\mathcal{A}$ can ask $\mathcal{E}$  to run   $\mathtt{PoR.genQuery}(1^{\scriptscriptstyle\lambda},k,{\color{purple}pp})\rightarrow \bm{q}$ and give the output to it. $\mathcal{A}$ can locally run $\mathtt{PoR.prove}(u^{\scriptscriptstyle *}, \sigma, \bm{q},pk,{\color{purple}pp})\rightarrow \pi$ to get its outputs as well. 
+\item $\mathcal{A}$ can request $\mathcal{E}$ the execution of $\mathtt{PoR.verify}(\pi,\bm{q},k,{\color{purple}pp})$ for any $u$ used to query $\mathtt{PoR.setup}()$. Accordingly, $\mathcal{E}$ informs  $\mathcal{A}$ about the verification output. The adversary can send a polynomial number of queries to $\mathcal{E}$. Finally, $\mathcal{A}$ outputs metadata $\sigma$ returned from a setup query and the description of a prover, $\mathcal{A}'$, for any file it has already chosen above. 
 \end{enumerate}
 
 It is said that a cheating prover, $\mathcal{A}'$, is \emph{$\epsilon$-admissible} if it convincingly answers $\epsilon$ fraction of verification challenges. Informally, a PoR scheme supports extractability, if there is an extractor algorithm $\mathtt{Ext}(k,\sigma, \mathtt{P}')$, that takes as input the key $k$, metadata $\sigma$, and the description $\mathtt{P}'$ of the  machine implementing the prover's role $\mathcal{A}'$ and outputs the file, $u$. The extractor has the ability to reset the adversary to the beginning of the challenge phase and repeat this step polynomially many times for the purpose of extraction, i.e. the extractor can rewind $\mathtt{P}'$.
@@ -41,7 +41,7 @@ It is said that a cheating prover, $\mathcal{A}'$, is \emph{$\epsilon$-admissibl
 %XXXXThomas: \emph{What is actually the entity that can be rewinded (i.e., the adversary)? Is it $\mathtt{P}'$ or $\mathcal{A}'$?}XXXX. Aydin: done
 
 
-\begin{definition}[$\epsilon$-soundness]\label{extractable} A PoR scheme is $\epsilon$-sound if   there exists an extraction algorithm $\mathtt{Ext}()$ such that, for every adversary $\mathcal{A}$ who plays the experiment above, and outputs an $\epsilon$-admissible cheating prover $\mathcal{A}'$ for a file $u$,  the extraction algorithm  recovers $u$ from $\mathcal{A}'$, given honest parties private key, public parameters, metadata and the description of $\mathcal{A}'$,  i.e. $\mathtt{Ext}(k,\sigma, \mathtt{P}')\rightarrow u$, except with a negligible probability. 
+\begin{definition}[$\epsilon$-soundness]\label{extractable} A PoR scheme is $\epsilon$-sound if   there exists an extraction algorithm $\mathtt{Ext}()$ such that, for every adversary $\mathcal{A}$ who plays the experiment above, and outputs an $\epsilon$-admissible cheating prover $\mathcal{A}'$ for a file $u$,  the extraction algorithm  recovers $u$ from $\mathcal{A}'$, given honest parties private key, public parameters, metadata and the description of $\mathcal{A}'$,  i.e. $\mathtt{Ext}(k,{\color{purple}pp},\sigma, \mathtt{P}')\rightarrow u$, except with a negligible probability. 
 \end{definition}
 
 
@@ -53,7 +53,7 @@ It is said that a cheating prover, $\mathcal{A}'$, is \emph{$\epsilon$-admissibl
 %\end{definition}
 
 
-In contrast to the PoR definition in \cite{DBLP:journals/iacr/JuelsK07,DBLP:conf/asiacrypt/ShachamW08} where $\mathtt{PoR.genQuery}(.)$ is implicit, in the above we have explicitly stated  it, as it    plays an important role in this paper. 
+In contrast to the PoR definition in \cite{DBLP:journals/iacr/JuelsK07,DBLP:conf/asiacrypt/ShachamW08} where $\mathtt{PoR.genQuery}(.)$ is implicit, in the above we have explicitly stated  it, as it    plays an important role in this paper. Also, there are PoR protocols, e.g. \cite{MillerPermacoin}, that do not involve $\mathtt{PoR.keyGen}(.)$. Instead a set of public parameters/keys (e.g. file size or a root of Merkle tree) are output by $\mathtt{PoR.setup}(.)$. To make the PoR definition generic to capture both cases, we have explicitly included the public parameters $pp$ in the algorithms definitions too. 
 
 \subsection{Notations} In the formal definitions in this paper, we often use bar symbol, i.e. `` $|$ '', for the sake of readability and to separate events from an experiment. It should not be confused with conditional probability's symbol. 
 

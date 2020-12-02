@@ -20,10 +20,11 @@ In this section, we present the VSID protocol. We show how it  can be built upon
 
 \item\textbf{Client-side Setup}\label{VSID::Client-side-Setup}. $\mathtt{VSID.setup}(1^{\lambda}, u,k,M)$
 \begin{enumerate}
-\item Calls  $\mathtt{VS.setup}(1^{\lambda}, u,k,M)\rightarrow (\sigma,u^{\scriptscriptstyle *})$, to generate a   metadata: $\sigma=M(u^{\scriptscriptstyle *},k)$
+\item Calls  $\mathtt{VS.setup}(1^{\lambda}, u,k,M)\rightarrow (\sigma,u^{\scriptscriptstyle *})$, to generate a   metadata: $\sigma=M(u^{\scriptscriptstyle *},k)$. %It may add more parameters, e.g. file size, to $pk$. 
+
 
 \item Generates non-interactive publicly verifiable zero-knowledge proofs asserting  $\sigma$ has been generated correctly, i.e. $\sigma$ is the output of  $M$ that is evaluated on $u^{\scriptscriptstyle *}$, $pk$ and $sk$, without revealing $sk$. Let $w_{\scriptscriptstyle\sigma}$ contains the proofs.
-\item\label{vsid::post-metadata} Posts $e:=(\sigma,w_{\scriptscriptstyle\sigma})$ and $u^{\scriptscriptstyle *}$ to the bulletin board. 
+\item\label{vsid::post-metadata} Posts $ e:=(\sigma,w_{\scriptscriptstyle\sigma})$ and $u^{\scriptscriptstyle *}$ to the bulletin board. 
 \end{enumerate}
 
 \item\textbf{Server-side Setup}. $\mathtt{VSID.serve}(u^{\scriptscriptstyle *},e,pk)$
