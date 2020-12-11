@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.9.22)  2 DEC 2020 19:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.9.22)  11 DEC 2020 10:36
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1275,61 +1275,61 @@ $[]:[];$
  []
 
 [7]
-Overfull \hbox (8.97867pt too wide) in paragraph at lines 82--83
-\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 u[]; e; T; p[]; \OML/cmm/b/it/10 y\OML/cmm/m/
-it/10 ; coin[]; pk[]\OT1/cmr/m/n/10 )$\OT1/ptm/m/it/10 , $[]\OML/cmm/m/it/10 :[
-]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 u[]; e; pk[]; z; T; p[]; \OML/cmm/b/it/10 y\
-OML/cmm/m/it/10 ; enc\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ! \OT1/cmr/m/n/10 (\OML
-/cmm/m/it/10 coin[]; a\OT1/cmr/m/n/10 )$\OT1/ptm/m/it/10 , $\OMS/cmsy/m/n/10 8\
-OML/cmm/m/it/10 j \OT1/cmr/m/n/10 : []$$[]\OML/cmm/m/it/10 :[]\OT1/cmr/m/n/10 (
-1[]\OML/cmm/m/it/10 ; [][]; k; [] 
- []
-
-
-Overfull \hbox (29.76488pt too wide) in paragraph at lines 82--83
+Overfull \hbox (25.58429pt too wide) in paragraph at lines 115--116
 \OML/cmm/m/it/10 Q; T[]; enc\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ! \OML/cmm/m/it/
 10 c[]$\OT1/ptm/m/it/10 , $[]\OML/cmm/m/it/10 :[]\OT1/cmr/m/n/10 (\OML/cmm/m/it
-/10 u[]; ^^[; c[]; pk[]; T[]; enc\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ! \OT1/cmr/
-m/n/10 (\OML/cmm/m/it/10 b[]; m[]; ^^Y[]\OT1/cmr/m/n/10 )$\OT1/ptm/m/it/10 , $[
-]\OML/cmm/m/it/10 :[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 ^^Y[]; \OML/cmm/b/it/10 
-q[]\OML/cmm/m/it/10 ; k; T[]; enc\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ! \OT1/cmr/
-m/n/10 (\OML/cmm/m/it/10 d[]; m[]\OT1/cmr/m/n/10 )$$[]\OML/cmm/m/it/10 ; [] 
+/10 u[]; ^^[; c[]; pk; T[]; enc\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ! \OT1/cmr/m/
+n/10 (\OML/cmm/m/it/10 b[]; m[]; ^^Y[]\OT1/cmr/m/n/10 )$\OT1/ptm/m/it/10 , $[]\
+OML/cmm/m/it/10 :[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 ^^Y[]; \OML/cmm/b/it/10 q[
+]\OML/cmm/m/it/10 ; k; T[]; enc\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ! \OT1/cmr/m/
+n/10 (\OML/cmm/m/it/10 d[]; m[]\OT1/cmr/m/n/10 )$$[]\OML/cmm/m/it/10 ; [] 
  []
 
 
-Overfull \hbox (24.44939pt too wide) in paragraph at lines 82--83
+Overfull \hbox (20.2688pt too wide) in paragraph at lines 115--116
 []\OML/cmm/m/it/10 :[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 m[]; m[]; z; \OML/cmm/b
-/it/10 ^^Y[]\OML/cmm/m/it/10 ; \OML/cmm/b/it/10 c[]\OML/cmm/m/it/10 ; pk[]; T[]
-; enc\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ! \OML/cmm/b/it/10 y$\OT1/ptm/m/it/10 ,
- $[]\OML/cmm/m/it/10 :[]\OT1/cmr/m/n/10 (\OML/cmm/b/it/10 y\OML/cmm/m/it/10 ; T
-[]; a; p[]; coin[]; coin[]\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ! \OT1/cmr/m/n/10 
-(\OML/cmm/b/it/10 coin[]\OML/cmm/m/it/10 ; \OML/cmm/b/it/10 coin[]\OML/cmm/m/it
-/10 ; \OML/cmm/b/it/10 coin[]\OT1/cmr/m/n/10 )$\OT1/ptm/m/it/10 ,
+/it/10 ^^Y[]\OML/cmm/m/it/10 ; \OML/cmm/b/it/10 c[]\OML/cmm/m/it/10 ; pk; T[]; 
+enc\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ! \OML/cmm/b/it/10 y$\OT1/ptm/m/it/10 , $
+[]\OML/cmm/m/it/10 :[]\OT1/cmr/m/n/10 (\OML/cmm/b/it/10 y\OML/cmm/m/it/10 ; T[]
+; a; p[]; coin[]; coin[]\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ! \OT1/cmr/m/n/10 (\
+OML/cmm/b/it/10 coin[]\OML/cmm/m/it/10 ; \OML/cmm/b/it/10 coin[]\OML/cmm/m/it/1
+0 ; \OML/cmm/b/it/10 coin[]\OT1/cmr/m/n/10 )$\OT1/ptm/m/it/10 ,
  []
 
 [8]
-Overfull \hbox (15.41086pt too wide) detected at line 165
-\OML/cmm/m/it/9 Pr [] \OMS/cmsy/m/n/9 ^^T \OML/cmm/m/it/9 ^^V\OT1/cmr/m/n/9 (\O
-ML/cmm/m/it/9 ^^U\OT1/cmr/m/n/9 )
+Overfull \hbox (29.66943pt too wide) detected at line 198
+[] [] \OMS/cmsy/m/n/9 ^^T \OML/cmm/m/it/9 ^^V\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 ^^
+U\OT1/cmr/m/n/9 )\OML/cmm/m/it/9 :
  []
 
 
-Overfull \hbox (5.70482pt too wide) detected at line 221
-\OML/cmm/m/it/9 Pr [] \OMS/cmsy/m/n/9 ^^T \OML/cmm/m/it/9 ^^V\OT1/cmr/m/n/9 (\O
-ML/cmm/m/it/9 ^^U\OT1/cmr/m/n/9 )
+Overfull \hbox (19.9634pt too wide) detected at line 261
+[] [] \OMS/cmsy/m/n/9 ^^T \OML/cmm/m/it/9 ^^V\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 ^^
+U\OT1/cmr/m/n/9 )\OML/cmm/m/it/9 :
  []
 
-[9]) (./VSID-Protocol.tex [10] [11] (./VSID-Proof.tex)))
+[9]
+Overfull \hbox (27.12306pt too wide) in paragraph at lines 353--355
+[]\OT1/ptm/m/it/10 where $\OML/cmm/b/it/10 c[] \OT1/cmr/m/n/10 = [\OML/cmm/m/it
+/10 c[]; :::; c[]\OT1/cmr/m/n/10 ]\OML/cmm/m/it/10 ; \OML/cmm/b/it/10 ^^Y[] \OT
+1/cmr/m/n/10 = [\OML/cmm/m/it/10 ^^Y[]; :::; ^^Y[]\OT1/cmr/m/n/10 ]$\OT1/ptm/m/
+it/10 , and $[][] \OMS/cmsy/m/n/10 2 \OML/cmm/m/it/10 T[]$\OT1/ptm/m/it/10 . Al
+so, de-pend-ing on the choice of $\OML/cmm/m/it/10 ^^L$\OT1/ptm/m/it/10 , al-go
+-rithm $[]\OML/cmm/m/it/10 :[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 :\OT1/cmr/m/n/1
+0 )$
+ []
+
+) (./VSID-Protocol.tex [10] [11] (./VSID-Proof.tex)))
 (./Recurring-Zero-Knowledge-Contingent-Service-Payments.tex
 (./Limitations-of-zkCSP.tex [12]) (./Our-Solution.tex [13])
-(./statement-agreement.tex [14]) (./main-protocol.tex [15] [16]
-LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 5
-1.
+(./statement-agreement.tex [14]) (./main-protocol.tex
+LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 1
+0.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-)
-Overfull \hbox (13.02518pt too wide) in paragraph at lines 54--55
+) [15] [16]
+Overfull \hbox (13.02518pt too wide) in paragraph at lines 56--57
 []\OT1/ptm/m/n/10 Sets four coun-ters $\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 y[]; y
 []; y[]; y[]\OT1/cmr/m/n/10 ]$ \OT1/ptm/m/n/10 in the con-tract, where their in
 i-tial value is $\OT1/cmr/m/n/10 0$\OT1/ptm/m/n/10 . Let $\OML/cmm/b/it/10 y \O
@@ -1338,7 +1338,7 @@ T1/cmr/m/n/10 : [\OML/cmm/m/it/10 y[]; y[]; y[]; y[]; []; adr[]\OT1/cmr/m/n/10
  []
 
 
-Overfull \hbox (9.08725pt too wide) in paragraph at lines 127--128
+Overfull \hbox (9.08725pt too wide) in paragraph at lines 129--130
 []\OT1/ptm/m/n/10 Calls $[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 qp; r[]; g[]; adr[
 ]; adr[]\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ! \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 
 g[]; b[]\OT1/cmr/m/n/10 )$ \OT1/ptm/m/n/10 and $[]\OT1/cmr/m/n/10 (\OML/cmm/m/i
@@ -1347,7 +1347,7 @@ n/10 (\OML/cmm/m/it/10 g[]; b[]\OT1/cmr/m/n/10 )$\OT1/ptm/m/n/10 ,
  []
 
 
-Overfull \hbox (7.61662pt too wide) in paragraph at lines 127--128
+Overfull \hbox (7.61662pt too wide) in paragraph at lines 129--130
 \OT1/ptm/m/n/10 to ver-ify the cor-rect-ness of to-kens in $\OML/cmm/m/it/10 T$
  \OT1/ptm/m/n/10 and to agree on the to-kens' pa-ram-e-ters, where $\OML/cmm/m/
 it/10 qp; r[] \OMS/cmsy/m/n/10 2 []\OML/cmm/m/it/10 ; []cp; r[] \OMS/cmsy/m/n/1
@@ -1355,7 +1355,7 @@ it/10 qp; r[] \OMS/cmsy/m/n/10 2 []\OML/cmm/m/it/10 ; []cp; r[] \OMS/cmsy/m/n/1
  []
 
 
-Overfull \hbox (6.20135pt too wide) in paragraph at lines 165--166
+Overfull \hbox (6.20135pt too wide) in paragraph at lines 167--168
 []\OT1/ptm/m/n/10 Removes the pads from $\OML/cmm/m/it/10 c[]$\OT1/ptm/m/n/10 ,
  us-ing pa-ram-e-ters of $\OML/cmm/m/it/10 T[]$\OT1/ptm/m/n/10 . Let $\OML/cmm/
 m/it/10 c[]$ \OT1/ptm/m/n/10 be the re-sult. Next, it de-crypts the re-sult, $[
@@ -1363,7 +1363,7 @@ m/it/10 c[]$ \OT1/ptm/m/n/10 be the re-sult. Next, it de-crypts the re-sult, $[
  []
 
 [17] [18]
-Overfull \hbox (18.70352pt too wide) in paragraph at lines 286--287
+Overfull \hbox (18.70352pt too wide) in paragraph at lines 288--289
 []\OT1/ptm/m/n/10 As stated in Sec-tion 2.3[], al-go-rithms $[]\OML/cmm/m/it/10
  :[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 ; []:[
 ]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 ; []:[]\O
@@ -1372,7 +1372,7 @@ T1/cmr/m/n/10 (\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 )$ \OT1/ptm/m/n/10 and $[]\OML
  []
 
 (./RCSP-Proof.tex [19] [20] [21]
-Overfull \hbox (6.75664pt too wide) in paragraph at lines 82--83
+Overfull \hbox (6.75664pt too wide) in paragraph at lines 87--88
 []\OT1/ptm/m/it/10 Let $\OML/cmm/m/it/10 ^^L [] \OMS/cmsy/m/n/10 f\OT1/cmr/m/n/
 10 0\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 1\OMS/cmsy/m/n/10 g$\OT1/ptm/m/it/10 , p
 rice list be $\OMS/cmsy/m/n/10 f\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 o[]; l[]\OT1/
@@ -1397,7 +1397,7 @@ Here is how much of TeX's memory you used:
  47077 multiletter control sequences out of 15000+600000
  570433 words of font info for 115 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 63i,12n,98p,3423b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 63i,12n,98p,3437b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
 xlive/2020/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb></usr/local
@@ -1426,7 +1426,7 @@ nts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/
 urw/times/utmbi8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/times
 /utmr8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/times/utmri8a.p
 fb>
-Output written on R-zkCSP.pdf (30 pages, 441825 bytes).
+Output written on R-zkCSP.pdf (30 pages, 443528 bytes).
 PDF statistics:
  213 PDF objects out of 1000 (max. 8388607)
  152 compressed objects within 2 object streams

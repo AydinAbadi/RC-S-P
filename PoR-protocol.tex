@@ -26,18 +26,18 @@ In this section, we present a modified version of the standard Merkle tree-based
 \item\textbf{Client-side Setup}. $\mathtt{PoR.setup}(1^{\lambda},u)$  
 \begin{enumerate}
 \item Uses an error correcting code, e.g. Reed-Solomon codes, to encode  the file: $u$. Let $u'$ be the encoded file. It splits $u'$  into  blocks as follows, $u^{\scriptscriptstyle *}=u^{\scriptscriptstyle '}_{\scriptscriptstyle 0}||0,...,u^{\scriptscriptstyle '}_{\scriptscriptstyle m}||m$
-\item Generates  metadata: $\sigma$, by constructing Merkle tree on blocks of $u^{\scriptscriptstyle *}$, i.e. $\mathtt{MT.genTree}(u^{\scriptscriptstyle *})$. Let $\sigma$ be the root of the resulting tree, and $\beta$ be a security parameter. It sets public  parameters as $pk:= (\sigma,\beta,m,\zeta)$, where $\zeta:=(\psi,\eta, \iota)$ is a $\mathtt{PRF}$'s description, as it was defined in Section \ref{preliminaries}
-\item Sends $pk$ and $u^{\scriptscriptstyle *}$ to $\mathcal{S}$
+\item Generates  metadata: $\sigma$, by constructing Merkle tree on blocks of $u^{\scriptscriptstyle *}$, i.e. $\mathtt{MT.genTree}(u^{\scriptscriptstyle *})$. Let $\sigma$ be the root of the resulting tree, and $\beta$ be a security parameter. It sets public  parameters as $pp:= (\sigma,\beta,m,\zeta)$, where $\zeta:=(\psi,\eta, \iota)$ is a $\mathtt{PRF}$'s description, as it was defined in Section \ref{preliminaries}
+\item Sends $pp$ and $u^{\scriptscriptstyle *}$ to $\mathcal{S}$
 \end{enumerate}
 
-\item\textbf{Client-side Query Generation}. $\mathtt{PoR.genQuery}(1^{\scriptscriptstyle\lambda}, pk)$ 
+\item\textbf{Client-side Query Generation}. $\mathtt{PoR.genQuery}(1^{\scriptscriptstyle\lambda}, pp)$ 
 \begin{enumerate}
 \item\label{key-chalenge} Picks a random key $\hat{k}$ of a pseudorandom function $\mathtt{PRF}$, i.e. $\hat{k}\stackrel{\scriptscriptstyle\$}\leftarrow\{0,1\}^{\scriptscriptstyle\psi}$. It ensures the function outputs distinct values, i.e. $\forall i,j\in [0,m]: (\mathtt{PRF}(\hat{k},i)\bmod m+1)\neq(\mathtt{PRF}(\hat{k},j)\bmod m+1)$, where $i\neq j$
 
 \item It sends $\hat{k}$ to $\mathcal{S}$
  
  \end{enumerate}
-\item\label{PoR-server-prove}\textbf{Server-side Proof Generation}. $\mathtt{PoR.prove}(u^{\scriptscriptstyle *},\hat{k},pk)$ 
+\item\label{PoR-server-prove}\textbf{Server-side Proof Generation}. $\mathtt{PoR.prove}(u^{\scriptscriptstyle *},\hat{k},pp)$ 
  \begin{enumerate}
 \item Derives $\beta$ pseudorandom indices from $\hat{k}$ as follows. $\forall i,1\leq i\leq \beta: q_{\scriptscriptstyle i}=\mathtt{PRF}(\hat{k},i)\bmod m+1$. Let ${\bm{q}}=[q_{\scriptscriptstyle 1},..., q_{\scriptscriptstyle \beta}]$
 
@@ -45,7 +45,7 @@ In this section, we present a modified version of the standard Merkle tree-based
 
 \item Sends $ {\bm{\pi}}$ to $\mathcal{C}$
  \end{enumerate}
-\item\label{PoR-verify}\textbf{Client-side Proof Verification}. $\mathtt{PoR.verify}( {\bm{\pi}},\bm{q},pk)$ 
+\item\label{PoR-verify}\textbf{Client-side Proof Verification}. $\mathtt{PoR.verify}( {\bm{\pi}},\bm{q},pp)$ 
 \begin{enumerate}
 
 \item If $|\bm{\pi}|=|\bm{q}|=1$, then set $\beta=1$. This step is taken only in the case where single proof and query is provided to a third-party verifier (e.g. in the case of proof of misbehaviour). 

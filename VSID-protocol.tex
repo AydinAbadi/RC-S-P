@@ -20,29 +20,28 @@ In this section, we present the VSID protocol. We show how it  can be built upon
 
 \item\textbf{Client-side Setup}\label{VSID::Client-side-Setup}. $\mathtt{VSID.setup}(1^{\lambda}, u,k,M)$
 \begin{enumerate}
-\item Calls  $\mathtt{VS.setup}(1^{\lambda}, u,k,M)\rightarrow (\sigma,u^{\scriptscriptstyle *})$, to generate a   metadata: $\sigma=M(u^{\scriptscriptstyle *},k)$. %It may add more parameters, e.g. file size, to $pk$. 
+\item Calls  $\mathtt{VS.setup}(1^{\lambda}, u,k,M)\rightarrow (\sigma,u^{\scriptscriptstyle *})$, to generate a   metadata: $\sigma=M(u^{\scriptscriptstyle *},k,{\color{purple}pp})$, encoded file service input and {\color{purple} (input dependent) parameters $pp$}. %It may add more parameters, e.g. file size, to $pk$. 
 
 
-\item Generates non-interactive publicly verifiable zero-knowledge proofs asserting  $\sigma$ has been generated correctly, i.e. $\sigma$ is the output of  $M$ that is evaluated on $u^{\scriptscriptstyle *}$, $pk$ and $sk$, without revealing $sk$. Let $w_{\scriptscriptstyle\sigma}$ contains the proofs.
-\item\label{vsid::post-metadata} Posts $ e:=(\sigma,w_{\scriptscriptstyle\sigma})$ and $u^{\scriptscriptstyle *}$ to the bulletin board. 
+\item Generates non-interactive publicly verifiable zero-knowledge proofs asserting  $\sigma$ has been generated correctly, i.e. $\sigma$ is the output of  $M$ that is evaluated on $u^{\scriptscriptstyle *}$, $pk$,  $sk$, and {\color{purple}$pp$} without revealing $sk$. Let $w_{\scriptscriptstyle\sigma}$ contains the proofs.
+\item\label{vsid::post-metadata} Posts $ e:=(\sigma,w_{\scriptscriptstyle\sigma})$, {\color{purple}$pp$},  and $u^{\scriptscriptstyle *}$ to the bulletin board. 
 \end{enumerate}
 
-\item\textbf{Server-side Setup}. $\mathtt{VSID.serve}(u^{\scriptscriptstyle *},e,pk)$
+\item\textbf{Server-side Setup}. $\mathtt{VSID.serve}(u^{\scriptscriptstyle *},e,pk,{\color{purple}pp})$
 
 Ensures the metadata $\sigma$ has been constructed correctly, by verifying the proofs in $w_{\sigma}$ (where $\sigma,w_{\scriptscriptstyle\sigma}\in e$). If the proofs are accepted, then it outputs $a=1$  and proceeds to the next step; otherwise, it outputs $a=0$ and halts. 
 %\item\label{Server-side Setup-post} At time $P_0$ posts $1$ to the board,  if the proofs are accepted; otherwise, it posts $0$ to the board.  
 
-
-\item\textbf{Client-side Query Generation}\label{VSID::Client-side-QueryGeneration}. $\mathtt{VSID.genQuery}(1^{\lambda},  \text{aux},k,Q)$ 
+\item\textbf{Client-side Query Generation}\label{VSID::Client-side-QueryGeneration}. $\mathtt{VSID.genQuery}(1^{\lambda},  \text{aux},k,Q,{\color{purple}pp} )$ 
 \begin{enumerate}
-\item Calls $\mathtt{VS.genQuery}(1^{\lambda}, \text{aux},k,Q)\rightarrow \bm{q}$, to generate a query vector, $\bm{q}:Q(\text{aux},k)$. If $\text{aux}$ is a private input, then it also commits to it,  that yields  $\mathtt{Com}_{\scriptscriptstyle \text{aux}}$
+\item Calls $\mathtt{VS.genQuery}(1^{\lambda}, \text{aux},k,Q,{\color{purple}pp} )\rightarrow \bm{q}$, to generate a query vector, $\bm{q}=Q(\text{aux},k,{\color{purple}pp})$. If $\text{aux}$ is a private input, then it also commits to it,  that yields  $\mathtt{Com}_{\scriptscriptstyle \text{aux}}$
 \item Generates non-interactive publicly verifiable zero-knowledge proofs proving $\bm{q}$ has been generated correctly, i.e. $\bm{q}$ is the
-output of $Q$ which is evaluated on $\text{aux}$, $pk$ and $sk$, without revealing $sk$ (and $\text{aux}$, if it is a private input). Let $\bm{w}_{\scriptscriptstyle q}$ contain the proofs and  $\text{aux}$ (or  $\mathtt{Com}_{\scriptscriptstyle \text{aux}}$ if $\text{aux}$ is a private input).
+output of $Q$ which is evaluated on $\text{aux}$, $pk$, $sk$, and $pp$ without revealing $sk$ (and $\text{aux}$, if it is a private input). Let $\bm{w}_{\scriptscriptstyle q}$ contain the proofs and  $\text{aux}$ (or  $\mathtt{Com}_{\scriptscriptstyle \text{aux}}$ if $\text{aux}$ is a private input).
 %\item At time $P_1$ posts $c:(q,w_{q})$ to the board 
 \item Posts $c:(\bm{q},\bm{w}_{\scriptscriptstyle q})$ to the board 
 \end{enumerate}
 
-\item\textbf{Server-side Query Verification}. $\mathtt{VSID.checkQuery}(c, pk)$
+\item\textbf{Server-side Query Verification}. $\mathtt{VSID.checkQuery}(c, pk, {\color{purple}pp})$
 
 Checks if   the query: $\bm{q}\in c$ has been constructed correctly by verifying the proofs  $\bm{w}_{\scriptscriptstyle q}\in c$. If the check passes, then it outputs $b=1$; otherwise, it outputs $b=0$
 
@@ -50,31 +49,31 @@ Checks if   the query: $\bm{q}\in c$ has been constructed correctly by verifying
 %\item At time $P_2$, posts $1$ to the board, if  the proofs are accepted; otherwise, it  posts $0$ to the board and aborts.   
 
 
-\item\textbf{Server-side Service Proof Generation}. $\mathtt{VSID.prove}(u^{\scriptscriptstyle *},\sigma,c,pk)$ This phase starts only if the query was accepted, i.e. $b=1$ 
+\item\textbf{Server-side Service Proof Generation}. $\mathtt{VSID.prove}(u^{\scriptscriptstyle *},\sigma,c,pk,{\color{purple}pp} )$ This phase starts only if the query was accepted, i.e. $b=1$ 
 \begin{enumerate}
-\item Calls $\mathtt{VS.prove}(u^{\scriptscriptstyle *},\sigma, \bm{q},pk)\rightarrow \pi$, to generate $\pi:=(F(u^{\scriptscriptstyle *},\bm{q}),\delta)$. Recall that $\bm{q}\in c$
+\item Calls $\mathtt{VS.prove}(u^{\scriptscriptstyle *},\sigma, \bm{q},pk,{\color{purple}pp})\rightarrow \pi$, to generate $\pi:=(F(u^{\scriptscriptstyle *},\bm{q},{\color{purple}pp}),\delta)$. Recall that $\bm{q}\in c$
 \item Posts $\pi$ to the board. 
 %\item At time $P_2$ posts $\pi$ to the board. 
 \end{enumerate}
 
-\item\textbf{Client-side Proof Verification}. $\mathtt{VSID.verify}(\pi,\bm{q},k)$
+\item\textbf{Client-side Proof Verification}. $\mathtt{VSID.verify}(\pi,\bm{q},k,{\color{purple}pp})$
 
-Calls $\mathtt{VS.verify}(\pi,\bm{q},k)\rightarrow d$, to verify  proof $\pi$. It accepts the proof if $d=1$; otherwise, it rejects it. 
+Calls $\mathtt{VS.verify}(\pi,\bm{q},k,{\color{purple}pp})\rightarrow d$, to verify  proof $\pi$. It accepts the proof if $d=1$; otherwise, it rejects it. 
 
  %Checks if $\pi$ was posted on time.  If the check fails, then it aborts. Otherwise,  it calls $\mathtt{VS.verify}(\pi,q,k)\rightarrow d$, to verify the proof $\pi$. It accepts the proof if $d=1$; otherwise, it rejects it. 
 
 %\item At time $P_4$ posts $d$ to the board. 
 
 
-\item\textbf{Arbiter-side Identification}. $\mathtt{VSID.identify}(\pi,c,k,e,u^{\scriptscriptstyle *})$ 
+\item\textbf{Arbiter-side Identification}. $\mathtt{VSID.identify}(\pi,c,k,e,u^{\scriptscriptstyle *},{\color{purple}pp})$ 
 \begin{enumerate}
 
 
-\item\label{Arb-VSID.serve} Calls $\mathtt{VSID.serve}(u^{\scriptscriptstyle *},e,pk)\rightarrow a$. If $a=1$, then it proceeds to the next step. Otherwise, it outputs $I=\mathcal C$ and halts. 
+\item\label{Arb-VSID.serve} Calls $\mathtt{VSID.serve}(u^{\scriptscriptstyle *},e,pk,{\color{purple}pp})\rightarrow a$. If $a=1$, then it proceeds to the next step. Otherwise, it outputs $I=\mathcal C$ and halts. 
 
-\item Calls $\mathtt{VSID.checkQuery}(c, pk)\rightarrow b$. If $b=1$, then it proceeds to the next step. Otherwise, it outputs $I=\mathcal C$ and halts. 
+\item Calls $\mathtt{VSID.checkQuery}(c, pk,{\color{purple}pp})\rightarrow b$. If $b=1$, then it proceeds to the next step. Otherwise, it outputs $I=\mathcal C$ and halts. 
 
-\item  If $\pi$ is  privately verifiable, then the arbiter  first checks if $sk\in k$ (provided by the client along with other opening information) matches $\mathtt{Com}_{\scriptscriptstyle sk}\in pk$. If they do not match, then the arbiter outputs $I=\mathcal C$. Otherwise,  it calls $\mathtt{VS.verify}(\pi, \bm{q},k)\rightarrow d$. If $d=1$, then it outputs $I=\bot$; otherwise, it outputs $I=\mathcal S$
+\item  If $\pi$ is  privately verifiable, then the arbiter  first checks if $sk\in k$ (provided by the client along with other opening information) matches $\mathtt{Com}_{\scriptscriptstyle sk}\in pk$. If they do not match, then the arbiter outputs $I=\mathcal C$. Otherwise,  it calls $\mathtt{VS.verify}(\pi, \bm{q},k,{\color{purple}pp})\rightarrow d$. If $d=1$, then it outputs $I=\bot$; otherwise, it outputs $I=\mathcal S$
 \end{enumerate}
 \end{enumerate}
 
@@ -89,7 +88,7 @@ The VSID protocol satisfies the soundness, inputs well-formedness, and detectabl
 
 
 \begin{remark}\label{remark::light-VSID}
-As we mentioned before, often it is sufficient  to let the arbiter pinpoint a corrupt party \emph{after} the client and server agree to deal with each other. We denoted a VSID protocol that meets the latter (lighter) requirement, by $\text{VSID}_{\scriptscriptstyle \text{light}}$. This  version would impose lower costs, when $u$ and elements of $e$ are of large size. In  $\text{VSID}_{\scriptscriptstyle \text{light}}$ protocol, the client and server  run phases 1-3 of the VSID protocol as before, with a difference that the client does not post $e$ and $u^{\scriptscriptstyle*}$ to the board; instead, it sends them directly to the server. In $\text{VSID}_{\scriptscriptstyle\text{light}}$  the arbiter algorithm, i.e. $\mathtt{VSID.identify}()$, needs to take only $(\pi, c, pk, e')$ as input, where $e'$ contains the opening of $\mathtt{Com}_{\scriptscriptstyle {sk}}$ if $\mathtt{VSID.verify}()$ is privately verifiable or $e'=\bot$ if  it is publicly verifiable. In this light version, the arbiter   skips step \ref{Arb-VSID.serve}. Thus, $\text{VSID}_{\scriptscriptstyle\text{light}}$ saves (a)  communication cost, as   $u^{\scriptscriptstyle*}$ and $e$ are never sent to the board and  arbiter, and (b) computation  cost as the arbiter does not need to run $\mathtt{VSID.serve}()$ anymore. 
+As we mentioned before, often it is sufficient  to let the arbiter pinpoint a corrupt party \emph{after} the client and server agree to deal with each other. We denoted a VSID protocol that meets the latter (lighter) requirement, by $\text{VSID}_{\scriptscriptstyle \text{light}}$. This  version would impose lower costs, when $u$ and elements of $e$ are of large size. In  $\text{VSID}_{\scriptscriptstyle \text{light}}$ protocol, the client and server  run phases 1-3 of the VSID protocol as before, with a difference that the client does not post $e$ and $u^{\scriptscriptstyle*}$ to the board; instead, it sends them directly to the server. In $\text{VSID}_{\scriptscriptstyle\text{light}}$  the arbiter algorithm, i.e. $\mathtt{VSID.identify}(.)$, needs to take only $(\pi,c,k,e',{\color{purple}pp})$ as input, where $e'$ contains the opening of $\mathtt{Com}_{\scriptscriptstyle {sk}}$ if $\mathtt{VSID.verify}(.)$ is privately verifiable or $e'=\bot$ if  it is publicly verifiable. In this light version, the arbiter   skips step \ref{Arb-VSID.serve}. Thus, $\text{VSID}_{\scriptscriptstyle\text{light}}$ saves (a)  communication cost, as   $u^{\scriptscriptstyle*}$ and $e$ are never sent to the board and  arbiter, and (b) computation  cost as the arbiter does not need to run $\mathtt{VSID.serve}(.)$ anymore. 
 \end{remark}
 
 
