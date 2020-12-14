@@ -25,12 +25,12 @@ The server-side prove and client-side verify algorithms are similar to those in 
 %\item \textbf{keyGen}. $\mathtt{PoR.keyGen}(1^{\lambda})$. $\mathcal{C}$ sets $pk$ as public key, initially empty.    
 \item\textbf{Client-side Setup}. $\mathtt{PoRID.setup}(1^{\lambda}, u)$
 \begin{enumerate}
-\item Calls  $\mathtt{PoR.setup}(1^{\lambda}, u)\rightarrow (u^{\scriptscriptstyle *},pk)$, that results in public parameters $pk:=(\sigma,\beta,m,\zeta)$ and encoded file: $u^{\scriptscriptstyle *}=u^{\scriptscriptstyle '}_{\scriptscriptstyle 0}||0,...,u^{\scriptscriptstyle '}_{\scriptscriptstyle m}||m$. Recall,  $\zeta:=(\psi,\eta, \iota)$ is the $\mathtt{PRF}$'s description.
+\item Calls  $\mathtt{PoR.setup}(1^{\lambda}, u)\rightarrow (u^{\scriptscriptstyle *},pk)$, that results in public parameters $pp:=(\sigma,\beta,m,\zeta)$ and encoded file: $u^{\scriptscriptstyle *}=u^{\scriptscriptstyle '}_{\scriptscriptstyle 0}||0,...,u^{\scriptscriptstyle '}_{\scriptscriptstyle m}||m$. Recall,  $\zeta:=(\psi,\eta, \iota)$ is the $\mathtt{PRF}$'s description.
 
-\item Posts $pk$ to the bulletin board and sends $u^{\scriptscriptstyle *}$ to $\mathcal{S}$ 
+\item Posts $pp$ to the bulletin board and sends $u^{\scriptscriptstyle *}$ to $\mathcal{S}$ 
 \end{enumerate}
 
-\item\textbf{Server-side Setup}. $\mathtt{PoRID.serve}(u^{\scriptscriptstyle *},pk)$
+\item\textbf{Server-side Setup}. $\mathtt{PoRID.serve}(u^{\scriptscriptstyle *},pp)$
 %\begin{enumerate}
 
 Verifies the correctness of public parameters:
@@ -47,9 +47,9 @@ Verifies the correctness of public parameters:
 
 %\end{enumerate}
 
-\item\textbf{Client-side Query Generation}. $\mathtt{PoRID.genQuery}(1^{\lambda},  pk)$ 
+\item\textbf{Client-side Query Generation}. $\mathtt{PoRID.genQuery}(1^{\lambda},  pp)$ 
 \begin{enumerate}
-\item Calls $\mathtt{PoR.genQuery}(1^{\lambda}, pk)\rightarrow \hat{k}$, to generate a key, $\hat{k}$ %whose element have been sorted in ascending order. 
+\item Calls $\mathtt{PoR.genQuery}(1^{\lambda}, pp)\rightarrow \hat{k}$, to generate a key, $\hat{k}$ %whose element have been sorted in ascending order. 
 %\item Sorts the queries in ascending order. Let vector $ {\bm{q}}'$ contain the ordered random indices (i.e.  $ {\bm{q}}'[i]< {\bm{q}}'[i+1]$, where $i\in [0,\beta-1]$).
 \item Posts $\hat{k}$ to the board. 
 \end{enumerate}
@@ -57,7 +57,7 @@ Verifies the correctness of public parameters:
 
 
 
-\item\textbf{Server-side Query Verification}. $\mathtt{PoRID.checkQuery}(\hat{k}, pk)$
+\item\textbf{Server-side Query Verification}. $\mathtt{PoRID.checkQuery}(\hat{k}, pp)$
 \begin{enumerate}
 \item  Checks if  $\hat{k}$ is not empty, i.e. $\hat{k}\neq \bot$, and is in the key's universe, i.e. $\hat{k}\in \{0,1\}^{\scriptscriptstyle\psi}$%If it is empty, then it outputs $I=\mathcal C$
 \item  If the checks pass, then it outputs $b=1$; otherwise, it outputs $b=0$
@@ -73,20 +73,20 @@ Verifies the correctness of public parameters:
 %\item Posts $b=1$ to the board, if the above two checks pass.  
 %\end{enumerate}
 
-\item\textbf{Server-side Service Proof Generation}. $\mathtt{PoRID.prove}(u^{\scriptscriptstyle *},\hat{k},pk)$ 
+\item\textbf{Server-side Service Proof Generation}. $\mathtt{PoRID.prove}(u^{\scriptscriptstyle *},\hat{k},pp)$ 
 \begin{enumerate}
-\item Calls $\mathtt{PoR.prove}(u^{\scriptscriptstyle *},\hat{k},pk)\rightarrow  {\bm{\pi}}$, to generate proof vector: $ {\bm{\pi}}$ 
+\item Calls $\mathtt{PoR.prove}(u^{\scriptscriptstyle *},\hat{k},pp)\rightarrow  {\bm{\pi}}$, to generate proof vector: $ {\bm{\pi}}$ 
 \item Posts $ {\bm{\pi}}$ to the board. 
 \end{enumerate}
 
-\item\textbf{Client-side Proof Verification}\label{PoRID::Client-side-Proof-Verification}. $\mathtt{PoRID.verify}( {\bm{\pi}},\hat{k} ,pk)$
+\item\textbf{Client-side Proof Verification}\label{PoRID::Client-side-Proof-Verification}. $\mathtt{PoRID.verify}( {\bm{\pi}},\hat{k} ,pp)$
 %\begin{enumerate}
 
- Calls $\mathtt{PoR.verify}( {\bm{\pi}},\hat{k} ,pk)\rightarrow  {\bm{d}}$, to verify the proof. If $ {\bm{d}}[0] = 1$,  it accepts the proof; otherwise, it rejects it.
+ Calls $\mathtt{PoR.verify}( {\bm{\pi}},\hat{k} ,pp)\rightarrow  {\bm{d}}$, to verify the proof. If $ {\bm{d}}[0] = 1$,  it accepts the proof; otherwise, it rejects it.
 %\item Posts $  {\bm{d}}$ to the board. 
 %\end{enumerate}
 
-\item\textbf{Arbiter-side Identification}\label{PoRID::Arbiter-side-Identification}. $\mathtt{PoRID.identify}( {\bm{\pi}}, g,\hat{k},pk)$ 
+\item\textbf{Arbiter-side Identification}\label{PoRID::Arbiter-side-Identification}. $\mathtt{PoRID.identify}( {\bm{\pi}}, g,\hat{k},pp)$ 
 
 This algorithm can be invoked by $\mathcal{C}$ or $\mathcal{S}$, in the case of dispute. If it is invoked by $\mathcal{C}$, then $g$ refers to a rejected proof's  index; however, if it is invoked by $\mathcal{S}$, then $g$ is null, i.e.  $g=\bot$. The arbiter performs as follows. 
 
@@ -96,7 +96,7 @@ This algorithm can be invoked by $\mathcal{C}$ or $\mathcal{S}$, in the case of 
 %\item Calls $\mathtt{VSID.checkQuery}(c, pk)\rightarrow b$. If $b=1$, then it proceeds to the next step. Otherwise, it outputs $I=\mathcal C$ and aborts. 
 %\item   Ensures $ {\bm{d}}[0]=0$; otherwise, it aborts.
 
-\item Ensures  query $\hat{k}$ is well-structured by calling $\mathtt{PoRID.checkQuery}(\hat{k}, pk)$. If it returns $b=0$, then it outputs $I=\mathcal C$ and halts; otherwise, it proceeds to the next step. 
+\item Ensures  query $\hat{k}$ is well-structured by calling $\mathtt{PoRID.checkQuery}(\hat{k}, pp)$. If it returns $b=0$, then it outputs $I=\mathcal C$ and halts; otherwise, it proceeds to the next step. 
 
 
 %not empty (i.e. $\hat{k}\neq \bot$). If it is empty, then it outputs $I=\mathcal C$
@@ -105,7 +105,7 @@ This algorithm can be invoked by $\mathcal{C}$ or $\mathcal{S}$, in the case of 
 
 
 
-\item If $g\neq \bot$, then verifies only $g$-th proof, by setting $\hat{\bm{\pi}}={\bm{\pi}}[g], \hat{\bm{q}}=q_{\scriptscriptstyle g}$ and then calling $\mathtt{PoR.verify}( \hat{\bm{\pi}},\hat{\bm{q}},pk)\rightarrow  {\bm{d}}'$. If $ {\bm{d}}'[0]=0$, then it outputs $I=\mathcal S$. Otherwise, it outputs $I=\bot$
+\item If $g\neq \bot$, then verifies only $g$-th proof, by setting $\hat{\bm{\pi}}={\bm{\pi}}[g], \hat{\bm{q}}=q_{\scriptscriptstyle g}$ and then calling $\mathtt{PoR.verify}( \hat{\bm{\pi}},\hat{\bm{q}},pp)\rightarrow  {\bm{d}}'$. If $ {\bm{d}}'[0]=0$, then it outputs $I=\mathcal S$. Otherwise, it outputs $I=\bot$
 \end{enumerate}
 \end{enumerate}
 

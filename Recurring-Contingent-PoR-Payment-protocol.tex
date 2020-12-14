@@ -2,7 +2,7 @@
 
 \subsection{Recurring Contingent PoR Payment (RC-PoR-P) Protocol}
 This section presents recurring contingent PoR payment (RC-PoR-P) protocol. It is built upon PoRID protocol and is in the same security model as RC-S-P is. RC-PoR-P inherits the features of PoRID and RC-PoR-P; however, unlike RC-PoR-P, it does not use any zero-knowledge proofs and there is no third-party arbiter involved. Even though RC-PoR-P and RC-S-P have some overlaps, they have many differences too. Therefore, we provide the protocol’s overview and its detailed description below.
-At a high level the protocol works as follows. The client and server utilise SAP to provably agree on two private statements, one statement includes payment details, and another one specifies a secret key, $k$, and a pad's length. Moreover, they  agree on public parameters such as the private time bubble's length (that is the total number of billing cycles: $z$, plus a waiting period, $H$) and a smart contract that specifies $z$ and the total amount of masked coins each party should deposit. They deploy the contract. Each party deposits its masked coins in the contract within a fixed time. If any party does not deposit enough coins on time, then the parties have a chance to withdraw their coins and terminate the contract after a certain time. To start using/providing the service, the client invokes $\mathtt{PoRID.setup}(.)$ to encode the file and generate  metadata and public parameters. It sends  encryption of the metadata and public parameters to the smart contract and sends the encoded file to the server who decrypts them and using the encoded file checks their correctness by calling $\mathtt{PoRID.server}(.)$. If the server decides not to serve, it sends to the contract $0$ within a fixed time; in this case, the parties can withdraw their deposit and terminate the contract. Otherwise, the server sends $1$ to the contract. 
+At a high level the protocol works as follows. The client and server utilise SAP to provably agree on two private statements, one statement includes payment details, and another one specifies a secret key, $k$, and a pad's length. Moreover, they  agree on public parameters such as the private time bubble's length (that is the total number of billing cycles: $z$, plus a waiting period, $\texttt{H}$) and a smart contract that specifies $z$ and the total amount of masked coins each party should deposit. They deploy the contract. Each party deposits its masked coins in the contract within a fixed time. If any party does not deposit enough coins on time, then the parties have a chance to withdraw their coins and terminate the contract after a certain time. To start using/providing the service, the client invokes $\mathtt{PoRID.setup}(.)$ to encode the file and generate  metadata and public parameters. It sends  encryption of the metadata and public parameters to the smart contract and sends the encoded file to the server who decrypts them and using the encoded file checks their correctness by calling $\mathtt{PoRID.server}(.)$. If the server decides not to serve, it sends to the contract $0$ within a fixed time; in this case, the parties can withdraw their deposit and terminate the contract. Otherwise, the server sends $1$ to the contract. 
 At the end of each billing cycle, the client generates an encrypted query, by calling $\mathtt{PoRID.genQuery(.)}$ and encrypting its output using the key, $k$. It sends the result to the contract. In the same cycle, the server retrieves the query, and decrypts it. Then, it locally checks its correctness, by calling $\mathtt{PoRID.checkQuery(.)}$. If the query is rejected, the server locally stores the index of that billing cycle and generates a dummy PoR proofs. However, if the server accepts the query, it generates PoR proofs by calling $\mathtt{PoRID.prove(.)}$. Then, in either case, the server encrypts the proofs, pads them and sends the result to the contract. After that, the client removes the pads, decrypts the proofs and locally verifies them, by calling $\mathtt{PoRID.verify(.)}$. If the verification is passed, then the client knows the file is retrievable with a high probability. But, if the proof is rejected, then it locally stores the index of that billing cycle and waits until the private time bubble passes and dispute resolution time arrives. 
 
 During the dispute resolution period, in case the server rejects the query or the client rejects the PoR proofs, that party sends to the contract (a) the indices of the billing cycles in which its counterparty provided invalid values, and (b)  the statement that contains the decryption key and padding detail. The contract checks the validity of the statement first. If it accepts the statement, then it removes the pads and decrypts the values whose indices were provided by the parties. Then, the contract checks the party’s claim by calling $\mathtt{PoRID.checkQuery (.)}$ and $\mathtt{PoRID.identify (.)}$ if the server or client calls the contract respectively. The contract also keeps track of the number of times each party provided invalid queries or PoR proofs.  
@@ -11,43 +11,80 @@ In the next phase, to distribute the coins, either client or server sends to the
 
 
 
-
+\textcolor{purple}{Aydin--Still working on RCPoRP protocol}
 \begin{enumerate}
-\item \textbf{Key Generation}. 
+\item \textbf{Key Generation}. $\mathtt{RCPoRP}.\mathtt{keyGen}(1^{\scriptscriptstyle\lambda})$
 \begin{enumerate}
 
-\item  $\mathcal C$  picks a random secret key  $\bar{k}$ for a symmetric key encryption. Also, it sets  parameter $pad_{\scriptscriptstyle \pi}$ which is the number of  dummy values that will be used to pad encrypted proofs,  let $qp:=(pad_{\scriptscriptstyle \pi}, \bar{k})$. The key's size is part of the security parameter. 
+\item  $\mathcal C$  picks a random secret key  $\bar{k}$ for a symmetric key encryption. It also sets  parameter $pad_{\scriptscriptstyle \pi}$ which is the number of  dummy values that will be used to pad encrypted proofs,  let $qp:=(pad_{\scriptscriptstyle \pi}, \bar{k})$. The key's size is part of the security parameter. Let  $\bm{k}=[(sk',pk')]$, where  $sk'=qp$ and $pk':=(adr_{\scriptscriptstyle\mathcal{C}},adr_{\scriptscriptstyle\mathcal{S}})$. 
+
+
+\
+
+
+
+\
 
 
 
 
-\item  $\mathcal C$ sets coin parameters as   follows,   $o$: the amount of coins for each accepting proof,  as well as $l$ and $l'$ which are the amount of coins $\mathcal C$ and $\mathcal S$ respectively need to send to a smart contract to resolve a potential dispute.  Let $k':=\{o,l,l',qp\}$. 
+
+\item  \textcolor{green}{$\mathcal C$ sets coin parameters as   follows,   $o$: the amount of coins for each accepting proof,  as well as $l$ and $l'$ which are the amount of coins $\mathcal C$ and $\mathcal S$ respectively need to send to a smart contract to resolve a potential dispute.  Let $k':=\{o,l,l',qp\}$. }
 
 
 \end{enumerate}
 
-\item \textbf{Initiation}. 
+\
+
+\item \textbf{Client-side Initiation}. $\mathtt{RCPoRP}.\mathtt{cInit}(1^\lambda, u,\bm{k}, z,pl)$
 \begin{enumerate}
 
-\item For $\mathcal C$ and $\mathcal S$ to provably agree on $qp$, $\mathcal C$ sends $qp$ to  $\mathcal S$.  Next (if the $\mathcal S$ agrees on the parameters) they take the steps in the Setup and Agreement phases in the SAP, at time $T_{\scriptscriptstyle 0}$. Let $t_{\scriptscriptstyle qp}:=(\ddot{x}_{\scriptscriptstyle qp},g_{\scriptscriptstyle qp})$ be proof encoding token,  where  $\ddot{x}_{\scriptscriptstyle qp}$ is the opening and $g_{\scriptscriptstyle qp}$ is the commitment stored on the contract as a result of running   SAP. 
+\item Calls $\mathtt{PoRID.setup}(1^{\lambda}, u)\rightarrow (u^{\scriptscriptstyle *},pp)$ to encode service input (and generate metadata). It appends $pp$ to $qp$.
 
 
-\item Let  $cp:=(o,o_{\scriptscriptstyle max},l,l',l_{\scriptscriptstyle max},z)$, where $o_{\scriptscriptstyle max}$ is the maximum amount of coins  for an accepting service proof,  $l_{\scriptscriptstyle max}$  is the maximum amount of coins to resolve a potential dispute, and $z$ is the number of  service proofs/verifications. For $\mathcal C$ and $\mathcal S$ to provably agree on $cp$, similar to the previous step, they invoke SAP, at time $T_{\scriptscriptstyle 1}$.  Let $t_{\scriptscriptstyle cp}:=(\ddot{x}_{\scriptscriptstyle cp},g_{\scriptscriptstyle cp})$ be coin encoding token,  where  $\ddot{x}_{\scriptscriptstyle cp}$ is the opening and $g_{\scriptscriptstyle cp}$ is the commitment stored on the contract as a result of executing the  SAP. 
+\item  Calls $\mathtt{SAP.init}(1^{\scriptscriptstyle\lambda}, adr_{\scriptscriptstyle\mathcal{C}}, adr_{\scriptscriptstyle\mathcal{S}},qp )\rightarrow(r_{\scriptscriptstyle qp}, g_{\scriptscriptstyle qp}, adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 1}})$, to initiate an agreement (with $\mathcal{S}$) on $qp$.  Let $T_{\scriptscriptstyle qp}:=(\ddot{x}_{\scriptscriptstyle qp}, g_{\scriptscriptstyle qp})$ be proof/query encoding token,  where  $\ddot{x}_{\scriptscriptstyle qp}:=(qp,r_{\scriptscriptstyle qp})$ is the opening and $g_{\scriptscriptstyle qp}$ is the commitment stored on the contract as a result of running   SAP. 
 
-
-\item $\mathcal C$ sets   $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}=z\cdot (o_{\scriptscriptstyle max}+l_{\scriptscriptstyle max})$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}=z\cdot l_{\scriptscriptstyle max}$, where $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$ are   the total number of masked coins that $\mathcal C$ and $\mathcal S$ should deposit respectively. $\mathcal C$ signs and deploys  a smart contract, SC, that explicitly specifies  parameters $z$,  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$. It deposits $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ coins in the contract.
-
-\item $\mathcal C$ constructs  vector $\bm{w}_{\scriptscriptstyle\mathcal C}$, also $\mathcal S$  constructs $\bm{v}_{\scriptscriptstyle\mathcal S}$,  where the vectors are initially empty. 
-
-
-\item $\mathcal C$ runs $\mathtt{PoRID.setup}(1^{\lambda}, u)\rightarrow (u^{\scriptscriptstyle *},pk)$.  It sends  encoded file $u^{\scriptscriptstyle *}$ to $\mathcal S$, and sends the public key's encryption: $\mathtt{Enc}(\bar{k},pk)$ to SC at time $T_{\scriptscriptstyle 2}$
-
-\item $\mathcal S$ checks the above parameters, and ensures sufficient amount of coins has been deposited.  If any check is rejected, then it sets $a=0$. Otherwise, it decrypts the public key, $\mathtt{Dec}(\bar{k},\mathtt{Enc}(\bar{k},pk))=pk$. It runs $\mathtt{PoRID.serve}(u^{\scriptscriptstyle *},pk)\rightarrow a$. Next, it sends $a$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$ coins to SC at time $T_{\scriptscriptstyle 3}$, where  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}=\bot$ if $a=0$
+\
 
 
 
-\item $\mathcal C$  and  $\mathcal S$ can withdraw their coins at time $T_{\scriptscriptstyle 4}$, if the server sends $a=0$, fewer coins than $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$, or nothing to the SC
+\item   Sets coin parameters (given  price list $pl$) as  follows,  $o$: the amount of coins for each accepting proof,  as well as $l$ and $l'$ which are the amount of coins $\mathcal C$ and $\mathcal S$ respectively need to send to a smart contract to resolve a potential dispute. 
 
+%\item   Sets coin parameters as   follows,   $o$: the amount of coins for each accepting proof, and $l$: the amount of coins  to cover the cost of each potential dispute resolution, given  price list $pl$.  %It appends $o$ and $l$ to $k'$.
+
+
+
+
+\item  Sets  $cp:=(o,o_{\scriptscriptstyle max}, l, l', l_{\scriptscriptstyle max},z)$, where $o_{\scriptscriptstyle max}$ is the maximum amount of coins  for an accepting service proof,  $l_{\scriptscriptstyle max}$  is the maximum amount of coins to resolve a potential dispute, and $z$ is the number of  service proofs/verifications. Then, $\mathcal C$ calls $\mathtt{SAP.init}(1^{\scriptscriptstyle\lambda}, adr_{\scriptscriptstyle\mathcal{C}}, adr_{\scriptscriptstyle\mathcal{S}},cp )\rightarrow(r_{\scriptscriptstyle cp},g_{\scriptscriptstyle cp},adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 2}})$, to initiate an agreement (with $\mathcal{S}$) on $cp$. Let $T_{\scriptscriptstyle cp}:=(\ddot{x}_{\scriptscriptstyle cp},g_{\scriptscriptstyle cp})$ be coin encoding token,  where  $\ddot{x}_{\scriptscriptstyle cp}:=(cp,r_{\scriptscriptstyle cp})$ is the opening and $g_{\scriptscriptstyle cp}$ is the commitment stored on the contract as a result of executing   SAP.  
+
+
+
+
+
+\item Set parameters  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}=z\cdot (o_{\scriptscriptstyle max}+l_{\scriptscriptstyle max})$ and $p_{\scriptscriptstyle\mathcal{S}}=z\cdot l_{\scriptscriptstyle max}$, where $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ and $p_{\scriptscriptstyle\mathcal{S}}$ are   the total number of masked coins $\mathcal C$ and $\mathcal S$ should deposit respectively. It signs and deploys a smart contract, SC, that explicitly specifies  parameters $z$,  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$, $p_{\scriptscriptstyle\mathcal{S}}$,  $adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 1}}$, and $adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 2}}$. Let $adr_{\scriptscriptstyle \text{SC}}$ be the address of the deployed SC, and $T:=\{T_{\scriptscriptstyle qp},T_{\scriptscriptstyle cp}\}$. It sets a set of time points/windows, $\texttt{Time}:\{ \texttt{T}_{\scriptscriptstyle 0},..., \texttt{T}_{\scriptscriptstyle 3},\texttt{G}_{\scriptscriptstyle 1,1},...,\texttt{G}_{\scriptscriptstyle z,2},\texttt{H}, \texttt{K}_{\scriptscriptstyle 1},\texttt{K}_{\scriptscriptstyle 2}, \texttt{L}\}$, that are explicitly specified in the contract who will accept a certain party's message only in a specified  time point/window. The time allocation will become clear in the next phases. 
+
+
+\item Sets two counters $[y_{\scriptscriptstyle\mathcal C}, y_{\scriptscriptstyle\mathcal S}]$ in the contract, where their initial value is $0$. Let $\bm{y}: [y_{\scriptscriptstyle\mathcal C},y_{\scriptscriptstyle\mathcal S},  \texttt{Time},adr_{\scriptscriptstyle \text{SC}}]$
+
+\item Deposits $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ coins in the contract.
+
+\item Sends $u^{\scriptscriptstyle *}, e, \ddot{x}_{\scriptscriptstyle qp},\ddot{x}_{\scriptscriptstyle cp}$, and $p_{\scriptscriptstyle\mathcal{S}}$ (along with $adr_{\scriptscriptstyle \text{SC}}$) to $\mathcal S$. It sends  $pk'$ to SC. Let $\texttt{T}_{\scriptscriptstyle 0}$ be the time that the above process finishes. 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\textcolor{red}{
+%\item For $\mathcal C$ and $\mathcal S$ to provably agree on $qp$, $\mathcal C$ sends $qp$ to  $\mathcal S$.  Next (if the $\mathcal S$ agrees on the parameters) they take the steps in the Setup and Agreement phases in the SAP, at time $T_{\scriptscriptstyle 0}$. Let $t_{\scriptscriptstyle qp}:=(\ddot{x}_{\scriptscriptstyle qp},g_{\scriptscriptstyle qp})$ be proof encoding token,  where  $\ddot{x}_{\scriptscriptstyle qp}$ is the opening and $g_{\scriptscriptstyle qp}$ is the commitment stored on the contract as a result of running   SAP. 
+%\item Let  $cp:=(o,o_{\scriptscriptstyle max},l,l',l_{\scriptscriptstyle max},z)$, where $o_{\scriptscriptstyle max}$ is the maximum amount of coins  for an accepting service proof,  $l_{\scriptscriptstyle max}$  is the maximum amount of coins to resolve a potential dispute, and $z$ is the number of  service proofs/verifications. For $\mathcal C$ and $\mathcal S$ to provably agree on $cp$, similar to the previous step, they invoke SAP, at time $T_{\scriptscriptstyle 1}$.  Let $t_{\scriptscriptstyle cp}:=(\ddot{x}_{\scriptscriptstyle cp},g_{\scriptscriptstyle cp})$ be coin encoding token,  where  $\ddot{x}_{\scriptscriptstyle cp}$ is the opening and $g_{\scriptscriptstyle cp}$ is the commitment stored on the contract as a result of executing the  SAP. 
+%\item $\mathcal C$ sets   $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}=z\cdot (o_{\scriptscriptstyle max}+l_{\scriptscriptstyle max})$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}=z\cdot l_{\scriptscriptstyle max}$, where $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$ are   the total number of masked coins that $\mathcal C$ and $\mathcal S$ should deposit respectively. $\mathcal C$ signs and deploys  a smart contract, SC, that explicitly specifies  parameters $z$,  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$. It deposits $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ coins in the contract.}
+%\textcolor{green}{\item $\mathcal C$ constructs  vector $\bm{w}_{\scriptscriptstyle\mathcal C}$, also $\mathcal S$  constructs $\bm{v}_{\scriptscriptstyle\mathcal S}$,  where the vectors are initially empty. }
+%
+%\item\textcolor{red}{ $\mathcal C$ runs $\mathtt{PoRID.setup}(1^{\lambda}, u)\rightarrow (u^{\scriptscriptstyle *},pp)$.  It sends  encoded file $u^{\scriptscriptstyle *}$ to $\mathcal S$, and sends the public key's encryption: $\mathtt{Enc}(\bar{k},pk)$ to SC at time $T_{\scriptscriptstyle 2}$
+%\item $\mathcal S$ checks the above parameters, and ensures sufficient amount of coins has been deposited.  If any check is rejected, then it sets $a=0$. Otherwise, it decrypts the public key, $\mathtt{Dec}(\bar{k},\mathtt{Enc}(\bar{k},pk))=pk$. It runs $\mathtt{PoRID.serve}(u^{\scriptscriptstyle *},pp)\rightarrow a$. Next, it sends $a$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$ coins to SC at time $T_{\scriptscriptstyle 3}$, where  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}=\bot$ if $a=0$
+%\item $\mathcal C$  and  $\mathcal S$ can withdraw their coins at time $T_{\scriptscriptstyle 4}$, if the server sends $a=0$, fewer coins than $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$, or nothing to the SC
+%}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %
 %
@@ -89,14 +126,108 @@ In the next phase, to distribute the coins, either client or server sends to the
 %\item $\mathcal C$ and $\mathcal S$ can withdraw their coins at time $T_{\scriptscriptstyle 5}$, if the server sends $a=0$ or nothing to the SC 
 
 \end{enumerate}
-%\item \textbf{Billing-cycles}. At each time $G_{\scriptscriptstyle j}$, (where $1\leq j\leq z$ and $G_{\scriptscriptstyle 1}>T_{\scriptscriptstyle 5}$), that a proof is generated, the parties perform as follows. 
 
-\item \textbf{Billing-cycles}. The parties do the following, at the end of  every $j$-th billing cycle, where $1\leq j\leq z$. Each $j$-th cycle includes two  time points, $G_{\scriptscriptstyle j,1}$ and $G_{\scriptscriptstyle j,2}$, where $G_{\scriptscriptstyle j,2}>G_{\scriptscriptstyle j,1}$, and $G_{\scriptscriptstyle 1,1}>T_{\scriptscriptstyle 4}$ 
+\
+\item \textbf{Server-side Initiation}\label{RCPoRP::Server-side-Initiation}. $\mathtt{RCPoRP}.\mathtt{sInit}(u^{\scriptscriptstyle *},  z, T, p_{\scriptscriptstyle\mathcal{S}} ,\bm{y})$
 
-%At each time $G_{\scriptscriptstyle j}$, (where $1\leq j\leq z$ and $G_{\scriptscriptstyle 1}>T_{\scriptscriptstyle 5}$), that a proof is generated, the parties perform as follows. 
 \begin{enumerate}
 
-\item $\mathcal C$ calls $\mathtt{PoRID.genQuery}(1^{\lambda},  pk)\rightarrow \hat{k}_{\scriptscriptstyle j}$, to generate a query. It sends   $\hat{k}_{\scriptscriptstyle j}$ to SC at time $G_{\scriptscriptstyle j,1}$
+\item Checks the parameters  in $T$ (e.g. $qp$ and $cp$) and  in SC (e.g. $p_{\scriptscriptstyle\mathcal{S}}, \bm{y}$) and ensures sufficient amount of coins has been deposited by $\mathcal C$.  
+
+\item Calls $\mathtt{SAP.agree}(qp,r_{\scriptscriptstyle qp},g_{\scriptscriptstyle qp},adr_{\scriptscriptstyle\mathcal{C}},adr_{\scriptscriptstyle\text{SAP}_{1}})\rightarrow (g'_{\scriptscriptstyle qp},b_{\scriptscriptstyle 1})$ and $\mathtt{SAP.agree}(cp,r_{\scriptscriptstyle cp},g_{\scriptscriptstyle cp},adr_{\scriptscriptstyle\mathcal{C}},adr_{\scriptscriptstyle\text{SAP}_{2}})\rightarrow (g'_{\scriptscriptstyle cp},b_{\scriptscriptstyle 2})$, to verify the correctness of tokens in $T$ and to agree on the tokens' parameters, where $qp,r_{\scriptscriptstyle qp}\in \ddot{x}_{\scriptscriptstyle qp}, \text{and }  cp,r_{\scriptscriptstyle cp} \in  \ddot{x}_{\scriptscriptstyle cp}$. Recall, if both $\mathcal{C}$ and $\mathcal{S}$ are honest, then $g_{\scriptscriptstyle qp}=g'_{\scriptscriptstyle qp}$ and $g_{\scriptscriptstyle cp}=g'_{\scriptscriptstyle cp}$. 
+
+
+
+
+\item If any above check is rejected, then it sets $a=0$. Otherwise, it  calls $\mathtt{PoRID.serve}(u^{\scriptscriptstyle *}, {pp})\rightarrow a$. 
+
+\item Sends $a$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}=p_{\scriptscriptstyle\mathcal{S}}$ coins to SC at time $\texttt{T}_{\scriptscriptstyle 1}$, where  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}=\bot$ if $a=0$
+\end{enumerate}
+Note, $\mathcal S$  and  $\mathcal C$ can withdraw their coins at time $\texttt{T}_{\scriptscriptstyle 2}$, if  $\mathcal S$ sends $a=0$, fewer coins than $p_{\scriptscriptstyle\mathcal{S}}$, or nothing to the SC. To withdraw, $\mathcal S$  or  $\mathcal C$  simply sends a ``pay'' message to $\mathtt{RCPoRP}.\mathtt{pay}(.)$ algorithm only at time $\texttt{T}_{\scriptscriptstyle 2}$.
+
+\
+
+
+
+
+
+%\item \textbf{Billing-cycles}. At each time $G_{\scriptscriptstyle j}$, (where $1\leq j\leq z$ and $G_{\scriptscriptstyle 1}>T_{\scriptscriptstyle 5}$), that a proof is generated, the parties perform as follows. 
+
+\textbf{\textit{Billing-cycles Onset}}. $\mathcal{C}$ and $\mathcal{S}$ engage in the following three phases, i.e. phase \ref{Billing-cycles-genQuery}-\ref{Client-sideProofVerification},  at the end of every $j$-th billing cycle, where $1\leq j\leq z$. Each $j$-th cycle includes two  time points, $\texttt{G}_{\scriptscriptstyle j,1}$ and $\texttt{G}_{\scriptscriptstyle j,2}$, where $\texttt{G}_{\scriptscriptstyle j,2}>\texttt{G}_{\scriptscriptstyle j,1}$, and $\texttt{G}_{\scriptscriptstyle 1,1}>\texttt{T}_{\scriptscriptstyle 2}$ 
+
+
+\
+
+\item\textbf{Client-side Query Generation}.\label{Billing-cycles-genQuery} $\mathtt{RCPoRP}.\mathtt{genQuery}(1^\lambda,  T_{\scriptscriptstyle qp})$
+
+\begin{enumerate}
+
+\item Calls $\mathtt{PoRID.genQuery}(1^{\lambda},  pp)\rightarrow \hat{k}_{\scriptscriptstyle j}$ to generate a query, where  $ pp\in T_{\scriptscriptstyle qp}$
+\item Sends   $\hat{k}_{\scriptscriptstyle j}$ to SC at time $\texttt{G}_{\scriptscriptstyle j,1}$
+
+
+%\item Calls $\mathtt{VSID.genQuery}(1^{\lambda},  \text{aux},k,Q, \textcolor{purple}{pp})\rightarrow c_{\scriptscriptstyle j}:=(\bm{q}_{\scriptscriptstyle j},\bm{w}_{\scriptscriptstyle q_{_{\scaleto{j}{\size}}}})$, to generate a query-proof pair. 
+%\item Encrypts the pair, $\mathtt{Enc}(\bar{k},c_{\scriptscriptstyle j})=c'_{\scriptscriptstyle j}$, where $\bar{k}\in T_{\scriptscriptstyle qp}$. Then, it pads (each element of) the result with ${pad}_{\scriptscriptstyle q}\in T_{\scriptscriptstyle qp}$ random values that are picked from the encryption's output range, $U$. Let $c^{\scriptscriptstyle *}_{\scriptscriptstyle j}$ be the result. 
+%\item Sends the padded encrypted query-proof pair, $c^{\scriptscriptstyle *}_{\scriptscriptstyle j}$, to SC at time $\texttt{G}_{\scriptscriptstyle j,1}$
+\end{enumerate}
+
+\
+
+\item\textbf{Server-side Proof Generation}. $\mathtt{RCPoRP}.\mathtt{prove}(u^{\scriptscriptstyle *},  \hat{k}_{\scriptscriptstyle j}, T_{\scriptscriptstyle qp})$
+
+
+\begin{enumerate}
+
+\item Constructs an empty  vector, $\bm{m}_{\scriptscriptstyle\mathcal S}=\bot$, if $j=1$.  
+
+
+
+\item Calls $\mathtt{PoRID.checkQuery}(\hat{k}_{\scriptscriptstyle j}, pp)\rightarrow b_{\scriptscriptstyle j}$ to check the query's correctness. 
+
+\begin{itemize}
+\item[$\bullet$] If it accepts the query, then it calls $\mathtt{PoRID.prove}(u^{\scriptscriptstyle *},\hat{k}_{\scriptscriptstyle j},pp)\rightarrow  {\bm{\pi}}_{\scriptscriptstyle j}$, to generate a PoR  proof. In this case,  $\mathcal S$ encrypts every  proof in the proof vector, i.e. $\forall g, 1\leq g\leq| {\bm{\pi}}_{\scriptscriptstyle j}|: \mathtt{Enc}(\bar{k}, {\bm{\pi}}_{\scriptscriptstyle j}[g])= {\bm{\pi}}'_{\scriptscriptstyle j}[g]$, where $\bar{k}\in T_{\scriptscriptstyle qp}$. Let vector $ {\bm{\pi}}'_{\scriptscriptstyle j}$ contain the encryption of all proofs. It pads every encrypted proof in $ {\bm{\pi}}'_{\scriptscriptstyle j}$ with ${pad}_{\scriptscriptstyle \pi}\in T_{\scriptscriptstyle qp}$ random values that are picked from the encryption's output range $U$, (by appending the random values to the encrypted proofs vector). Let $\bm{\pi}^{\scriptscriptstyle *}_{\scriptscriptstyle j}$ be the result. It sends the padded encrypted proofs  to SC at time $\texttt{G}_{\scriptscriptstyle j,2}$ 
+\item[$\bullet$] Otherwise (if $\mathcal S$ rejects the query), it appends $j$  to $ {\bm{m}}_{\scriptscriptstyle\mathcal{S}}$,  constructs a dummy proof $ {\bm{\pi}}'_{\scriptscriptstyle j}$ whose elements are randomly picked from $U$,  pads the result as above, and sends the result, $\bm{\pi}^{\scriptscriptstyle *}_{\scriptscriptstyle j}$, to SC at time $\texttt{G}_{\scriptscriptstyle j,2}$
+
+\end{itemize}
+
+
+%
+%\item Removes the pads from $c^{\scriptscriptstyle *}_{\scriptscriptstyle j}$, using  parameters of $T_{\scriptscriptstyle qp}$. Let  $c'_{\scriptscriptstyle j}$ be the result. Next, it  decrypts  the result, $\mathtt{Dec(}\bar{k},c'_{\scriptscriptstyle j})=c_{\scriptscriptstyle j}$. Then,  it   runs $\mathtt{VSID.checkQuery}(c_{\scriptscriptstyle j}, pk, \textcolor{purple}{pp})\rightarrow b_{\scriptscriptstyle j}$, to check the correctness of the queries.
+
+%\item  $\mathcal S$ appends $j$  to $\vv{\bm{v}}_{\scriptscriptstyle\mathcal{S}}$, if the above proofs are rejected, i.e. $b_{\scriptscriptstyle j}=0$. % or were not posted on time. In this case, it does not proceed to the next step for this $j$-th verification.
+
+
+
+%\item  $\mathcal S$ appends $j$  to $\vv{\bm{v}}_{\scriptscriptstyle\mathcal{S}}$, if the above proofs are rejected, i.e. $b_{\scriptscriptstyle j}=0$, or were not posted on time. In this case, it does not proceed to the next step for this $j$-th verification.
+
+%\begin{itemize}
+%\item[$\bullet$] If $\mathcal S$ accepts the query, i.e. $b_{\scriptscriptstyle j}=1$, then  calls $\mathtt{VSID.prove}(u^{\scriptscriptstyle *},\sigma,c_{\scriptscriptstyle j},pk,\textcolor{purple}{pp})\rightarrow \pi_{\scriptscriptstyle j}$, to generate the service proof. In this case, $\mathcal S$ encrypts it, $\mathtt{Enc}(\bar{k},\pi_{\scriptscriptstyle j})=\pi'_{\scriptscriptstyle j}$. Next, it   pads (every element of) the encrypted proof with ${pad}_{\scriptscriptstyle \pi}\in T_{\scriptscriptstyle qp}$ random values  picked from $U$. Let $\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j}$ be the result. It sends the padded encrypted proof  to SC at time $\texttt{G}_{\scriptscriptstyle j,2}$ 
+%
+%\item[$\bullet$] Otherwise (if $\mathcal S$ rejects the query), it appends  $j$  to $\bm{m}_{\scriptscriptstyle\mathcal{S}}$,  constructs a dummy proof $\pi'_{\scriptscriptstyle j}\in U$,  pads the result as above, and sends the padded dummy proof, $\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j}$, to SC at time $\texttt{G}_{\scriptscriptstyle j,2}$ %, if the above proofs are rejected, i.e. $b_{\scriptscriptstyle j}=0$.
+%\end{itemize}
+When $j=z$  and $\bm{m}_{\scriptscriptstyle\mathcal{S}}\neq\bot$, it sets    $m_{\scriptscriptstyle\mathcal S}:=\bm{m}_{\scriptscriptstyle\mathcal{S}}$.
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+%\item \textbf{Billing-cycles}. The parties do the following, at the end of  every $j$-th billing cycle, where $1\leq j\leq z$. Each $j$-th cycle includes two  time points, $\texttt{G}_{\scriptscriptstyle j,1}$ and $\texttt{G}_{\scriptscriptstyle j,2}$, where $\texttt{G}_{\scriptscriptstyle j,2}>\texttt{G}_{\scriptscriptstyle j,1}$, and $\texttt{G}_{\scriptscriptstyle 1,1}>\texttt{T}_{\scriptscriptstyle 2}$ 
+
+%At each time $G_{\scriptscriptstyle j}$, (where $1\leq j\leq z$ and $G_{\scriptscriptstyle 1}>T_{\scriptscriptstyle 5}$), that a proof is generated, the parties perform as follows. 
+
+
+
+%\item $\mathcal C$ calls $\mathtt{PoRID.genQuery}(1^{\lambda},  pp)\rightarrow \hat{k}_{\scriptscriptstyle j}$, to generate a query. It sends   $\hat{k}_{\scriptscriptstyle j}$ to SC at time $\texttt{G}_{\scriptscriptstyle j,1}$
 
 %\item $\mathcal S$  appends $j$ to $ {\bm{v}}_{\scriptscriptstyle\mathcal{S}}$, if the client's query was not posted on time. In this case, it does not take the next steps, for  $j$-th verification. 
 
@@ -106,28 +237,55 @@ In the next phase, to distribute the coins, either client or server sends to the
 
 %\item $\mathcal S$ decrypts the query,  $\mathtt{Dec(}\bar{k},\mathtt{Enc}(\bar{k},\hat{k}_{\scriptscriptstyle j}))=\hat{k}_{\scriptscriptstyle j}$.   Then, it calls $\mathtt{PoRID.checkQuery}(\hat{k}_{\scriptscriptstyle j}, pk)\rightarrow b_{\scriptscriptstyle j}$ to check the query's correctness. 
 
+%\begin{enumerate}
+%\item $\mathcal S$ calls $\mathtt{PoRID.checkQuery}(\hat{k}_{\scriptscriptstyle j}, pp)\rightarrow b_{\scriptscriptstyle j}$ to check the query's correctness. 
+%
+%\begin{itemize}
+%\item[$\bullet$] If it accepts the query, then it calls $\mathtt{PoRID.prove}(u^{\scriptscriptstyle *},\hat{k}_{\scriptscriptstyle j},pp)\rightarrow  {\bm{\pi}}_{\scriptscriptstyle j}$, to generate a PoR  proof. In this case,  $\mathcal S$ encrypts every  proof in the proof vector, i.e. $\forall g, 1\leq g\leq| {\bm{\pi}}_{\scriptscriptstyle j}|: \mathtt{Enc}(\bar{k}, {\bm{\pi}}_{\scriptscriptstyle j}[g])= {\bm{\pi}}'_{\scriptscriptstyle j}[g]$. Let vector $ {\bm{\pi}}'_{\scriptscriptstyle j}$ contain the encryption of all proofs. It pads every encrypted proof in $ {\bm{\pi}}'_{\scriptscriptstyle j}$ with $pad_{\scriptscriptstyle \pi}$ random values that are picked from the encryption's output range $U$, (by appending the random values to the encrypted proofs vector). It sends the padded encrypted proofs  to SC at time $G_{\scriptscriptstyle j,2}$ 
+%\item[$\bullet$] Otherwise (if $\mathcal S$ rejects the query), it appends $j$  to $ {\bm{v}}_{\scriptscriptstyle\mathcal{S}}$,  constructs a dummy proof $ {\bm{\pi}}'_{\scriptscriptstyle j}$ whose elements are randomly picked from $U$,  pads the result as above, and sends the padded dummy proof to SC at time $G_{\scriptscriptstyle j,2}$
+%
+%\end{itemize}
 
-\item $\mathcal S$ calls $\mathtt{PoRID.checkQuery}(\hat{k}_{\scriptscriptstyle j}, pk)\rightarrow b_{\scriptscriptstyle j}$ to check the query's correctness. 
+\textcolor{green}{When $j=z$  and $\bm{v}_{\scriptscriptstyle\mathcal{S}}\neq\bot$, $\mathcal S$ sets    $\bm{m}_{\scriptscriptstyle\mathcal S}:[\bm{v}_{\scriptscriptstyle\mathcal{S}},\ddot{x}_{\scriptscriptstyle qp}, \text{``dispute''}]$.}
+
+
+\
+
+
+\item \textbf{Client-side Proof Verification}.\label{Client-sideProofVerification} $\mathtt{RCPoRP}.\mathtt{verify}(\bm{\pi}^{\scriptscriptstyle *}_{\scriptscriptstyle j}, \hat{k}_{\scriptscriptstyle j},T_{\scriptscriptstyle qp})$
+\begin{enumerate}
+
+
+\item Constructs an empty vector, $\bm{m}_{\scriptscriptstyle\mathcal C}=\bot$, if $j=1$. 
+
+\item Removes the pads from $\bm{\pi}^{\scriptscriptstyle *}_{\scriptscriptstyle j}$, utilising  parameters of $T_{\scriptscriptstyle qp}$. Let $\bm{\pi}'_{\scriptscriptstyle j}$ be the result. It decrypts the service proofs $\mathtt{Dec}(\bar{k},\bm{\pi}'_{\scriptscriptstyle j})=\bm{\pi}_{\scriptscriptstyle j}$ and then calls $\mathtt{PoRID.verify}(\bm{\pi}_{\scriptscriptstyle j}, \hat{k}_{\scriptscriptstyle j}, {pp})\rightarrow \bm{d}_{\scriptscriptstyle j}$, to verify the proof.  
 
 \begin{itemize}
-\item[$\bullet$] If it accepts the query, then it calls $\mathtt{PoRID.prove}(u^{\scriptscriptstyle *},\hat{k}_{\scriptscriptstyle j},pk)\rightarrow  {\bm{\pi}}_{\scriptscriptstyle j}$, to generate a PoR  proof. In this case,  $\mathcal S$ encrypts every  proof in the proof vector, i.e. $\forall g, 1\leq g\leq| {\bm{\pi}}_{\scriptscriptstyle j}|: \mathtt{Enc}(\bar{k}, {\bm{\pi}}_{\scriptscriptstyle j}[g])= {\bm{\pi}}'_{\scriptscriptstyle j}[g]$. Let vector $ {\bm{\pi}}'_{\scriptscriptstyle j}$ contain the encryption of all proofs. It pads every encrypted proof in $ {\bm{\pi}}'_{\scriptscriptstyle j}$ with $pad_{\scriptscriptstyle \pi}$ random values that are picked from the encryption's output range $U$, (by appending the random values to the encrypted proofs vector). It sends the padded encrypted proofs  to SC at time $G_{\scriptscriptstyle j,2}$ 
-\item[$\bullet$] Otherwise (if $\mathcal S$ rejects the query), it appends $j$  to $ {\bm{v}}_{\scriptscriptstyle\mathcal{S}}$,  constructs a dummy proof $ {\bm{\pi}}'_{\scriptscriptstyle j}$ whose elements are randomly picked from $U$,  pads the result as above, and sends the padded dummy proof to SC at time $G_{\scriptscriptstyle j,2}$
+\item[$\bullet$] If $ {\bm{\pi}}_{\scriptscriptstyle j}$ passes the verification, i.e. $ {\bm{d}}_{\scriptscriptstyle j}[0]=1$, then $\mathcal C$  concludes that the service for this verification has been delivered successfully.  
+
+
+\item[$\bullet$] Otherwise (if proof $ {\bm{\pi}}_{\scriptscriptstyle j}$ is rejected, i.e. $ {\bm{d}}_{\scriptscriptstyle j}[0]=0$),  it sets $g= {\bm{d}}_{\scriptscriptstyle j}[1]$ and appends vector $[j,g]$  to $ {\bm{m}}_{\scriptscriptstyle\mathcal{C}}$. Recall, $ {\bm{d}}_{\scriptscriptstyle j}[1]$ refers to a rejected proof's index in proof vector $ {\bm{\pi}}_{\scriptscriptstyle j}$. 
 
 \end{itemize}
-
-When $j=z$  and $\bm{v}_{\scriptscriptstyle\mathcal{S}}\neq\bot$, $\mathcal S$ sets    $\bm{m}_{\scriptscriptstyle\mathcal S}:[\bm{v}_{\scriptscriptstyle\mathcal{S}},\ddot{x}_{\scriptscriptstyle qp}, \text{``dispute''}]$.
-
+When $j=z$  and $\bm{m}_{\scriptscriptstyle\mathcal{C}}\neq\bot$, $\mathcal C$ sets    ${m}_{\scriptscriptstyle\mathcal C}:=\bm{m}_{\scriptscriptstyle\mathcal{C}}$.
+\end{enumerate}
 
 
 
 %\item  $\mathcal C$ appends $j$ to $ {\bm{v}}_{\scriptscriptstyle\mathcal{C}}$, if  $\mathcal S$ does not post the proof on time. In this case, it does not take the next steps, for  $j$-th verification. 
 
 
-\item In this phase,  $\mathcal C$ verifies the service proof. It first constructs two empty vectors, $\bm{m}_{\scriptscriptstyle\mathcal C}=\bot$ and $\bm{w}_{\scriptscriptstyle\mathcal{C}}=\bot$. Next, it removes the pads from the padded encrypted proofs and then
- decrypts the encrypted proofs: $\mathtt{Dec}(\bar{k}, {\bm{\pi}}'_{\scriptscriptstyle j})= {\bm{\pi}}_{\scriptscriptstyle j}$. Then, it   calls $\mathtt{PoRID.verify}( {\bm{\pi}}_{\scriptscriptstyle j},\hat{k}_{\scriptscriptstyle j},pk)\rightarrow  {\bm{d}}_{\scriptscriptstyle j}$, to verify them. If $ {\bm{\pi}}_{\scriptscriptstyle j}$ passes the verification, i.e. $ {\bm{d}}_{\scriptscriptstyle j}[0]=1$, then $\mathcal C$  concludes that the service for this verification has been delivered successfully. Otherwise (if proof $ {\bm{\pi}}_{\scriptscriptstyle j}$ is rejected, i.e. $ {\bm{d}}_{\scriptscriptstyle j}[0]=0$), then it sets $g= {\bm{d}}_{\scriptscriptstyle j}[1]$ and appends vector $[j,g]$  to $ {\bm{w}}_{\scriptscriptstyle\mathcal{C}}$. Recall, $ {\bm{d}}_{\scriptscriptstyle j}[1]$ refers to a rejected proof's index in proof vector $ {\bm{\pi}}_{\scriptscriptstyle j}$. If $j=z$  and $\bm{w}_{\scriptscriptstyle\mathcal{C}}\neq\bot$, $\mathcal C$ sets    $\bm{m}_{\scriptscriptstyle\mathcal C}:[\bm{w}_{\scriptscriptstyle\mathcal{C}},\ddot{x}_{\scriptscriptstyle qp}, \text{``dispute''}]$.
+%In this phase,  $\mathcal C$ verifies the service proof. It first constructs two empty vectors, $\bm{m}_{\scriptscriptstyle\mathcal C}=\bot$ and $\bm{w}_{\scriptscriptstyle\mathcal{C}}=\bot$. Next, it removes the pads from the padded encrypted proofs and then
+% decrypts the encrypted proofs: $\mathtt{Dec}(\bar{k}, {\bm{\pi}}'_{\scriptscriptstyle j})= {\bm{\pi}}_{\scriptscriptstyle j}$. Then, it   calls $\mathtt{PoRID.verify}( {\bm{\pi}}_{\scriptscriptstyle j},\hat{k}_{\scriptscriptstyle j},pp)\rightarrow  {\bm{d}}_{\scriptscriptstyle j}$, to verify them. If $ {\bm{\pi}}_{\scriptscriptstyle j}$ passes the verification, i.e. $ {\bm{d}}_{\scriptscriptstyle j}[0]=1$, then $\mathcal C$  concludes that the service for this verification has been delivered successfully. Otherwise (if proof $ {\bm{\pi}}_{\scriptscriptstyle j}$ is rejected, i.e. $ {\bm{d}}_{\scriptscriptstyle j}[0]=0$), then it sets $g= {\bm{d}}_{\scriptscriptstyle j}[1]$ and appends vector $[j,g]$  to $ {\bm{w}}_{\scriptscriptstyle\mathcal{C}}$. Recall, $ {\bm{d}}_{\scriptscriptstyle j}[1]$ refers to a rejected proof's index in proof vector $ {\bm{\pi}}_{\scriptscriptstyle j}$. 
+ 
+ 
+ \textcolor{green}{If $j=z$  and $\bm{w}_{\scriptscriptstyle\mathcal{C}}\neq\bot$, $\mathcal C$ sets    $\bm{m}_{\scriptscriptstyle\mathcal C}:[\bm{w}_{\scriptscriptstyle\mathcal{C}},\ddot{x}_{\scriptscriptstyle qp}, \text{``dispute''}]$.}
   
 
-\end{enumerate}
+%\end{enumerate}
+
+\
+
 \item \textbf{Dispute Resolution}. The phase takes place only in  case of dispute, i.e. when $\mathcal C$ rejects service proofs or $\mathcal S$ rejects the queries. %or either party does not receive its counterparty's message on time. %A party who accepts all proofs does not need to get involved in this phase. 
 
 \begin{enumerate}
@@ -157,7 +315,7 @@ When $j=z$  and $\bm{v}_{\scriptscriptstyle\mathcal{S}}\neq\bot$, $\mathcal S$ s
 \item\label{sc-check-server-claim}  For any element $i\in {\bm{v}}_{\scriptscriptstyle\mathcal{S}}$:
 \begin{itemize}
 \item[$\bullet$] Fetches the related query, $\hat{k}_{\scriptscriptstyle i}$,   from SC 
-\item[$\bullet$]Checks if  the query is well-formed, by calling $\mathtt{PoRID.checkQuery}(\hat{k}_{\scriptscriptstyle i}, pk)\rightarrow b_{\scriptscriptstyle i}$. If the query is rejected, i.e. $ b_{\scriptscriptstyle i}=0$, then it increments $y_{\scriptscriptstyle\mathcal C}$ by 1 and appends $i$ to $ {\bm{v}}$
+\item[$\bullet$]Checks if  the query is well-formed, by calling $\mathtt{PoRID.checkQuery}(\hat{k}_{\scriptscriptstyle i}, pp)\rightarrow b_{\scriptscriptstyle i}$. If the query is rejected, i.e. $ b_{\scriptscriptstyle i}=0$, then it increments $y_{\scriptscriptstyle\mathcal C}$ by 1 and appends $i$ to $ {\bm{v}}$
 \end{itemize}
 Let $K_{\scriptscriptstyle 2}$ be the time SC finishes the above checks.
 \end{enumerate}
@@ -190,7 +348,7 @@ Let $K_{\scriptscriptstyle 2}$ be the time SC finishes the above checks.
 
 \item[$\bullet$] \label{dummy-vector} Constructs a fresh vector: $ {\bm{\pi}}''_{\scriptscriptstyle i}$, such that  its $g$-th element equals $ {\bm{\pi}}_{\scriptscriptstyle i}[g]$ (i.e. $ {\bm{\pi}}''_{\scriptscriptstyle i}[g]=  {\bm{\pi}}_{\scriptscriptstyle i}[g] \text{ and } | {\bm{\pi}}''_{\scriptscriptstyle i}|= | {\bm{\pi}}_{\scriptscriptstyle i}|$) and the rest of its elements are dummy values. 
 
-\item[$\bullet$] Calls   $\mathtt{PoRID.identify}( {\bm{\pi}}''_{\scriptscriptstyle i},g,\hat{k}_{\scriptscriptstyle i},pk)\rightarrow I_{\scriptscriptstyle i}$. If $I_{\scriptscriptstyle i}=\mathcal S$, then it increments $y_{\scriptscriptstyle\mathcal S}$  by $1$. Otherwise, it does nothing. 
+\item[$\bullet$] Calls   $\mathtt{PoRID.identify}( {\bm{\pi}}''_{\scriptscriptstyle i},g,\hat{k}_{\scriptscriptstyle i},pp)\rightarrow I_{\scriptscriptstyle i}$. If $I_{\scriptscriptstyle i}=\mathcal S$, then it increments $y_{\scriptscriptstyle\mathcal S}$  by $1$. Otherwise, it does nothing. 
 
 \end{itemize}
 \end{enumerate}

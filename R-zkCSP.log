@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.9.22)  11 DEC 2020 10:36
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.9.22)  14 DEC 2020 20:36
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1152,6 +1152,12 @@ LaTeX Warning: Label `service-def' multiply defined.
 
 LaTeX Warning: Label `remark::light-VSID' multiply defined.
 
+
+LaTeX Warning: Label `Billing-cycles-genQuery' multiply defined.
+
+
+LaTeX Warning: Label `Client-sideProofVerification' multiply defined.
+
 )
 \openout1 = `R-zkCSP.aux'.
 
@@ -1252,7 +1258,7 @@ Overfull \hbox (44.5721pt too wide) in paragraph at lines 34--35
 , upon re-ceiv-ing the out-put of $[]\OT1/cmr/m/n/10 (1[]\OML/cmm/m/it/10 ; u; 
 k\OT1/cmr/m/n/10 )$\OT1/ptm/m/n/10 , $\OMS/cmsy/m/n/10 A$ \OT1/ptm/m/n/10 can a
 sk $\OMS/cmsy/m/n/10 E$ \OT1/ptm/m/n/10 to run $[]\OT1/cmr/m/n/10 (1[]\OML/cmm/
-m/it/10 ; k; [][]\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 !
+m/it/10 ; k; []\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 !
  []
 
 [2])) (./Definition.tex
@@ -1313,10 +1319,10 @@ Overfull \hbox (27.12306pt too wide) in paragraph at lines 353--355
 []\OT1/ptm/m/it/10 where $\OML/cmm/b/it/10 c[] \OT1/cmr/m/n/10 = [\OML/cmm/m/it
 /10 c[]; :::; c[]\OT1/cmr/m/n/10 ]\OML/cmm/m/it/10 ; \OML/cmm/b/it/10 ^^Y[] \OT
 1/cmr/m/n/10 = [\OML/cmm/m/it/10 ^^Y[]; :::; ^^Y[]\OT1/cmr/m/n/10 ]$\OT1/ptm/m/
-it/10 , and $[][] \OMS/cmsy/m/n/10 2 \OML/cmm/m/it/10 T[]$\OT1/ptm/m/it/10 . Al
-so, de-pend-ing on the choice of $\OML/cmm/m/it/10 ^^L$\OT1/ptm/m/it/10 , al-go
--rithm $[]\OML/cmm/m/it/10 :[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 :\OT1/cmr/m/n/1
-0 )$
+it/10 , and $[] \OMS/cmsy/m/n/10 2 \OML/cmm/m/it/10 T[]$\OT1/ptm/m/it/10 . Also
+, de-pend-ing on the choice of $\OML/cmm/m/it/10 ^^L$\OT1/ptm/m/it/10 , al-go-r
+ithm $[]\OML/cmm/m/it/10 :[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 
+)$
  []
 
 ) (./VSID-Protocol.tex [10] [11] (./VSID-Proof.tex)))
@@ -1384,17 +1390,33 @@ o[]\OT1/cmr/m/n/10 ) +
  []
 
 [22]) (./PoR-protocol.tex [23] [24] (./PoRID-protocol.tex [25]
-(./Recurring-Contingent-PoR-Payment-protocol.tex [26] [27] [28]))))))
-(./R-zkCSP.bbl [29]) [30] (./R-zkCSP.aux)
+(./Recurring-Contingent-PoR-Payment-protocol.tex [26] [27]
+Overfull \hbox (9.08725pt too wide) in paragraph at lines 137--138
+[]\OT1/ptm/m/n/10 Calls $[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 qp; r[]; g[]; adr[
+]; adr[]\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ! \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 
+g[]; b[]\OT1/cmr/m/n/10 )$ \OT1/ptm/m/n/10 and $[]\OT1/cmr/m/n/10 (\OML/cmm/m/i
+t/10 cp; r[]; g[]; adr[]; adr[]\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ! \OT1/cmr/m/
+n/10 (\OML/cmm/m/it/10 g[]; b[]\OT1/cmr/m/n/10 )$\OT1/ptm/m/n/10 ,
+ []
+
+
+Overfull \hbox (7.61662pt too wide) in paragraph at lines 137--138
+\OT1/ptm/m/n/10 to ver-ify the cor-rect-ness of to-kens in $\OML/cmm/m/it/10 T$
+ \OT1/ptm/m/n/10 and to agree on the to-kens' pa-ram-e-ters, where $\OML/cmm/m/
+it/10 qp; r[] \OMS/cmsy/m/n/10 2 []\OML/cmm/m/it/10 ; []cp; r[] \OMS/cmsy/m/n/1
+0 2
+ []
+
+[28] [29])))))) (./R-zkCSP.bbl) [30] (./R-zkCSP.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 31875 strings out of 480608
- 735678 string characters out of 5903630
- 1084263 words of memory out of 5000000
- 47077 multiletter control sequences out of 15000+600000
+ 31876 strings out of 480608
+ 735710 string characters out of 5903630
+ 1084272 words of memory out of 5000000
+ 47078 multiletter control sequences out of 15000+600000
  570433 words of font info for 115 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  63i,12n,98p,3437b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1426,7 +1448,7 @@ nts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/
 urw/times/utmbi8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/times
 /utmr8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/times/utmri8a.p
 fb>
-Output written on R-zkCSP.pdf (30 pages, 443528 bytes).
+Output written on R-zkCSP.pdf (30 pages, 445377 bytes).
 PDF statistics:
  213 PDF objects out of 1000 (max. 8388607)
  152 compressed objects within 2 object streams

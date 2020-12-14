@@ -18,25 +18,25 @@ A verifiable service scheme VS $:=(\mathtt{VS.keyGen}, \mathtt{VS.setup},\mathtt
 
 \
 
-\item[$\bullet$] $\mathtt{VS.setup}(1^{\lambda}, u,k, M)\rightarrow (u^{\scriptscriptstyle *},\sigma,{\color{purple}pp})$. It is run by the client. It takes as input the security parameter $1^{\lambda}$,  the service input $u$,    key pair $k$ and metadata generator deterministic function $M$, where $M$ is publicly known. If an encoding is needed, then it encodes $u$, that results $u^{\scriptscriptstyle *}$; otherwise, $u^*=u$. It outputs encoded input $u^{\scriptscriptstyle *}$, (possibly input dependent) public parameters {\color{purple}$pp$}, metadata $\sigma=M(u^{\scriptscriptstyle *},k,{\color{purple}pp})$. Right after that, the server is  given $u^{\scriptscriptstyle *}$,  $\sigma$, {\color{purple}$pp$}, and $pk$. %\textcolor{blue}{XXXXThomas: Here, "might" alone does not read very well. When is the server given the said values and when is not? It seems that the server always needs the values to run the prover algorithm XXXX} --> addressed
+\item[$\bullet$] $\mathtt{VS.setup}(1^{\lambda}, u,k, M)\rightarrow (u^{\scriptscriptstyle *},\sigma,{pp})$. It is run by the client. It takes as input the security parameter $1^{\lambda}$,  the service input $u$,    key pair $k$ and metadata generator deterministic function $M$, where $M$ is publicly known. If an encoding is needed, then it encodes $u$, that results $u^{\scriptscriptstyle *}$; otherwise, $u^*=u$. It outputs encoded input $u^{\scriptscriptstyle *}$, (possibly input dependent) public parameters {$pp$}, metadata $\sigma=M(u^{\scriptscriptstyle *},k,{pp})$. Right after that, the server is  given $u^{\scriptscriptstyle *}$,  $\sigma$, {$pp$}, and $pk$. %\textcolor{blue}{XXXXThomas: Here, "might" alone does not read very well. When is the server given the said values and when is not? It seems that the server always needs the values to run the prover algorithm XXXX} --> addressed
 
 
 %\item[$\bullet$] $\mathtt{VS.setup}(1^{\lambda}, u,k, M)\rightarrow \sigma$. A probabilistic algorithm run by the client. It takes as input security parameter,  the service input: $u$,  the key pair: $k$ and metadata generator deterministic function: $M$, publicly known. It runs $M(u,k)$ and outputs  metadata: $\sigma$. Right after that, the server might be given $u$,  $\sigma$ and $pk$. 
 
 \
 
-\item[$\bullet$] $\mathtt{VS.genQuery}(1^{\lambda}, \text{aux},k,Q,{\color{purple}pp})\rightarrow \bm{q}$. A probabilistic algorithm run by the client. It takes as input the security parameter $1^{\lambda}$, auxiliary information $\text{aux}$,   the key pair $k$,   query generator deterministic function $Q$ (where $Q$ is publicly known) and {\color{purple}public parameters $pp$}. It outputs  a query vector $\bm{q}=Q( \text{aux},k,{\color{purple}pp})$.  Depending on service types, $\bm{q}$ may be empty or contain only random strings. The output  is given to the server. 
+\item[$\bullet$] $\mathtt{VS.genQuery}(1^{\lambda}, \text{aux},k,Q,{pp})\rightarrow \bm{q}$. A probabilistic algorithm run by the client. It takes as input the security parameter $1^{\lambda}$, auxiliary information $\text{aux}$,   the key pair $k$,   query generator deterministic function $Q$ (where $Q$ is publicly known) and {public parameters $pp$}. It outputs  a query vector $\bm{q}=Q( \text{aux},k,{pp})$.  Depending on service types, $\bm{q}$ may be empty or contain only random strings. The output  is given to the server. 
 
 \
 
 
 
 
-\item[$\bullet$] $\mathtt{VS.prove}(u^{\scriptscriptstyle *},\sigma, \bm{q}, pk,{\color{purple}pp})\rightarrow \pi$. It is run by the server. It  takes as input the service encoded input $u^{\scriptscriptstyle *}$, metadata $\sigma$,   queries $\bm{q}$, public key $pk$, and {\color{purple} public parameters  $pp$}. It outputs a proof pair, $\pi :=(F(u^{\scriptscriptstyle *}, \bm{q},{\color{purple}pp}),\delta)$ containing the function evaluation for service input $u$, {\color{purple}public parameters $pp$}, and query $\bm{q}$, i.e. $h=F(u^{\scriptscriptstyle *},\bm{q},{\color{purple}pp})$, and a proof $\delta$ asserting the evaluation is performed correctly, where generating $\delta$ may involve $\sigma$. The output is given to the client. 
+\item[$\bullet$] $\mathtt{VS.prove}(u^{\scriptscriptstyle *},\sigma, \bm{q}, pk,{pp})\rightarrow \pi$. It is run by the server. It  takes as input the service encoded input $u^{\scriptscriptstyle *}$, metadata $\sigma$,   queries $\bm{q}$, public key $pk$, and { public parameters  $pp$}. It outputs a proof pair, $\pi :=(F(u^{\scriptscriptstyle *}, \bm{q},{pp}),\delta)$ containing the function evaluation for service input $u$, {public parameters $pp$}, and query $\bm{q}$, i.e. $h=F(u^{\scriptscriptstyle *},\bm{q},{pp})$, and a proof $\delta$ asserting the evaluation is performed correctly, where generating $\delta$ may involve $\sigma$. The output is given to the client. 
 
 \
 
-\item[$\bullet$] $\mathtt{VS.verify}(\pi, \bm{q}, k, {\color{purple}pp})\rightarrow d\in\{0,1\}$. It is run by the client. It takes as input the proof $\pi$,   query vector $\bm{q}$,   key  $k$, and {\color{purple}public parameters $pp$}.   In the case where $\mathtt{VS.verify}(.)$ is publicly verifiable then $k:=(\bot,pk)$,  and when it is privately verifiable $k:=(sk,pk)$. The algorithm  outputs $d=1$, if the proof is accepted; otherwise, it outputs $d=0$. 
+\item[$\bullet$] $\mathtt{VS.verify}(\pi, \bm{q}, k, {pp})\rightarrow d\in\{0,1\}$. It is run by the client. It takes as input the proof $\pi$,   query vector $\bm{q}$,   key  $k$, and {public parameters $pp$}.   In the case where $\mathtt{VS.verify}(.)$ is publicly verifiable then $k:=(\bot,pk)$,  and when it is privately verifiable $k:=(sk,pk)$. The algorithm  outputs $d=1$, if the proof is accepted; otherwise, it outputs $d=0$. 
 
 
 %\textcolor{blue}{XXXXThomas: Here, there are some inconsistencies w.r.t. the rest of the definition above. First, $q$ is a single query and not a set of queries. Second $k$ is a key pair that always refers to the privately verifiable case. The case where $k=pk$ pops out of nowhere XXXX}--Aydin: done
@@ -47,7 +47,7 @@ A verifiable service scheme VS $:=(\mathtt{VS.keyGen}, \mathtt{VS.setup},\mathtt
 
 A verifiable service scheme has two main properties, \emph{correctness} and \emph{soundness}. Correctness requires that  the verification algorithm always accepts a proof generated by an honest prover.  It is formally stated below.
 
-\begin{definition}[VS Correctness] A verifiable service scheme, VS, is  correct,  if for any $F$,  any auxiliary information $aux$, any  $Q$, and any $M$, the key generation algorithm produces keys $\mathtt{VS.keyGen}(1^{\lambda},F)\rightarrow k:=(sk,pk)$ s.t. for any service input $u$, if $\ \mathtt{VS.setup}(1^{\lambda}, u,k,M)$ $\rightarrow (u^{\scriptscriptstyle *},\sigma, {\color{purple}pp})$,  $\mathtt{VS.genQuery}(1^{\lambda}, \text{aux},k,Q, {\color{purple}pp})\rightarrow \bm{q}$ and $\mathtt{VS.prove}(u^{\scriptscriptstyle *},\sigma, \bm{q},pk, {\color{purple}pp})\rightarrow \pi$, then $\mathtt{VS.verify}(\pi, \bm{q}, k, {\color{purple}pp})\rightarrow 1$
+\begin{definition}[VS Correctness] A verifiable service scheme, VS, is  correct,  if for any $F$,  any auxiliary information $aux$, any  $Q$, and any $M$, the key generation algorithm produces keys $\mathtt{VS.keyGen}(1^{\lambda},F)\rightarrow k:=(sk,pk)$ s.t. for any service input $u$, if $\ \mathtt{VS.setup}(1^{\lambda}, u,k,M)$ $\rightarrow (u^{\scriptscriptstyle *},\sigma, {pp})$,  $\mathtt{VS.genQuery}(1^{\lambda}, \text{aux},k,Q, {pp})\rightarrow \bm{q}$ and $\mathtt{VS.prove}(u^{\scriptscriptstyle *},\sigma, \bm{q},pk, {pp})\rightarrow \pi$, then $\mathtt{VS.verify}(\pi, \bm{q}, k, {pp})\rightarrow 1$
 \end{definition}
 
 Intuitively, a verifiable service is sound  if a malicious server cannot convince the verification algorithm to accept an incorrect output of $F$ except with negligible probability. %In other words, if a prover persuades the verifier with a high probability, then the service has been provided by the prover. 
@@ -62,15 +62,15 @@ Soundness is formally stated as follows.
 \small{
 $$ \Pr\left[
   \begin{array}{l}
-F(u^{\scriptscriptstyle *},\bm{q},{\color{purple}pp})\neq h \wedge d=1
+F(u^{\scriptscriptstyle *},\bm{q},{pp})\neq h \wedge d=1
 \end{array} \middle | 
     \begin{array} {l}
  \mathtt{VS.keyGen}(1^{\lambda},F)\rightarrow k:=(sk,pk)\\
  \mathcal{A}(1^{\scriptscriptstyle\lambda},pk, F)\rightarrow u\\
-\mathtt{VS.setup}(1^{\lambda}, u,k,M)\rightarrow (u^{\scriptscriptstyle *},\sigma, {\color{purple}pp})\\
- \mathtt{VS.genQuery}(1^{\lambda}, \text{aux},k,Q,{\color{purple}pp})\rightarrow \bm{q}\\
- \mathcal{A}(\bm{q},u^{\scriptscriptstyle *},\sigma,{\color{purple}pp})\rightarrow \pi:=(h,\delta)\\
- \mathtt{VS.verify}(\pi,\bm{q},k,{\color{purple}pp})\rightarrow d\\
+\mathtt{VS.setup}(1^{\lambda}, u,k,M)\rightarrow (u^{\scriptscriptstyle *},\sigma, {pp})\\
+ \mathtt{VS.genQuery}(1^{\lambda}, \text{aux},k,Q,{pp})\rightarrow \bm{q}\\
+ \mathcal{A}(\bm{q},u^{\scriptscriptstyle *},\sigma,{pp})\rightarrow \pi:=(h,\delta)\\
+ \mathtt{VS.verify}(\pi,\bm{q},k,{pp})\rightarrow d\\
 \end{array}    \right]\leq \mu(\lambda).$$
 }
 %where the probability is taken over uniform  choice of $k\stackrel{\scriptscriptstyle\$}\leftarrow \{0,1\}^{\scriptscriptstyle\lambda}$  as well as the randomness of $\mathcal{A}$.
@@ -116,15 +116,15 @@ A protocol that realises only VS's definition, would be merely secure against a 
 
 \
 
-\item[$\bullet$] $\mathtt{VSID.setup}(1^{\lambda}, u,k,M)\rightarrow (u^{\scriptscriptstyle *}, {\color{purple}pp},e)$. It is run by the client. It takes as input the security parameter $1^{\lambda}$,  the service  input $u$,  the key pair $k$, and metadata generator deterministic function $M$, where $M$ is publicly known. If an encoding is needed, then it encodes $u$, that results $u^{\scriptscriptstyle *}$; otherwise, $u^{\scriptscriptstyle *}=u$. It outputs  $u^{\scriptscriptstyle *}$, {\color{purple}(possibly file dependent) public parameters $pp$} and $e:=(\sigma,w_{\sigma})$, where $\sigma=M(u^{\scriptscriptstyle *},k, {\color{purple}pp})$ is a metadata and $w_{\sigma}$ is a proof asserting the metadata is well-structured.  
+\item[$\bullet$] $\mathtt{VSID.setup}(1^{\lambda}, u,k,M)\rightarrow (u^{\scriptscriptstyle *}, {pp},e)$. It is run by the client. It takes as input the security parameter $1^{\lambda}$,  the service  input $u$,  the key pair $k$, and metadata generator deterministic function $M$, where $M$ is publicly known. If an encoding is needed, then it encodes $u$, that results $u^{\scriptscriptstyle *}$; otherwise, $u^{\scriptscriptstyle *}=u$. It outputs  $u^{\scriptscriptstyle *}$, {(possibly file dependent) public parameters $pp$} and $e:=(\sigma,w_{\sigma})$, where $\sigma=M(u^{\scriptscriptstyle *},k, {pp})$ is a metadata and $w_{\sigma}$ is a proof asserting the metadata is well-structured.  
 
 \
 
-\item[$\bullet$] $\mathtt{VSID.serve}(u^{\scriptscriptstyle *},e,pk, {\color{purple}pp})\rightarrow a\in\{0,1\}$. It is run by the server. It takes as input the encoded service input $u^{\scriptscriptstyle *}$, the pair $e:=(\sigma,w_{\sigma})$, public key $pk$, and {\color{purple}public parameters $pp$}. It outputs $a=1$, if the proof $w_{\sigma}$ is accepted, i.e. if the metadata is well-formed. Otherwise, it outputs $a=0$. 
+\item[$\bullet$] $\mathtt{VSID.serve}(u^{\scriptscriptstyle *},e,pk, {pp})\rightarrow a\in\{0,1\}$. It is run by the server. It takes as input the encoded service input $u^{\scriptscriptstyle *}$, the pair $e:=(\sigma,w_{\sigma})$, public key $pk$, and {public parameters $pp$}. It outputs $a=1$, if the proof $w_{\sigma}$ is accepted, i.e. if the metadata is well-formed. Otherwise, it outputs $a=0$. 
 
 \
 
-\item[$\bullet$] $\mathtt{VSID.genQuery}(1^{\lambda},  \text{aux}, k,Q,{\color{purple}pp})\rightarrow c:=(\bm{q},\bm{w}_{\scriptscriptstyle q})$. A probabilistic algorithm run by the client. It takes as input the security parameter $1^{\lambda}$, auxiliary information $ \text{aux}$,  the key pair $k$,    query generator deterministic function $Q$ (where $Q$ is publicly known), and {\color{purple} public parameters $pp$}. It outputs a pair $c$ containing a query vector, $\bm{q}=Q( \text{aux},k,{\color{purple}pp})$,  and proofs, $\bm{w}_{\scriptscriptstyle q}$, proving the queries are well-structured. Depending on service types, $c$ might be  empty or  contain only random strings.
+\item[$\bullet$] $\mathtt{VSID.genQuery}(1^{\lambda},  \text{aux}, k,Q,{pp})\rightarrow c:=(\bm{q},\bm{w}_{\scriptscriptstyle q})$. A probabilistic algorithm run by the client. It takes as input the security parameter $1^{\lambda}$, auxiliary information $ \text{aux}$,  the key pair $k$,    query generator deterministic function $Q$ (where $Q$ is publicly known), and { public parameters $pp$}. It outputs a pair $c$ containing a query vector, $\bm{q}=Q( \text{aux},k,{pp})$,  and proofs, $\bm{w}_{\scriptscriptstyle q}$, proving the queries are well-structured. Depending on service types, $c$ might be  empty or  contain only random strings.
 
 %\textcolor{blue}{XXXXThomas: It is not clear whether $q$ refers to a single or many queries. Consequently, if $w_q$ refers to a single or many proofs XXXX}--Aydin: done
 
@@ -132,23 +132,23 @@ A protocol that realises only VS's definition, would be merely secure against a 
 
 \
 
-\item[$\bullet$] $\mathtt{VSID.checkQuery}(c, pk,{\color{purple}pp})\rightarrow b\in\{0,1\}$. It is run by the server. It takes as input a pair $c:=(\bm{q}, \bm{w}_{\scriptscriptstyle q})$ including queries and their proofs, as well as public key $pk$, and {\color{purple}public parameters $pp$}. It outputs $b = 1$ if the proofs $\bm{w}_{\scriptscriptstyle\sigma}$ are accepted, i.e. the queries are well-structured. Otherwise, it outputs $b = 0$.
+\item[$\bullet$] $\mathtt{VSID.checkQuery}(c, pk,{pp})\rightarrow b\in\{0,1\}$. It is run by the server. It takes as input a pair $c:=(\bm{q}, \bm{w}_{\scriptscriptstyle q})$ including queries and their proofs, as well as public key $pk$, and {public parameters $pp$}. It outputs $b = 1$ if the proofs $\bm{w}_{\scriptscriptstyle\sigma}$ are accepted, i.e. the queries are well-structured. Otherwise, it outputs $b = 0$.
 
 \
 
-\item[$\bullet$] $\mathtt{VSID.prove}(u^{\scriptscriptstyle *},\sigma,c,pk, {\color{purple} pp})\rightarrow \pi$. It is run by the server. It takes as input the  encoded service input $u^{\scriptscriptstyle *}$, metadata $\sigma$, a pair $c:=(\bm{q},\bm{w}_{\scriptscriptstyle q})$,  public key $pk$, and {\color{purple} public parameters $pp$}. It outputs a proof pair, $\pi:=(F(u^{\scriptscriptstyle *},\bm{q},{\color{purple} pp}),\delta)$ containing the function evaluation, i.e. $h=F(u^{\scriptscriptstyle *},\bm{q},{\color{purple} pp})$, and a proof $\delta$ asserting the evaluation is performed correctly, where computing $h$ may involve $pk$ and computing $\delta$ may involve $\sigma$.
+\item[$\bullet$] $\mathtt{VSID.prove}(u^{\scriptscriptstyle *},\sigma,c,pk, { pp})\rightarrow \pi$. It is run by the server. It takes as input the  encoded service input $u^{\scriptscriptstyle *}$, metadata $\sigma$, a pair $c:=(\bm{q},\bm{w}_{\scriptscriptstyle q})$,  public key $pk$, and { public parameters $pp$}. It outputs a proof pair, $\pi:=(F(u^{\scriptscriptstyle *},\bm{q},{ pp}),\delta)$ containing the function evaluation, i.e. $h=F(u^{\scriptscriptstyle *},\bm{q},{ pp})$, and a proof $\delta$ asserting the evaluation is performed correctly, where computing $h$ may involve $pk$ and computing $\delta$ may involve $\sigma$.
 
 
  %The proof pair: $\pi$ is published to a bulletin board. 
-%{\color{purple} public parameters $pp$},
-%{\color{purple} pp}
+%{ public parameters $pp$},
+%{ pp}
 \
 
-\item[$\bullet$] $\mathtt{VSID.verify}(\pi, \bm{q}, k, {\color{purple} pp})\rightarrow d\in\{0,1\}$. It is run by the client. It takes as input the proof $\pi$, queries $\bm{q}$,  key pair $k$, and  {\color{purple} public parameters pp}. If the proof is accepted, it outputs $d=1$; otherwise, it outputs $d=0$. 
+\item[$\bullet$] $\mathtt{VSID.verify}(\pi, \bm{q}, k, { pp})\rightarrow d\in\{0,1\}$. It is run by the client. It takes as input the proof $\pi$, queries $\bm{q}$,  key pair $k$, and  { public parameters pp}. If the proof is accepted, it outputs $d=1$; otherwise, it outputs $d=0$. 
 
 \
 
-\item[$\bullet$]  $\mathtt{VSID.identify}(\pi,c,k,e,u^{\scriptscriptstyle *}, {\color{purple} pp})\rightarrow I\in \{ \mathcal{C},\mathcal{S},\bot\}$. It is run by a third-party arbiter. It takes as input the proof $\pi$, query pair $c:=(\bm{q},\bm{w}_{\scriptscriptstyle q})$,  key pair $k$, metadata pair  $e:=(\sigma,w_{\sigma})$,  $u^{\scriptscriptstyle *}$, and {\color{purple} public parameters pp}. If   proof $w_{\scriptscriptstyle\sigma}$ or $\bm{w}_{\scriptscriptstyle q}$  is rejected, then it outputs $I=\mathcal C$; otherwise, if proof $\pi$ is rejected it outputs $I=\mathcal S$.  Otherwise, if  $w_{\scriptscriptstyle\sigma}, \bm{w}_{\scriptscriptstyle q}$, and $\pi$ are accepted, it outputs   $I=\bot$. 
+\item[$\bullet$]  $\mathtt{VSID.identify}(\pi,c,k,e,u^{\scriptscriptstyle *}, { pp})\rightarrow I\in \{ \mathcal{C},\mathcal{S},\bot\}$. It is run by a third-party arbiter. It takes as input the proof $\pi$, query pair $c:=(\bm{q},\bm{w}_{\scriptscriptstyle q})$,  key pair $k$, metadata pair  $e:=(\sigma,w_{\sigma})$,  $u^{\scriptscriptstyle *}$, and { public parameters pp}. If   proof $w_{\scriptscriptstyle\sigma}$ or $\bm{w}_{\scriptscriptstyle q}$  is rejected, then it outputs $I=\mathcal C$; otherwise, if proof $\pi$ is rejected it outputs $I=\mathcal S$.  Otherwise, if  $w_{\scriptscriptstyle\sigma}, \bm{w}_{\scriptscriptstyle q}$, and $\pi$ are accepted, it outputs   $I=\bot$. 
 
 %If the server executes the algorithm, then $\pi$ and $c$ would be empty,  $k=pk$ and $e'=e$. In this case, if $w$ is rejected, it outputs $I=C$; otherwise, it outputs $I=\bot$. 
 
@@ -162,7 +162,7 @@ A VSID scheme  has four main properties; namely, it is (a) correct, (b) sound, (
 
 Correctness requires that  the verification algorithm always accepts a proof generated by an honest prover and both parties are identified as honest.  It is formally stated as follows.
 
-\begin{definition}[VSID Correctness] A verifiable service with identifiable abort scheme  is  correct   if for any functions $F,M,Q$, and any auxiliary information $\text{aux}$, the key generation algorithm produces keys $\mathtt{VSID.keyGen}(1^{\lambda},F)\rightarrow k:=(sk,pk)$ such that for any service input $u$, if $\mathtt{VSID.setup}(1^{\lambda}, u,k,M)$ $\rightarrow (u^{\scriptscriptstyle *},{\color{purple}pp},e)$, $\mathtt{VSID.serve}(u^{\scriptscriptstyle *},e,pk,{\color{purple}pp})\rightarrow a$, $\mathtt{VSID.genQuery}(1^{\lambda}, $ $ \text{aux},k,Q,{\color{purple}pp})$ $ \rightarrow$ $ c$, $\mathtt{VSID.checkQuery}$ $(c, $ $pk,{\color{purple}pp})\rightarrow b,$  $\mathtt{VSID.prove}(u^{\scriptscriptstyle *},\sigma,c,pk,{\color{purple}pp})\rightarrow \pi$, and \\$\mathtt{VSID.verify}(\pi,\bm{q},k,{\color{purple}pp})\rightarrow d$, then  $\mathtt{VSID.identify}(\pi,c,k,e,u^{\scriptscriptstyle *},{\color{purple}pp})\rightarrow I=\bot \  \  \wedge \ \ a=1 \ \ \wedge \  b=1 \ \ \wedge \  d=1$
+\begin{definition}[VSID Correctness] A verifiable service with identifiable abort scheme  is  correct   if for any functions $F,M,Q$, and any auxiliary information $\text{aux}$, the key generation algorithm produces keys $\mathtt{VSID.keyGen}(1^{\lambda},F)\rightarrow k:=(sk,pk)$ such that for any service input $u$, if $\mathtt{VSID.setup}(1^{\lambda}, u,k,M)$ $\rightarrow (u^{\scriptscriptstyle *},{pp},e)$, $\mathtt{VSID.serve}(u^{\scriptscriptstyle *},e,pk,{pp})\rightarrow a$, $\mathtt{VSID.genQuery}(1^{\lambda}, $ $ \text{aux},k,Q,{pp})$ $ \rightarrow$ $ c$, $\mathtt{VSID.checkQuery}$ $(c, $ $pk,{pp})\rightarrow b,$  $\mathtt{VSID.prove}(u^{\scriptscriptstyle *},\sigma,c,pk,{pp})\rightarrow \pi$, and \\$\mathtt{VSID.verify}(\pi,\bm{q},k,{pp})\rightarrow d$, then  $\mathtt{VSID.identify}(\pi,c,k,e,u^{\scriptscriptstyle *},{pp})\rightarrow I=\bot \  \  \wedge \ \ a=1 \ \ \wedge \  b=1 \ \ \wedge \  d=1$
 \end{definition}
 
 
@@ -175,15 +175,15 @@ It is  formally stated as follows.
 \small{
 $$ \Pr\left[
   \begin{array}{l}
-F(u^{\scriptscriptstyle *}, \bm{q},{\color{purple}pp})\neq h \wedge d=1
+F(u^{\scriptscriptstyle *}, \bm{q},{pp})\neq h \wedge d=1
 \end{array} \middle |
     \begin{array}{l}
     \mathtt{VSID.keyGen}(1^{\lambda},F)\rightarrow k:=(sk,pk)\\
     \mathcal{A}_{\scriptscriptstyle 1}(1^{\scriptscriptstyle\lambda},pk, F)\rightarrow u\\
-    \mathtt{VSID.setup}(1^{\lambda}, u, k, M)\rightarrow (u^{\scriptscriptstyle *},e,{\color{purple}pp})\\
-    \mathtt{VSID.genQuery}(1^{\lambda},  \text{aux},k,Q,{\color{purple}pp})\rightarrow c:=(\bm{q}, \bm{w}_{q})\\
-     \mathcal{A}_{\scriptscriptstyle 1}(c,e, u^{\scriptscriptstyle *},{\color{purple}pp})\rightarrow \pi:=(h,\delta)\\
-     \mathtt{VSID.verify}(\pi,\bm{q},k,{\color{purple}pp})\rightarrow d\\
+    \mathtt{VSID.setup}(1^{\lambda}, u, k, M)\rightarrow (u^{\scriptscriptstyle *},e,{pp})\\
+    \mathtt{VSID.genQuery}(1^{\lambda},  \text{aux},k,Q,{pp})\rightarrow c:=(\bm{q}, \bm{w}_{q})\\
+     \mathcal{A}_{\scriptscriptstyle 1}(c,e, u^{\scriptscriptstyle *},{pp})\rightarrow \pi:=(h,\delta)\\
+     \mathtt{VSID.verify}(\pi,\bm{q},k,{pp})\rightarrow d\\
 \end{array}    \right]\leq \mu(\lambda).$$
 }
 %where the probability is taken over uniform  choice of $k\stackrel{\scriptscriptstyle\$}\leftarrow \{0,1\}^{\scriptscriptstyle\lambda}$ as well as the randomness of $\mathcal{A}_{\scriptscriptstyle 1}$.
@@ -197,15 +197,15 @@ A VSID has   well-formed inputs, if a malicious client cannot persuade a server 
 \small{
 $$ \Pr\left[
   \begin{array}{l}
-  (M(u^{\scriptscriptstyle *},k,{\color{purple}pp})\neq \sigma \wedge a=1) \vee\\ (Q(\text{aux},k,{\color{purple}pp})\neq \bm{q}) \wedge  b=1)\\
+  (M(u^{\scriptscriptstyle *},k,{pp})\neq \sigma \wedge a=1) \vee\\ (Q(\text{aux},k,{pp})\neq \bm{q}) \wedge  b=1)\\
 %(M(u^{\scriptscriptstyle *},k)\neq \sigma \lor Q(\text{aux},k)\neq q) \wedge\\ (a=1 \ \vee b=1)
 \end{array} \middle |
     \begin{array}{l}
     
-    \mathcal{A}_{\scriptscriptstyle 2}(1^{\scriptscriptstyle\lambda},F,M,Q)\rightarrow (u^{\scriptscriptstyle *},k:=(sk,pk),e:=(\sigma,w_{\sigma}),{\color{purple}pp})\\
-    \mathtt{VSID.serve}(u^{\scriptscriptstyle *},e,pk,{\color{purple}pp})\rightarrow a\\
+    \mathcal{A}_{\scriptscriptstyle 2}(1^{\scriptscriptstyle\lambda},F,M,Q)\rightarrow (u^{\scriptscriptstyle *},k:=(sk,pk),e:=(\sigma,w_{\sigma}),{pp})\\
+    \mathtt{VSID.serve}(u^{\scriptscriptstyle *},e,pk,{pp})\rightarrow a\\
        \mathcal{A}_{\scriptscriptstyle 2}(\text{aux},k)\rightarrow c:=(\bm{q},\bm{w}_{\scriptscriptstyle q})\\
-    \mathtt{VSID.checkQuery}(c, pk,{\color{purple}pp})\rightarrow b\\
+    \mathtt{VSID.checkQuery}(c, pk,{pp})\rightarrow b\\
 \end{array}    \right]\leq \mu(\lambda).$$
 }
 %where the probability is taken over the randomness used in  proofs $w_{\scriptscriptstyle q}$ and $w_{\scriptscriptstyle\sigma}$  as well as  the randomness of $\mathcal{A}_{\scriptscriptstyle 2}$.
@@ -228,11 +228,11 @@ $$ \Pr\left[
     \begin{array}{l}
     \mathtt{VSID.keyGen}(1^{\lambda},F)\rightarrow k:=(sk,pk)\\
     \mathcal{A}_{\scriptscriptstyle 1}(1^{\scriptscriptstyle\lambda},pk, F)\rightarrow u\\
-    \mathtt{VSID.setup}(1^{\lambda}, u, k, M,{\color{purple}pp})\rightarrow (u^{\scriptscriptstyle *},e)\\
-    \mathtt{VSID.genQuery}(1^{\lambda},  \text{aux},k,Q,{\color{purple}pp})\rightarrow c:=(\bm{q}, \bm{w}_{q})\\
-     \mathcal{A}_{\scriptscriptstyle 1}(c,e, u^{\scriptscriptstyle *},{\color{purple}pp})\rightarrow \pi:=(h,\delta)\\
-     \mathtt{VSID.verify}(\pi,\bm{q},k,{\color{purple}pp})\rightarrow d\\
-     \mathtt{VSID.identify}(\pi,c,k,e,u^{\scriptscriptstyle *},{\color{purple}pp})\rightarrow I\\
+    \mathtt{VSID.setup}(1^{\lambda}, u, k, M,{pp})\rightarrow (u^{\scriptscriptstyle *},e)\\
+    \mathtt{VSID.genQuery}(1^{\lambda},  \text{aux},k,Q,{pp})\rightarrow c:=(\bm{q}, \bm{w}_{q})\\
+     \mathcal{A}_{\scriptscriptstyle 1}(c,e, u^{\scriptscriptstyle *},{pp})\rightarrow \pi:=(h,\delta)\\
+     \mathtt{VSID.verify}(\pi,\bm{q},k,{pp})\rightarrow d\\
+     \mathtt{VSID.identify}(\pi,c,k,e,u^{\scriptscriptstyle *},{pp})\rightarrow I\\
 \end{array}    \right]\leq \mu_{\scriptscriptstyle 1}(\lambda).$$
 }
 %\normalsize
@@ -245,12 +245,12 @@ $$ \Pr\left[
 \end{array} \middle |
     \begin{array}{l}
     
-    \mathcal{A}_{\scriptscriptstyle 2}(1^{\scriptscriptstyle\lambda},F,M,Q)\rightarrow (u^{\scriptscriptstyle *},k:=(sk,pk),e:=(\sigma,w_{\sigma}),{\color{purple}pp})\\
-    \mathtt{VSID.serve}(u^{\scriptscriptstyle *},e,pk,{\color{purple}pp})\rightarrow a\\
+    \mathcal{A}_{\scriptscriptstyle 2}(1^{\scriptscriptstyle\lambda},F,M,Q)\rightarrow (u^{\scriptscriptstyle *},k:=(sk,pk),e:=(\sigma,w_{\sigma}),{pp})\\
+    \mathtt{VSID.serve}(u^{\scriptscriptstyle *},e,pk,{pp})\rightarrow a\\
        \mathcal{A}_{\scriptscriptstyle 2}(\text{aux},k)\rightarrow c:=(\bm{q},\bm{w}_{\scriptscriptstyle q})\\
-    \mathtt{VSID.checkQuery}(c, pk,{\color{purple}pp})\rightarrow b\\
-    \mathtt{VSID.prove}(u^{\scriptscriptstyle *},\sigma,c,pk,{\color{purple}pp})\rightarrow \pi\\
-    \mathtt{VSID.identify}(\pi,c,k,e,u^{\scriptscriptstyle *},{\color{purple}pp})\rightarrow I\\
+    \mathtt{VSID.checkQuery}(c, pk,{pp})\rightarrow b\\
+    \mathtt{VSID.prove}(u^{\scriptscriptstyle *},\sigma,c,pk,{pp})\rightarrow \pi\\
+    \mathtt{VSID.identify}(\pi,c,k,e,u^{\scriptscriptstyle *},{pp})\rightarrow I\\
 \end{array}    \right]\leq \mu_{\scriptscriptstyle 2}(\lambda).$$
 }
 
@@ -259,7 +259,7 @@ $$ \Pr\left[
 
 
 \subsubsection{Lighter VSID Scheme ($\text{VSID}_{\scriptscriptstyle\text{light}}$)}\label{remark::light-VSID}
-In the VSID  definition, algorithm  $\mathtt{VSID.identify}(.)$    allows an arbiter  to identify a misbehaving party even in the setup phase. Nevertheless, often it is sufficient  to let the arbiter pinpoint a corrupt party \emph{after} the client and server agree to deal with each other, i.e. after the setup when the server runs  $\mathtt{VSID.serve}(.)$ and outputs $1$. A VSID protocol that meets the latter (lighter) requirements, denoted by $\text{VSID}_{\scriptscriptstyle \text{light}}$, would impose lower costs  especially when $u$ and elements of $e$ are of large size. In $\text{VSID}_{\scriptscriptstyle\text{light}}$  the arbiter algorithm, i.e. $\mathtt{VSID.identify}(.)$, needs to take only $(\pi, c, k, e',{\color{purple}pp})$ as input, where $e'\subset e$. Note also $u^{\scriptscriptstyle *}$ is not given to the arbiter. In the light version, the arbiter   skips  checking the correctness of metadata. So, this requires two changes to the VSID definition, (a) the arbiter algorithm would be   $\mathtt{VSID.identify}(\pi,c,k,e',{\color{purple}pp})\rightarrow I$, and (b) in case 2, in Definition \ref{def::VSID-Identifiable-Abort} we would have $b=0\wedge I\neq \mathcal C$, so event $a=0$ is excluded. In this paper, any time we refer to $\text{VSID}_{\scriptscriptstyle\text{light}}$, we assume the above minor adjustments are applied to the VSID definition. 
+In the VSID  definition, algorithm  $\mathtt{VSID.identify}(.)$    allows an arbiter  to identify a misbehaving party even in the setup phase. Nevertheless, often it is sufficient  to let the arbiter pinpoint a corrupt party \emph{after} the client and server agree to deal with each other, i.e. after the setup when the server runs  $\mathtt{VSID.serve}(.)$ and outputs $1$. A VSID protocol that meets the latter (lighter) requirements, denoted by $\text{VSID}_{\scriptscriptstyle \text{light}}$, would impose lower costs  especially when $u$ and elements of $e$ are of large size. In $\text{VSID}_{\scriptscriptstyle\text{light}}$  the arbiter algorithm, i.e. $\mathtt{VSID.identify}(.)$, needs to take only $(\pi, c, k, e',{pp})$ as input, where $e'\subset e$. Note also $u^{\scriptscriptstyle *}$ is not given to the arbiter. In the light version, the arbiter   skips  checking the correctness of metadata. So, this requires two changes to the VSID definition, (a) the arbiter algorithm would be   $\mathtt{VSID.identify}(\pi,c,k,e',{pp})\rightarrow I$, and (b) in case 2, in Definition \ref{def::VSID-Identifiable-Abort} we would have $b=0\wedge I\neq \mathcal C$, so event $a=0$ is excluded. In this paper, any time we refer to $\text{VSID}_{\scriptscriptstyle\text{light}}$, we assume the above minor adjustments are applied to the VSID definition. 
 
 
 

@@ -32,7 +32,7 @@ The RC-S-P protocol is presented below. It is assumed that (a) each party $\math
 \item \textbf{Client-side Initiation}. $\mathtt{RCSP}.\mathtt{cInit}(1^\lambda, u,\bm{k}, M,z,pl,enc)$
 \begin{enumerate}
 
-\item Calls  $\mathtt{VSID.setup}(1^{\lambda}, u,k,M)\rightarrow (u^{\scriptscriptstyle *}, \textcolor{purple}{pp},e)$, to encode  service input, and generate metadata. \textcolor{purple}{It appends $pp$ to $qp$}.
+\item Calls  $\mathtt{VSID.setup}(1^{\lambda}, u,k,M)\rightarrow (u^{\scriptscriptstyle *}, {pp},e)$, to encode  service input, and generate metadata. {It appends $pp$ to $qp$}.
 
 
 
@@ -50,7 +50,7 @@ The RC-S-P protocol is presented below. It is assumed that (a) each party $\math
 
 
 
-\item Set parameters  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}=z\cdot (o_{\scriptscriptstyle max}+l_{\scriptscriptstyle max})$ and $p_{\scriptscriptstyle\mathcal{S}}=z\cdot l_{\scriptscriptstyle max}$, where $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ and $p_{\scriptscriptstyle\mathcal{S}}$ are   the total number of masked coins $\mathcal C$ and $\mathcal S$ should deposit respectively. It signs and deploys a smart contract, SC, that explicitly specifies  parameters $z$,  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$, $p_{\scriptscriptstyle\mathcal{S}}$,  $adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 1}}$, and $adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 2}}$. Let $adr_{\scriptscriptstyle \text{SC}}$ be the address of the deployed SC, and $T:=\{T_{\scriptscriptstyle qp},T_{\scriptscriptstyle cp}\}$. It sets a set of time points/windows, $\texttt{Time}:\{ \texttt{T}_{\scriptscriptstyle 0},..., \texttt{T}_{\scriptscriptstyle 3},\texttt{G}_{\scriptscriptstyle 1,1},...,\texttt{G}_{\scriptscriptstyle z,2},\texttt{H}, \texttt{K}_{\scriptscriptstyle 1},\texttt{K}_{\scriptscriptstyle 2}, \texttt{L}\}$, are explicitly specified in the contract who will accept a certain party's message only in a specified  time point/window. The time allocation will become clear in the next phases. 
+\item Set parameters  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}=z\cdot (o_{\scriptscriptstyle max}+l_{\scriptscriptstyle max})$ and $p_{\scriptscriptstyle\mathcal{S}}=z\cdot l_{\scriptscriptstyle max}$, where $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ and $p_{\scriptscriptstyle\mathcal{S}}$ are   the total number of masked coins $\mathcal C$ and $\mathcal S$ should deposit respectively. It signs and deploys a smart contract, SC, that explicitly specifies  parameters $z$,  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$, $p_{\scriptscriptstyle\mathcal{S}}$,  $adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 1}}$, and $adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 2}}$. Let $adr_{\scriptscriptstyle \text{SC}}$ be the address of the deployed SC, and $T:=\{T_{\scriptscriptstyle qp},T_{\scriptscriptstyle cp}\}$. It sets a set of time points/windows, $\texttt{Time}:\{ \texttt{T}_{\scriptscriptstyle 0},..., \texttt{T}_{\scriptscriptstyle 3},\texttt{G}_{\scriptscriptstyle 1,1},...,\texttt{G}_{\scriptscriptstyle z,2},\texttt{H}, \texttt{K}_{\scriptscriptstyle 1},\texttt{K}_{\scriptscriptstyle 2}, \texttt{L}\}$, that are explicitly specified in the contract who will accept a certain party's message only in a specified  time point/window. The time allocation will become clear in the next phases. 
 
 
 \item Sets four counters $[y_{\scriptscriptstyle\mathcal C},y'_{\scriptscriptstyle\mathcal C},y_{\scriptscriptstyle\mathcal S}, y'_{\scriptscriptstyle\mathcal S}]$ in the contract, where their initial value is $0$. Let $\bm{y}: [y_{\scriptscriptstyle\mathcal C},y'_{\scriptscriptstyle\mathcal C},y_{\scriptscriptstyle\mathcal S}, y'_{\scriptscriptstyle\mathcal S}, \texttt{Time},adr_{\scriptscriptstyle \text{SC}}]$
@@ -131,7 +131,7 @@ The RC-S-P protocol is presented below. It is assumed that (a) each party $\math
 
 
 
-\item If any above check is rejected, then it sets $a=0$. Otherwise, it  calls $\mathtt{VSID.serve}(u^{\scriptscriptstyle *},e,pk, \textcolor{purple}{pp})\rightarrow a$. 
+\item If any above check is rejected, then it sets $a=0$. Otherwise, it  calls $\mathtt{VSID.serve}(u^{\scriptscriptstyle *},e,pk, {pp})\rightarrow a$. 
 
 \item Sends $a$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}=p_{\scriptscriptstyle\mathcal{S}}$ coins to SC at time $\texttt{T}_{\scriptscriptstyle 1}$, where  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}=\bot$ if $a=0$
 \end{enumerate}
@@ -151,7 +151,7 @@ Note, $\mathcal S$  and  $\mathcal C$ can withdraw their coins at time $\texttt{
 \item\textbf{Client-side Query Generation}.\label{Billing-cycles-genQuery} $\mathtt{RCSP}.\mathtt{genQuery}(1^\lambda, \text{aux},k,Q, T_{\scriptscriptstyle qp}, enc)$
 
 \begin{enumerate}
-\item Calls $\mathtt{VSID.genQuery}(1^{\lambda},  \text{aux},k,Q, \textcolor{purple}{pp})\rightarrow c_{\scriptscriptstyle j}:=(\bm{q}_{\scriptscriptstyle j},\bm{w}_{\scriptscriptstyle q_{_{\scaleto{j}{\size}}}})$, to generate a query-proof pair. 
+\item Calls $\mathtt{VSID.genQuery}(1^{\lambda},  \text{aux},k,Q, {pp})\rightarrow c_{\scriptscriptstyle j}:=(\bm{q}_{\scriptscriptstyle j},\bm{w}_{\scriptscriptstyle q_{_{\scaleto{j}{\size}}}})$, to generate a query-proof pair. 
 \item Encrypts the pair, $\mathtt{Enc}(\bar{k},c_{\scriptscriptstyle j})=c'_{\scriptscriptstyle j}$, where $\bar{k}\in T_{\scriptscriptstyle qp}$. Then, it pads (each element of) the result with ${pad}_{\scriptscriptstyle q}\in T_{\scriptscriptstyle qp}$ random values that are picked from the encryption's output range, $U$. Let $c^{\scriptscriptstyle *}_{\scriptscriptstyle j}$ be the result. 
 \item Sends the padded encrypted query-proof pair, $c^{\scriptscriptstyle *}_{\scriptscriptstyle j}$, to SC at time $\texttt{G}_{\scriptscriptstyle j,1}$
 \end{enumerate}
@@ -164,7 +164,7 @@ Note, $\mathcal S$  and  $\mathcal C$ can withdraw their coins at time $\texttt{
 \begin{enumerate}
 
 \item Constructs an empty  vector, $\bm{m}_{\scriptscriptstyle\mathcal S}=\bot$, if $j=1$.  
-\item Removes the pads from $c^{\scriptscriptstyle *}_{\scriptscriptstyle j}$, using  parameters of $T_{\scriptscriptstyle qp}$. Let  $c'_{\scriptscriptstyle j}$ be the result. Next, it  decrypts  the result, $\mathtt{Dec(}\bar{k},c'_{\scriptscriptstyle j})=c_{\scriptscriptstyle j}$. Then,  it   runs $\mathtt{VSID.checkQuery}(c_{\scriptscriptstyle j}, pk, \textcolor{purple}{pp})\rightarrow b_{\scriptscriptstyle j}$, to check the correctness of the queries.
+\item Removes the pads from $c^{\scriptscriptstyle *}_{\scriptscriptstyle j}$, using  parameters of $T_{\scriptscriptstyle qp}$. Let  $c'_{\scriptscriptstyle j}$ be the result. Next, it  decrypts  the result, $\mathtt{Dec(}\bar{k},c'_{\scriptscriptstyle j})=c_{\scriptscriptstyle j}$. Then,  it   runs $\mathtt{VSID.checkQuery}(c_{\scriptscriptstyle j}, pk, {pp})\rightarrow b_{\scriptscriptstyle j}$, to check the correctness of the queries.
 
 %\item  $\mathcal S$ appends $j$  to $\vv{\bm{v}}_{\scriptscriptstyle\mathcal{S}}$, if the above proofs are rejected, i.e. $b_{\scriptscriptstyle j}=0$. % or were not posted on time. In this case, it does not proceed to the next step for this $j$-th verification.
 
@@ -173,7 +173,7 @@ Note, $\mathcal S$  and  $\mathcal C$ can withdraw their coins at time $\texttt{
 %\item  $\mathcal S$ appends $j$  to $\vv{\bm{v}}_{\scriptscriptstyle\mathcal{S}}$, if the above proofs are rejected, i.e. $b_{\scriptscriptstyle j}=0$, or were not posted on time. In this case, it does not proceed to the next step for this $j$-th verification.
 
 \begin{itemize}
-\item[$\bullet$] If $\mathcal S$ accepts the query, i.e. $b_{\scriptscriptstyle j}=1$, then  calls $\mathtt{VSID.prove}(u^{\scriptscriptstyle *},\sigma,c_{\scriptscriptstyle j},pk,\textcolor{purple}{pp})\rightarrow \pi_{\scriptscriptstyle j}$, to generate the service proof. In this case, $\mathcal S$ encrypts it, $\mathtt{Enc}(\bar{k},\pi_{\scriptscriptstyle j})=\pi'_{\scriptscriptstyle j}$. Next, it   pads (every element of) the encrypted proof with ${pad}_{\scriptscriptstyle \pi}\in T_{\scriptscriptstyle qp}$ random values  picked from $U$. Let $\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j}$ be the result. It sends the padded encrypted proof  to SC at time $\texttt{G}_{\scriptscriptstyle j,2}$ 
+\item[$\bullet$] If $\mathcal S$ accepts the query, i.e. $b_{\scriptscriptstyle j}=1$, then  calls $\mathtt{VSID.prove}(u^{\scriptscriptstyle *},\sigma,c_{\scriptscriptstyle j},pk,{pp})\rightarrow \pi_{\scriptscriptstyle j}$, to generate the service proof. In this case, $\mathcal S$ encrypts it, $\mathtt{Enc}(\bar{k},\pi_{\scriptscriptstyle j})=\pi'_{\scriptscriptstyle j}$. Next, it   pads (every element of) the encrypted proof with ${pad}_{\scriptscriptstyle \pi}\in T_{\scriptscriptstyle qp}$ random values  picked from $U$. Let $\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j}$ be the result. It sends the padded encrypted proof  to SC at time $\texttt{G}_{\scriptscriptstyle j,2}$ 
 
 \item[$\bullet$] Otherwise (if $\mathcal S$ rejects the query), it appends  $j$  to $\bm{m}_{\scriptscriptstyle\mathcal{S}}$,  constructs a dummy proof $\pi'_{\scriptscriptstyle j}\in U$,  pads the result as above, and sends the padded dummy proof, $\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j}$, to SC at time $\texttt{G}_{\scriptscriptstyle j,2}$ %, if the above proofs are rejected, i.e. $b_{\scriptscriptstyle j}=0$.
 
@@ -190,7 +190,7 @@ When $j=z$  and $\bm{m}_{\scriptscriptstyle\mathcal{S}}\neq\bot$, $\mathcal S$ s
 
 \item Constructs an empty vector, $\bm{m}_{\scriptscriptstyle\mathcal C}=\bot$, if $j=1$. 
 
-\item Removes the pads from $\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j}$, utilising  parameters of $T_{\scriptscriptstyle qp}$. Let $\pi'_{\scriptscriptstyle j}$ be the result. It decrypts the service proof: $\mathtt{Dec}(\bar{k},\pi'_{\scriptscriptstyle j})=\pi''_{\scriptscriptstyle j}$ and then calls $\mathtt{VSID.verify}(\pi''_{\scriptscriptstyle j}, \bm{q}_{\scriptscriptstyle j},k, \textcolor{purple}{pp})\rightarrow d_{\scriptscriptstyle j}$, to verify the proof. Note that if $\pi'_{\scriptscriptstyle j}=\mathtt{Enc}(\bar{k},\pi_{\scriptscriptstyle j})$, then $\pi''_{\scriptscriptstyle j}=\pi_{\scriptscriptstyle j}$. 
+\item Removes the pads from $\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j}$, utilising  parameters of $T_{\scriptscriptstyle qp}$. Let $\pi'_{\scriptscriptstyle j}$ be the result. It decrypts the service proof: $\mathtt{Dec}(\bar{k},\pi'_{\scriptscriptstyle j})=\pi''_{\scriptscriptstyle j}$ and then calls $\mathtt{VSID.verify}(\pi''_{\scriptscriptstyle j}, \bm{q}_{\scriptscriptstyle j},k, {pp})\rightarrow d_{\scriptscriptstyle j}$, to verify the proof. Note that if $\pi'_{\scriptscriptstyle j}=\mathtt{Enc}(\bar{k},\pi_{\scriptscriptstyle j})$, then $\pi''_{\scriptscriptstyle j}=\pi_{\scriptscriptstyle j}$. 
 
 \begin{itemize}
 \item[$\bullet$] If $\pi''_{\scriptscriptstyle j}$ passes the verification (i.e. $d_{\scriptscriptstyle j}=1$), then $\mathcal C$ concludes that the service  for this verification has been delivered successfully. 
@@ -241,7 +241,7 @@ When $j=z$  and $\bm{m}_{\scriptscriptstyle\mathcal{C}}\neq\bot$, $\mathcal C$ s
 \item removes the pads from the related encrypted    query-proof pair  and from encrypted service proof. Let $c'_{\scriptscriptstyle i}$ and $\pi'_{\scriptscriptstyle i}$ be the result. %unpadded encrypted  query-proof pair  and encrypted service proof  respectively. 
 \item decrypts the encrypted query-proof pair and encrypted service proof as follows, $ \mathtt{Dec}(\bar{k},c'_{\scriptscriptstyle i})=c_{\scriptscriptstyle i}$ and 
 $ \mathtt{Dec}(\bar{k},\pi'_{\scriptscriptstyle i})=\pi''_{\scriptscriptstyle i}$ 
-\item\label{arbiter-identify} calls   $\mathtt{VSID.identify}(\pi''_{\scriptscriptstyle i},c_{\scriptscriptstyle i}, k, e', \textcolor{purple}{pp})\rightarrow I_{\scriptscriptstyle i}$
+\item\label{arbiter-identify} calls   $\mathtt{VSID.identify}(\pi''_{\scriptscriptstyle i},c_{\scriptscriptstyle i}, k, e', {pp})\rightarrow I_{\scriptscriptstyle i}$
 \begin{enumerate}
 \item[$\bullet$] if $I_{\scriptscriptstyle i}=\mathcal C$, then it increments $y_{\scriptscriptstyle\mathcal C}$ by $1$ 
 \item[$\bullet$]  if $I_{\scriptscriptstyle i}=\mathcal S$, then it increments $y_{\scriptscriptstyle\mathcal S}$ by $1$ 
