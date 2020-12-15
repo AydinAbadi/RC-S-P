@@ -10,8 +10,6 @@ In the next phase, to distribute the coins, either client or server sends to the
 
 
 
-
-\textcolor{purple}{Aydin--Still working on RCPoRP protocol}
 \begin{enumerate}
 \item \textbf{Key Generation}. $\mathtt{RCPoRP}.\mathtt{keyGen}(1^{\scriptscriptstyle\lambda})$
 \begin{enumerate}
@@ -19,17 +17,9 @@ In the next phase, to distribute the coins, either client or server sends to the
 \item  $\mathcal C$  picks a random secret key  $\bar{k}$ for a symmetric key encryption. It also sets  parameter $pad_{\scriptscriptstyle \pi}$ which is the number of  dummy values that will be used to pad encrypted proofs,  let $qp:=(pad_{\scriptscriptstyle \pi}, \bar{k})$. The key's size is part of the security parameter. Let  $\bm{k}=[(sk',pk')]$, where  $sk'=qp$ and $pk':=(adr_{\scriptscriptstyle\mathcal{C}},adr_{\scriptscriptstyle\mathcal{S}})$. 
 
 
-\
 
 
-
-\
-
-
-
-
-
-\item  \textcolor{green}{$\mathcal C$ sets coin parameters as   follows,   $o$: the amount of coins for each accepting proof,  as well as $l$ and $l'$ which are the amount of coins $\mathcal C$ and $\mathcal S$ respectively need to send to a smart contract to resolve a potential dispute.  Let $k':=\{o,l,l',qp\}$. }
+%\item  \textcolor{green}{$\mathcal C$ sets coin parameters as   follows,   $o$: the amount of coins for each accepting proof,  as well as $l$ and $l'$ which are the amount of coins $\mathcal C$ and $\mathcal S$ respectively need to send to a smart contract to resolve a potential dispute.  Let $k':=\{o,l,l',qp\}$. }
 
 
 \end{enumerate}
@@ -39,13 +29,10 @@ In the next phase, to distribute the coins, either client or server sends to the
 \item \textbf{Client-side Initiation}. $\mathtt{RCPoRP}.\mathtt{cInit}(1^\lambda, u,\bm{k}, z,pl)$
 \begin{enumerate}
 
-\item Calls $\mathtt{PoRID.setup}(1^{\lambda}, u)\rightarrow (u^{\scriptscriptstyle *},pp)$ to encode service input (and generate metadata). It appends $pp$ to $qp$.
+\item Calls $\mathtt{PoRID.setup}(1^{\lambda}, u)\rightarrow (u^{\scriptscriptstyle *},pp)$ to encode service input. It appends $pp$ to $qp$.
 
 
 \item  Calls $\mathtt{SAP.init}(1^{\scriptscriptstyle\lambda}, adr_{\scriptscriptstyle\mathcal{C}}, adr_{\scriptscriptstyle\mathcal{S}},qp )\rightarrow(r_{\scriptscriptstyle qp}, g_{\scriptscriptstyle qp}, adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 1}})$, to initiate an agreement (with $\mathcal{S}$) on $qp$.  Let $T_{\scriptscriptstyle qp}:=(\ddot{x}_{\scriptscriptstyle qp}, g_{\scriptscriptstyle qp})$ be proof/query encoding token,  where  $\ddot{x}_{\scriptscriptstyle qp}:=(qp,r_{\scriptscriptstyle qp})$ is the opening and $g_{\scriptscriptstyle qp}$ is the commitment stored on the contract as a result of running   SAP. 
-
-\
-
 
 
 \item   Sets coin parameters (given  price list $pl$) as  follows,  $o$: the amount of coins for each accepting proof,  as well as $l$ and $l'$ which are the amount of coins $\mathcal C$ and $\mathcal S$ respectively need to send to a smart contract to resolve a potential dispute. 
@@ -61,14 +48,12 @@ In the next phase, to distribute the coins, either client or server sends to the
 
 
 
-\item Set parameters  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}=z\cdot (o_{\scriptscriptstyle max}+l_{\scriptscriptstyle max})$ and $p_{\scriptscriptstyle\mathcal{S}}=z\cdot l_{\scriptscriptstyle max}$, where $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ and $p_{\scriptscriptstyle\mathcal{S}}$ are   the total number of masked coins $\mathcal C$ and $\mathcal S$ should deposit respectively. It signs and deploys a smart contract, SC, that explicitly specifies  parameters $z$,  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$, $p_{\scriptscriptstyle\mathcal{S}}$,  $adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 1}}$, and $adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 2}}$. Let $adr_{\scriptscriptstyle \text{SC}}$ be the address of the deployed SC, and $T:=\{T_{\scriptscriptstyle qp},T_{\scriptscriptstyle cp}\}$. It sets a set of time points/windows, $\texttt{Time}:\{ \texttt{T}_{\scriptscriptstyle 0},..., \texttt{T}_{\scriptscriptstyle 3},\texttt{G}_{\scriptscriptstyle 1,1},...,\texttt{G}_{\scriptscriptstyle z,2},\texttt{H}, \texttt{K}_{\scriptscriptstyle 1},\texttt{K}_{\scriptscriptstyle 2}, \texttt{L}\}$, that are explicitly specified in the contract who will accept a certain party's message only in a specified  time point/window. The time allocation will become clear in the next phases. 
+\item Set parameters  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}=z\cdot (o_{\scriptscriptstyle max}+l_{\scriptscriptstyle max})$ and $p_{\scriptscriptstyle\mathcal{S}}=z\cdot l_{\scriptscriptstyle max}$, where $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ and $p_{\scriptscriptstyle\mathcal{S}}$ are   the total number of masked coins $\mathcal C$ and $\mathcal S$ should deposit respectively. It signs and deploys a smart contract, SC, that explicitly specifies  parameters $z$,  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$, $p_{\scriptscriptstyle\mathcal{S}}$,  $adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 1}}$, and $adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 2}}$. Let $adr_{\scriptscriptstyle \text{SC}}$ be the address of the deployed SC, and $T:=\{T_{\scriptscriptstyle qp},T_{\scriptscriptstyle cp}\}$. It sets a set of time points/windows, $\texttt{Time}:\{ \texttt{T}_{\scriptscriptstyle 0},..., \texttt{T}_{\scriptscriptstyle 3},\texttt{G}_{\scriptscriptstyle 1,1},...,\texttt{G}_{\scriptscriptstyle z,2},\texttt{H}, \texttt{K}_{\scriptscriptstyle 1},...,\texttt{K}_{\scriptscriptstyle 4}, \texttt{L}\}$, that are explicitly specified in SC who will accept a certain party's message only in a specified  time point/window. Time allocations will become clear in the next phases. 
 
 
 \item Sets two counters $[y_{\scriptscriptstyle\mathcal C}, y_{\scriptscriptstyle\mathcal S}]$ in the contract, where their initial value is $0$. Let $\bm{y}: [y_{\scriptscriptstyle\mathcal C},y_{\scriptscriptstyle\mathcal S},  \texttt{Time},adr_{\scriptscriptstyle \text{SC}}]$
 
-\item Deposits $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ coins in the contract.
-
-\item Sends $u^{\scriptscriptstyle *}, e, \ddot{x}_{\scriptscriptstyle qp},\ddot{x}_{\scriptscriptstyle cp}$, and $p_{\scriptscriptstyle\mathcal{S}}$ (along with $adr_{\scriptscriptstyle \text{SC}}$) to $\mathcal S$. It sends  $pk'$ to SC. Let $\texttt{T}_{\scriptscriptstyle 0}$ be the time that the above process finishes. 
+\item Deposits $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ coins in the contract. It  sends $u^{\scriptscriptstyle *}, e, \ddot{x}_{\scriptscriptstyle qp},\ddot{x}_{\scriptscriptstyle cp}$, and $p_{\scriptscriptstyle\mathcal{S}}$ (along with $adr_{\scriptscriptstyle \text{SC}}$) to $\mathcal S$. It also sends  $pk'$ to SC. Let $\texttt{T}_{\scriptscriptstyle 0}$ be the time that the above process finishes. 
 
 
 
@@ -182,7 +167,7 @@ Note, $\mathcal S$  and  $\mathcal C$ can withdraw their coins at time $\texttt{
 
 
 
-\item Calls $\mathtt{PoRID.checkQuery}(\hat{k}_{\scriptscriptstyle j}, pp)\rightarrow b_{\scriptscriptstyle j}$ to check the query's correctness. 
+\item Calls $\mathtt{PoRID.checkQuery}(\hat{k}_{\scriptscriptstyle j}, pp)\rightarrow b_{\scriptscriptstyle j}$ to check the query's correctness.
 
 \begin{itemize}
 \item[$\bullet$] If it accepts the query, then it calls $\mathtt{PoRID.prove}(u^{\scriptscriptstyle *},\hat{k}_{\scriptscriptstyle j},pp)\rightarrow  {\bm{\pi}}_{\scriptscriptstyle j}$, to generate a PoR  proof. In this case,  $\mathcal S$ encrypts every  proof in the proof vector, i.e. $\forall g, 1\leq g\leq| {\bm{\pi}}_{\scriptscriptstyle j}|: \mathtt{Enc}(\bar{k}, {\bm{\pi}}_{\scriptscriptstyle j}[g])= {\bm{\pi}}'_{\scriptscriptstyle j}[g]$, where $\bar{k}\in T_{\scriptscriptstyle qp}$. Let vector $ {\bm{\pi}}'_{\scriptscriptstyle j}$ contain the encryption of all proofs. It pads every encrypted proof in $ {\bm{\pi}}'_{\scriptscriptstyle j}$ with ${pad}_{\scriptscriptstyle \pi}\in T_{\scriptscriptstyle qp}$ random values that are picked from the encryption's output range $U$, (by appending the random values to the encrypted proofs vector). Let $\bm{\pi}^{\scriptscriptstyle *}_{\scriptscriptstyle j}$ be the result. It sends the padded encrypted proofs  to SC at time $\texttt{G}_{\scriptscriptstyle j,2}$ 
@@ -246,7 +231,7 @@ When $j=z$  and $\bm{m}_{\scriptscriptstyle\mathcal{S}}\neq\bot$, it sets    $m_
 %
 %\end{itemize}
 
-\textcolor{green}{When $j=z$  and $\bm{v}_{\scriptscriptstyle\mathcal{S}}\neq\bot$, $\mathcal S$ sets    $\bm{m}_{\scriptscriptstyle\mathcal S}:[\bm{v}_{\scriptscriptstyle\mathcal{S}},\ddot{x}_{\scriptscriptstyle qp}, \text{``dispute''}]$.}
+%\textcolor{green}{When $j=z$  and $\bm{v}_{\scriptscriptstyle\mathcal{S}}\neq\bot$, $\mathcal S$ sets    $\bm{m}_{\scriptscriptstyle\mathcal S}:[\bm{v}_{\scriptscriptstyle\mathcal{S}},\ddot{x}_{\scriptscriptstyle qp}, \text{``dispute''}]$.}
 
 
 \
@@ -267,9 +252,8 @@ When $j=z$  and $\bm{m}_{\scriptscriptstyle\mathcal{S}}\neq\bot$, it sets    $m_
 \item[$\bullet$] Otherwise (if proof $ {\bm{\pi}}_{\scriptscriptstyle j}$ is rejected, i.e. $ {\bm{d}}_{\scriptscriptstyle j}[0]=0$),  it sets $g= {\bm{d}}_{\scriptscriptstyle j}[1]$ and appends vector $[j,g]$  to $ {\bm{m}}_{\scriptscriptstyle\mathcal{C}}$. Recall, $ {\bm{d}}_{\scriptscriptstyle j}[1]$ refers to a rejected proof's index in proof vector $ {\bm{\pi}}_{\scriptscriptstyle j}$. 
 
 \end{itemize}
-When $j=z$  and $\bm{m}_{\scriptscriptstyle\mathcal{C}}\neq\bot$, $\mathcal C$ sets    ${m}_{\scriptscriptstyle\mathcal C}:=\bm{m}_{\scriptscriptstyle\mathcal{C}}$.
 \end{enumerate}
-
+When $j=z$  and $\bm{m}_{\scriptscriptstyle\mathcal{C}}\neq\bot$, $\mathcal C$ sets    ${m}_{\scriptscriptstyle\mathcal C}:=\bm{m}_{\scriptscriptstyle\mathcal{C}}$.
 
 
 %\item  $\mathcal C$ appends $j$ to $ {\bm{v}}_{\scriptscriptstyle\mathcal{C}}$, if  $\mathcal S$ does not post the proof on time. In this case, it does not take the next steps, for  $j$-th verification. 
@@ -279,14 +263,21 @@ When $j=z$  and $\bm{m}_{\scriptscriptstyle\mathcal{C}}\neq\bot$, $\mathcal C$ s
 % decrypts the encrypted proofs: $\mathtt{Dec}(\bar{k}, {\bm{\pi}}'_{\scriptscriptstyle j})= {\bm{\pi}}_{\scriptscriptstyle j}$. Then, it   calls $\mathtt{PoRID.verify}( {\bm{\pi}}_{\scriptscriptstyle j},\hat{k}_{\scriptscriptstyle j},pp)\rightarrow  {\bm{d}}_{\scriptscriptstyle j}$, to verify them. If $ {\bm{\pi}}_{\scriptscriptstyle j}$ passes the verification, i.e. $ {\bm{d}}_{\scriptscriptstyle j}[0]=1$, then $\mathcal C$  concludes that the service for this verification has been delivered successfully. Otherwise (if proof $ {\bm{\pi}}_{\scriptscriptstyle j}$ is rejected, i.e. $ {\bm{d}}_{\scriptscriptstyle j}[0]=0$), then it sets $g= {\bm{d}}_{\scriptscriptstyle j}[1]$ and appends vector $[j,g]$  to $ {\bm{w}}_{\scriptscriptstyle\mathcal{C}}$. Recall, $ {\bm{d}}_{\scriptscriptstyle j}[1]$ refers to a rejected proof's index in proof vector $ {\bm{\pi}}_{\scriptscriptstyle j}$. 
  
  
- \textcolor{green}{If $j=z$  and $\bm{w}_{\scriptscriptstyle\mathcal{C}}\neq\bot$, $\mathcal C$ sets    $\bm{m}_{\scriptscriptstyle\mathcal C}:[\bm{w}_{\scriptscriptstyle\mathcal{C}},\ddot{x}_{\scriptscriptstyle qp}, \text{``dispute''}]$.}
+ %\textcolor{green}{If $j=z$  and $\bm{w}_{\scriptscriptstyle\mathcal{C}}\neq\bot$, $\mathcal C$ sets    $\bm{m}_{\scriptscriptstyle\mathcal C}:[\bm{w}_{\scriptscriptstyle\mathcal{C}},\ddot{x}_{\scriptscriptstyle qp}, \text{``dispute''}]$.}
   
 
 %\end{enumerate}
 
 \
 
-\item \textbf{Dispute Resolution}. The phase takes place only in  case of dispute, i.e. when $\mathcal C$ rejects service proofs or $\mathcal S$ rejects the queries. %or either party does not receive its counterparty's message on time. %A party who accepts all proofs does not need to get involved in this phase. 
+% \textbf{Dispute Resolution}.\label{RCSP::Dispute-Resolution} $\mathtt{RCSP}.\mathtt{resolve}(m_{\scriptscriptstyle \mathcal{C}},m_{\scriptscriptstyle \mathcal{S}}, z, {\bm{\pi}}^{\scriptscriptstyle *}, {\bm{c}}^{\scriptscriptstyle *}, pk, T_{\scriptscriptstyle qp},enc)$
+
+
+\item \textbf{Dispute Resolution}. \label{RCPoRP::Dispute-Resolution} $\mathtt{RCPoRP}.\mathtt{resolve}(m_{\scriptscriptstyle \mathcal{C}},m_{\scriptscriptstyle \mathcal{S}}, z, {\bm{\pi}}^{\scriptscriptstyle *}, {\bm{q}},  T_{\scriptscriptstyle qp})$
+
+
+
+The phase takes place only in  case of dispute, i.e. when $\mathcal C$ rejects service proofs or $\mathcal S$ rejects the queries. %or either party does not receive its counterparty's message on time. %A party who accepts all proofs does not need to get involved in this phase. 
 
 \begin{enumerate}
 
@@ -300,47 +291,49 @@ When $j=z$  and $\bm{m}_{\scriptscriptstyle\mathcal{C}}\neq\bot$, $\mathcal C$ s
  
  % and retakes step \ref{the-arbiter-loop} with the next element of $ {\bm{v}}$. Otherwise, it proceeds to the next step. 
 
-\item $\mathcal S$  sends $\bm{m}_{\scriptscriptstyle\mathcal S}$ to SC, at time $K_{\scriptscriptstyle 1}$, where $K_{\scriptscriptstyle 1}>G_{\scriptscriptstyle z,2}+H$
+\item $\mathcal S$  sends ${m}_{\scriptscriptstyle\mathcal S}$ and $\ddot{x}_{\scriptscriptstyle qp}$ to SC, at time $\texttt{K}_{\scriptscriptstyle 1}$, where $\texttt{K}_{\scriptscriptstyle 1}>\texttt{G}_{\scriptscriptstyle z,2} + \texttt{H}$
 
-\item SC upon receiving $\bm{m}_{\scriptscriptstyle\mathcal S}$ does the following. 
+\item SC upon receiving ${m}_{\scriptscriptstyle\mathcal S}$ does the following. 
 \begin{enumerate}
 
-\item Sets two  counters: $y_{\scriptscriptstyle\mathcal C}$ and $y_{\scriptscriptstyle\mathcal S}$  that are initially set to $0$. Also, it constructs an empty vector $ {\bm{v}}$ 
-\item Checks the validity of  statement $\ddot{x}_{\scriptscriptstyle qp}\in \bm{m}_{\scriptscriptstyle\mathcal S}$, by  sending it to SAP contract which  returns   $1$ or $0$. If the output is $0$, then SC discards the server's complaint, $\bm{m}_{\scriptscriptstyle\mathcal S}$, and does not take steps \ref{sc-dec-server-key}-\ref{sc-check-server-claim}. Otherwise, it proceeds to the next step.
+%\item Sets two  counters: $y_{\scriptscriptstyle\mathcal C}$ and $y_{\scriptscriptstyle\mathcal S}$  that are initially set to $0$. Also,
 
-\item\label{sc-dec-server-key} Uses secret key $\bar{k}\in \ddot{x}_{\scriptscriptstyle qp}$ to decrypt the encrypted public key, $\mathtt{Dec}(\bar{k},\mathtt{Enc}(\bar{k},pk))=pk$
 
-\item Removes from $ {\bm{v}}_{\scriptscriptstyle\mathcal{S}}$ any element that is duplicated or is not in the range $[1,z]$ 
+\item Checks the validity of  statement $\ddot{x}_{\scriptscriptstyle qp}$, by  sending it to SAP contract which  returns   $1$ or $0$. If the output is $0$, then SC discards the server's complaint, $m_{\scriptscriptstyle\mathcal S}$, and does not take steps \ref{RCPoRP::check-v} and \ref{sc-check-server-claim}. Otherwise, it proceeds to the next step.
+
+%\item\label{sc-dec-server-key} Uses secret key $\bar{k}\in \ddot{x}_{\scriptscriptstyle qp}$ to decrypt the encrypted public key, $\mathtt{Dec}(\bar{k},\mathtt{Enc}(\bar{k},pk))=pk$
+
+\item\label{RCPoRP::check-v} Removes from $ {\bm{v}}_{\scriptscriptstyle\mathcal{S}}$ any element that is duplicated or is not in the range $[1,z]$. It also constructs an empty vector $ {\bm{v}}$.
 
 \item\label{sc-check-server-claim}  For any element $i\in {\bm{v}}_{\scriptscriptstyle\mathcal{S}}$:
 \begin{itemize}
-\item[$\bullet$] Fetches the related query, $\hat{k}_{\scriptscriptstyle i}$,   from SC 
+\item[$\bullet$] Fetches the related query, $\hat{k}_{\scriptscriptstyle i}\in \bm{q}$,   from SC 
 \item[$\bullet$]Checks if  the query is well-formed, by calling $\mathtt{PoRID.checkQuery}(\hat{k}_{\scriptscriptstyle i}, pp)\rightarrow b_{\scriptscriptstyle i}$. If the query is rejected, i.e. $ b_{\scriptscriptstyle i}=0$, then it increments $y_{\scriptscriptstyle\mathcal C}$ by 1 and appends $i$ to $ {\bm{v}}$
 \end{itemize}
-Let $K_{\scriptscriptstyle 2}$ be the time SC finishes the above checks.
+Let $\texttt{K}_{\scriptscriptstyle 2}$ be the time SC finishes the above checks.
 \end{enumerate}
 
 
 
 
 
-\item $\mathcal C$  sends $\bm{m}_{\scriptscriptstyle\mathcal C}$ to SC, at time $K_{\scriptscriptstyle 3}$
+\item $\mathcal C$  sends $m_{\scriptscriptstyle\mathcal C}$ and $\ddot{x}_{\scriptscriptstyle qp}$ to SC, at time $\texttt{K}_{\scriptscriptstyle 3}$
  %Also,  $\mathcal S$ sends $m_{\scriptscriptstyle\mathcal S}:( {\bm{v}}_{\scriptscriptstyle\mathcal{S}},\bar{k},\mu')$ to SC %,   where $| {\bm{v}}_{\scriptscriptstyle\mathcal{C}}|\neq 0$ and $| {\bm{v}}_{\scriptscriptstyle\mathcal{S}}|\neq 0$. 
 
 %\item\label{check-client-claim} SC  ensures $ {\bm{v}}_{\scriptscriptstyle\mathcal{C}}$ is well-formed. Specifically, it  removes from  $ {\bm{v}}_{\scriptscriptstyle\mathcal{C}}$ any element that is duplicated, or   not in the range $[1,z]$.  Also, it removes from $ {\bm{v}}_{\scriptscriptstyle\mathcal{C}}$ the elements that are in $ {\bm{v}}_{\scriptscriptstyle{SC}}$. Next, SC  for every  element $i\in  {\bm{v}}_{\scriptscriptstyle\mathcal{C}}$ checks if $\mathcal S$  sent to SC an encrypted query on time, in step \ref{Billing-cycles-genQuery} and increments $u_{\scriptscriptstyle\mathcal S}$ and $y_{\scriptscriptstyle\mathcal S}$ by $1$  if the server did not do that.  It appends those $i$'s that pass the check to $ {\bm{v}}'_{\scriptscriptstyle{SC}}$. Note, $ {\bm{v}}'_{\scriptscriptstyle{SC}}$ contains the indices of verifications whose PoR proofs  were rejected by the client.
 
 
-\item SC upon receiving $\bm{m}_{\scriptscriptstyle\mathcal C}$, does the following. 
+\item SC upon receiving $m_{\scriptscriptstyle\mathcal C}$, does the following. 
 \begin{enumerate}
-\item Checks the validity of  statement $\ddot{x}_{\scriptscriptstyle qp}\in \bm{m}_{\scriptscriptstyle\mathcal C}$.  To do that, it sends $\ddot{x}_{\scriptscriptstyle qp}$ to SAP contract which  returns  either $1$ or $0$. If the output is $0$, then SC discards the client's complaint, $\bm{m}_{\scriptscriptstyle\mathcal C}$, and does not take steps \ref{sc-checks-client-claim}-\ref{the-contract-loop}. Otherwise, it proceeds to the next step. 
+\item Checks the validity of  statement $\ddot{x}_{\scriptscriptstyle qp}$, by   sending $\ddot{x}_{\scriptscriptstyle qp}$ to SAP contract which  returns  either $1$ or $0$. If the output is $0$, then SC discards the client's complaint, ${m}_{\scriptscriptstyle\mathcal C}$, and does not take steps \ref{sc-checks-client-claim}-\ref{the-contract-loop}. Otherwise, it proceeds to the next step. 
 
- \item\label{sc-checks-client-claim} Ensures each vector   $ {\bm{w}}\in  {\bm{w}}_{\scriptscriptstyle\mathcal{C}}$ is well-formed. In particular, it verifies there exist no two vectors: $ {\bm{w}}, {\bm{w}}'\in  {\bm{w}}_{\scriptscriptstyle\mathcal{C}}$ such that $ {\bm{w}}[0]= {\bm{w}}'[0]$.  If such vectors  exist, it deletes the redundant ones from $ {\bm{w}}_{\scriptscriptstyle\mathcal{C}}$. This ensures no two claims refer to the same verification.  Also, it removes any vector $ {\bm{w}}$ from $ {\bm{w}}_{\scriptscriptstyle\mathcal{C}}$ if $ {\bm{w}}[0]$ is not in the range $[1,z]$ or if $ {\bm{w}}[0]\in  {\bm{v}}$. Note the latter check  (i.e. $ {\bm{w}}[0]\in  {\bm{v}}$) ensures $\mathcal C$ cannot hold $\mathcal S$ accountable if $\mathcal C$ has generated an ill-formed query for the same verification.   
+ \item\label{sc-checks-client-claim} Ensures each vector   $ {\bm{m}}\in  {\bm{m}}_{\scriptscriptstyle\mathcal{C}}$ is well-formed. In particular, it verifies there exist no two vectors: $ {\bm{m}}, {\bm{m}}'\in  {\bm{m}}_{\scriptscriptstyle\mathcal{C}}$ such that $ {\bm{m}}[0]= {\bm{m}}'[0]$.  If such vectors  exist, it deletes the redundant ones from $ {\bm{m}}_{\scriptscriptstyle\mathcal{C}}$. This ensures no two claims refer to the same verification.  Also, it removes any vector $ {\bm{m}}$ from $ {\bm{m}}_{\scriptscriptstyle\mathcal{C}}$ if $ {\bm{m}}[0]$ is not in the range $[1,z]$ or if $ {\bm{m}}[0]\in  {\bm{v}}$. Note the latter check  (i.e. $ {\bm{m}}[0]\in  {\bm{v}}$) ensures $\mathcal C$ cannot hold $\mathcal S$ accountable if $\mathcal C$ has generated an ill-formed query for the same verification.   
 
-\item Uses secret key $\bar{k}\in \ddot{x}_{\scriptscriptstyle qp}$ to decrypt the encrypted public key, $\mathtt{Dec}(\bar{k},\mathtt{Enc}(\bar{k},pk))=pk$
+%\item Uses secret key $\bar{k}\in \ddot{x}_{\scriptscriptstyle qp}$ to decrypt the encrypted public key, $\mathtt{Dec}(\bar{k},\mathtt{Enc}(\bar{k},pk))=pk$
 
-\item\label{the-contract-loop} For every  vector $ {\bm{w}}\in {\bm{w}}_{\scriptscriptstyle{C}}$:
+\item\label{the-contract-loop} For every  vector $ {\bm{m}}\in {\bm{m}}_{\scriptscriptstyle \mathcal{C}}$:
 \begin{itemize}
-\item[$\bullet$]  Retrieves details of a proof that was rejected in each $i$-th verification.  In particular, it sets   $i= {\bm{w}}[0]$ and $g= {\bm{w}}[1]$. Recall that $g$ refers to the index of a rejected proof in the proof vector which was generated for $i$-th verification, i.e. $ {\bm{\pi}}_{\scriptscriptstyle i}$ 
+\item[$\bullet$]  Retrieves details of a proof that was rejected in each $i$-th verification.  In particular, it sets   $i= {\bm{m}}[0]$ and $g= {\bm{m}}[1]$. Recall that $g$ refers to the index of a rejected proof in the proof vector which was generated for $i$-th verification, i.e. $ {\bm{\pi}}_{\scriptscriptstyle i}$ 
 
 \item[$\bullet$]  Fetches the related  query, $\hat{k}_{\scriptscriptstyle i}$, from SC.
 
@@ -352,13 +345,19 @@ Let $K_{\scriptscriptstyle 2}$ be the time SC finishes the above checks.
 
 \end{itemize}
 \end{enumerate}
-Let $K_{\scriptscriptstyle 4}$ be the time that SC finishes all the above checks.% in step \ref{the-contract-loop}
+Let $\texttt{K}_{\scriptscriptstyle 4}$ be the time that SC finishes all the above checks.% in step \ref{the-contract-loop}
 
 \end{enumerate} %%%%%%%%%
 
-\item \textbf{Coin Transfer}.
+\
+
+\item \textbf{Coin Transfer}. \label{RCPoRP::CoinTransfer} $\mathtt{RCPoRP}.\mathtt{pay}(\bm{y},T_{\scriptscriptstyle cp},a,p_{\scriptscriptstyle\mathcal S}, coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C},coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S})$
 \begin{enumerate}
-\item Either $\mathcal C$ or $\mathcal S$ sends ``pay'' message and the statement: $\ddot{x}_{\scriptscriptstyle cp}$ to SC at time $L>K_{\scriptscriptstyle 4}$
+
+
+ \item If SC  receives  ``pay'' message  at time $\texttt{T}_{\scriptscriptstyle 2}$, where $a=0$ or $coins^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal{S}}<p_{\scriptscriptstyle\mathcal{S}}$, then it sends $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ coins to $\mathcal C$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$ coins to $\mathcal S$. Otherwise (i.e. they reach an agreement), they take the following step. 
+
+\item Either $\mathcal C$ or $\mathcal S$ sends ``pay'' message and  statement $\ddot{x}_{\scriptscriptstyle cp}\in T_{\scriptscriptstyle cp}$ to SC at time $\texttt{L}>\texttt{K}_{\scriptscriptstyle 4}$
 \item SC checks the validity of the statement by sending it  to SAP contract that  returns  either $1$ or $0$. SC only proceeds to the next step if the output is $1$
 \item SC distributes the coins to the parties as follows:
 

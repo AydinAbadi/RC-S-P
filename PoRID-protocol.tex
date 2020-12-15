@@ -30,6 +30,8 @@ The server-side prove and client-side verify algorithms are similar to those in 
 \item Posts $pp$ to the bulletin board and sends $u^{\scriptscriptstyle *}$ to $\mathcal{S}$ 
 \end{enumerate}
 
+\
+
 \item\textbf{Server-side Setup}. $\mathtt{PoRID.serve}(u^{\scriptscriptstyle *},pp)$
 %\begin{enumerate}
 
@@ -47,6 +49,8 @@ Verifies the correctness of public parameters:
 
 %\end{enumerate}
 
+\
+
 \item\textbf{Client-side Query Generation}. $\mathtt{PoRID.genQuery}(1^{\lambda},  pp)$ 
 \begin{enumerate}
 \item Calls $\mathtt{PoR.genQuery}(1^{\lambda}, pp)\rightarrow \hat{k}$, to generate a key, $\hat{k}$ %whose element have been sorted in ascending order. 
@@ -55,7 +59,7 @@ Verifies the correctness of public parameters:
 \end{enumerate}
 
 
-
+\
 
 \item\textbf{Server-side Query Verification}. $\mathtt{PoRID.checkQuery}(\hat{k}, pp)$
 \begin{enumerate}
@@ -73,11 +77,15 @@ Verifies the correctness of public parameters:
 %\item Posts $b=1$ to the board, if the above two checks pass.  
 %\end{enumerate}
 
+\
+
 \item\textbf{Server-side Service Proof Generation}. $\mathtt{PoRID.prove}(u^{\scriptscriptstyle *},\hat{k},pp)$ 
 \begin{enumerate}
 \item Calls $\mathtt{PoR.prove}(u^{\scriptscriptstyle *},\hat{k},pp)\rightarrow  {\bm{\pi}}$, to generate proof vector: $ {\bm{\pi}}$ 
 \item Posts $ {\bm{\pi}}$ to the board. 
 \end{enumerate}
+
+\
 
 \item\textbf{Client-side Proof Verification}\label{PoRID::Client-side-Proof-Verification}. $\mathtt{PoRID.verify}( {\bm{\pi}},\hat{k} ,pp)$
 %\begin{enumerate}
@@ -85,6 +93,8 @@ Verifies the correctness of public parameters:
  Calls $\mathtt{PoR.verify}( {\bm{\pi}},\hat{k} ,pp)\rightarrow  {\bm{d}}$, to verify the proof. If $ {\bm{d}}[0] = 1$,  it accepts the proof; otherwise, it rejects it.
 %\item Posts $  {\bm{d}}$ to the board. 
 %\end{enumerate}
+
+\
 
 \item\textbf{Arbiter-side Identification}\label{PoRID::Arbiter-side-Identification}. $\mathtt{PoRID.identify}( {\bm{\pi}}, g,\hat{k},pp)$ 
 
@@ -117,8 +127,7 @@ The PoRID protocol satisfies the $\epsilon$-soundness, inputs well-formedness, a
 \begin{proof}[sketch]
 The $\epsilon$-soundness of PoRID directly stems from the security of PoR scheme, i.e. $\epsilon$-soundness. Specifically,
 in PoRID the (honest) client makes black-box calls to the algorithms of PoR, to ensure the soundness. The latter scheme's soundness ensures that an extractor can recover the entire file interacting with a corrupt server who passes  $\epsilon$ fraction of challenges. On the other hand, the inputs well-formedness holds for the following reasons. The metadata generation algorithm, i.e. the Merkle tree algorithm that builds a tree and computes a root, is deterministic and involves only public  parameters. Thus, given the tree's leaves (i.e. file blocks), its parameters, and the root, anyone can reconstruct it, check if it yields the same root, and verify the tree's parameters. Also, a query contains a single random key, $\hat{k}$, whose correctness can be checked deterministically, i.e. by checking $\hat{k}\neq \bot$ and  $\hat{k}\in \{0,1\}^{\scriptscriptstyle\psi}$. The detectable abort property holds as long as the soundness and inputs well-formedness hold and the signature scheme is secure. The reason is that algorithm $\mathtt{PoRID.identify}(.)$, which ensures detected abort, is a wrapper function that makes black-box calls to algorithms $\mathtt{PoRID.checkQuery}(.)$ and $\mathtt{PoR.verify}(.)$, where the former  ensures input (i.e. query) well-formedness, and the latter  ensures soundness.  Although the number of proofs that are passed to $\mathtt{PoR.verify}(.)$ in phase \ref{PoRID::Client-side-Proof-Verification}, differs from the number of proofs passed to the same algorithm in phase \ref{PoRID::Arbiter-side-Identification}, the difference does not affect the security, as due to the security of PoR (i.e.  Merkle tree) an invalid proof is detected with the same probability in both phases. The signature’s security ensures if a proof is not signed correctly, then it can also be rejected by the arbiter and the signer is held accountable for providing an ill-formed message; on the other hand, if a proof is signed correctly, then it cannot be repudiated by the signer later on that guarantees the signer is held accountable for a rejected proof it provides. 
-
- \hfill\(\Box\)\end{proof}
+\hfill\(\Box\)\end{proof}
 
 
 \input{Recurring-Contingent-PoR-Payment-protocol.tex}
