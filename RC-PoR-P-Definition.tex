@@ -1,9 +1,9 @@
 % !TEX root =R-zkCSP.tex
 
-\subsection{Recurring Contingent Service Payment Definition}\label{sec::RC-S-P-Definition}
+\section{Recurring Contingent PoR Payment Definition}\label{sec::RC-PoR-P-Definition}
 
 
-\begin{definition}[RC-S-P Scheme]\label{RC-S-P-def}
+\begin{definition}[RC-PoR-P Scheme]\label{RC-PoR-P-def}
 A recurring contingent service payment scheme RC-S-P  $=(\mathtt{RCSP}.\mathtt{keyGen}, $ $\mathtt{RCSP}.\mathtt{cInit}, $ $\mathtt{RCSP}.\mathtt{sInit},  $ $\mathtt{RCSP}.\mathtt{genQuery},\mathtt{RCSP}.\mathtt{prove},\mathtt{RCSP}.\mathtt{verify},\mathtt{RCSP}.\mathtt{resolve},\mathtt{RCSP}.\mathtt{pay})$ involves four parties; namely, client, server, arbiter and smart contract, and consists of eight algorithms defined as follows.
 
 
@@ -164,42 +164,42 @@ A RC-S-P scheme is said to be secure if it satisfies  three main properties: (a)
 %_{\scriptscriptstyle q_{_{\scaleto{j}{\size}}}}
 
 
-\begin{definition}[RC-S-P Security Against Malicious Server]\label{deff::RC-S-P-SecurityAgainstMaliciousServer}  A RC-S-P  is secure against a malicious server  for a function $F$, if for any auxiliary information $\text{aux}$,  any price list $pl$, every $j$ (where $1\leq j\leq z$), any $Q,M, E, D$ and any PPT adversary $\mathcal{A}$, there exists a negligible function $\mu(\cdot)$, such that for any security parameter $\lambda$: 
+\begin{definition}[RC-PoR-P Security Against Malicious Server]\label{deff::RC-S-P-SecurityAgainstMaliciousServer}  A RC-PoR-P  is secure against a malicious server  for a function $F$, if for  any price list $pl$, every $j$ (where $1\leq j\leq z$), and any PPT adversary $\mathcal{A}$, there exists a negligible function $\mu(\cdot)$, such that for any security parameter $\lambda$: 
 %\footnotesize{
 {\small
 $$ \Pr\left[
   \begin{array}{l}
-  \Big(F(u^{\scriptscriptstyle *}, \bm{q}_{\scriptscriptstyle j}, {pp})= h_{\scriptscriptstyle j}\ \wedge (coin_{\scriptscriptstyle\mathcal{C},j}\neq  \frac{coin_{\scriptscriptstyle\mathcal C}^{\scriptscriptstyle*}}{z}-o)\ \vee \\  (coin_{\scriptscriptstyle\mathcal{A}r,j}\neq l\ \wedge\  y'_{\scriptscriptstyle \mathcal {S},j}=1)\Big)\ \vee\\ 
+  \Big(F(u^{\scriptscriptstyle *}, \bm{q}_{\scriptscriptstyle j}, {pp})= h_{\scriptscriptstyle j}\ \wedge (coin_{\scriptscriptstyle\mathcal{C},j}\neq  \frac{coin_{\scriptscriptstyle\mathcal C}^{\scriptscriptstyle*}}{z}-o)\Big)\ \vee\\ 
 
 \Big(
-F(u^{\scriptscriptstyle *},\bm{q}_{\scriptscriptstyle j}, {pp})\neq h_{\scriptscriptstyle j} \ \wedge (d_{\scriptscriptstyle j}=1	\vee y_{\scriptscriptstyle \mathcal{S},j}=0 \ \vee \\coin_{\scriptscriptstyle\mathcal{C},j}\neq \frac{coin_{\scriptscriptstyle\mathcal C}^{\scriptscriptstyle*}}{z} \ \vee  coin_{\scriptscriptstyle\mathcal{A}r,j}\neq l) \Big)\\
+F(u^{\scriptscriptstyle *},\bm{q}_{\scriptscriptstyle j}, {pp})\neq h_{\scriptscriptstyle j} \ \wedge (d_{\scriptscriptstyle j}=1	\vee y_{\scriptscriptstyle \mathcal{S},j}=0 \ \vee \\coin_{\scriptscriptstyle\mathcal{C},j}\neq \frac{coin_{\scriptscriptstyle\mathcal C}^{\scriptscriptstyle*}}{z}+l) \Big)\\
 %\text{s.t.}\\
 %y_{\scriptscriptstyle j}= E^{\scriptscriptstyle -1}_{\scriptscriptstyle 2}(y^{\scriptscriptstyle *}_{\scriptscriptstyle j},t_{\scriptscriptstyle qp})\\
 %E^{\scriptscriptstyle -1}_{\scriptscriptstyle 2},t_{\scriptscriptstyle qp}\in en\\
 \end{array} \middle |
     \begin{array}{l}
-    \mathtt{RCSP.keyGen}(1^{\lambda}, F)\rightarrow \bm{k}\\
-    \mathcal{A}(1^\lambda,pk, F)\rightarrow u\\
+    \mathtt{RCPoRP.keyGen}(1^{\lambda})\rightarrow \bm{k}\\
+    \mathcal{A}(1^\lambda,pk)\rightarrow u\\
   
-    \mathtt{RCSP}.\mathtt{cInit}(1^\lambda, u,\bm{k}, M,z,pl,enc)\rightarrow (u^{\scriptscriptstyle *},e,T, p_{\scriptscriptstyle\mathcal S},  \bm{y}, coin^{\scriptscriptstyle*}_{\scriptscriptstyle\mathcal C})\\
+   \mathtt{RCPoRP}.\mathtt{cInit}(1^\lambda, u,\bm{k}, z,pl)\rightarrow (u^{\scriptscriptstyle *},T, p_{\scriptscriptstyle\mathcal S},  \bm{y}, coin^{\scriptscriptstyle*}_{\scriptscriptstyle\mathcal C})\\
     
-    \mathcal{A}(u^{\scriptscriptstyle *}, e, pk, z, T, p_{\scriptscriptstyle\mathcal S},\bm{y},enc)\rightarrow (coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S},a)\\
-	\mathtt{RCSP}.\mathtt{genQuery}(1^\lambda, \text{aux},k,Q, T_{\scriptscriptstyle qp}, enc)\rightarrow c^{\scriptscriptstyle *}_{\scriptscriptstyle j}\\
+    \mathcal{A}(u^{\scriptscriptstyle *},  pk, z, T, p_{\scriptscriptstyle\mathcal S},\bm{y})\rightarrow (coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S},a)\\
+	\mathtt{RCPoRP}.\mathtt{genQuery}(1^\lambda,  T_{\scriptscriptstyle qp})\rightarrow q_{\scriptscriptstyle j}\\
 	
-     \mathcal{A}(c^{\scriptscriptstyle *}_{\scriptscriptstyle j},\sigma, u^{\scriptscriptstyle *},enc,a)\rightarrow 
-     (b_{\scriptscriptstyle j},m_{\scriptscriptstyle \mathcal{S},j},h^{\scriptscriptstyle *}_{\scriptscriptstyle j},\delta^{\scriptscriptstyle *}_{\scriptscriptstyle j})\\
+     \mathcal{A}( u^{\scriptscriptstyle *}, q_{\scriptscriptstyle j}, a)\rightarrow 
+     (b_{\scriptscriptstyle j},m_{\scriptscriptstyle \mathcal{S},j},\bm{\pi}^{\scriptscriptstyle *}_{\scriptscriptstyle j})\\
      
      %(\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j},b_{\scriptscriptstyle j})\\
      
-\mathtt{RCSP}.\mathtt{verify}(\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j}, \bm{q}_{\scriptscriptstyle j},k,T_{\scriptscriptstyle qp},enc)\rightarrow (d_{\scriptscriptstyle j},m_{\scriptscriptstyle \mathcal{C},j})\\
-   \mathtt{RCSP}.\mathtt{resolve}(m_{\scriptscriptstyle \mathcal{C}},m_{\scriptscriptstyle \mathcal{S}},z, {\bm{\pi}}^{\scriptscriptstyle *}, {\bm{c}}^{\scriptscriptstyle *},pk, T_{\scriptscriptstyle qp},enc)\rightarrow \bm{y}\\
+\mathtt{RCPoRP}.\mathtt{verify}(\bm{\pi}^{\scriptscriptstyle *}_{\scriptscriptstyle j}, {q}_{\scriptscriptstyle j},T_{\scriptscriptstyle qp})\rightarrow (d_{\scriptscriptstyle j},m_{\scriptscriptstyle \mathcal{C},j})\\
+  \mathtt{resolve}(m_{\scriptscriptstyle \mathcal{C}},m_{\scriptscriptstyle \mathcal{S}}, z, {\bm{\pi}}^{\scriptscriptstyle *}, {\bm{q}},  T_{\scriptscriptstyle qp})\rightarrow \bm{y}\\
    
-   \mathtt{RCSP}.\mathtt{pay}(\bm{y},T_{\scriptscriptstyle cp},a,p_{\scriptscriptstyle\mathcal S}, coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C},coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S})\rightarrow ({\bm{coin}}_{\scriptscriptstyle\mathcal C},{\bm{coin}}_{\scriptscriptstyle\mathcal S},{\bm{coin}}_{\scriptscriptstyle\mathcal Ar})\\
+   \mathtt{RCPoRP}.\mathtt{pay}(\bm{y},T_{\scriptscriptstyle cp},a,p_{\scriptscriptstyle\mathcal S}, coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C},coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S})\rightarrow ({\bm{coin}}_{\scriptscriptstyle\mathcal C},{\bm{coin}}_{\scriptscriptstyle\mathcal S})\\
 \end{array}    \right]\leq \mu(\lambda).$$
 }
-where $\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j}:=(h^{\scriptscriptstyle *}_{\scriptscriptstyle j}, \delta^{\scriptscriptstyle *}_{\scriptscriptstyle j}), h_{\scriptscriptstyle j}= D(h^{\scriptscriptstyle *}_{\scriptscriptstyle j},T_{\scriptscriptstyle qp})$, $
-D\in enc$, $\sigma\in e$, $m_{\scriptscriptstyle \mathcal{C},j}\in m_{\scriptscriptstyle \mathcal{C}}, m_{\scriptscriptstyle \mathcal{S},j}\in m_{\scriptscriptstyle \mathcal{S}}, y'_{\scriptscriptstyle \mathcal{S},j}\in \bm{y}'_{\scriptscriptstyle \mathcal{S}}\in\bm{y}$,   $y_{\scriptscriptstyle \mathcal{S},j}\in \bm{y}_{\scriptscriptstyle \mathcal{S}}\in\bm{y}$, and $ {pp}\in T_{\scriptscriptstyle qp}$. 
-\textcolor{blue}{XXXX Thomas: In addition, the coins amount is fixed to $o$, although price list $pl$ is given as input XXXX} 
+where $h_{\scriptscriptstyle j}= D(h^{\scriptscriptstyle *}_{\scriptscriptstyle j},T_{\scriptscriptstyle qp})$, $
+D\in enc$, $\sigma\in e$, $m_{\scriptscriptstyle \mathcal{C},j}\in m_{\scriptscriptstyle \mathcal{C}}, m_{\scriptscriptstyle \mathcal{S},j}\in m_{\scriptscriptstyle \mathcal{S}}$,   $y_{\scriptscriptstyle \mathcal{S},j}\in \bm{y}_{\scriptscriptstyle \mathcal{S}}\in\bm{y}$, and $ {pp}\in T_{\scriptscriptstyle qp}$. 
+
 
 
 %\textcolor{blue}{XXXX Thomas: We never define what $m_{\scriptscriptstyle \mathcal{A}}$ is. The $\mathtt{RCSP}.\mathtt{resolve}$ algorithm takes as input $m_{\scriptscriptstyle \mathcal{C}},m_{\scriptscriptstyle \mathcal{S}}$, not $m_{\scriptscriptstyle \mathcal{C}},m_{\scriptscriptstyle \mathcal{A}}$. One extra question is: how is $m_{\scriptscriptstyle \mathcal{S}}$ created in the experiment? --> Aydin--addressed} 
@@ -230,8 +230,7 @@ Informally, security against a malicious client requires that, for each  $j$-th 
 $$ \Pr\left[
   \begin{array}{l}
  \Big((M(u^{\scriptscriptstyle *},k, {pp})= \sigma  \wedge Q(\text{aux},k, {pp})= \bm{q}_{\scriptscriptstyle j})\ \wedge\\
-  (coin_{\scriptscriptstyle\mathcal{S},j}\neq  \frac{coin_{\scriptscriptstyle\mathcal S}^{\scriptscriptstyle*}}{z}+o  \ \vee\\
- coin_{\scriptscriptstyle\mathcal{A}r,j}\neq l\ \wedge\  y'_{\scriptscriptstyle \mathcal {C},j}=1)\Big)\ \vee
+  (coin_{\scriptscriptstyle\mathcal{S},j}\neq  \frac{coin_{\scriptscriptstyle\mathcal S}^{\scriptscriptstyle*}}{z}+o) \Big)\ \vee
   \\
   
   
@@ -239,8 +238,7 @@ $$ \Pr\left[
 
 
   \Big(Q(\text{aux},k,  {pp})\neq \bm{q}_{\scriptscriptstyle j}\ \wedge
-  (b_{\scriptscriptstyle j}=1 \ \vee \ y_{\scriptscriptstyle\mathcal{C},j}=0 \ \vee \\ coin_{\scriptscriptstyle\mathcal{S},j}\neq \frac{coin_{\scriptscriptstyle\mathcal S}^{\scriptscriptstyle*}}{z}+o \ \vee  coin_{\scriptscriptstyle\mathcal{A}r,j}\neq l) 
-  \Big)
+  (b_{\scriptscriptstyle j}=1 \ \vee \ y_{\scriptscriptstyle\mathcal{C},j}=0 \ \vee \\ coin_{\scriptscriptstyle\mathcal{S},j}\neq \frac{coin_{\scriptscriptstyle\mathcal S}^{\scriptscriptstyle*}}{z}+o+l)\Big)
  \\
  
 \end{array} \middle |
@@ -320,7 +318,7 @@ D\in enc$, $\sigma\in e$, $y'_{\scriptscriptstyle \mathcal{C},j}\in \bm{y}'_{\sc
 {\small
 $$\Pr\left[
   \begin{array}{l}
-  \mathcal{A}_{\scriptscriptstyle 1}(\bm{c}^{\scriptscriptstyle *},coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S},coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal  C}, g_{\scriptscriptstyle cp}, \\ g_{\scriptscriptstyle qp}, \bm{\pi}^{\scriptscriptstyle *}, pl, a)\rightarrow\beta\\
+  \mathcal{A}_{\scriptscriptstyle 1}(\bm{c}^{\scriptscriptstyle *},coin^{\scriptscriptstyle *}_{\scriptscriptstyle S},coin^{\scriptscriptstyle *}_{\scriptscriptstyle C}, g_{\scriptscriptstyle cp}, \\ g_{\scriptscriptstyle qp}, \bm{\pi}^{\scriptscriptstyle *}, pl, a)\rightarrow\beta\\
 \end{array} \middle |
     \begin{array}{l}
             \mathtt{RCSP.keyGen}(1^{\lambda}, F)\rightarrow \bm{k}\\

@@ -35,14 +35,18 @@ In the next phase, to distribute the coins, either client or server sends to the
 \item  Calls $\mathtt{SAP.init}(1^{\scriptscriptstyle\lambda}, adr_{\scriptscriptstyle\mathcal{C}}, adr_{\scriptscriptstyle\mathcal{S}},qp )\rightarrow(r_{\scriptscriptstyle qp}, g_{\scriptscriptstyle qp}, adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 1}})$, to initiate an agreement (with $\mathcal{S}$) on $qp$.  Let $T_{\scriptscriptstyle qp}:=(\ddot{x}_{\scriptscriptstyle qp}, g_{\scriptscriptstyle qp})$ be proof/query encoding token,  where  $\ddot{x}_{\scriptscriptstyle qp}:=(qp,r_{\scriptscriptstyle qp})$ is the opening and $g_{\scriptscriptstyle qp}$ is the commitment stored on the contract as a result of running   SAP. 
 
 
-\item   Sets coin parameters (given  price list $pl$) as  follows,  $o$: the amount of coins for each accepting proof,  as well as $l$ and $l'$ which are the amount of coins $\mathcal C$ and $\mathcal S$ respectively need to send to a smart contract to resolve a potential dispute. 
-
-%\item   Sets coin parameters as   follows,   $o$: the amount of coins for each accepting proof, and $l$: the amount of coins  to cover the cost of each potential dispute resolution, given  price list $pl$.  %It appends $o$ and $l$ to $k'$.
+\item   Sets coin parameters (given  price list $pl$) as  follows,  $o$: the amount of coins for each accepting proof,  and $l$ the amount of coin $\mathcal C$  or $\mathcal S$ needs to send to a smart contract to resolve a potential dispute. 
 
 
+%
+%\item   Sets coin parameters (given  price list $pl$) as  follows,  $o$: the amount of coins for each accepting proof,  as well as $l$ and $l'$ which are the amount of coins $\mathcal C$ and $\mathcal S$ respectively need to send to a smart contract to resolve a potential dispute. 
 
 
-\item  Sets  $cp:=(o,o_{\scriptscriptstyle max}, l, l', l_{\scriptscriptstyle max},z)$, where $o_{\scriptscriptstyle max}$ is the maximum amount of coins  for an accepting service proof,  $l_{\scriptscriptstyle max}$  is the maximum amount of coins to resolve a potential dispute, and $z$ is the number of  service proofs/verifications. Then, $\mathcal C$ calls $\mathtt{SAP.init}(1^{\scriptscriptstyle\lambda}, adr_{\scriptscriptstyle\mathcal{C}}, adr_{\scriptscriptstyle\mathcal{S}},cp )\rightarrow(r_{\scriptscriptstyle cp},g_{\scriptscriptstyle cp},adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 2}})$, to initiate an agreement (with $\mathcal{S}$) on $cp$. Let $T_{\scriptscriptstyle cp}:=(\ddot{x}_{\scriptscriptstyle cp},g_{\scriptscriptstyle cp})$ be coin encoding token,  where  $\ddot{x}_{\scriptscriptstyle cp}:=(cp,r_{\scriptscriptstyle cp})$ is the opening and $g_{\scriptscriptstyle cp}$ is the commitment stored on the contract as a result of executing   SAP.  
+
+
+
+
+\item  Sets  $cp:=(o,o_{\scriptscriptstyle max}, l,  l_{\scriptscriptstyle max},z)$, where $o_{\scriptscriptstyle max}$ is the maximum amount of coins  for an accepting service proof,  $l_{\scriptscriptstyle max}$  is the maximum amount of coins to resolve a potential dispute, and $z$ is the number of  service proofs/verifications. Then, $\mathcal C$ calls $\mathtt{SAP.init}(1^{\scriptscriptstyle\lambda}, adr_{\scriptscriptstyle\mathcal{C}}, adr_{\scriptscriptstyle\mathcal{S}},cp )\rightarrow(r_{\scriptscriptstyle cp},g_{\scriptscriptstyle cp},adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 2}})$, to initiate an agreement (with $\mathcal{S}$) on $cp$. Let $T_{\scriptscriptstyle cp}:=(\ddot{x}_{\scriptscriptstyle cp},g_{\scriptscriptstyle cp})$ be coin encoding token,  where  $\ddot{x}_{\scriptscriptstyle cp}:=(cp,r_{\scriptscriptstyle cp})$ is the opening and $g_{\scriptscriptstyle cp}$ is the commitment stored on the contract as a result of executing   SAP.  
 
 
 
@@ -273,7 +277,7 @@ When $j=z$  and $\bm{m}_{\scriptscriptstyle\mathcal{C}}\neq\bot$, $\mathcal C$ s
 % \textbf{Dispute Resolution}.\label{RCSP::Dispute-Resolution} $\mathtt{RCSP}.\mathtt{resolve}(m_{\scriptscriptstyle \mathcal{C}},m_{\scriptscriptstyle \mathcal{S}}, z, {\bm{\pi}}^{\scriptscriptstyle *}, {\bm{c}}^{\scriptscriptstyle *}, pk, T_{\scriptscriptstyle qp},enc)$
 
 
-\item \textbf{Dispute Resolution}. \label{RCPoRP::Dispute-Resolution} $\mathtt{RCPoRP}.\mathtt{resolve}(m_{\scriptscriptstyle \mathcal{C}},m_{\scriptscriptstyle \mathcal{S}}, z, {\bm{\pi}}^{\scriptscriptstyle *}, {\bm{q}},  T_{\scriptscriptstyle qp})$
+\item \textbf{Dispute Resolution}. \label{RCPoRP::Dispute-Resolution} $\mathtt{RCPoRP}. \mathtt{resolve}(m_{\scriptscriptstyle \mathcal{C}},m_{\scriptscriptstyle \mathcal{S}}, z, {\bm{\pi}}^{\scriptscriptstyle *}, {\bm{q}},  T_{\scriptscriptstyle qp})$
 
 
 
@@ -362,9 +366,9 @@ Let $\texttt{K}_{\scriptscriptstyle 4}$ be the time that SC finishes all the abo
 \item SC distributes the coins to the parties as follows:
 
 \begin{itemize}
-\item[$\bullet$]   $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}-o(z-y_{\scriptscriptstyle\mathcal S})+l\cdot y_{\scriptscriptstyle\mathcal S}-l'\cdot y_{\scriptscriptstyle\mathcal C}$ coins  to $\mathcal C$
+\item[$\bullet$]   $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}-o(z-y_{\scriptscriptstyle\mathcal S})+l(y_{\scriptscriptstyle\mathcal S}-y_{\scriptscriptstyle\mathcal C})$ coins  to $\mathcal C$
 
-\item[$\bullet$] $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}+o(z-y_{\scriptscriptstyle\mathcal S})-l\cdot y_{\scriptscriptstyle\mathcal S}+l'\cdot y_{\scriptscriptstyle\mathcal C}$ coins to $\mathcal S$
+\item[$\bullet$] $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}+o(z-y_{\scriptscriptstyle\mathcal S})+l( y_{\scriptscriptstyle\mathcal C}-y_{\scriptscriptstyle\mathcal S})$ coins to $\mathcal S$
 %\item[$\bullet$] $l(u_{\scriptscriptstyle\mathcal S}+u_{\scriptscriptstyle\mathcal C}+y_{\scriptscriptstyle\mathcal S}+y_{\scriptscriptstyle\mathcal C})$ coins to the arbiter.  
 \end{itemize}
 
@@ -380,6 +384,12 @@ The reason in step \ref{dummy-vector} vector $ {\bm{\pi}}''_{\scriptscriptstyle 
 In general, a transaction that is sent   to a smart contract should  cover the cost of the contract's execution. Therefore, in the above protocol, if a party unnecessarily invokes a contract for an accepting proof, it has to pay the execution cost in advance. This is the reason the above protocol (unlike RC-S-P protocol) does not need to track the number of times a party unnecessarily invokes the contract.    
 \end{remark}
 
+
+\begin{remark}
+\textcolor{purple}{Explain how we can slight modify the protocol to capture the fact  that the amounts of coin the client pays for a dispute resolution is different to the amount paid by the server to resolve a dispute. The idea is we introduce another value $l'$, we let $l$ and $l'$ be the amount of coin the client and server pay to resolve a dispute.  We add $l'$ to $cp$. Accordingly, we would have $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}-o(z-y_{\scriptscriptstyle\mathcal S})+l'\cdot y_{\scriptscriptstyle\mathcal S}-l\cdot y_{\scriptscriptstyle\mathcal C}$ coins  to $\mathcal C$ and  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}+o(z-y_{\scriptscriptstyle\mathcal S})+l\cdot y_{\scriptscriptstyle\mathcal C}-l'\cdot y_{\scriptscriptstyle\mathcal S}$ coins to $\mathcal S$}
+\end{remark}
+
+%\in[ut{RC-PoR-P-Definition}
 
 %\input{RC-PoR-P-Proof}
 
