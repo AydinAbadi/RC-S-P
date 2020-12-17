@@ -14,7 +14,7 @@ In the next phase, to distribute the coins, either client or server sends to the
 \item \textbf{Key Generation}. $\mathtt{RCPoRP}.\mathtt{keyGen}(1^{\scriptscriptstyle\lambda})$
 \begin{enumerate}
 
-\item  $\mathcal C$  picks a random secret key  $\bar{k}$ for a symmetric key encryption. It also sets  parameter $pad_{\scriptscriptstyle \pi}$ which is the number of  dummy values that will be used to pad encrypted proofs,  let $qp:=(pad_{\scriptscriptstyle \pi}, \bar{k})$. The key's size is part of the security parameter. Let  $\bm{k}=[(sk',pk')]$, where  $sk'=qp$ and $pk':=(adr_{\scriptscriptstyle\mathcal{C}},adr_{\scriptscriptstyle\mathcal{S}})$. 
+\item  $\mathcal C$  picks a random secret key  $\bar{k}$ for a symmetric key encryption. It also sets  parameter $pad_{\scriptscriptstyle \pi}$ which is the number of  dummy values that will be used to pad encrypted proofs,  let $qp:=(pad_{\scriptscriptstyle \pi}, \bar{k})$. The key's size is part of the security parameter. Let  ${k}:=(sk',pk')$, where  $sk'=qp$ and $pk':=(adr_{\scriptscriptstyle\mathcal{C}},adr_{\scriptscriptstyle\mathcal{S}})$. 
 
 
 
@@ -26,7 +26,7 @@ In the next phase, to distribute the coins, either client or server sends to the
 
 \
 
-\item \textbf{Client-side Initiation}. $\mathtt{RCPoRP}.\mathtt{cInit}(1^\lambda, u,\bm{k}, z,pl)$
+\item \textbf{Client-side Initiation}. $\mathtt{RCPoRP}.\mathtt{cInit}(1^\lambda, u,{k}, z,pl)$
 \begin{enumerate}
 
 \item Calls $\mathtt{PoRID.setup}(1^{\lambda}, u)\rightarrow (u^{\scriptscriptstyle *},pp)$ to encode service input. It appends $pp$ to $qp$.
@@ -388,6 +388,7 @@ In general, a transaction that is sent   to a smart contract should  cover the c
 \begin{remark}
 \textcolor{purple}{Explain how we can slight modify the protocol to capture the fact  that the amounts of coin the client pays for a dispute resolution is different to the amount paid by the server to resolve a dispute. The idea is we introduce another value $l'$, we let $l$ and $l'$ be the amount of coin the client and server pay to resolve a dispute.  We add $l'$ to $cp$. Accordingly, we would have $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}-o(z-y_{\scriptscriptstyle\mathcal S})+l'\cdot y_{\scriptscriptstyle\mathcal S}-l\cdot y_{\scriptscriptstyle\mathcal C}$ coins  to $\mathcal C$ and  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}+o(z-y_{\scriptscriptstyle\mathcal S})+l\cdot y_{\scriptscriptstyle\mathcal C}-l'\cdot y_{\scriptscriptstyle\mathcal S}$ coins to $\mathcal S$}
 \end{remark}
+
 
 %\in[ut{RC-PoR-P-Definition}
 

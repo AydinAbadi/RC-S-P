@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.9.22)  17 DEC 2020 13:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.9.22)  17 DEC 2020 20:41
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1428,7 +1428,7 @@ n/10 )$ \OT1/ptm/m/it/10 in-volves four par-
  []
 
 [30] [31]
-Overfull \hbox (25.58429pt too wide) in paragraph at lines 115--116
+Overfull \hbox (25.58429pt too wide) in paragraph at lines 114--115
 \OML/cmm/m/it/10 Q; T[]; enc\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ! \OML/cmm/m/it/
 10 c[]$\OT1/ptm/m/it/10 , $[]\OML/cmm/m/it/10 :[]\OT1/cmr/m/n/10 (\OML/cmm/m/it
 /10 u[]; ^^[; c[]; pk; T[]; enc\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ! \OT1/cmr/m/
@@ -1439,7 +1439,7 @@ n/10 (\OML/cmm/m/it/10 d[]; m[]\OT1/cmr/m/n/10 )$$[]\OML/cmm/m/it/10 ; []
  []
 
 
-Overfull \hbox (20.2688pt too wide) in paragraph at lines 115--116
+Overfull \hbox (20.2688pt too wide) in paragraph at lines 114--115
 []\OML/cmm/m/it/10 :[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 m[]; m[]; z; \OML/cmm/b
 /it/10 ^^Y[]\OML/cmm/m/it/10 ; \OML/cmm/b/it/10 c[]\OML/cmm/m/it/10 ; pk; T[]; 
 enc\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ! \OML/cmm/b/it/10 y$\OT1/ptm/m/it/10 , $
@@ -1449,20 +1449,20 @@ OML/cmm/b/it/10 coin[]\OML/cmm/m/it/10 ; \OML/cmm/b/it/10 coin[]\OML/cmm/m/it/1
 0 ; \OML/cmm/b/it/10 coin[]\OT1/cmr/m/n/10 )$\OT1/ptm/m/it/10 ,
  []
 
-[32]
-Overfull \hbox (10.37543pt too wide) detected at line 198
+
+Overfull \hbox (10.37543pt too wide) detected at line 197
 [] [] \OMS/cmsy/m/n/9 ^^T \OML/cmm/m/it/9 ^^V\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 ^^
 U\OT1/cmr/m/n/9 )\OML/cmm/m/it/9 :
  []
 
-
-Overfull \hbox (19.9634pt too wide) detected at line 259
+[32]
+Overfull \hbox (19.9634pt too wide) detected at line 258
 [] [] \OMS/cmsy/m/n/9 ^^T \OML/cmm/m/it/9 ^^V\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 ^^
 U\OT1/cmr/m/n/9 )\OML/cmm/m/it/9 :
  []
 
 [33]
-Overfull \hbox (27.12306pt too wide) in paragraph at lines 351--353
+Overfull \hbox (27.12306pt too wide) in paragraph at lines 350--352
 []\OT1/ptm/m/it/10 where $\OML/cmm/b/it/10 c[] \OT1/cmr/m/n/10 = [\OML/cmm/m/it
 /10 c[]; :::; c[]\OT1/cmr/m/n/10 ]\OML/cmm/m/it/10 ; \OML/cmm/b/it/10 ^^Y[] \OT
 1/cmr/m/n/10 = [\OML/cmm/m/it/10 ^^Y[]; :::; ^^Y[]\OT1/cmr/m/n/10 ]$\OT1/ptm/m/
@@ -1513,7 +1513,7 @@ nts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/
 urw/times/utmbi8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/times
 /utmr8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/times/utmri8a.p
 fb>
-Output written on R-zkCSP.pdf (34 pages, 464609 bytes).
+Output written on R-zkCSP.pdf (34 pages, 464001 bytes).
 PDF statistics:
  226 PDF objects out of 1000 (max. 8388607)
  161 compressed objects within 2 object streams

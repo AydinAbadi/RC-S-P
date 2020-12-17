@@ -25,7 +25,7 @@ The server-side prove and client-side verify algorithms are similar to those in 
 %\item \textbf{keyGen}. $\mathtt{PoR.keyGen}(1^{\lambda})$. $\mathcal{C}$ sets $pk$ as public key, initially empty.    
 \item\textbf{Client-side Setup}. $\mathtt{PoRID.setup}(1^{\lambda}, u)$
 \begin{enumerate}
-\item Calls  $\mathtt{PoR.setup}(1^{\lambda}, u)\rightarrow (u^{\scriptscriptstyle *},pk)$, that results in public parameters $pp:=(\sigma,\beta,m,\zeta)$ and encoded file: $u^{\scriptscriptstyle *}=u^{\scriptscriptstyle '}_{\scriptscriptstyle 0}||0,...,u^{\scriptscriptstyle '}_{\scriptscriptstyle m}||m$. Recall,  $\zeta:=(\psi,\eta, \iota)$ is the $\mathtt{PRF}$'s description.
+\item Calls  $\mathtt{PoR.setup}(1^{\lambda}, u)\rightarrow (u^{\scriptscriptstyle *},pp)$, that results in public parameters $pp:=(\sigma,\beta,m,\zeta)$ and encoded file: $u^{\scriptscriptstyle *}=u^{\scriptscriptstyle '}_{\scriptscriptstyle 0}||0,...,u^{\scriptscriptstyle '}_{\scriptscriptstyle m}||m$. Recall,  $\zeta:=(\psi,\eta, \iota)$ is the $\mathtt{PRF}$'s description.
 
 \item Posts $pp$ to the bulletin board and sends $u^{\scriptscriptstyle *}$ to $\mathcal{S}$ 
 \end{enumerate}
