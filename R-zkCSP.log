@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.9.22)  17 DEC 2020 20:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.9.22)  18 DEC 2020 12:16
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1422,12 +1422,21 @@ it/10 qp; r[] \OMS/cmsy/m/n/10 2 []\OML/cmm/m/it/10 ; []cp; r[] \OMS/cmsy/m/n/1
  []
 
 [28] [29])))))) (./R-zkCSP.bbl) (./RC-PoR-P-Definition.tex
-Overfull \hbox (4.21793pt too wide) in paragraph at lines 6--8
+Overfull \hbox (5.95795pt too wide) in paragraph at lines 6--8
 []\OML/cmm/m/it/10 :[];$ $[]:[];$ $[]:[]; []:[]; []:[]; []:[]; []:[]\OT1/cmr/m/
-n/10 )$ \OT1/ptm/m/it/10 in-volves four par-
+n/10 )$
  []
 
 [30] [31]
+Overfull \hbox (41.86905pt too wide) in paragraph at lines 108--109
+[]\OT1/ptm/m/n/10 Similar to RC-S-P def-i-ni-tion, in the above def-i-ni-tion, 
+al-go-rithms $[]\OML/cmm/m/it/10 :[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 :\OT1/cmr
+/m/n/10 )\OML/cmm/m/it/10 ; []:[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 :\OT1/cmr/m/
+n/10 )\OML/cmm/m/it/10 ; []:[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 :\OT1/cmr/m/n/1
+0 )$
+ []
+
+
 Overfull \hbox (25.58429pt too wide) in paragraph at lines 114--115
 \OML/cmm/m/it/10 Q; T[]; enc\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ! \OML/cmm/m/it/
 10 c[]$\OT1/ptm/m/it/10 , $[]\OML/cmm/m/it/10 :[]\OT1/cmr/m/n/10 (\OML/cmm/m/it
@@ -1455,7 +1464,10 @@ Overfull \hbox (10.37543pt too wide) detected at line 197
 U\OT1/cmr/m/n/9 )\OML/cmm/m/it/9 :
  []
 
-[32]
+
+Underfull \vbox (badness 6859) has occurred while \output is active []
+
+ [32]
 Overfull \hbox (19.9634pt too wide) detected at line 258
 [] [] \OMS/cmsy/m/n/9 ^^T \OML/cmm/m/it/9 ^^V\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 ^^
 U\OT1/cmr/m/n/9 )\OML/cmm/m/it/9 :
@@ -1513,7 +1525,7 @@ nts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/
 urw/times/utmbi8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/times
 /utmr8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/times/utmri8a.p
 fb>
-Output written on R-zkCSP.pdf (34 pages, 464001 bytes).
+Output written on R-zkCSP.pdf (34 pages, 463029 bytes).
 PDF statistics:
  226 PDF objects out of 1000 (max. 8388607)
  161 compressed objects within 2 object streams
