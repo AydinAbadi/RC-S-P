@@ -390,6 +390,17 @@ In general, a transaction that is sent   to a smart contract should  cover the c
 \end{remark}
 
 
+\begin{theorem}
+The RC-PoR-P protocol is secure, w.r.t. Definition \ref{def::RC-S-P-Security-2}, if PoRID, SAP, and blockchain are secure and the encryption scheme is semantically secure. 
+\end{theorem}
+
+
+
+ To prove the above theorem, we show that RC-PoR-P meets all security properties defined in Appendix \ref{sec::RC-S-P-Definition2}.  We start by proving that RC-PoR-P satisfies security against a malicious server.  
+ 
+ \input{RCPoRP-Proof}
+
+
 %\in[ut{RC-PoR-P-Definition}
 
 %\input{RC-PoR-P-Proof}

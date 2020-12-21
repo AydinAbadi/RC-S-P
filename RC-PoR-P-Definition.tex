@@ -1,7 +1,10 @@
 % !TEX root =R-zkCSP.tex
 
 \section{Recurring Contingent PoR Payment Definition}\label{sec::RC-PoR-P-Definition}
-In this section, we provide a formal definition for RC-PoR-P where the underlying PoR is based on Merkle-tree. 
+
+
+
+
 
 \begin{definition}[RC-PoR-P Scheme]\label{RC-PoR-P-def}
 A recurring contingent service payment scheme RCPoRP  $=(\mathtt{RCPoRP}.\mathtt{keyGen}, $ $\mathtt{RCPoRP}.\mathtt{cInit}, $ $\mathtt{RCPoRP}.\mathtt{sInit},  $ $\mathtt{RCPoRP}.\mathtt{genQuery},\mathtt{RCPoRP}.\mathtt{prove},\mathtt{RCPoRP}.\mathtt{verify},\mathtt{RCPoRP}.\mathtt{resolve},\mathtt{RCPoRP}.\mathtt{pay})$ involves three parties; namely, client, server,  and smart contract, and consists of eight algorithms defined as follows.
@@ -163,7 +166,7 @@ A RC-S-P scheme is said to be secure if it satisfies  three main properties: (a)
 %_{\scriptscriptstyle q_{_{\scaleto{j}{\size}}}}
 
 
-\begin{definition}[RC-PoR-P Security Against Malicious Server]\label{deff::RC-S-P-SecurityAgainstMaliciousServer}  A RC-PoR-P  is secure against a malicious server  for a function $F$, if for  any price list $pl$, every $j$ (where $1\leq j\leq z$), and any PPT adversary $\mathcal{A}$, there exists a negligible function $\mu(\cdot)$, such that for any security parameter $\lambda$: 
+\begin{definition}[RC-S-P Security Against Malicious Server]\label{deff::RC-S-P-SecurityAgainstMaliciousServerxx}  A RC-PoR-P  is secure against a malicious server  for a function $F$, if for  any price list $pl$, every $j$ (where $1\leq j\leq z$), and any PPT adversary $\mathcal{A}$, there exists a negligible function $\mu(\cdot)$, such that for any security parameter $\lambda$: 
 %\footnotesize{
 {\small
 $$ \Pr\left[
@@ -222,7 +225,7 @@ Informally, security against a malicious client requires that, for each  $j$-th 
  %\textcolor{blue}{XXXX Thomas: what does ``them'' refer to? XXXX}--> Aydin: the invalid metadata or query
  
  
- \begin{definition}[RC-S-P Security Against Malicious Client]\label{deff::RC-S-P-Security-Against Malicious-Client}  A RC-S-P  is secure against a malicious client  for a function $F$, for every $j$ (where $1\leq j\leq z$), any $Q,M,E,D$ and any probabilistic polynomial time adversary $\mathcal{A}$, there exists a negligible function $\mu(\cdot)$, such that for any security parameter $\lambda$: 
+ \begin{definition}[RC-S-P Security Against Malicious Client]\label{deff::RC-S-P-Security-Against Malicious-Clientxxx}  A RC-S-P  is secure against a malicious client  for a function $F$, for every $j$ (where $1\leq j\leq z$), any $Q,M,E,D$ and any probabilistic polynomial time adversary $\mathcal{A}$, there exists a negligible function $\mu(\cdot)$, such that for any security parameter $\lambda$: 
 
 
 {\small
@@ -254,7 +257,7 @@ $$ \Pr\left[
    
    
    \mathtt{RCSP}.\mathtt{resolve}(m_{\scriptscriptstyle \mathcal{C}},m_{\scriptscriptstyle \mathcal{S}},z, {\bm{\pi}}^{\scriptscriptstyle *}, {\bm{c}}^{\scriptscriptstyle *}, pk, T_{\scriptscriptstyle qp},enc)\rightarrow \bm{y}\\
-   \mathtt{RCSP}.\mathtt{pay}(\bm{y},T_{\scriptscriptstyle cp},a,p_{\scriptscriptstyle\mathcal S}, coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C},coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S})\rightarrow ({\bm{coin}}_{\scriptscriptstyle\mathcal C},{\bm{coin}}_{\scriptscriptstyle\mathcal S},{\bm{coin}}_{\scriptscriptstyle\mathcal Ar})\\
+   \mathtt{RCSP}.\mathtt{pay}(\bm{y},T_{\scriptscriptstyle cp},a,p_{\scriptscriptstyle\mathcal S}, coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C},coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S})\rightarrow ({\bm{coin}}_{\scriptscriptstyle\mathcal C},{\bm{coin}}_{\scriptscriptstyle\mathcal S})\\
 \end{array}    \right]\leq \mu(\lambda).$$
 }
 where $\bm{q}_{\scriptscriptstyle j}\in D(c^{\scriptscriptstyle *}_{\scriptscriptstyle j},t_{\scriptscriptstyle qp})$, $

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.9.22)  18 DEC 2020 12:16
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.9.22)  21 DEC 2020 17:08
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -198,6 +198,9 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/cancel/cancel.sty
+Package: cancel 2013/04/12 v2.2 Cancel math terms
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/enumitem/enumitem.sty
 Package: enumitem 2019/06/20 v3.9 Customized lists
@@ -1159,43 +1162,32 @@ LaTeX Warning: Label `Billing-cycles-genQuery' multiply defined.
 LaTeX Warning: Label `Client-sideProofVerification' multiply defined.
 
 
-LaTeX Warning: Label `deff::RC-S-P-SecurityAgainstMaliciousServer' multiply def
-ined.
-
-
-LaTeX Warning: Label `deff::RC-S-P-Security-Against Malicious-Client' multiply 
-defined.
-
-
-LaTeX Warning: Label `deff::RC-S-P-Privacy' multiply defined.
-
-
-LaTeX Warning: Label `def::RC-S-P-Security' multiply defined.
+LaTeX Warning: Label `lemma::encoded-coins' multiply defined.
 
 )
 \openout1 = `R-zkCSP.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 141.
-LaTeX Font Info:    ... okay on input line 141.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 141.
-LaTeX Font Info:    ... okay on input line 141.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 141.
-LaTeX Font Info:    ... okay on input line 141.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 141.
-LaTeX Font Info:    ... okay on input line 141.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 141.
-LaTeX Font Info:    ... okay on input line 141.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 141.
-LaTeX Font Info:    ... okay on input line 141.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 141.
-LaTeX Font Info:    ... okay on input line 141.
-LaTeX Font Info:    Checking defaults for T3/cmr/m/n on input line 141.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 143.
+LaTeX Font Info:    ... okay on input line 143.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 143.
+LaTeX Font Info:    ... okay on input line 143.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 143.
+LaTeX Font Info:    ... okay on input line 143.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 143.
+LaTeX Font Info:    ... okay on input line 143.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 143.
+LaTeX Font Info:    ... okay on input line 143.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 143.
+LaTeX Font Info:    ... okay on input line 143.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 143.
+LaTeX Font Info:    ... okay on input line 143.
+LaTeX Font Info:    Checking defaults for T3/cmr/m/n on input line 143.
 LaTeX Font Info:    Trying to load font information for T3+cmr on input line 14
-1.
+3.
  (/usr/local/texlive/2020/texmf-dist/tex/latex/tipa/t3cmr.fd
 File: t3cmr.fd 2001/12/31 TIPA font definitions
 )
-LaTeX Font Info:    ... okay on input line 141.
+LaTeX Font Info:    ... okay on input line 143.
 
 (/usr/local/texlive/2020/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -1233,35 +1225,35 @@ Package caption Info: End \AtBeginDocument code.
 Package pgfplots Warning: running in backwards compatibility mode (unsuitable t
 ick labels; missing features). Consider writing \pgfplotsset{compat=1.17} into 
 your preamble.
- on input line 141.
+ on input line 143.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 185
+LaTeX Font Info:    Trying to load font information for U+msa on input line 187
 .
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 185
+LaTeX Font Info:    Trying to load font information for U+msb on input line 187
 .
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Trying to load font information for U+esvect on input line 
-185.
+187.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/esvect/uesvect.fd
 File: uesvect.fd 
 )
 LaTeX Font Info:    Trying to load font information for U+lasy on input line 18
-5.
+7.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <7> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 185.
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 187.
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <5> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 185.
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 187.
  (./content.tex
 (./Preliminary.tex [1
 
@@ -1317,7 +1309,7 @@ OML/cmm/b/it/10 coin[]\OML/cmm/m/it/10 ; \OML/cmm/b/it/10 coin[]\OML/cmm/m/it/1
  []
 
 [8]
-Overfull \hbox (29.66943pt too wide) detected at line 198
+Overfull \hbox (29.66943pt too wide) detected at line 197
 [] [] \OMS/cmsy/m/n/9 ^^T \OML/cmm/m/it/9 ^^V\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 ^^
 U\OT1/cmr/m/n/9 )\OML/cmm/m/it/9 :
  []
@@ -1329,7 +1321,7 @@ U\OT1/cmr/m/n/9 )\OML/cmm/m/it/9 :
  []
 
 [9]
-Overfull \hbox (27.12306pt too wide) in paragraph at lines 353--355
+Overfull \hbox (27.12306pt too wide) in paragraph at lines 354--356
 []\OT1/ptm/m/it/10 where $\OML/cmm/b/it/10 c[] \OT1/cmr/m/n/10 = [\OML/cmm/m/it
 /10 c[]; :::; c[]\OT1/cmr/m/n/10 ]\OML/cmm/m/it/10 ; \OML/cmm/b/it/10 ^^Y[] \OT
 1/cmr/m/n/10 = [\OML/cmm/m/it/10 ^^Y[]; :::; ^^Y[]\OT1/cmr/m/n/10 ]$\OT1/ptm/m/
@@ -1403,8 +1395,8 @@ mr/m/n/10 )\OMS/cmsy/m/n/10 g$\OT1/ptm/m/it/10 , and en-coded coin amounts be $
 o[]\OT1/cmr/m/n/10 ) +
  []
 
-[22]) (./PoR-protocol.tex [23] [24] (./PoRID-protocol.tex [25] [26]
-(./Recurring-Contingent-PoR-Payment-protocol.tex [27]
+[22]) (./PoR-protocol.tex [23] [24] (./PoRID-protocol.tex [25]
+(./Recurring-Contingent-PoR-Payment-protocol.tex [26] [27]
 Overfull \hbox (9.08725pt too wide) in paragraph at lines 126--127
 []\OT1/ptm/m/n/10 Calls $[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 qp; r[]; g[]; adr[
 ]; adr[]\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ! \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 
@@ -1421,82 +1413,32 @@ it/10 qp; r[] \OMS/cmsy/m/n/10 2 []\OML/cmm/m/it/10 ; []cp; r[] \OMS/cmsy/m/n/1
 0 2
  []
 
-[28] [29])))))) (./R-zkCSP.bbl) (./RC-PoR-P-Definition.tex
-Overfull \hbox (5.95795pt too wide) in paragraph at lines 6--8
-[]\OML/cmm/m/it/10 :[];$ $[]:[];$ $[]:[]; []:[]; []:[]; []:[]; []:[]\OT1/cmr/m/
-n/10 )$
+[28] [29] (./RCPoRP-Proof.tex [30] [31]
+Overfull \hbox (6.75664pt too wide) in paragraph at lines 91--92
+[]\OT1/ptm/m/it/10 Let $\OML/cmm/m/it/10 ^^L [] \OMS/cmsy/m/n/10 f\OT1/cmr/m/n/
+10 0\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 1\OMS/cmsy/m/n/10 g$\OT1/ptm/m/it/10 , p
+rice list be $\OMS/cmsy/m/n/10 f\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 o[]; l[]\OT1/
+cmr/m/n/10 )\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 o[]; l[]\OT1/c
+mr/m/n/10 )\OMS/cmsy/m/n/10 g$\OT1/ptm/m/it/10 , and en-coded coin amounts be $
+\OML/cmm/m/it/10 coin[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 z \OMS/cmsy/m/n/10 ^
+^A \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 Max\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 o[]; 
+o[]\OT1/cmr/m/n/10 ) +
  []
 
-[30] [31]
-Overfull \hbox (41.86905pt too wide) in paragraph at lines 108--109
-[]\OT1/ptm/m/n/10 Similar to RC-S-P def-i-ni-tion, in the above def-i-ni-tion, 
-al-go-rithms $[]\OML/cmm/m/it/10 :[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 :\OT1/cmr
-/m/n/10 )\OML/cmm/m/it/10 ; []:[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 :\OT1/cmr/m/
-n/10 )\OML/cmm/m/it/10 ; []:[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 :\OT1/cmr/m/n/1
-0 )$
- []
-
-
-Overfull \hbox (25.58429pt too wide) in paragraph at lines 114--115
-\OML/cmm/m/it/10 Q; T[]; enc\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ! \OML/cmm/m/it/
-10 c[]$\OT1/ptm/m/it/10 , $[]\OML/cmm/m/it/10 :[]\OT1/cmr/m/n/10 (\OML/cmm/m/it
-/10 u[]; ^^[; c[]; pk; T[]; enc\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ! \OT1/cmr/m/
-n/10 (\OML/cmm/m/it/10 b[]; m[]; ^^Y[]\OT1/cmr/m/n/10 )$\OT1/ptm/m/it/10 , $[]\
-OML/cmm/m/it/10 :[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 ^^Y[]; \OML/cmm/b/it/10 q[
-]\OML/cmm/m/it/10 ; k; T[]; enc\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ! \OT1/cmr/m/
-n/10 (\OML/cmm/m/it/10 d[]; m[]\OT1/cmr/m/n/10 )$$[]\OML/cmm/m/it/10 ; [] 
- []
-
-
-Overfull \hbox (20.2688pt too wide) in paragraph at lines 114--115
-[]\OML/cmm/m/it/10 :[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 m[]; m[]; z; \OML/cmm/b
-/it/10 ^^Y[]\OML/cmm/m/it/10 ; \OML/cmm/b/it/10 c[]\OML/cmm/m/it/10 ; pk; T[]; 
-enc\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ! \OML/cmm/b/it/10 y$\OT1/ptm/m/it/10 , $
-[]\OML/cmm/m/it/10 :[]\OT1/cmr/m/n/10 (\OML/cmm/b/it/10 y\OML/cmm/m/it/10 ; T[]
-; a; p[]; coin[]; coin[]\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ! \OT1/cmr/m/n/10 (\
-OML/cmm/b/it/10 coin[]\OML/cmm/m/it/10 ; \OML/cmm/b/it/10 coin[]\OML/cmm/m/it/1
-0 ; \OML/cmm/b/it/10 coin[]\OT1/cmr/m/n/10 )$\OT1/ptm/m/it/10 ,
- []
-
-
-Overfull \hbox (10.37543pt too wide) detected at line 197
-[] [] \OMS/cmsy/m/n/9 ^^T \OML/cmm/m/it/9 ^^V\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 ^^
-U\OT1/cmr/m/n/9 )\OML/cmm/m/it/9 :
- []
-
-
-Underfull \vbox (badness 6859) has occurred while \output is active []
-
- [32]
-Overfull \hbox (19.9634pt too wide) detected at line 258
-[] [] \OMS/cmsy/m/n/9 ^^T \OML/cmm/m/it/9 ^^V\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 ^^
-U\OT1/cmr/m/n/9 )\OML/cmm/m/it/9 :
- []
-
-[33]
-Overfull \hbox (27.12306pt too wide) in paragraph at lines 350--352
-[]\OT1/ptm/m/it/10 where $\OML/cmm/b/it/10 c[] \OT1/cmr/m/n/10 = [\OML/cmm/m/it
-/10 c[]; :::; c[]\OT1/cmr/m/n/10 ]\OML/cmm/m/it/10 ; \OML/cmm/b/it/10 ^^Y[] \OT
-1/cmr/m/n/10 = [\OML/cmm/m/it/10 ^^Y[]; :::; ^^Y[]\OT1/cmr/m/n/10 ]$\OT1/ptm/m/
-it/10 , and $[] \OMS/cmsy/m/n/10 2 \OML/cmm/m/it/10 T[]$\OT1/ptm/m/it/10 . Also
-, de-pend-ing on the choice of $\OML/cmm/m/it/10 ^^L$\OT1/ptm/m/it/10 , al-go-r
-ithm $[]\OML/cmm/m/it/10 :[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 
-)$
- []
-
-) [34] (./R-zkCSP.aux)
+[32]))))))) (./R-zkCSP.bbl) (./RC-S-P-without Arbiter-Definition.tex [33]
+[34]) [35] (./R-zkCSP.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 31884 strings out of 480608
- 735888 string characters out of 5903630
- 1084314 words of memory out of 5000000
- 47083 multiletter control sequences out of 15000+600000
+ 31922 strings out of 480608
+ 736634 string characters out of 5903630
+ 1085231 words of memory out of 5000000
+ 47115 multiletter control sequences out of 15000+600000
  570433 words of font info for 115 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 63i,12n,98p,3437b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 63i,12n,98p,3443b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
 xlive/2020/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb></usr/local
@@ -1525,10 +1467,10 @@ nts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/
 urw/times/utmbi8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/times
 /utmr8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/times/utmri8a.p
 fb>
-Output written on R-zkCSP.pdf (34 pages, 463029 bytes).
+Output written on R-zkCSP.pdf (35 pages, 465969 bytes).
 PDF statistics:
- 226 PDF objects out of 1000 (max. 8388607)
- 161 compressed objects within 2 object streams
+ 229 PDF objects out of 1000 (max. 8388607)
+ 163 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

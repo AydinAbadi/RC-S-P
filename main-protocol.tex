@@ -325,7 +325,7 @@ In phase \ref{RCSP::Dispute-Resolution}, vector $\bm{des}$ is used to let the ar
 
 
 \begin{theorem}
-The RC-S-P protocol is secure, w.r.t. Definition \ref{def::RC-S-P-Security}, if VSID and SAP are secure and the encryption scheme is semantically secure. 
+The RC-S-P protocol is secure, w.r.t. Definition \ref{def::RC-S-P-Security}, if VSID, SAP, and blockchain are secure and the encryption scheme is semantically secure. 
 \end{theorem}
 
 
@@ -335,9 +335,11 @@ The RC-S-P protocol is secure, w.r.t. Definition \ref{def::RC-S-P-Security}, if 
  \input{RCSP-Proof}
  
  
-\subsection{Reducing the Arbiter involvement}
+%\subsection{Reducing the Arbiter involvement}
+%
+%{\color{blue}Explain how we can use the smart contracts of \cite{DongWAMM17} to delegate the arbiter task to smart contracts. In this case, only if the smart contracts do not reach a consensus the arbiter is involved. }
 
-{\color{blue}Explain how we can use the smart contracts of \cite{DongWAMM17} to delegate the arbiter task to smart contracts. In this case, only if the smart contracts do not reach a consensus the arbiter is involved. }
+
 \input{PoR-protocol}
 
 
