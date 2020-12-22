@@ -1,6 +1,6 @@
 % !TEX root =R-zkCSP.tex
 
-\section{Definition of Recurring Contingent Service Payment Without Arbiter}\label{sec::RC-S-P-Definition2}
+\section{Definition of RC-S-P Without Arbiter's Involvement}\label{sec::RC-S-P-Definition2}
 There are cases, in RC-S-P schemes, where a third-party arbiter's role  can be played efficiently by a smart contract.  In that cases,  its involvement is not needed anymore. In this paper, we provide such setting's concrete example, i.e. recurring contingent PoR payment (RC-PoR-P). The primary difference between the two cases is the way a party pays to resolve a dispute. In particular, in the former case, the party who raises dispute does not pay the arbiter when it sends to it a dispute query. Instead, loosely speaking, the arbiter at coin distribution is paid by a misbehaving party. Whereas, in the latter case, the party who raises dispute and sends a dispute query to the contract, (due to the nature of smart contracts' platform) has to pay the contract, before the contract processes its query.  In this section, we show how RC-S-P definition (presented in Section \ref{sec::RC-S-P-Definition}) can be  adjusted to  capture the latter case. In the following, we highlight the main changes that should be applied to the RC-S-P definition. 
 
 \begin{itemize}
@@ -34,7 +34,7 @@ There are cases, in RC-S-P schemes, where a third-party arbiter's role  can be p
 
 \
 
-\item [$\bullet$] In Definition \ref{deff::RC-S-P-SecurityAgainstMaliciousServer}: only the above changes are applied to the algorithms' syntax in the experiment. Moreover, the events are slightly modified, i.e. the amount of coins each party receives. For the sake of clarity and completeness, we state the entire modified  definition below. 
+\item [$\bullet$] In Definition \ref{deff::RC-S-P-SecurityAgainstMaliciousServer}:  the above changes are applied to the algorithms' syntax in the experiment. Moreover, the events are slightly modified, i.e. the amount of coins each party receives. For the sake of clarity and completeness, we state the entire modified  definition below. 
 
 \begin{definition}[RC-S-P Security Against Malicious Server]\label{deff::RC-S-P-SecurityAgainstMaliciousServer-2}  A RC-S-P  is secure against a malicious server  for a function $F$, if for any auxiliary information $\text{aux}$,  any price list $pl$, every $j$ (where $1\leq j\leq z$), any $Q,M, E, D$ and any PPT adversary $\mathcal{A}$, there exists a negligible function $\mu(\cdot)$, such that for any security parameter $\lambda$: 
 {\small
