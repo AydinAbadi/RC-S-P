@@ -24,7 +24,7 @@ In this section, we explain how a client and server, mutually distrusted, can ef
    \item Sends $adr_{\scriptscriptstyle\text{SAP}}$ and $\ddot{x}:=(x,r)$  to  $\mathcal S$. 
    \item Sends $g_{\scriptscriptstyle\mathcal C}$ to the contract, using its account 
     \end{enumerate}
-    
+     
     \item\textbf{Agreement}. $\mathtt{SAP.agree}(x,r,g_{\scriptscriptstyle \mathcal{C}},adr_{\scriptscriptstyle\mathcal{C}},adr_{\scriptscriptstyle\text{SAP}})$
 
     
@@ -36,6 +36,7 @@ In this section, we explain how a client and server, mutually distrusted, can ef
    
    \item  If $b=1$, then sends $g_{\scriptscriptstyle\mathcal S}$ to the contract using its account.
     \end{enumerate}
+     
    \item\textbf{Prove}. For either $\mathcal C$ or $\mathcal S$ to prove, it has agreement on $x$ with its counter-party, it sends $\ddot{x}:=(x, r)$  to the contract. 
    
  \item\textbf{Verify}. $\mathtt{SAP.verify}(\ddot{x}, g_{\scriptscriptstyle\mathcal C},g_{\scriptscriptstyle\mathcal S},adr_{\scriptscriptstyle\mathcal{C}}, adr_{\scriptscriptstyle\mathcal{S}})$
