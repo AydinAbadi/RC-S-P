@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.9.22)  22 DEC 2020 15:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.9.22)  26 DEC 2020 18:31
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1264,26 +1264,27 @@ sk $\OMS/cmsy/m/n/10 E$ \OT1/ptm/m/n/10 to run $[]\OT1/cmr/m/n/10 (1[]\OML/cmm/
 m/it/10 ; k; []\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 !
  []
 
-)) (./Definition.tex
+)) (./limitations-And-our-solution.tex (./Limitations-of-zkCSP.tex [3]
+LaTeX Font Info:    Font shape `U/lasy/b/n' in size <9> not available
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 40.
+LaTeX Font Info:    Font shape `U/lasy/b/n' in size <6> not available
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 40.
+ [4])
+(./Our-Solution.tex)) (./Definition.tex
 Overfull \hbox (28.58025pt too wide) in paragraph at lines 9--11
 []\OT1/ptm/b/n/10 (VS Scheme). []\OT1/ptm/m/it/10 A ver-i-fi-able ser-vice sche
 me VS $\OT1/cmr/m/n/10 := ([]\OML/cmm/m/it/10 ; []; [];$ $[]; []\OT1/cmr/m/n/10
  )$
  []
 
-[3]
-LaTeX Font Info:    Font shape `U/lasy/b/n' in size <9> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 63.
-LaTeX Font Info:    Font shape `U/lasy/b/n' in size <6> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 63.
- [4] [5] [6] (./RC-S-P-Definition.tex
+[5] [6] [7] [8] (./RC-S-P-Definition.tex
 Overfull \hbox (17.1947pt too wide) in paragraph at lines 6--8
 []\OT1/ptm/b/n/10 (RC-S-P Scheme). []\OT1/ptm/m/it/10 A re-cur-ring con-tin-gen
 t ser-vice pay-ment scheme RC-S-P $\OT1/cmr/m/n/10 = ([]\OML/cmm/m/it/10 :[];$ 
 $[]:[];$
  []
 
-[7] [8]
+[9] [10]
 Overfull \hbox (25.58429pt too wide) in paragraph at lines 115--116
 \OML/cmm/m/it/10 Q; T[]; enc\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ! \OML/cmm/m/it/
 10 c[]$\OT1/ptm/m/it/10 , $[]\OML/cmm/m/it/10 :[]\OT1/cmr/m/n/10 (\OML/cmm/m/it
@@ -1311,7 +1312,7 @@ Overfull \hbox (29.66943pt too wide) detected at line 197
 U\OT1/cmr/m/n/9 )\OML/cmm/m/it/9 :
  []
 
-[9]
+[11]
 Overfull \hbox (19.9634pt too wide) detected at line 261
 [] [] \OMS/cmsy/m/n/9 ^^T \OML/cmm/m/it/9 ^^V\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 ^^
 U\OT1/cmr/m/n/9 )\OML/cmm/m/it/9 :
@@ -1328,16 +1329,15 @@ ithm $[]\OML/cmm/m/it/10 :[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 :\OT1/cmr/m/n/10
 )$
  []
 
-) (./VSID-Protocol.tex [10] [11] (./VSID-Proof.tex)))
+) (./VSID-Protocol.tex [12] [13] (./VSID-Proof.tex) [14]))
 (./Recurring-Zero-Knowledge-Contingent-Service-Payments.tex
-(./Limitations-of-zkCSP.tex [12] [13]) (./Our-Solution.tex)
-(./statement-agreement.tex [14]) (./main-protocol.tex
+(./statement-agreement.tex [15]) (./main-protocol.tex
 LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 1
 0.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-) [15] [16]
+) [16]
 Overfull \hbox (13.02518pt too wide) in paragraph at lines 56--57
 []\OT1/ptm/m/n/10 Sets four coun-ters $\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 y[]; y
 []; y[]; y[]\OT1/cmr/m/n/10 ]$ \OT1/ptm/m/n/10 in the con-tract, where their in
@@ -1363,7 +1363,7 @@ it/10 qp; r[] \OMS/cmsy/m/n/10 2 []\OML/cmm/m/it/10 ; []cp; r[] \OMS/cmsy/m/n/1
 0 2
  []
 
-
+[17]
 Overfull \hbox (6.20135pt too wide) in paragraph at lines 167--168
 []\OT1/ptm/m/n/10 Removes the pads from $\OML/cmm/m/it/10 c[]$\OT1/ptm/m/n/10 ,
  us-ing pa-ram-e-ters of $\OML/cmm/m/it/10 T[]$\OT1/ptm/m/n/10 . Let $\OML/cmm/
@@ -1371,9 +1371,9 @@ m/it/10 c[]$ \OT1/ptm/m/n/10 be the re-sult. Next, it de-crypts the re-sult, $[
 ][]\OML/cmm/m/it/10 ; c[]\OT1/cmr/m/n/10 ) =
  []
 
-[17] [18]
+[18]
 Overfull \hbox (18.70352pt too wide) in paragraph at lines 289--290
-[]\OT1/ptm/m/n/10 As stated in Sec-tion 4.3[], al-go-rithms $[]\OML/cmm/m/it/10
+[]\OT1/ptm/m/n/10 As stated in Sec-tion 5.3[], al-go-rithms $[]\OML/cmm/m/it/10
  :[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 ; []:[
 ]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 ; []:[]\O
 T1/cmr/m/n/10 (\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 )$ \OT1/ptm/m/n/10 and $[]\OML
@@ -1381,7 +1381,7 @@ T1/cmr/m/n/10 (\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 )$ \OT1/ptm/m/n/10 and $[]\OML
  []
 
 (./RCSP-Proof.tex [19] [20] [21]
-Overfull \hbox (6.75664pt too wide) in paragraph at lines 87--88
+Overfull \hbox (6.75664pt too wide) in paragraph at lines 85--86
 []\OT1/ptm/m/it/10 Let $\OML/cmm/m/it/10 ^^L [] \OMS/cmsy/m/n/10 f\OT1/cmr/m/n/
 10 0\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 1\OMS/cmsy/m/n/10 g$\OT1/ptm/m/it/10 , p
 rice list be $\OMS/cmsy/m/n/10 f\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 o[]; l[]\OT1/
@@ -1392,9 +1392,18 @@ mr/m/n/10 )\OMS/cmsy/m/n/10 g$\OT1/ptm/m/it/10 , and en-coded coin amounts be $
 o[]\OT1/cmr/m/n/10 ) +
  []
 
-[22]) (./PoR-protocol.tex [23] [24] (./PoRID-protocol.tex [25] [26])
-(./Recurring-Contingent-PoR-Payment-protocol.tex [27]
-Overfull \hbox (9.08725pt too wide) in paragraph at lines 126--127
+[22])) (./PoR-protocol.tex [23] [24] (./PoRID-protocol.tex [25] [26])
+(./Recurring-Contingent-PoR-Payment-protocol-With-Arbiter.tex [27]
+Overfull \hbox (13.02518pt too wide) in paragraph at lines 82--83
+[]\OT1/ptm/m/n/10 Sets four coun-ters $\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 y[]; y
+[]; y[]; y[]\OT1/cmr/m/n/10 ]$ \OT1/ptm/m/n/10 in the con-tract, where their in
+i-tial value is $\OT1/cmr/m/n/10 0$\OT1/ptm/m/n/10 . Let $\OML/cmm/b/it/10 y \O
+T1/cmr/m/n/10 : [\OML/cmm/m/it/10 y[]; y[]; y[]; y[]; []; adr[]\OT1/cmr/m/n/10 
+]$ 
+ []
+
+
+Overfull \hbox (9.08725pt too wide) in paragraph at lines 150--151
 []\OT1/ptm/m/n/10 Calls $[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 qp; r[]; g[]; adr[
 ]; adr[]\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ! \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 
 g[]; b[]\OT1/cmr/m/n/10 )$ \OT1/ptm/m/n/10 and $[]\OT1/cmr/m/n/10 (\OML/cmm/m/i
@@ -1403,28 +1412,29 @@ n/10 (\OML/cmm/m/it/10 g[]; b[]\OT1/cmr/m/n/10 )$\OT1/ptm/m/n/10 ,
  []
 
 
-Overfull \hbox (7.61662pt too wide) in paragraph at lines 126--127
+Overfull \hbox (7.61662pt too wide) in paragraph at lines 150--151
 \OT1/ptm/m/n/10 to ver-ify the cor-rect-ness of to-kens in $\OML/cmm/m/it/10 T$
  \OT1/ptm/m/n/10 and to agree on the to-kens' pa-ram-e-ters, where $\OML/cmm/m/
 it/10 qp; r[] \OMS/cmsy/m/n/10 2 []\OML/cmm/m/it/10 ; []cp; r[] \OMS/cmsy/m/n/1
 0 2
  []
 
-[28] [29] (./RCPoRP-Proof.tex [30] [31])) (./RC-PoR-P-Evaluation.tex)))))
-(./R-zkCSP.bbl [32]) (./RC-S-P-without-Arbiter-Definition.tex [33]) [34]
-(./R-zkCSP.aux)
+[28] [29]) (./RCPoRP-Proof.tex [30] [31] [32]) (./RC-PoR-P-Evaluation.tex))))
+(./R-zkCSP.bbl [33]) (./RC-S-P-without-Arbiter-Definition.tex [34])
+(./Recurring-Contingent-PoR-Payment-protocol.tex [35]
+(./RCPoRP-without-Arbiter-Proof.tex [36] [37])) [38] (./R-zkCSP.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 31927 strings out of 480608
- 736778 string characters out of 5903630
- 1083259 words of memory out of 5000000
- 47119 multiletter control sequences out of 15000+600000
+ 31952 strings out of 480608
+ 737524 string characters out of 5903630
+ 1083437 words of memory out of 5000000
+ 47138 multiletter control sequences out of 15000+600000
  570433 words of font info for 115 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 63i,12n,98p,3443b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 63i,12n,98p,5349b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
 xlive/2020/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb></usr/local
@@ -1453,10 +1463,10 @@ nts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/
 urw/times/utmbi8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/times
 /utmr8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/times/utmri8a.p
 fb>
-Output written on R-zkCSP.pdf (34 pages, 461979 bytes).
+Output written on R-zkCSP.pdf (38 pages, 484976 bytes).
 PDF statistics:
- 226 PDF objects out of 1000 (max. 8388607)
- 161 compressed objects within 2 object streams
+ 241 PDF objects out of 1000 (max. 8388607)
+ 172 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

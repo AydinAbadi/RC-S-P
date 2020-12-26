@@ -1,6 +1,6 @@
 % !TEX root =R-zkCSP.tex
 
-\section{Definition}\label{Definition}
+\section{Definitions}\label{Definition}
 
 \subsection{Verifiable Service (VS) Definition}\label{subsec:VS}
 At a high-level, a verifiable service scheme is a two-party protocol in which a client chooses a function, $F$, and provides (an encoding of) $F$, and its input $u$, and a query $\bm{q}$ to a server.  The server is expected to evaluate $F$ on $u$ and $q$ and respond with the output. Then, the client  verifies that the output is indeed the output of the function computed on the provided input. In verifiable services, either the computation (on the input) or both the computation and storage of the input are delegated to the server. A verifiable service is defined as follows. 
@@ -233,7 +233,7 @@ $$ \Pr\left[
      \mathcal{A}_{\scriptscriptstyle 1}(c,e, u^{\scriptscriptstyle *},{pp})\rightarrow \pi:=(h,\delta)\\
      \mathtt{VSID.verify}(\pi,\bm{q},k,{pp})\rightarrow d\\
      \mathtt{VSID.identify}(\pi,c,k,e,u^{\scriptscriptstyle *},{pp})\rightarrow I\\
-\end{array}    \right]\leq \mu_{\scriptscriptstyle 1}(\lambda).$$
+\end{array}    \right]\leq \mu(\lambda).$$
 }
 %\normalsize
 
@@ -251,7 +251,7 @@ $$ \Pr\left[
     \mathtt{VSID.checkQuery}(c, pk,{pp})\rightarrow b\\
     \mathtt{VSID.prove}(u^{\scriptscriptstyle *},\sigma,c,pk,{pp})\rightarrow \pi\\
     \mathtt{VSID.identify}(\pi,c,k,e,u^{\scriptscriptstyle *},{pp})\rightarrow I\\
-\end{array}    \right]\leq \mu_{\scriptscriptstyle 2}(\lambda).$$
+\end{array}    \right]\leq \mu(\lambda).$$
 }
 
 \end{enumerate}

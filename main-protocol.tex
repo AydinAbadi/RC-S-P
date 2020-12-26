@@ -1,7 +1,7 @@
 % !TEX root =R-zkCSP.tex
 
 
-\subsection{Recurring Contingent Service Payment (RC-S-P) Protocol}
+\subsection{Recurring Contingent Service Payment (RC-S-P) Protocol}\label{sec::RC-S-P-protocol}
 
 
 %In this section, we present a generic ``recurring contingent service payment'' (R-CSP) protocol. It utilises a novel combination of $\text{VSID}_{\scriptscriptstyle\text{light}}$, SAP, and symmetric key encryption schemes along with the coin masking technique and the private time bubble notion. At a high level the protocol works as follows.  The  client and server use SAP to provably agree on (a) a secret key, $k$, for a symmetric key encryption and (b) a statement that includes payment details. They also  agree on (a) the private time bubble's length, that is the total number of billing cycles: $z$, plus a waiting period, $H$, and (b) a smart contract which  specifies $z$ and  the total amount of masked coins each party should deposit. They deploy the contract.  Each party deposits its masked coins in the contract. If the deposit amount is less than what is stated in the contract, each party has a chance to withdraw its coins and terminate the contract. To start using/providing the service, they invoke $\text{VSID}_{\scriptscriptstyle\text{light}}$ protocol. In particular, they engage in   $\mathtt{VSID.KeyGen}()$, $\mathtt{VSID.setup}()$, and $\mathtt{VSID.serve}()$ algorithms. If the server decides not to serve, e.g. it detects the client's misbehaviour,  it sends $0$  within a fixed time; in this case, the parties can withdraw their deposit and terminate the contract. Otherwise, the server sends $1$ to the contract. 
@@ -50,7 +50,7 @@ The RC-S-P protocol is presented below. It is assumed that (a) each party $\math
 
 
 
-\item Set parameters  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}=z\cdot (o_{\scriptscriptstyle max}+l_{\scriptscriptstyle max})$ and $p_{\scriptscriptstyle\mathcal{S}}=z\cdot l_{\scriptscriptstyle max}$, where $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ and $p_{\scriptscriptstyle\mathcal{S}}$ are   the total number of masked coins $\mathcal C$ and $\mathcal S$ should deposit respectively. It signs and deploys a smart contract, SC, that explicitly specifies  parameters $z$,  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$, $p_{\scriptscriptstyle\mathcal{S}}$,  $adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 1}}$, and $adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 2}}$. Let $adr_{\scriptscriptstyle \text{SC}}$ be the address of the deployed SC, and $T:=\{T_{\scriptscriptstyle qp},T_{\scriptscriptstyle cp}\}$. It sets a set of time points/windows, $\texttt{Time}:\{ \texttt{T}_{\scriptscriptstyle 0},..., \texttt{T}_{\scriptscriptstyle 3},\texttt{G}_{\scriptscriptstyle 1,1},...,\texttt{G}_{\scriptscriptstyle z,2},\texttt{H}, \texttt{K}_{\scriptscriptstyle 1},\texttt{K}_{\scriptscriptstyle 2}, \texttt{L}\}$, that are explicitly specified in the contract who will accept a certain party's message only in a specified  time point/window. The time allocation will become clear in the next phases. 
+\item Set parameters  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}=z\cdot (o_{\scriptscriptstyle max}+l_{\scriptscriptstyle max})$ and $p_{\scriptscriptstyle\mathcal{S}}=z\cdot l_{\scriptscriptstyle max}$, where $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ and $p_{\scriptscriptstyle\mathcal{S}}$ are   the total number of masked coins $\mathcal C$ and $\mathcal S$ should deposit respectively. It signs and deploys a smart contract, SC, that explicitly specifies  parameters $z$,  $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$, $p_{\scriptscriptstyle\mathcal{S}}$,  $adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 1}}$, and $adr_{\scriptscriptstyle\text{SAP}_{\scriptscriptstyle 2}}$. Let $adr_{\scriptscriptstyle \text{SC}}$ be the address of the deployed SC, and $T:=\{T_{\scriptscriptstyle qp},T_{\scriptscriptstyle cp}\}$. It sets a set of time points/windows, $\texttt{Time}:\{ \texttt{T}_{\scriptscriptstyle 0},..., \texttt{T}_{\scriptscriptstyle 3},\texttt{G}_{\scriptscriptstyle 1,1},...,\texttt{G}_{\scriptscriptstyle z,2},\texttt{H}, \texttt{K}_{\scriptscriptstyle 1},...,\texttt{K}_{\scriptscriptstyle 3}, \texttt{L}\}$, that are explicitly specified in the contract who will accept a certain party's message only in a specified  time point/window. The time allocation will become clear in the next phases. 
 
 
 \item Sets four counters $[y_{\scriptscriptstyle\mathcal C},y'_{\scriptscriptstyle\mathcal C},y_{\scriptscriptstyle\mathcal S}, y'_{\scriptscriptstyle\mathcal S}]$ in the contract, where their initial value is $0$. Let $\bm{y}: [y_{\scriptscriptstyle\mathcal C},y'_{\scriptscriptstyle\mathcal C},y_{\scriptscriptstyle\mathcal S}, y'_{\scriptscriptstyle\mathcal S}, \texttt{Time},adr_{\scriptscriptstyle \text{SC}}]$
@@ -217,13 +217,13 @@ When $j=z$  and $\bm{m}_{\scriptscriptstyle\mathcal{C}}\neq\bot$, $\mathcal C$ s
 %\item $\mathcal C$ and/or $\mathcal S$ at time $K_{\scriptscriptstyle 1}>G_{\scriptscriptstyle z,2}+H$ sends ``dispute'' message to the contract. 
 
 
-\item The arbiter sets  counters: $y_{\scriptscriptstyle\mathcal C}, y'_{\scriptscriptstyle\mathcal C},y_{\scriptscriptstyle\mathcal S}$ and  $y'_{\scriptscriptstyle\mathcal S}$ and a vector: $\bm{des}$, that are initially set to $0$,  before time $\texttt{K}_{\scriptscriptstyle 1}$,  where $\texttt{K}_{\scriptscriptstyle 1}>\texttt{G}_{\scriptscriptstyle z,2}+\texttt{H}$. 
+\item The arbiter sets  counters: $y_{\scriptscriptstyle\mathcal C}, y'_{\scriptscriptstyle\mathcal C},y_{\scriptscriptstyle\mathcal S}$ and  $y'_{\scriptscriptstyle\mathcal S}$, that are initially set to $0$,  before time $\texttt{K}_{\scriptscriptstyle 1}$,  where $\texttt{K}_{\scriptscriptstyle 1}>\texttt{G}_{\scriptscriptstyle z,2}+\texttt{H}$. 
 \item $\mathcal C$  sends $m_{\scriptscriptstyle\mathcal C}$ and $\ddot{x}_{\scriptscriptstyle qp}$ to the arbiter at time $\texttt{K}_{\scriptscriptstyle 1}$. Or,  $\mathcal S$ sends $m_{\scriptscriptstyle\mathcal S}$ and $\ddot{x}_{\scriptscriptstyle qp}$ to the arbiter at time $\texttt{K}_{\scriptscriptstyle 1}$ %,   where $|\vv{\bm{v}}_{\scriptscriptstyle\mathcal{C}}|\neq 0$ and $|\vv{\bm{v}}_{\scriptscriptstyle\mathcal{S}}|\neq 0$. 
 
 %\item The arbiter ensures they have already reached an agreement by checking $a=1$ and the server deposit equals the amount the client suggested, i.e. $a=0$ and $coins^{*}_{\scriptscriptstyle\mathcal{S}}=p_{\scriptscriptstyle\mathcal{S}}$. Otherwise, the arbiter halts.  
 
-\item\label{arbiter-checks-statement} The arbiter checks the validity of  statement $\ddot{x}_{\scriptscriptstyle qp}$ sent by each party  $\forall \mathcal R\in \{\mathcal {C,S}\}$. To  do so, it sends  each $\ddot{x}_{\scriptscriptstyle qp}$ to SAP contract which  returns  either $1$ or $0$. The arbiter  constructs an empty vector: $\bm{v}$.  If  party $\mathcal R$'s statement is accepted, then 
- it appends every  element of $\bm{m}_{\scriptscriptstyle\mathcal{R}}$ to $\bm{v}$ and $\bm{des}$,  if that element is not already in $\bm{des}$. Also, it ensures $\bm{v}$ contains only distinct elements which are in the range $[1,z]$. Otherwise (if the party's statement is rejected) it discards the party's request, ${m}_{\scriptscriptstyle\mathcal{R}}$. It proceeds to the next step if $\bm{v}$ is not empty, otherwise it halts. 
+\item\label{arbiter-checks-statement} At time $\texttt{K}_{\scriptscriptstyle 2}$, the arbiter checks the validity of  statement $\ddot{x}_{\scriptscriptstyle qp}$ sent by each party  $\forall \mathcal R\in \{\mathcal {C,S}\}$. To  do so, it sends  each $\ddot{x}_{\scriptscriptstyle qp}$ to SAP contract which  returns  either $1$ or $0$. The arbiter  constructs an empty vector: $\bm{v}$.  If  party $\mathcal R$'s statement is accepted, then 
+ it appends every  element of $\bm{m}_{\scriptscriptstyle\mathcal{R}}$ to $\bm{v}$. It ensures $\bm{v}$ contains only distinct elements which are in the range $[1,z]$. Otherwise (if the party's statement is rejected) it discards the party's request, ${m}_{\scriptscriptstyle\mathcal{R}}$. It proceeds to the next step if $\bm{v}$ is not empty, otherwise it halts. 
  %, and increments $ y'_{\scriptscriptstyle\mathcal R}$ by 1
 
 %\item The Arbiter, for each party, checks the validity of $k$ by sending $k$ and $\mu'$ to SAP contract which  returns  either $1$ or $0$. The arbiter proceeds to the next step if the output is 1; otherwise, it does nothing. 
@@ -246,7 +246,7 @@ $ \mathtt{Dec}(\bar{k},\pi'_{\scriptscriptstyle i})=\pi''_{\scriptscriptstyle i}
 \begin{enumerate}
 \item[$\bullet$] if $I_{\scriptscriptstyle i}=\mathcal C$, then it increments $y_{\scriptscriptstyle\mathcal C}$ by $1$ 
 \item[$\bullet$]  if $I_{\scriptscriptstyle i}=\mathcal S$, then it increments $y_{\scriptscriptstyle\mathcal S}$ by $1$ 
-\item[$\bullet$]  if $I_{\scriptscriptstyle i}=\bot$, then it increments  $y'_{\scriptscriptstyle\mathcal C}$ or $y'_{\scriptscriptstyle\mathcal S}$ by $1$, if the arbiter is invoked by  $\mathcal {C}$ or $\mathcal {S}$ respectively. 
+\item[$\bullet$]  if $I_{\scriptscriptstyle i}=\bot$, then it increments  $y'_{\scriptscriptstyle\mathcal C}$ or $y'_{\scriptscriptstyle\mathcal S}$ by $1$, if $i$ is in  the complaint of $\mathcal {C}$ or $\mathcal {S}$ respectively. 
 \end{enumerate}
 \end{enumerate}
 
@@ -256,9 +256,9 @@ $ \mathtt{Dec}(\bar{k},\pi'_{\scriptscriptstyle i})=\pi''_{\scriptscriptstyle i}
 %
 %
 %Let $u_{\scriptscriptstyle\mathcal C}$ and $u_{\scriptscriptstyle\mathcal S}$  be the total number of times $\mathtt{VSID.identify}()$ returns $\mathcal{C}$ and $\mathcal{S}$ respectively.  Also, let $y_{\scriptscriptstyle\mathcal C}$ and $y_{\scriptscriptstyle\mathcal S}$ be the total number of times $\mathtt{VSID.identify}()$ returns $\bot$ when it is invoked by the client and server  respectively. 
-Let $\texttt{K}_{\scriptscriptstyle 2}$ be the time that the arbiter finishes the above checks.
+Let $\texttt{K}_{\scriptscriptstyle 3}$ be the time that the arbiter finishes the above checks.
 
-\item The arbiter at time $\texttt{K}_{\scriptscriptstyle 2}$ sends $[y_{\scriptscriptstyle\mathcal C},y_{\scriptscriptstyle\mathcal S},  y'_{\scriptscriptstyle\mathcal C},y'_{\scriptscriptstyle\mathcal S}]$  to SC who accordingly overwrites the  elements it holds (i.e. elements of $\bm{y}$) by  the related vectors elements the arbiter sent.  
+\item The arbiter at time $\texttt{K}_{\scriptscriptstyle 3}$ sends $[y_{\scriptscriptstyle\mathcal C},y_{\scriptscriptstyle\mathcal S},  y'_{\scriptscriptstyle\mathcal C},y'_{\scriptscriptstyle\mathcal S}]$  to SC who accordingly overwrites the  elements it holds (i.e. elements of $\bm{y}$) by  the related vectors elements the arbiter sent.  
 \end{enumerate}
 
 \
@@ -268,7 +268,7 @@ Let $\texttt{K}_{\scriptscriptstyle 2}$ be the time that the arbiter finishes th
  
  \item If SC  receives  ``pay'' message  at time $\texttt{T}_{2}$, where $a=0$ or $coins^{*}_{\scriptscriptstyle\mathcal{S}}<p_{\scriptscriptstyle\mathcal{S}}$, then it sends $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}$ coins to $\mathcal C$ and $coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}$ coins to $\mathcal S$. In other words, the parties can withdraw their coins if they do not reach an agreement at the end of   phase \ref{RCSP::Server-side-Initiation}, i.e. server-side initiation.  Otherwise (i.e. they reach an agreement), they take the following step. 
 
-\item Either $\mathcal C$ or $\mathcal S$ send ``pay'' message and the statement, $\ddot{x}_{\scriptscriptstyle cp}\in T_{\scriptscriptstyle cp}$,  to SC at time $\texttt{L}>\texttt{K}_{\scriptscriptstyle 2}$
+\item Either $\mathcal C$ or $\mathcal S$ send ``pay'' message and the statement, $\ddot{x}_{\scriptscriptstyle cp}\in T_{\scriptscriptstyle cp}$,  to SC at time $\texttt{L}>\texttt{K}_{\scriptscriptstyle 3}$
 \item SC checks the validity of the statement by sending $\ddot{x}_{\scriptscriptstyle cp}$ to SAP contract which  returns  either $1$ or $0$. SC only proceeds to the next step if the output is $1$. 
 \item SC distributes the coins to the parties as follows:
 
@@ -318,14 +318,14 @@ For the sake of simplicity, in the above protocol, we assumed that each arbiter'
 In the case where $\mathtt{VSID.verify}(.)$ is privately verifiable and    the server invokes the arbiter, the client needs to provide inputs to the arbiter too. Otherwise (when it is publicly verifiable and  the server invokes the arbiter), the client's involvement is not required in the dispute resolution phase.  In contrast, if the client invokes the arbiter, the server's involvement is not required in that phase, regardless of the type of verifiability $\mathtt{VSID.verify}(.)$ supports. 
 \end{remark}
 
-\begin{remark}
-In phase \ref{RCSP::Dispute-Resolution}, vector $\bm{des}$ is used to let the arbiter discard a party's complaint for a certain verification, say $i$-th, (without processing that request) when the arbiter has already identified a misbehaving party for that verification, i.e. already output $I_{i}\in\{\mathcal{C}, \mathcal{S},\bot\}$. It ensures that the arbiter does not run the same request multiple times, so its resources would not be wasted. 
-\end{remark}
+%\begin{remark}
+%In phase \ref{RCSP::Dispute-Resolution}, vector $\bm{des}$ is used to let the arbiter discard a party's complaint for a certain verification, say $i$-th, (without processing that request) when the arbiter has already identified a misbehaving party for that verification, i.e. already output $I_{i}\in\{\mathcal{C}, \mathcal{S},\bot\}$. It ensures that the arbiter does not run the same request multiple times, so its resources would not be wasted. 
+%\end{remark}
 
 
 
 \begin{theorem}
-The RC-S-P protocol is secure, w.r.t. Definition \ref{def::RC-S-P-Security}, if VSID, SAP, and blockchain are secure and the encryption scheme is semantically secure. 
+The RC-S-P protocol is secure, w.r.t. Definition \ref{def::RC-S-P-Security}, if VSID, SAP, and signature scheme are secure and the encryption scheme is semantically secure. 
 \end{theorem}
 
 
@@ -340,7 +340,7 @@ The RC-S-P protocol is secure, w.r.t. Definition \ref{def::RC-S-P-Security}, if 
 %{\color{blue}Explain how we can use the smart contracts of \cite{DongWAMM17} to delegate the arbiter task to smart contracts. In this case, only if the smart contracts do not reach a consensus the arbiter is involved. }
 
 
-\input{PoR-protocol}
+%\input{PoR-protocol}
 
 
 
