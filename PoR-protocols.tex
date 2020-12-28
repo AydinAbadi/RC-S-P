@@ -1,0 +1,40 @@
+% !TEX root =R-zkCSP.tex
+
+\section{Recurring Contingent PoR Payment (RC-PoR-P) Protocol}
+
+
+In this section, we present recurring contingent PoR payment (RC-PoR-P) that is a concrete instantiation of the generic recurring contingent service payment (RC-S-P), when the verifiable service is PoR. Nevertheless, RC-PoR-P offers  two primary added features. Specifically, unlike RC-S-P, it (a) does not use any zero-knowledge proofs (even though either client or server can still be  malicious) which significantly improves  costs, and (b)  has a much lower  arbiter-side computation cost; as we will show later, this also allows a smart contract efficiently plays the arbiter's role. In the following, first we  explain how the features are satisfied.
+
+\
+
+\noindent\textit{\textbf{Avoiding the Use of Zero-knowledge Proofs}}. In general, the majority of  PoR's are in the security model where a client is honest while the server is potentially malicious. They rely on metadata that is either a set of tags (e.g. MAC's or signatures) or a root of a Merkle tree,  constructed on  file blocks to ensure the file's availability. In the case where a client can also  be malicious,  if tags are used then using zero-knowledge proofs seem  an obvious choice, as it allows the client to guarantee to the server that the tags have been constructed correctly without leaking verification keys. However, this imposes significant computation and communication costs. We observed that using a Merkle tree would benefit our protocol from a couple of perspectives; in short, it removes the need for zero-knowledge proofs and it supports proof of misbehaviour. Our first observation is that if a Merkle tree is used to generate a metadata, then   there would be no need for the client to use zero-knowledge proofs to prove the correctness of the metadata to the server. Instead, the server can efficiently check the metadata's correctness, by reconstructing the Merkle tree on top of the file blocks. 
+
+\
+
+
+\noindent\textit{\textbf{Reducing Arbiter-side Cost}}.  As stated above, RC-PoR-P uses a Merkle tree-based PoR. In this case, each $j$-th proof contains a set of Merkle tree paths that are encoded and stored on a smart contract. For each verification, the client decoded and then verifies all paths. In a naive approach, when the client rejects  proofs of $j$-th verification,  it raises a dispute and let the arbiter verify the proofs, i.e. \emph{all paths} in the proofs \footnote{In a Merkle tree-based PoR, the number of proofs that are sent to a verifier for each verification is linear with the number of challenges, e.g. 460 challenges  to ensure 99\% of file blocks is retrievable. In contrast, in a tag-based PoR, in each verification, the verifier receives only a few proofs.}. Instead, we use the idea of proof of misbehaviour, put forth in \cite{}. In particular, in $j$-th verification, if the client detects invalid proofs, then  it  sends  details of only one invalid proof/path to the arbiter  who  decodes that single proof and checks its validity (as apposed to decoding and checking all proofs). This significantly reduces the arbiter computation cost. 
+
+
+To present RC-PoR-P protocol, we will use the same approach  used to present RC-S-P. In particular, first we present the verifiable service, that is a (modified) Merkle tree-based PoR. Then, we upgrade it to the one that supports  identifiable abort, denoted by PoRID. Next,   we use PoRID to build RC-PoR-P. 
+
+
+\input{Modified-Merkle-tree-based-PoR}
+
+\input{PoRID-protocol}
+
+\input{Recurring-Contingent-PoR-Payment-protocol-With-Arbiter}
+
+\input{RCPoRP-Proof}
+
+\input{RC-PoR-P-Evaluation}
+
+
+
+
+
+
+
+
+
+
+

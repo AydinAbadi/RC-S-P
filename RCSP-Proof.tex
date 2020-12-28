@@ -1,5 +1,21 @@
 % !TEX root =R-zkCSP.tex
 
+
+\subsection{Security Analysis of RC-S-P Protocol}
+In this section, we analyse the security of RC-S-P protocol, presented in Section \ref{sec::RC-S-P-protocol}. First, we  present the protocol’s primary security theorem.
+
+
+
+
+\begin{theorem}
+The RC-S-P protocol is secure, w.r.t. Definition \ref{def::RC-S-P-Security}, if VSID, SAP, and signature scheme are secure and the encryption scheme is semantically secure. 
+\end{theorem}
+
+
+
+ To prove the above theorem, we show that RC-S-P meets all security properties defined in Section \ref{sec::RC-S-P-Definition}.  We start by proving that RC-S-P satisfies security against a malicious server. 
+
+
  \begin{lemma}\label{lem::RC-S-P-SecurityAgainstMaliciousServer}
  If SAP and signature scheme are secure and  VSID scheme supports correctness, soundness, and detectable abort, then RC-S-P is secure against malicious server, w.r.t. Definition \ref{deff::RC-S-P-SecurityAgainstMaliciousServer}. 
  \end{lemma}

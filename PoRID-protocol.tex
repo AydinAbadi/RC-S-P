@@ -10,19 +10,10 @@ The server-side prove and client-side verify algorithms are similar to those in 
 
 
 
-%In this section, we propose PoR with identifiable abort: PoRID. Here we consider the light version of  PoRID due to its efficiency. 
-
-%However, if $M$ takes as inputs private parameters, then the client commits to the parameters and  
 
 
 \begin{enumerate}
-%\item\textbf{Key Generation}. $\mathtt{VSID.KeyGen}(1^{\lambda},F)$ 
-%\begin{enumerate}
-%\item Calls  $\mathtt{VS.KeyGen}(1^{\lambda},F)$ to generate a pair of secret and public keys, $k:(sk,pk)$.
-%%\item Commits to the secret keys: $sk\in k$. This yields: $\mathtt{Com}(sk)$.
-%\item Posts $pk$ to a bulletin board. 
-%\end{enumerate}
-%\item \textbf{keyGen}. $\mathtt{PoR.keyGen}(1^{\lambda})$. $\mathcal{C}$ sets $pk$ as public key, initially empty.    
+   
 \item\textbf{Client-side Setup}. $\mathtt{PoRID.setup}(1^{\lambda}, u)$
 \begin{enumerate}
 \item Calls  $\mathtt{PoR.setup}(1^{\lambda}, u)\rightarrow (u^{\scriptscriptstyle *},pp)$, that results in public parameters $pp:=(\sigma,\beta,m,\zeta)$ and encoded file: $u^{\scriptscriptstyle *}=u^{\scriptscriptstyle '}_{\scriptscriptstyle 0}||0,...,u^{\scriptscriptstyle '}_{\scriptscriptstyle m}||m$. Recall,  $\zeta:=(\psi,\eta, \iota)$ is the $\mathtt{PRF}$'s description.
@@ -44,17 +35,12 @@ Verifies the correctness of public parameters:
  
  
 
- 
-%\item Posts $1$ to the board,  if the above checks pass; otherwise, it posts $0$ to the board.  
-
-%\end{enumerate}
 
 \
 
 \item\textbf{Client-side Query Generation}. $\mathtt{PoRID.genQuery}(1^{\lambda},  pp)$ 
 \begin{enumerate}
-\item Calls $\mathtt{PoR.genQuery}(1^{\lambda}, pp)\rightarrow \hat{k}$, to generate a key, $\hat{k}$ %whose element have been sorted in ascending order. 
-%\item Sorts the queries in ascending order. Let vector $ {\bm{q}}'$ contain the ordered random indices (i.e.  $ {\bm{q}}'[i]< {\bm{q}}'[i+1]$, where $i\in [0,\beta-1]$).
+\item Calls $\mathtt{PoR.genQuery}(1^{\lambda}, pp)\rightarrow \hat{k}$, to generate a key, $\hat{k}$ %whose element have been sorted 
 \item Posts $\hat{k}$ to the board. 
 \end{enumerate}
 
@@ -65,17 +51,10 @@ Verifies the correctness of public parameters:
 \begin{enumerate}
 \item  Checks if  $\hat{k}$ is not empty, i.e. $\hat{k}\neq \bot$, and is in the key's universe, i.e. $\hat{k}\in \{0,1\}^{\scriptscriptstyle\psi}$%If it is empty, then it outputs $I=\mathcal C$
 \item  If the checks pass, then it outputs $b=1$; otherwise, it outputs $b=0$
-% If the check passes, then it proceeds to the next step; otherwise, it aborts.
 
-%\item Verifies if  the query: $ {\bm{q}}$ has been constructed correctly as follows. 
+
 \end{enumerate}
-%
-%\begin{enumerate}
-%\item  checks the query vector size: $| {\bm{q}}|\stackrel{\scriptscriptstyle ?}=\beta$. If the equation does not hold, then it posts  $b=0$ to the board and aborts. Otherwise, it proceeds to the next step. 
-%\item verifies that the elements of $ {\bm{q}}$ are in ascending order, by checking if there are two consecutive elements of the vector: $(q_{\scriptscriptstyle i},q_{\scriptscriptstyle i+1})\in  {\bm{q}}$, such that: $q_{\scriptscriptstyle i}\not<q_{\scriptscriptstyle i+1}$.  If the pair is found, then it posts  $b:(0,i)$ to the board and aborts. Otherwise, it proceeds to the next step. 
-%\end{enumerate}
-%\item Posts $b=1$ to the board, if the above two checks pass.  
-%\end{enumerate}
+
 
 \
 
@@ -91,8 +70,7 @@ Verifies the correctness of public parameters:
 %\begin{enumerate}
 
  Calls $\mathtt{PoR.verify}( {\bm{\pi}},\hat{k} ,pp)\rightarrow  {\bm{d}}$, to verify the proof. If $ {\bm{d}}[0] = 1$,  it accepts the proof; otherwise, it rejects it.
-%\item Posts $  {\bm{d}}$ to the board. 
-%\end{enumerate}
+
 
 \
 
@@ -103,13 +81,12 @@ This algorithm can be invoked by $\mathcal{C}$ or $\mathcal{S}$, in the case of 
 
 \begin{enumerate}
 
-%\item Calls $\mathtt{VSID.checkQuery}(c, pk)\rightarrow b$. If $b=1$, then it proceeds to the next step. Otherwise, it outputs $I=\mathcal C$ and aborts. 
-%\item   Ensures $ {\bm{d}}[0]=0$; otherwise, it aborts.
+
 
 \item Ensures  query $\hat{k}$ is well-structured by calling $\mathtt{PoRID.checkQuery}(\hat{k}, pp)$. If it returns $b=0$, then it outputs $I=\mathcal C$ and halts; otherwise, it proceeds to the next step. 
 
 
-%not empty (i.e. $\hat{k}\neq \bot$). If it is empty, then it outputs $I=\mathcal C$
+
 
 \item Derives the related challenged block's index from $\hat{k}$, by computing $q_{\scriptscriptstyle g}=\mathtt{PRF}(\hat{k},g)\bmod m+1$ 
 
@@ -130,21 +107,5 @@ in PoRID the (honest) client makes black-box calls to the algorithms of PoR, to 
 \hfill\(\Box\)\end{proof}
 
 
-
-%In the case where the party's outgoing message input is of large size, the parties can post a hash of the data to the board and send the data directly to its counter party. This requires, the other party to simply check if the data matches the representation and then sends to the board a short string declaring it has received it. 
-
-
-
-
-
-
-
-
-%In the above definition,  $\mathtt{Service.verify}()$ algorithm  allows a verifier to detect only a misbehaving server; nevertheless, it is not suitable to  detect a misbehaving client who may try to falsely accuse the server.  Thus, $\mathtt{Service.resolve()}$ algorithm has also been incorporated in the definition, to allow an arbiter to detect either party's misbehaviour and resolve any dispute between them.  Informally, a service scheme has two main properties: correctness and soundness. The correctness requires that for any key, the verification algorithm accepts a proof generated by an honest prover. The soundness requires that if a prover convinces the verifier (i.e. client or arbiter), with a high probability, then the service has been provided by the prover. {\color {blue} it seems undeniability and accountability/liability, i.e. a malicious party can be identified and held accountable, are needed too. Thin if it's needed here on in the main payment protocol.}
-%The exact formalisation of soundness however totally depends on the kind of service provided. 
-
-
-
-%Thus, since the two party are mutually distrusted, the above definition has also incorporated Service.resolve() algorithm that  allows an arbiter to resolve any dispute between client and server. 
 
 

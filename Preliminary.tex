@@ -14,13 +14,6 @@
 \subsection{Smart Contract} Cryptocurrencies, such as Bitcoin and Ethereum, in addition to offering a decentralised currency,  support  computations on  transactions. In this setting, often a certain computation logic is encoded in a computer program, called \emph{``smart contract''}. To date, Ethereum is the most predominant cryptocurrency framework that enables users to define arbitrary smart contracts. In this framework,  contract code is stored on the blockchain and  executed by all parties (i.e. miners) maintaining the cryptocurrency,  when the program inputs are provided by transactions. The program execution's  correctness  is  guaranteed by the security of the underlying blockchain components. To prevent  a denial of service attack, the framework requires a transaction creator to pay a  fee, called \emph{``gas''}, depending on the complexity of the contract running on  it.  Nonetheless,  Ethereum smart contracts suffer from an important   issue; namely, the \emph{lack of privacy}, as it requires  every contract's data to be public, which is a major impediment  to  the broad adoption of  smart contracts when a certain level of privacy is desired. To address the issue, researchers/users may either (a)  utilise existing decentralised frameworks  which support privacy-preserving smart contracts, e.g. \cite{KosbaMSWP16}. But, due to the use of generic and computationally expensive cryptographic tools,  they impose a significant cost to their users. Or (b)  design  efficient tailored cryptographic protocols  that preserve (contracts) data privacy, even though non-private smart contracts are used. We take the latter approach in this work. 
 
 
-%Nonetheless,  Ethereum smart contracts suffer from an important   issue; namely, the \emph{lack of privacy}, as it requires  every contract's data to be public, which is a major impediment  to  the broad adoption of  smart contracts when a certain level of privacy is desired. To address the issue, researchers/users may either (a)  utilise existing decentralised frameworks  which support privacy-preserving smart contracts, e.g. \cite{KosbaMSWP16}. But, due to the use of generic and computationally expensive cryptographic tools,  they impose a significant cost to their users. Or (b)  design  efficient tailored cryptographic protocols  that preserve (contracts) data privacy, even though non-private smart contracts are used. We take the latter approach in this work. 
-
-
-%\subsection{Commitment Scheme} A commitment scheme involves two parties:  \emph{sender} and  \emph{receiver}, and includes  two phases: \emph{commit} and  \emph{open}. In the commit phase, the sender  commits to a message: $m$ as $\mathtt{Com}(m,d)=h$, that involves a secret value: $d$. At the end of the commit phase,  the commitment: $h$ is sent to the receiver. In the open phase, the sender sends the opening: $\ddot{p}=(m,d)$ to the receiver who verifies its correctness: $\mathtt{Ver}(h,\ddot{p})\stackrel{\scriptscriptstyle ?}=1$ and accepts if the output is $1$.  A commitment scheme must satisfy two properties: (a) \textit{hiding}: infeasible for an adversary (i.e. the receiver) to learn any information about the committed  message: $m$, until the commitment: $h$ is opened, and (b) \textit{binding}:   infeasible for an adversary (i.e. the sender) to open a commitment: $h$ to different values: $\ddot{p}'=(m',d')$ than that used in the commit phase, i.e. infeasible to find  $\ddot{p}'$, \textit{s.t.} $\mathtt{Ver}(h,\ddot{p})=\mathtt{Ver}(h,\ddot{p}')=1$, where $\ddot{p}\neq \ddot{p}'$.  There exist efficient non-interactive  commitment schemes both in (a) the random oracle model using the well-known hash-based scheme such that $\mathtt{Com}(m,d)$ involves computing: $\mathtt{H}(m||d)=h$ and $\mathtt{Ver}(h,\ddot{p})$ requires checking: $\mathtt{H}(m||d)\stackrel{\scriptscriptstyle ?}=h$, where $\mathtt{H}$ is a hash function, and (b)  the standard model, e.g. Pedersen scheme \cite{Pedersen91}. 
-
-
-
 
 
 \subsection{Pseudorandom Function}
@@ -35,13 +28,10 @@ where  the key, $\hat{k}\stackrel{\scriptscriptstyle\$}\leftarrow\{0,1\}^{\scrip
 \end{definition}
 
 
-
 \subsection{Commitment Scheme}
 
 
  A commitment scheme involves two parties:  \emph{sender} and  \emph{receiver}, and includes  two phases: \emph{commit} and  \emph{open}. In the commit phase, the sender  commits to a message: $x$ as $\mathtt{Com}(x,r)=\mathtt{Com}_{\scriptscriptstyle x}$, that involves a secret value: $r\stackrel{\scriptscriptstyle\$}\leftarrow \{0,1\}^{\scriptscriptstyle\lambda}$. At the end of the commit phase,  the commitment: $\mathtt{Com}_{\scriptscriptstyle x}$ is sent to the receiver. In the open phase, the sender sends the opening: $\ddot{x}:=(x,r)$ to the receiver who verifies its correctness: $\mathtt{Ver}(\mathtt{Com}_{\scriptscriptstyle x},\ddot{x})\stackrel{\scriptscriptstyle ?}=1$ and accepts if the output is $1$.  A commitment scheme must satisfy two properties: (a) \textit{hiding}: infeasible for an adversary (i.e. the receiver) to learn any information about the committed  message: $x$, until the commitment: $\mathtt{Com}_{\scriptscriptstyle x}$ is opened, and (b) \textit{binding}:   infeasible for an adversary (i.e. the sender) to open a commitment: $\mathtt{Com}_{\scriptscriptstyle x}$ to different values: $\ddot{x}':=(x',r')$ than that was  used in the commit phase, i.e. infeasible to find  $\ddot{x}'$, \textit{s.t.} $\mathtt{Ver}(\mathtt{Com}_{\scriptscriptstyle x},\ddot{x})=\mathtt{Ver}(\mathtt{Com}_{\scriptscriptstyle x},\ddot{x}')=1$, where $\ddot{x}\neq \ddot{x}'$.  There exist efficient non-interactive  commitment schemes both in (a) the standard model, e.g. Pedersen scheme \cite{Pedersen91}, and (b)  the random oracle model using the well-known hash-based scheme such that committing  is : $\mathtt{H}(x||r)=\mathtt{Com}_{\scriptscriptstyle x}$ and $\mathtt{Ver}(\mathtt{Com}_{\scriptscriptstyle x},\ddot{x})$ requires checking: $\mathtt{H}(x||r)\stackrel{\scriptscriptstyle ?}=\mathtt{Com}_{\scriptscriptstyle x}$, where $\mathtt{H}:\{0,1\}^{\scriptscriptstyle *}\rightarrow \{0,1\}^{\scriptscriptstyle \lambda}$ is a collision resistance hash function, i.e. the probability to find $x$ and $x'$ such that $\mathtt{H}(x)=\mathtt{H}(x')$ is negligible, $\mu(\lambda)$.
-%
-% A commitment scheme involves two parties:  \emph{sender} and  \emph{receiver}, and includes  two phases: \emph{commit} and  \emph{open}. In the commit phase, the sender  commits to a message: $x$ as $\mathtt{Com}(x,r)=g$, that involves a secret value: $r$. At the end of the commit phase,  the commitment: $g$ is sent to the receiver. In the open phase, the sender sends the opening: $\ddot{p}=(x,r)$ to the receiver who verifies its correctness: $\mathtt{Ver}(g,\ddot{p})\stackrel{\scriptscriptstyle ?}=1$ and accepts if the output is $1$.  A commitment scheme must satisfy two properties: (a) \textit{hiding}: infeasible for an adversary (i.e. the receiver) to learn any information about the committed  message: $x$, until the commitment: $g$ is opened, and (b) \textit{binding}:   infeasible for an adversary (i.e. the sender) to open a commitment: $g$ to different values: $\ddot{p}'=(x',r')$ than that was  used in the commit phase, i.e. infeasible to find  $\ddot{p}'$, \textit{s.t.} $\mathtt{Ver}(g,\ddot{p})=\mathtt{Ver}(g,\ddot{p}')=1$, where $\ddot{p}\neq \ddot{p}'$.  There exist efficient non-interactive  commitment schemes both in (a) the random oracle model using the well-known hash-based scheme such that $\mathtt{Com}(x,r)$ involves computing: $\mathtt{H}(x||r)=g$ and $\mathtt{Ver}(g,\ddot{p})$ requires checking: $\mathtt{H}(x||r)\stackrel{\scriptscriptstyle ?}=g$, where $\mathtt{H}$ is a hash function, and (b)  the standard model, e.g. Pedersen scheme \cite{Pedersen91}. 
 
 
 
@@ -57,18 +47,10 @@ Some of our protocols utilise digital signatures to commit a party to messages i
 A Merkle tree scheme introduced by Merkle \cite{DBLP:conf/sp/Merkle80,DBLP:conf/crypto/Merkle89} allows   committing to data blocks, such that it is  possible later to open the commitment and verify individual blocks of the file without the need to have the entire file to verify the opening. To construct a Merkle tree a file is split into blocks, then the blocks are grouped in pairs. Next,   a collision-resistant hash function is used to hash each pair. After that, the hash values are grouped in pairs and each pair is further hashed, and this process is repeated until only a single hash value remains. This results in a  tree with the leaves corresponding to the blocks of the input file and the root corresponding to the last remaining hash value.  {\color{blue} Add the Merkle tree algorithms, e.g. build, prove, verify}
 
 
-
-
-
-
 \subsection{Proofs of Retrievability (PoR)}\label{PoR-def}
 \input{PoR-def}
 
 
-%In practice, we are interested in  pseudorandom functions that can be efficiently built on smart contracts given the tools  that a smart contract framework (e.g. Ethereum) offers. HMAC \cite{DBLP:conf/crypto/BellareCK96} satisfies the requirements above.
-
-
- 
 
 %\input{notation-Table.tex}
 
