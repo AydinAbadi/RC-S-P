@@ -36,7 +36,7 @@ There are cases, in RC-S-P schemes, where the third-party arbiter's role  can be
 
 \item [$\bullet$] In Definition \ref{deff::RC-S-P-SecurityAgainstMaliciousServer}:  the above changes are applied to the algorithms' syntax in the experiment. Moreover, the events are slightly modified, i.e. the amount of coins each party receives. For the sake of clarity and completeness, we state the entire modified  definition below. 
 
-\begin{definition}[${\text{RC-}\overline{\text{S}}\text{-P}}$ Security Against Malicious Server]\label{deff::RC-S-P-SecurityAgainstMaliciousServer-2}  A ${\text{RC-}\overline{\text{S}}\text{-P}}$  is secure against a malicious server  for a function $F$, if for any auxiliary information $\text{aux}$,  any price list $pl$, every $j$ (where $1\leq j\leq z$), any $Q,M, E, D$ and any PPT adversary $\mathcal{A}$, there exists a negligible function $\mu(\cdot)$, such that for any security parameter $\lambda$: 
+\begin{definition}[${\text{RC-}\overline{\text{S}}\text{-P}}$ Security Against Malicious Server]\label{deff::RC-S-P-SecurityAgainstMaliciousServer-2}  A ${\text{RC-}\overline{\text{S}}\text{-P}}$  is secure against a malicious server, for functions $F,Q,M,D,E$, and an auxiliary information $aux$, if for    any price list $pl$, every $j$ (where $1\leq j\leq z$), and any PPT adversary $\mathcal{A}$, there exists a negligible function $\mu(\cdot)$, such that for any security parameter $\lambda$: 
 {\small
 $$ \Pr\left[
   \begin{array}{l}
@@ -67,7 +67,7 @@ D\in enc$, $\sigma\in e$, $m_{\scriptscriptstyle \mathcal{C},j}\in m_{\scriptscr
 
  \item[$\bullet$] In Definition \ref{deff::RC-S-P-Security-Against Malicious-Client}: similar to the previous point, only the algorithms' syntax (in the experiment) and the amount of coins each party receives changes. Below, we state the entire modified definition. 
  
- \begin{definition}[${\text{RC-}\overline{\text{S}}\text{-P}}$ Security Against Malicious Client]\label{deff::RC-S-P-Security-Against Malicious-Client-2}  A  ${\text{RC-}\overline{\text{S}}\text{-P}}$  is secure against a malicious client  for a function $F$, for every $j$ (where $1\leq j\leq z$), any $Q,M,E,D$ and any probabilistic polynomial time adversary $\mathcal{A}$, there exists a negligible function $\mu(\cdot)$, such that for any security parameter $\lambda$: 
+ \begin{definition}[${\text{RC-}\overline{\text{S}}\text{-P}}$ Security Against Malicious Client]\label{deff::RC-S-P-Security-Against Malicious-Client-2}  A  ${\text{RC-}\overline{\text{S}}\text{-P}}$  is secure against a malicious client, for functions $F,Q,M,D,E$, and an auxiliary information $aux$, if for every $j$ (where $1\leq j\leq z$), and any probabilistic polynomial time adversary $\mathcal{A}$, there exists a negligible function $\mu(\cdot)$, such that for any security parameter $\lambda$: 
 
 {\small
 $$ \Pr\left[

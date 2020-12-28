@@ -112,7 +112,7 @@ A recurring contingent service payment (RC-S-P)  scheme satisfies correctness an
 
 
 
-\begin{definition}[RC-S-P Correctness] \label{def::RC-S-P-Correctness} A recurring contingent service payment  scheme  is  correct   if for any functions $F, Q, M, E, D$, any price list $pl$, and any auxiliary information $\text{aux}_{\scriptscriptstyle 1},...,\text{aux}_{\scriptscriptstyle z}$, the key generation algorithm produces keys $\mathtt{RCSP}.\mathtt{keyGen}(1^\lambda, F)\rightarrow \bm{k}$,   such that for any service input $u$, if $\mathtt{RCSP}.\mathtt{cInit}(1^\lambda, u,\bm{k}, M,z,pl,enc) \rightarrow (u^{\scriptscriptstyle *},e,T, p_{\scriptscriptstyle\mathcal S},  \bm{y}, coin^{\scriptscriptstyle*}_{\scriptscriptstyle\mathcal C})$,  $\mathtt{RCSP}.\mathtt{sInit} (u^{\scriptscriptstyle *},e, pk,z, T, p_{\scriptscriptstyle\mathcal S},\bm{y},enc)\rightarrow (coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S},a)$,   $\forall j:\Big($$\mathtt{RCSP}.\mathtt{genQuery}(1^\lambda, \text{aux}_{\scriptscriptstyle j},k,\\Q, T_{\scriptscriptstyle qp}, enc)\rightarrow c^{\scriptscriptstyle *}_{\scriptscriptstyle j}$, $\mathtt{RCSP}.\mathtt{prove}(u^{\scriptscriptstyle *},  \sigma,  c^{\scriptscriptstyle *}_{\scriptscriptstyle j},pk, T_{\scriptscriptstyle qp},enc)\rightarrow (b_{\scriptscriptstyle j},m_{\scriptscriptstyle\mathcal {S},j},\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j})$, $\mathtt{RCSP}.\mathtt{verify}(\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j}, \bm{q}_{\scriptscriptstyle j},k,T_{\scriptscriptstyle qp},enc)\rightarrow (d_{\scriptscriptstyle j}, m_{\scriptscriptstyle\mathcal {C},j})$$\Big),\\ \mathtt{RCSP}.\mathtt{resolve}(m_{\scriptscriptstyle \mathcal{C}},m_{\scriptscriptstyle \mathcal{S}},z, {\bm{\pi}}^{\scriptscriptstyle *}, {\bm{c}}^{\scriptscriptstyle *},pk, T_{\scriptscriptstyle qp},enc)\rightarrow \bm{y}$, $\mathtt{RCSP}.\mathtt{pay}(\bm{y},T_{\scriptscriptstyle cp},a,p_{\scriptscriptstyle\mathcal S}, coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C},coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S})\rightarrow (\bm{coin}_{\scriptscriptstyle\mathcal C},\bm{coin}_{\scriptscriptstyle\mathcal S},\bm{coin}_{\scriptscriptstyle\mathcal Ar})$, then $(a=1)\wedge (\bigwedge\limits^{\scriptscriptstyle z}_{\scriptscriptstyle j=1} b_{\scriptscriptstyle j}= \bigwedge\limits^{\scriptscriptstyle z}_{\scriptscriptstyle j=1} d_{\scriptscriptstyle j}=1)\wedge (\bm{y}_{\scriptscriptstyle \mathcal C}=\bm{y}_{\scriptscriptstyle \mathcal S}=\bm{y}'_{\scriptscriptstyle \mathcal C}=\bm{y}'_{\scriptscriptstyle \mathcal S}=0) \wedge (\sum\limits^{\scriptscriptstyle z}_{\scriptscriptstyle j=1}coin_{\scriptscriptstyle\mathcal C,j}=coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}-o\cdot z) \wedge  (\sum\limits^{\scriptscriptstyle z}_{\scriptscriptstyle j=1}coin_{\scriptscriptstyle\mathcal S,j}=coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}+o\cdot z)  \wedge (\sum\limits^{\scriptscriptstyle z}_{\scriptscriptstyle j=1}coin_{\scriptscriptstyle\mathcal Ar,j}=0)$, where $\bm{y}_{\scriptscriptstyle \mathcal C},\bm{y}_{\scriptscriptstyle \mathcal S},\bm{y}'_{\scriptscriptstyle \mathcal C},\bm{y}'_{\scriptscriptstyle \mathcal S}\in \bm{y}$
+\begin{definition}[RC-S-P Correctness] \label{def::RC-S-P-Correctness} A recurring contingent service payment  scheme  is  correct   if for  functions $F, Q, M, E, D$, an auxiliary information $\text{aux}_{\scriptscriptstyle 1},...,\text{aux}_{\scriptscriptstyle z}$,   any price list $pl$,  the key generation algorithm produces keys $\mathtt{RCSP}.\mathtt{keyGen}(1^\lambda, F)\rightarrow \bm{k}$,   such that for any service input $u$, if $\mathtt{RCSP}.\mathtt{cInit}(1^\lambda, u,\bm{k}, M,z,pl,enc) \rightarrow (u^{\scriptscriptstyle *},e,T, p_{\scriptscriptstyle\mathcal S},  \bm{y}, coin^{\scriptscriptstyle*}_{\scriptscriptstyle\mathcal C})$,  $\mathtt{RCSP}.\mathtt{sInit} (u^{\scriptscriptstyle *},e, pk,z, T, p_{\scriptscriptstyle\mathcal S},\bm{y},enc)\rightarrow (coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S},a)$,   $\forall j:\Big($$\mathtt{RCSP}.\mathtt{genQuery}(1^\lambda, \text{aux}_{\scriptscriptstyle j},k,\\Q, T_{\scriptscriptstyle qp}, enc)\rightarrow c^{\scriptscriptstyle *}_{\scriptscriptstyle j}$, $\mathtt{RCSP}.\mathtt{prove}(u^{\scriptscriptstyle *},  \sigma,  c^{\scriptscriptstyle *}_{\scriptscriptstyle j},pk, T_{\scriptscriptstyle qp},enc)\rightarrow (b_{\scriptscriptstyle j},m_{\scriptscriptstyle\mathcal {S},j},\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j})$, $\mathtt{RCSP}.\mathtt{verify}(\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j}, \bm{q}_{\scriptscriptstyle j},k,T_{\scriptscriptstyle qp},enc)\rightarrow (d_{\scriptscriptstyle j}, m_{\scriptscriptstyle\mathcal {C},j})$$\Big),\\ \mathtt{RCSP}.\mathtt{resolve}(m_{\scriptscriptstyle \mathcal{C}},m_{\scriptscriptstyle \mathcal{S}},z, {\bm{\pi}}^{\scriptscriptstyle *}, {\bm{c}}^{\scriptscriptstyle *},pk, T_{\scriptscriptstyle qp},enc)\rightarrow \bm{y}$, $\mathtt{RCSP}.\mathtt{pay}(\bm{y},T_{\scriptscriptstyle cp},a,p_{\scriptscriptstyle\mathcal S}, coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C},coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S})\rightarrow (\bm{coin}_{\scriptscriptstyle\mathcal C},\bm{coin}_{\scriptscriptstyle\mathcal S},\bm{coin}_{\scriptscriptstyle\mathcal Ar})$, then $(a=1)\wedge (\bigwedge\limits^{\scriptscriptstyle z}_{\scriptscriptstyle j=1} b_{\scriptscriptstyle j}= \bigwedge\limits^{\scriptscriptstyle z}_{\scriptscriptstyle j=1} d_{\scriptscriptstyle j}=1)\wedge (\bm{y}_{\scriptscriptstyle \mathcal C}=\bm{y}_{\scriptscriptstyle \mathcal S}=\bm{y}'_{\scriptscriptstyle \mathcal C}=\bm{y}'_{\scriptscriptstyle \mathcal S}=0) \wedge (\sum\limits^{\scriptscriptstyle z}_{\scriptscriptstyle j=1}coin_{\scriptscriptstyle\mathcal C,j}=coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}-o\cdot z) \wedge  (\sum\limits^{\scriptscriptstyle z}_{\scriptscriptstyle j=1}coin_{\scriptscriptstyle\mathcal S,j}=coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S}+o\cdot z)  \wedge (\sum\limits^{\scriptscriptstyle z}_{\scriptscriptstyle j=1}coin_{\scriptscriptstyle\mathcal Ar,j}=0)$, where $\bm{y}_{\scriptscriptstyle \mathcal C},\bm{y}_{\scriptscriptstyle \mathcal S},\bm{y}'_{\scriptscriptstyle \mathcal C},\bm{y}'_{\scriptscriptstyle \mathcal S}\in \bm{y}$
 \end{definition}
 
 %\textcolor{blue}{XXXX Thomas: something is not right in the definition of correctness... we write $\forall j$ but the execution of $\mathtt{RCSP}.\mathtt{genQuery}$ does not depend on $j$. Not sure how to fix it yet.XXXX}
@@ -163,7 +163,7 @@ A RC-S-P scheme is said to be secure if it satisfies  three main properties: (a)
 %_{\scriptscriptstyle q_{_{\scaleto{j}{\size}}}}
 
 
-\begin{definition}[RC-S-P Security Against Malicious Server]\label{deff::RC-S-P-SecurityAgainstMaliciousServer}  A RC-S-P  is secure against a malicious server  for a function $F$, if for any auxiliary information $\text{aux}$,  any price list $pl$, every $j$ (where $1\leq j\leq z$), any $Q,M, E, D$ and any PPT adversary $\mathcal{A}$, there exists a negligible function $\mu(\cdot)$, such that for any security parameter $\lambda$: 
+\begin{definition}[RC-S-P Security Against Malicious Server]\label{deff::RC-S-P-SecurityAgainstMaliciousServer}  A RC-S-P  is secure against a malicious server,  for  functions $F,Q,M,D,E$, and an auxiliary information $aux$, if for  any price list $pl$, every $j$ (where $1\leq j\leq z$), and any PPT adversary $\mathcal{A}$, there exists a negligible function $\mu(\cdot)$, such that for any security parameter $\lambda$: 
 %\footnotesize{
 {\small
 $$ \Pr\left[
@@ -194,7 +194,7 @@ F(u^{\scriptscriptstyle *},\bm{q}_{\scriptscriptstyle j}, {pp})\neq h_{\scriptsc
    \mathtt{RCSP}.\mathtt{resolve}(m_{\scriptscriptstyle \mathcal{C}},m_{\scriptscriptstyle \mathcal{S}},z, {\bm{\pi}}^{\scriptscriptstyle *}, {\bm{c}}^{\scriptscriptstyle *},pk, T_{\scriptscriptstyle qp},enc)\rightarrow \bm{y}\\
    
    \mathtt{RCSP}.\mathtt{pay}(\bm{y},T_{\scriptscriptstyle cp},a,p_{\scriptscriptstyle\mathcal S}, coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C},coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S})\rightarrow ({\bm{coin}}_{\scriptscriptstyle\mathcal C},{\bm{coin}}_{\scriptscriptstyle\mathcal S},{\bm{coin}}_{\scriptscriptstyle\mathcal Ar})\\
-\end{array}    \right]\leq \mu(\lambda).$$
+\end{array}    \right]\leq \mu(\lambda)$$
 }
 where $\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j}:=(h^{\scriptscriptstyle *}_{\scriptscriptstyle j}, \delta^{\scriptscriptstyle *}_{\scriptscriptstyle j}), h_{\scriptscriptstyle j}= D(h^{\scriptscriptstyle *}_{\scriptscriptstyle j},T_{\scriptscriptstyle qp})$, $
 D\in enc$, $\sigma\in e$, $m_{\scriptscriptstyle \mathcal{C},j}\in m_{\scriptscriptstyle \mathcal{C}}, m_{\scriptscriptstyle \mathcal{S},j}\in m_{\scriptscriptstyle \mathcal{S}}, y'_{\scriptscriptstyle \mathcal{S},j}\in \bm{y}'_{\scriptscriptstyle \mathcal{S}}\in\bm{y}$,   $y_{\scriptscriptstyle \mathcal{S},j}\in \bm{y}_{\scriptscriptstyle \mathcal{S}}\in\bm{y}$, and $ {pp}\in T_{\scriptscriptstyle qp}$. 
@@ -223,7 +223,7 @@ Informally, security against a malicious client requires that, for each  $j$-th 
  %\textcolor{blue}{XXXX Thomas: what does ``them'' refer to? XXXX}--> Aydin: the invalid metadata or query
  
  
- \begin{definition}[RC-S-P Security Against Malicious Client]\label{deff::RC-S-P-Security-Against Malicious-Client}  A RC-S-P  is secure against a malicious client  for a function $F$, for every $j$ (where $1\leq j\leq z$), any $Q,M,E,D$ and any probabilistic polynomial time adversary $\mathcal{A}$, there exists a negligible function $\mu(\cdot)$, such that for any security parameter $\lambda$: 
+ \begin{definition}[RC-S-P Security Against Malicious Client]\label{deff::RC-S-P-Security-Against Malicious-Client}  A RC-S-P  is secure against a malicious client  for functions $F,Q,M,D,E$, and an auxiliary information $aux$, if   for every $j$ (where $1\leq j\leq z$), and any probabilistic polynomial time adversary $\mathcal{A}$, there exists a negligible function $\mu(\cdot)$, such that for any security parameter $\lambda$: 
 
 
 {\small
@@ -258,7 +258,7 @@ $$ \Pr\left[
    
    \mathtt{RCSP}.\mathtt{resolve}(m_{\scriptscriptstyle \mathcal{C}},m_{\scriptscriptstyle \mathcal{S}},z, {\bm{\pi}}^{\scriptscriptstyle *}, {\bm{c}}^{\scriptscriptstyle *}, pk, T_{\scriptscriptstyle qp},enc)\rightarrow \bm{y}\\
    \mathtt{RCSP}.\mathtt{pay}(\bm{y},T_{\scriptscriptstyle cp},a,p_{\scriptscriptstyle\mathcal S}, coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C},coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S})\rightarrow ({\bm{coin}}_{\scriptscriptstyle\mathcal C},{\bm{coin}}_{\scriptscriptstyle\mathcal S},{\bm{coin}}_{\scriptscriptstyle\mathcal Ar})\\
-\end{array}    \right]\leq \mu(\lambda).$$
+\end{array}    \right]\leq \mu(\lambda)$$
 }
 where $\bm{q}_{\scriptscriptstyle j}\in D(c^{\scriptscriptstyle *}_{\scriptscriptstyle j},t_{\scriptscriptstyle qp})$, $
 D\in enc$, $\sigma\in e$, $y'_{\scriptscriptstyle \mathcal{C},j}\in \bm{y}'_{\scriptscriptstyle \mathcal{C}}\in\bm{y}$,   $y_{\scriptscriptstyle \mathcal{C},j}\in \bm{y}_{\scriptscriptstyle \mathcal{C}}\in\bm{y}$, and ${pp}\in T_{\scriptscriptstyle qp}$.  
@@ -312,10 +312,11 @@ D\in enc$, $\sigma\in e$, $y'_{\scriptscriptstyle \mathcal{C},j}\in \bm{y}'_{\sc
  Note, in the above definition, an honest server either does not deposit (e.g. when $a=0$) or if it deposits (i.e. agrees to serve) ultimately receives its deposit \emph{plus the service payment} (with a high probability). Informally, RC-S-P is privacy preserving if it guarantees the privacy of (a) the service input (e.g. outsourced file) and (b) the service proof's status during the private time bubble. In the following, we formally define privacy.
  
 
-  \begin{definition}[RC-S-P Privacy]\label{deff::RC-S-P-Privacy}  A RC-S-P   preserves privacy, any auxiliary information $\text{aux}$, any number of verifications $z$, any price list $pl$, any $F, Q,M, E$ and $D$, the following hold:
-   
-\begin{enumerate}
-
+  \begin{definition}[RC-S-P Privacy]\label{deff::RC-S-P-Privacy}  A RC-S-P   preserves privacy, for functions $F, Q, M, E, D$,   an auxiliary information $\text{aux}$, if for any number of verifications $z$, any price list $pl$,  the following hold:
+  
+  %\hat{Q}:=(Q,Q')
+  
+  \begin{enumerate}
 \item For any PPT adversary $\mathcal{A}_{\scriptscriptstyle 1}$ there exists a negligible function $\mu(\cdot)$, such that for any security parameter $\lambda$:
   
 {\small
@@ -335,7 +336,7 @@ $$\Pr\left[
 
 \forall j \in [z]:\\
 
-\Big(\mathtt{RCSP}.\mathtt{genQuery}(1^\lambda, \text{aux},k,Q_{\scriptscriptstyle\beta}, T_{\scriptscriptstyle qp}, enc)\rightarrow c^{\scriptscriptstyle *}_{\scriptscriptstyle j}\\
+\Big(\mathtt{RCSP}.\mathtt{genQuery}(1^\lambda, \text{aux},k,Q, T_{\scriptscriptstyle qp}, enc)\rightarrow c^{\scriptscriptstyle *}_{\scriptscriptstyle j}\\
      \mathtt{RCSP}.\mathtt{prove}(u^{\scriptscriptstyle *}_{\scriptscriptstyle\beta},   \sigma,  c^{\scriptscriptstyle *}_{\scriptscriptstyle j}, pk, T_{\scriptscriptstyle qp},enc)\rightarrow (b_{\scriptscriptstyle j},m_{\scriptscriptstyle \mathcal{S},j},\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j})\\  
    \mathtt{RCSP}.\mathtt{verify}(\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j}, \bm{q}_{\scriptscriptstyle j},k,T_{\scriptscriptstyle qp},enc)\rightarrow (d_{\scriptscriptstyle j},m_{\scriptscriptstyle \mathcal{C},j})\Big)\\
 \end{array}\right]\leq \frac{1}{2}+\mu(\lambda).$$
@@ -344,19 +345,95 @@ $$\Pr\left[
 
 
 
-\item For any PPT adversary $\mathcal{A}_{\scriptscriptstyle 2}$ who plays the above game, there exists a negligible function $\mu(\cdot)$ such that
+\item For any PPT adversary $\mathcal{A}_{\scriptscriptstyle 2}$ there exists a negligible function $\mu(\cdot)$ such that for any security parameter $\lambda$:
 
 
 {\small
-$$ Pr\left[\mathcal{A}_{\scriptscriptstyle 2}(\bm{c}^{\scriptscriptstyle *},coin^{\scriptscriptstyle *}_{\scriptscriptstyle \mathcal S},coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}, g_{\scriptscriptstyle cp},  g_{\scriptscriptstyle qp},\bm{\pi}^{\scriptscriptstyle *}, pl, a)\rightarrow (d_{\scriptscriptstyle j},j)\right]\leq \frac{1}{2}+ \mu(\lambda)$$
+$$\Pr\left[
+  \begin{array}{l}
+  \mathcal{A}_{\scriptscriptstyle 2}(\bm{c}^{\scriptscriptstyle *},coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S},coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal  C}, g_{\scriptscriptstyle cp}, \\ g_{\scriptscriptstyle qp}, \bm{\pi}^{\scriptscriptstyle *}, pl, a)\rightarrow(d_{\scriptscriptstyle j},j)\\
+\end{array} \middle |
+    \begin{array}{l}
+            \mathtt{RCSP.keyGen}(1^{\lambda}, F)\rightarrow \bm{k}\\
+        \mathcal{A}_{\scriptscriptstyle 2}(1^\lambda, pk, F)\rightarrow (u_{\scriptscriptstyle 0},u_{\scriptscriptstyle 1})\\
+
+
+    \beta\stackrel{\scriptscriptstyle\$}\leftarrow\{0,1\}\\
+
+   \mathtt{RCSP}.\mathtt{cInit}(1^\lambda, u_{\scriptscriptstyle\beta},\bm{k}, M,z,pl,enc)\rightarrow (u^{\scriptscriptstyle *}_{\scriptscriptstyle\beta},e,T, p_{\scriptscriptstyle\mathcal S},  \bm{y}, coin^{\scriptscriptstyle*}_{\scriptscriptstyle\mathcal C})\\
+\mathtt{RCSP}.\mathtt{sInit}(u_{\scriptscriptstyle\beta}^{\scriptscriptstyle *}, e, pk, z, T, p_{\scriptscriptstyle\mathcal S},\bm{y},enc)\rightarrow (coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S},a)\\
+
+\forall j \in [z]:\\
+
+\Big(\mathtt{RCSP}.\mathtt{genQuery}(1^\lambda, \text{aux},k,\hat{Q}_{\scriptscriptstyle\beta}, T_{\scriptscriptstyle qp}, enc)\rightarrow c^{\scriptscriptstyle *}_{\scriptscriptstyle j}\\
+     \mathtt{RCSP}.\mathtt{prove}(u^{\scriptscriptstyle *}_{\scriptscriptstyle\beta},   \sigma,  c^{\scriptscriptstyle *}_{\scriptscriptstyle j}, pk, T_{\scriptscriptstyle qp},enc)\rightarrow (b_{\scriptscriptstyle j},m_{\scriptscriptstyle \mathcal{S},j},\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j})\\  
+   \mathtt{RCSP}.\mathtt{verify}(\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j}, \bm{q}_{\scriptscriptstyle j},k,T_{\scriptscriptstyle qp},enc)\rightarrow (d_{\scriptscriptstyle j},m_{\scriptscriptstyle \mathcal{C},j})\Big)\\
+\end{array}\right]\leq \frac{1}{2}+\mu(\lambda)$$
 }
 
-where $\bm{c}^{\scriptscriptstyle *}=[{c}^{\scriptscriptstyle *}_{\scriptscriptstyle 1},...,{c}^{\scriptscriptstyle *}_{\scriptscriptstyle z}], \bm{\pi}^{\scriptscriptstyle *}=[\pi^{\scriptscriptstyle *}_{\scriptscriptstyle 1},...,\pi^{\scriptscriptstyle *}_{\scriptscriptstyle z}]$, and $ {pp}\in T_{\scriptscriptstyle qp}$.  Also, depending on the choice of $\beta$, algorithm $\mathtt{RCSP}.\mathtt{genQuery}(.)$ outputs an encoded valid query, when the input is $Q_{\scriptscriptstyle 1}$, or outputs an encoded invalid query, when the input is $Q_{\scriptscriptstyle 0}$.
+
+
+
+
+%
+%{\small
+%$$ Pr\left[\mathcal{A}_{\scriptscriptstyle 2}(\bm{c}^{\scriptscriptstyle *},coin^{\scriptscriptstyle *}_{\scriptscriptstyle \mathcal S},coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}, g_{\scriptscriptstyle cp},  g_{\scriptscriptstyle qp},\bm{\pi}^{\scriptscriptstyle *}, pl, a)\rightarrow (d_{\scriptscriptstyle j},j)\right]\leq \frac{1}{2}+ \mu(\lambda)$$
+%}
+
+%proof $\bm{w}_{\scriptscriptstyle q_{_{\scaleto{j}{\size}}}}$
+
+where $\bm{c}^{\scriptscriptstyle *}=[{c}^{\scriptscriptstyle *}_{\scriptscriptstyle 1},...,{c}^{\scriptscriptstyle *}_{\scriptscriptstyle z}], \bm{\pi}^{\scriptscriptstyle *}=[\pi^{\scriptscriptstyle *}_{\scriptscriptstyle 1},...,\pi^{\scriptscriptstyle *}_{\scriptscriptstyle z}]$,  $ {pp}\in T_{\scriptscriptstyle qp}$, $\hat{Q}_{\scriptscriptstyle 1}=Q$,  $\hat{Q}_{\scriptscriptstyle 0}=Q'$, and $Q'$ is an arbitrary function s.t. $Q'\neq Q$. Depending on the choice of $\beta$, algorithm $\mathtt{RCSP}.\mathtt{genQuery}(.)$ outputs either an encoded valid query-proof pair, when the input is $\hat{Q}_{\scriptscriptstyle 1}$ or invalid query-proof pair, when the input is $\hat{Q}_{\scriptscriptstyle 0}$. Specifically, in the former  case, $c^{\scriptscriptstyle *}_{\scriptscriptstyle j}$ contains encoding of valid query $\bm{q}_{\scriptscriptstyle j}\leftarrow Q(\text{aux},k,  {pp})$ and valid proof $\bm{w}_{\scriptscriptstyle q_{_{\scaleto{j}{\size}}}}$. Whereas, in the latter case, $c^{\scriptscriptstyle *}_{\scriptscriptstyle j}$ contains encoding of invalid query $\bm{q}_{\scriptscriptstyle j}\leftarrow Q'(.)$, and a proof, $\bm{w}_{\scriptscriptstyle q_{_{\scaleto{j}{\size}}}}$.
+
+
+
+% it outputs an encoded invalid query, when the input is $\hat{Q}_{\scriptscriptstyle 0}$. In particular, $\bm{q}_{\scriptscriptstyle j}=Q'(\text{aux},k,  {pp})\neq Q(\text{aux},k,  {pp})$.
+  
+   
+%\begin{enumerate}
+%\item For any PPT adversary $\mathcal{A}_{\scriptscriptstyle 1}$ there exists a negligible function $\mu(\cdot)$, such that for any security parameter $\lambda$:
+%  
+%{\small
+%$$\Pr\left[
+%  \begin{array}{l}
+%  \mathcal{A}_{\scriptscriptstyle 1}(\bm{c}^{\scriptscriptstyle *},coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S},coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal  C}, g_{\scriptscriptstyle cp}, \\ g_{\scriptscriptstyle qp}, \bm{\pi}^{\scriptscriptstyle *}, pl, a)\rightarrow\beta\\
+%\end{array} \middle |
+%    \begin{array}{l}
+%            \mathtt{RCSP.keyGen}(1^{\lambda}, F)\rightarrow \bm{k}\\
+%        \mathcal{A}_{\scriptscriptstyle 1}(1^\lambda, pk, F)\rightarrow (u_{\scriptscriptstyle 0},u_{\scriptscriptstyle 1})\\
+%
+%
+%    \beta\stackrel{\scriptscriptstyle\$}\leftarrow\{0,1\}\\
+%
+%   \mathtt{RCSP}.\mathtt{cInit}(1^\lambda, u_{\scriptscriptstyle\beta},\bm{k}, M,z,pl,enc)\rightarrow (u^{\scriptscriptstyle *}_{\scriptscriptstyle\beta},e,T, p_{\scriptscriptstyle\mathcal S},  \bm{y}, coin^{\scriptscriptstyle*}_{\scriptscriptstyle\mathcal C})\\
+%\mathtt{RCSP}.\mathtt{sInit}(u_{\scriptscriptstyle\beta}^{\scriptscriptstyle *}, e, pk, z, T, p_{\scriptscriptstyle\mathcal S},\bm{y},enc)\rightarrow (coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal S},a)\\
+%
+%\forall j \in [z]:\\
+%
+%\Big(\mathtt{RCSP}.\mathtt{genQuery}(1^\lambda, \text{aux},k,Q_{\scriptscriptstyle\beta}, T_{\scriptscriptstyle qp}, enc)\rightarrow c^{\scriptscriptstyle *}_{\scriptscriptstyle j}\\
+%     \mathtt{RCSP}.\mathtt{prove}(u^{\scriptscriptstyle *}_{\scriptscriptstyle\beta},   \sigma,  c^{\scriptscriptstyle *}_{\scriptscriptstyle j}, pk, T_{\scriptscriptstyle qp},enc)\rightarrow (b_{\scriptscriptstyle j},m_{\scriptscriptstyle \mathcal{S},j},\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j})\\  
+%   \mathtt{RCSP}.\mathtt{verify}(\pi^{\scriptscriptstyle *}_{\scriptscriptstyle j}, \bm{q}_{\scriptscriptstyle j},k,T_{\scriptscriptstyle qp},enc)\rightarrow (d_{\scriptscriptstyle j},m_{\scriptscriptstyle \mathcal{C},j})\Big)\\
+%\end{array}\right]\leq \frac{1}{2}+\mu(\lambda).$$
+%}
+%
+%
+%
+%
+%\item For any PPT adversary $\mathcal{A}_{\scriptscriptstyle 2}$ who plays the above game, there exists a negligible function $\mu(\cdot)$ such that
+%
+%
+%{\small
+%$$ Pr\left[\mathcal{A}_{\scriptscriptstyle 2}(\bm{c}^{\scriptscriptstyle *},coin^{\scriptscriptstyle *}_{\scriptscriptstyle \mathcal S},coin^{\scriptscriptstyle *}_{\scriptscriptstyle\mathcal C}, g_{\scriptscriptstyle cp},  g_{\scriptscriptstyle qp},\bm{\pi}^{\scriptscriptstyle *}, pl, a)\rightarrow (d_{\scriptscriptstyle j},j)\right]\leq \frac{1}{2}+ \mu(\lambda)$$
+%}
+%
+%where $\bm{c}^{\scriptscriptstyle *}=[{c}^{\scriptscriptstyle *}_{\scriptscriptstyle 1},...,{c}^{\scriptscriptstyle *}_{\scriptscriptstyle z}], \bm{\pi}^{\scriptscriptstyle *}=[\pi^{\scriptscriptstyle *}_{\scriptscriptstyle 1},...,\pi^{\scriptscriptstyle *}_{\scriptscriptstyle z}]$, and $ {pp}\in T_{\scriptscriptstyle qp}$.  Also, depending on the choice of $\beta$, algorithm $\mathtt{RCSP}.\mathtt{genQuery}(.)$ outputs an encoded valid query, when the input is $Q_{\scriptscriptstyle 1}$, or outputs an encoded invalid query, when the input is $Q_{\scriptscriptstyle 0}$.
+
+
+
 % The probability is taken over uniform  choice of $k,k'\stackrel{\scriptscriptstyle\$}\leftarrow \{0,1\}^{\scriptscriptstyle\lambda}$, where $k,k'\in\bm{k}$, the randomness of $\mathcal{A}_{\scriptscriptstyle 1}$ and $\mathcal{A}_{\scriptscriptstyle 2}$,  the randomness used in witnesses $g_{\scriptscriptstyle cp}, g_{\scriptscriptstyle qp}\in t$,  the randomness used in  $E$.
 \end{enumerate}
 \end{definition}
  
-In the above definition, the experiment is allowed to produce  invalid queries. It is required that  the privacy holds regardless of the queries status, i.e. whether they are valid or invalid, as long as the are encoded and provided.  
+In the above definition, the experiment is allowed to produce  invalid queries. It is required that  the privacy holds regardless of the queries and proofs  status, i.e. whether they are valid or invalid, as long as they are correctly encoded and provided. In the above definitions, the private time bubble is a time period from the point when $\mathtt{RCSP.keyGen}(.)$ is executed up to the time  when $\mathtt{RCSP}.\mathtt{resolve}(.)$  is run. In other words, the privacy holds up to the point where $\mathtt{RCSP}.\mathtt{resolve}(.)$  is run. That is why the latter algorithm is excluded from the  experiments in Definition \ref{deff::RC-S-P-Privacy}. 
  
  
  
