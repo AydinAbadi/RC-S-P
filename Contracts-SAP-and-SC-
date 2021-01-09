@@ -67,6 +67,7 @@ contract RCSP{
             }
         }
     }
+    
     // -----------------------SAP_qp functions: they are used for qp ---------------------------
     // This function runs only step 1.d, i.e. it stores g_c_qp
     // it can be called by the client during client-side initiation phase/period (i.e. within the 1st delta)
