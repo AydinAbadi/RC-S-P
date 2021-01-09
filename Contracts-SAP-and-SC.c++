@@ -1,0 +1,210 @@
+
+// Author: Aydin Abadi. The code is under MIT licence. 
+
+pragma solidity >=0.4.22 <0.5.0;
+
+contract RCSP{
+    
+    //------variables-----
+    uint public z; // total number of verifications
+    uint public coin_c; // represents coin^*_c in the paper
+    uint public coin_s; // represents coin^*_s in the paper
+    uint public p_s; // total number of coins that the server should deposit
+    address public client; // the client's address
+    address public server; // the server's address
+    address public arbiter; // the arbiter's address
+    //g_c and g_s for SAP_qp
+    bytes32 public g_c_qp; // in SAP_qp: g_c_qp represents the commitment sent to the contract by the client in step 2.b. (in RC-PoR-P protocol)
+    bytes32 public g_s_qp; // in SAP_qp: g_s_qp represents the commitment sent to the contract by the server in step 3.b. (in RC-PoR-P protocol)
+    //g_c and g_s for SAP_cp
+    bytes32 public g_c_cp; // in SAP_cp: g_c_cp represents the commitment sent to the contract by the client in step 2.d. (in RC-PoR-P protocol)
+    bytes32 public g_s_cp; // in SAP_cp: g_s_cp represents the commitment sent to the contract by the server in step 3.b. (in RC-PoR-P protocol)
+    bytes32 public nul;
+    uint public y_c;
+    uint public y_prime_c; // it represents y'_c in the paper
+    uint public y_s;
+    uint public y_prime_s; // it represents y'_s in the paper
+    uint a; // it corresponds to value ''a'' in step 3.c in the RC-PoR protocol
+    mapping (int => bytes32) public queries; // stores the encrypted queries (i.e. k^*_j)
+    mapping (int => bytes) public proofs; // stores the encrypted queries (i.e. pi^*_j)
+    // time parameters
+    int public delta; // time window T_{i}-T_{i-1} = delta
+    int public start; // time the contract is deployed to the blockchain
+    int public H; // waiting period after z verifications
+    int public k_6; // the time by which the arbiter should send its input to the contract. For simplicityl, we set k_6= (m * delta) + H
+    //  .... where m is passed to the constructor. 
+    
+    //---------test ------variables----
+    int public current_slot_indx; 
+    int public current_ver_indx;
+    int256 public get_slot_1_;
+    //******** a constructur that sets client's and server's addresses
+    constructor (uint p_s_,uint z_,int delta_,int n, int m) public{
+        z = z_;
+        client = 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4;
+        server = 0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2;
+        arbiter = 0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db;
+        p_s = p_s_;
+        nul = 0x0000000000000000000000000000000000000000000000000000000000000000;
+        start = int(now);
+        delta = delta_;
+        H = n * delta_;//waiting period in delta
+        k_6 = (m * delta) + H;
+    }
+    // This function can be called by the client during client-side initiation phase/period (i.e. within the 1st delta) and by the server 
+    // until the server-side initiation is finished, i.e. the 1st two deltas.
+    function deposite() payable public{
+        
+        int256 get_slot_1 = get_slot_1_= (int256(now) - start) / int256(delta);
+        int256 get_slot_2 = (int256(now) - start - int256(delta)) / int256(delta);
+        if (msg.sender == client && get_slot_1 == 0){
+            coin_c = msg.value;
+        }
+        if (msg.sender == server && get_slot_2 == 0){
+            coin_s = msg.value;
+            if(msg.value == p_s){// it sets '' a '' to '' 1 '' if the server sends enough coin-- in other words, if it sends enugh coins it means if accepts to server
+                a = 1;
+            }
+        }
+    }
+    // -----------------------SAP_qp functions: they are used for qp ---------------------------
+    // This function runs only step 1.d, i.e. it stores g_c_qp
+    // it can be called by the client during client-side initiation phase/period (i.e. within the 1st delta)
+    // it only stores the client's commitment and makes sure it has not been set before
+    function SAP_qp_init(bytes32 g_c_qp_) public {
+        // ensures the client can call c_init that includes SAP_cp_init during first ''delta''' period
+        int256 get_slot = (int256(now) - start) / int256(delta);
+        if (get_slot == 0){
+            if (msg.sender == client && g_c_qp == nul){// makes sure it has not been already set
+                g_c_qp = g_c_qp_;
+            }
+        }
+    }
+    // This function only stores the server's commitment. 
+    // it can be called by the server (in step 3.b.) until the server-side initiation is finished, i.e. within the 1st two deltas.
+    function SAP_qp_agree(bytes32 g_s_qp_) public {
+        
+        int256 get_slot = (int256(now) - start - int256(delta)) / int256(delta);
+        if(get_slot == 0){
+            if (msg.sender == server && g_s_qp == nul){ // makes sure it has not been already set
+                g_s_qp = g_s_qp_;
+            }
+        }
+    }
+    // This function is called ''locally'' by the arbier in step 7.c.i and 7.d.i. 
+    function SAP_qp_verify(uint x_1, uint x_2, bytes32 r)  public returns(bool res) {
+
+        if ((keccak256(x_1,x_2,r) == g_c_qp) && (keccak256(x_1,x_2,r) == g_s_qp)){
+            res = true;
+        }
+    }
+    // ---------------------SAP_2 functions: they are used for cp -----------------
+    // The following SAP functions are basically the same as SAP_qp functions, the only difference is 
+    // SAP_cp_init() runs only in step 1.d, i.e. it stores g_c_cp
+    // it only stores the client's commitment and makes sure it has not been set before
+    // it can be called by the client during client-side initiation phase/period (i.e. within the 1st delta)
+    function SAP_cp_init(bytes32 g_c_cp_) public {
+        
+        int256 get_slot = (int256(now) - start) / int256(delta); 
+        if (get_slot == 0){
+            if (msg.sender == client && g_c_cp == nul){ // makes sure it has not been already set
+                g_c_cp = g_c_cp_;
+            }
+        }
+    }
+    // This function only stores the server's commitment
+    // it can be called by the server in step 3.b. until the server-side initiation is finished, i.e. within the 1st two deltas.
+    function SAP_cp_agree(bytes32 g_s_cp_) public {
+        
+        int256 get_slot = (int256(now) - start - int256(delta)) / int256(delta);
+        if(get_slot == 0){
+            if (msg.sender == server && g_s_cp == nul){ // makes sure it has not been already set
+                g_s_cp = g_s_cp_;
+            }
+        }
+    }
+    // This function is called by the contract, in particular pay() function.
+    // x_i are elements of cp. Also, r is a random value. 
+    function SAP_cp_verify(uint x_1,uint x_2,uint x_3,uint x_4,uint x_5, bytes32 r)  public returns(bool res) {
+        
+        if ( (keccak256(x_1,x_2,x_3,x_4,x_5,r) == g_c_cp) && (keccak256(x_1,x_2,x_3,x_4,x_5,r) == g_s_cp) ){
+            res = true;
+            //test_2 = res;
+        }
+    }
+    // The following two functions determine (a) the current slot index (in how many deltas have passed after the contract's deployment),
+    // ... and (b) verifiction's index 
+    //----------------------------
+    function current_slot() public returns (int256 res){
+        
+        int256 index = current_ver_indx = current_verification_index();
+        res = current_slot_indx = int256((int256(now) - start - 2 * delta - (3 * delta * (index-1))))/int256(delta);
+    }
+    
+    function current_verification_index() public returns (int256 res){
+           
+        res = 1 + (int256(now) - start - (2 * delta)) / int256(3 * delta);
+    }
+    // This function stores the client's query during in the 1st period (or delta) of each verification.
+    // it recieves the query sent by the client in step 4.b
+    function guery(bytes32 q_) public {
+        
+        int256 current_slot_ = current_slot();
+        int256 current_verification_index_ = current_verification_index();
+        if(current_slot_ == int(0)){
+          queries[current_verification_index_] = q_;  
+        }
+    } 
+    // This function stores the server's proof during in the 2st period (or delta) of each verification.
+    // it recieves the padded encrypted proofs sent by the server in step 5.c
+    function get_proof(bytes pi_star_j_) public{
+        
+        int256 current_slot_ = current_slot();
+        int256 current_verification_index_ = current_verification_index();
+        if(current_slot_ == int(1)){
+            proofs[current_verification_index_] = pi_star_j_;
+        }
+    }
+    // This function recieves the arbiter's input. 
+    // it recieves the values that the arbiter sends in step 7.f
+    function get_input_of_arbiter(uint y_c_, uint y_prime_c_, uint y_s_, uint y_prime_s_) public{
+        
+        int arbiter_valid_slot = ( int(now) - start - ( (int(z) * 3 * delta) + (2 * delta)) ) / delta;
+        if(H < arbiter_valid_slot && arbiter_valid_slot < k_6){
+            y_c = y_c_;
+            y_prime_c = y_prime_c_;
+            y_s = y_s_;
+            y_prime_s = y_prime_s_;
+        }
+    }
+    // This function recieves message either at the end of phase 2 or in phase 8. 
+    function pay (uint o_, uint o_max_, uint l_, uint l_max_, uint z_, bytes32 r_cp_) public{
+        //withdraw 
+        //after  2*delta each party can withdraw its deposite if a == 0 or coin_s < p_s
+        int valid_slot = ( int(now) - start - delta ) / delta;
+        if (valid_slot >= 1 && a == 0 || coin_s < p_s){
+            client.transfer(coin_c);
+            server.transfer(coin_s);
+            coin_c = 0;
+            coin_s = 0;
+        }
+        // verify the correctness of \ddot{x}_cp := (x_cp, r_cp_), where x_cp :=  (o_, o_max_, l_, l_max_, z_)
+        int valid_slot_2 = ( int(now) - start - ( (int(z) * 3 * delta) + (2 * delta)) ) / delta;
+        if(valid_slot_2 >= k_6){
+            bool res = SAP_cp_verify(o_, o_max_, l_, l_max_, z_, r_cp_);
+            if (res){
+                uint c_coin = coin_c - o_ * (z_ - y_s) - l_ * (y_c + y_prime_c);
+                uint s_coin = coin_s + o_ * (z_ - y_s) - l_ * (y_s + y_prime_s);
+                uint ar_coin = l_ * (y_s + y_c + y_prime_s + y_prime_c);
+                client.transfer(c_coin);
+                server.transfer(s_coin);
+                arbiter.transfer(ar_coin);
+                coin_c = 0;
+                coin_s = 0;
+            }
+        }
+    }
+}
+
+
+
