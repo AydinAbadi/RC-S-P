@@ -32,8 +32,7 @@ contract RCSP{
     int public start; // time the contract is deployed to the blockchain
     int public H; // waiting period after z verifications
     int public k_6; // the time by which the arbiter should send its input to the contract. For simplicityl, we set k_6= (m * delta) + H
-    //  .... where m is passed to the constructor. 
-    
+    //  .... where m is passed to the constructor.   
     //---------test ------variables----
     int public current_slot_indx; 
     int public current_ver_indx;
@@ -66,8 +65,7 @@ contract RCSP{
                 a = 1;
             }
         }
-    }
-    
+    } 
     // -----------------------SAP_qp functions: they are used for qp ---------------------------
     // This function runs only step 1.d, i.e. it stores g_c_qp
     // it can be called by the client during client-side initiation phase/period (i.e. within the 1st delta)
@@ -141,7 +139,7 @@ contract RCSP{
         int256 index = current_ver_indx = current_verification_index();
         res = current_slot_indx = int256((int256(now) - start - 2 * delta - (3 * delta * (index-1))))/int256(delta);
     }
-    
+   
     function current_verification_index() public returns (int256 res){
            
         res = 1 + (int256(now) - start - (2 * delta)) / int256(3 * delta);
