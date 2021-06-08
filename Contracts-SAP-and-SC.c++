@@ -1,4 +1,5 @@
 
+// Ethereum Smart contract of RC-PoR-P.
 // Author: Aydin Abadi. The code is under MIT licence. 
 
 pragma solidity >=0.4.22 <0.5.0;
@@ -147,11 +148,11 @@ contract RCSP{
     }
     // This function stores the client's query during in the 1st period (or delta) of each verification.
     // it recieves the query sent by the client in step 4.b
-    function guery(bytes32 q_) public {
+    function query(bytes32 q_) public {
         
         int256 current_slot_ = current_slot();
         int256 current_verification_index_ = current_verification_index();
-        if(current_slot_ == int(0)){
+        if(current_slot_ == int(0) && msg.sender == client){
           queries[current_verification_index_] = q_;  
         }
     } 
@@ -161,7 +162,7 @@ contract RCSP{
         
         int256 current_slot_ = current_slot();
         int256 current_verification_index_ = current_verification_index();
-        if(current_slot_ == int(1)){
+        if(current_slot_ == int(1) && msg.sender == server){
             proofs[current_verification_index_] = pi_star_j_;
         }
     }
@@ -170,7 +171,7 @@ contract RCSP{
     function get_input_of_arbiter(uint y_c_, uint y_prime_c_, uint y_s_, uint y_prime_s_) public{
         
         int arbiter_valid_slot = ( int(now) - start - ( (int(z) * 3 * delta) + (2 * delta)) ) / delta;
-        if(H < arbiter_valid_slot && arbiter_valid_slot < k_6){
+        if(H < arbiter_valid_slot && arbiter_valid_slot < k_6 && msg.sender == arbiter){
             y_c = y_c_;
             y_prime_c = y_prime_c_;
             y_s = y_s_;
@@ -205,6 +206,5 @@ contract RCSP{
         }
     }
 }
-
 
 
