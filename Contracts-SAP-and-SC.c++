@@ -14,10 +14,8 @@ contract RCSP{
     address public client; // the client's address
     address public server; // the server's address
     address public arbiter; // the arbiter's address
-    //g_c and g_s for SAP_qp
     bytes32 public g_c_qp; // in SAP_qp: g_c_qp represents the commitment sent to the contract by the client in step 2.b. (in RC-PoR-P protocol)
     bytes32 public g_s_qp; // in SAP_qp: g_s_qp represents the commitment sent to the contract by the server in step 3.b. (in RC-PoR-P protocol)
-    //g_c and g_s for SAP_cp
     bytes32 public g_c_cp; // in SAP_cp: g_c_cp represents the commitment sent to the contract by the client in step 2.d. (in RC-PoR-P protocol)
     bytes32 public g_s_cp; // in SAP_cp: g_s_cp represents the commitment sent to the contract by the server in step 3.b. (in RC-PoR-P protocol)
     bytes32 public nul;
@@ -34,8 +32,6 @@ contract RCSP{
     int public H; // waiting period after z verifications
     int public k_6; // the time by which the arbiter should send its input to the contract. For simplicityl, we set k_6= (m * delta) + H
     //  .... where m is passed to the constructor. 
-    
-    //---------test ------variables----
     int public current_slot_indx; 
     int public current_ver_indx;
     int256 public get_slot_1_;
@@ -130,7 +126,6 @@ contract RCSP{
         
         if ( (keccak256(x_1,x_2,x_3,x_4,x_5,r) == g_c_cp) && (keccak256(x_1,x_2,x_3,x_4,x_5,r) == g_s_cp) ){
             res = true;
-            //test_2 = res;
         }
     }
     // The following two functions determine (a) the current slot index (in how many deltas have passed after the contract's deployment),
@@ -206,5 +201,4 @@ contract RCSP{
         }
     }
 }
-
 
