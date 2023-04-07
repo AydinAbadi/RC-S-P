@@ -4,7 +4,18 @@
 // (1) ''Go Ethereum (Geth)'' that allows interactions via command line. 
 // (2) Ready-to-use user interface (UI) such as Ethereum remix: https://remix.ethereum.org/
 // (3) A customised UI that you have developed (using javascripts and web3).
-//Author: Aydin Abadi: http://www.aydinabadi.com
+// Author: Aydin Abadi: http://www.aydinabadi.com
+// cite the code as:
+
+// @inproceedings{abadi2023recurring,
+//  author    = {Aydin Abadi and
+//               Steven J. Murdoch and
+//              Thomas Zacharias},
+//  title     = {Recurring Contingent Service Payment},
+// booktitle ={8th {IEEE} European Symposium on Security and Privacy {EUROS{\&}P, 2023}
+//  year      = {2023}}
+
+
 
 pragma solidity >=0.4.22 <0.5.0;
 
