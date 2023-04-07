@@ -5,6 +5,22 @@
 // To encrypt such proofs efficiently one-time pad has been used in this implementation. 
 // Author: Aydin Abadi --- http://www.aydinabadi.com
 
+// cite the code as:
+
+// @inproceedings{abadi2023recurring,
+//  author    = {Aydin Abadi and
+//               Steven J. Murdoch and
+//              Thomas Zacharias},
+//  title     = {Recurring Contingent Service Payment},
+// booktitle ={8th {IEEE} European Symposium on Security and Privacy {EUROS{\&}P, 2023}
+//  year      = {2023}}
+//
+//
+//
+//
+//
+
+
 
 /////////////////////////////////
 // # Dependencies: 
